@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Soulful Tech — design tokens
+ * Tailwind v4 reads the @theme block to generate utilities
+ * (bg-navy, text-amber, font-display, …). The same tokens are
+ * emitted as :root custom properties, so var(--color-*) works in
+ * CSS Modules and inline styles too.
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-navy: #0b1426;
+  --color-void: #07090f;
+  --color-amber: #f59e0b;
+  --color-amber-dim: rgba(245, 158, 11, 0.09);
+  --color-amber-glow: rgba(245, 158, 11, 0.19);
+  --color-purple: #2d005e;
+  --color-gold: #c8a96e;
+  --color-smoke: #e8e4dc;
+  --color-smoke-dim: #b0a898;
+  --color-muted: #556677;
+  --color-deep-muted: #2a3a4a;
+  --color-border: #131d2e;
+  --color-border-mid: #1a2840;
+
+  /* next/font injects these on <html>; remap to the Tailwind font namespace */
+  --font-display: var(--font-cormorant), serif;
+  --font-body: var(--font-space-grotesk), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+}
+
+/* Plain-named aliases for bespoke CSS (animations.module.css, inline styles) */
+:root {
+  --navy: #0b1426;
+  --void: #07090f;
+  --amber: #f59e0b;
+  --amber-dim: rgba(245, 158, 11, 0.09);
+  --amber-glow: rgba(245, 158, 11, 0.19);
+  --purple: #2d005e;
+  --gold: #c8a96e;
+  --smoke: #e8e4dc;
+  --smoke-dim: #b0a898;
+  --muted: #556677;
+  --deep-muted: #2a3a4a;
+  --border: #131d2e;
+  --border-mid: #1a2840;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-void);
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-smoke);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-amber);
+    color: var(--color-void);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-mid);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-amber-glow);
+  }
+}
+
+/* The custom cursor elements are hidden by default and only revealed on
+   devices with a real, fine pointer — where we also hide the native cursor. */
+.cursor-el {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none;
+  }
+  .cursor-el {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
