@@ -1,3 +1,4 @@
+import Image from "next/image";
 import TiltCard from "@/components/TiltCard";
 import Tag from "@/components/Tag";
 import type { Project } from "@/lib/projects";
@@ -5,25 +6,30 @@ import type { Project } from "@/lib/projects";
 /**
  * Project card built on the TiltCard interaction.
  *
- * Cover treatment is a placeholder until the Figma exports land (brief
- * §Known Issues #2): a dark base color, a soft radial wash in the project's
- * glow color, and the project name as display text. Swap the cover block for
- * a next/image once the real artwork is ready.
+ * The cover is the real artwork from /public/covers, served through
+ * next/image (fill + object-cover so any source aspect crops into the 16:10
+ * frame). coverBg shows while the image loads, and a dark scrim keeps the
+ * overlaid type/year and project name legible over any image.
  */
 export default function ProjectCard({ project }: { project: Project }) {
   return (
     <TiltCard glow={`${project.glow}55`} className="group flex h-full flex-col bg-navy">
-      {/* Placeholder cover */}
+      {/* Cover */}
       <div
         className="relative flex aspect-[16/10] flex-col justify-between overflow-hidden rounded-t-xl p-6"
         style={{ backgroundColor: project.coverBg }}
       >
+        <Image
+          src={project.cover}
+          alt={`${project.name} cover`}
+          fill
+          sizes="(min-width: 1024px) 360px, (min-width: 768px) 45vw, 92vw"
+          className="object-cover"
+        />
+        {/* Scrim for overlay-text legibility */}
         <div
           aria-hidden
-          className="absolute inset-0"
-          style={{
-            background: `radial-gradient(120% 90% at 25% 15%, ${project.glow}40, transparent 65%)`,
-          }}
+          className="absolute inset-0 bg-gradient-to-t from-void/90 via-void/20 to-void/60"
         />
         <div className="relative flex items-center justify-between font-mono text-[0.65rem] uppercase tracking-[0.2em] text-smoke-dim">
           <span>{project.type}</span>

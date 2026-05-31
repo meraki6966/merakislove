@@ -10,7 +10,7 @@ export interface Project {
   glow: string;
   /** Solid base color behind the placeholder cover. */
   coverBg: string;
-  /** Cover image path (Figma exports pending — placeholder treatment until ready). */
+  /** Cover image path, served from /public/covers via next/image. */
   cover: string;
 }
 
