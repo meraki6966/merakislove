@@ -5,7 +5,7 @@ import TiltCard from "@/components/TiltCard";
 import { calendly, socials, studio, ogBase } from "@/lib/site";
 
 const description =
-  "Start a project or book a client discussion with Adam McClarin at Meraki is Love. Based in Friendswood, Texas.";
+  "Start a project or book a client discussion with Adam McClarin at Meraki is Love.";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -88,7 +88,7 @@ export default function ContactPage() {
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-amber">
               Location
             </p>
-            <p className="font-body text-smoke">{studio.location}</p>
+            <p className="font-body text-smoke">Remote-first</p>
             <p className="font-mono text-[0.7rem] uppercase tracking-wider text-muted">
               Working with clients everywhere
             </p>

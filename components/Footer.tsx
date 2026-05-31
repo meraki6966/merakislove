@@ -52,7 +52,15 @@ export default function Footer() {
               </span>
             </Link>
             <p className="font-mono text-[0.7rem] uppercase tracking-wider text-muted">
-              {studio.brand} · {studio.location}
+              {studio.brand} ·{" "}
+              <a
+                href={studio.site}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-amber"
+              >
+                {studio.siteLabel}
+              </a>
             </p>
           </div>
 

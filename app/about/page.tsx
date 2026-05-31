@@ -52,7 +52,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About"
         title="Adam McClarin"
-        subtitle="Engineer, CISSP, and Reiki practitioner. Building Soulful Tech from Friendswood, Texas."
+        subtitle="Engineer, CISSP, and Reiki practitioner. Building Soulful Tech with intention."
       />
 
       {/* The Story */}

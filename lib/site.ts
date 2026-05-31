@@ -18,6 +18,7 @@ export const socials = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/adammcclarin/" },
   { label: "GitHub", href: "https://github.com/meraki6966" },
   { label: "Substack", href: "https://adammcclarin.substack.com" },
+  { label: "Website", href: "https://adammcclarin.com" },
 ] as const;
 
 // Credibility ticker — order matters, shown left-to-right.
@@ -42,6 +43,7 @@ export const studio = {
   name: "Meraki is Love, LLC",
   brand: "Soulful Tech",
   owner: "Adam McClarin",
-  location: "Friendswood, TX",
+  site: "https://adammcclarin.com",
+  siteLabel: "adammcclarin.com",
   domain: "merakislove.com",
 } as const;
