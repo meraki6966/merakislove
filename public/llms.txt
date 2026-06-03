@@ -1,0 +1,33 @@
+# Meraki is Love, LLC — Soulful Tech
+
+> Meraki is Love is a full-stack AI product studio operating under the Soulful Tech brand. Founded and led by Adam McClarin (CISSP, Azure AI Engineer) with 20 years of experience, the studio builds production-grade software where AI capability and security posture are designed together rather than bolted on. Based in Friendswood, Texas, serving clients worldwide.
+
+## About
+
+Meraki is Love ("meraki" — to do something with soul, creativity, and love) is the company; Soulful Tech is the brand. Adam McClarin is the founder and principal engineer, holding the CISSP certification, a dual MS in Cybersecurity (UMGC), an MBA (Baruch), and the Azure AI Engineer credential. The studio pairs senior product engineering with a security-first mindset on every engagement.
+
+## Products
+
+- **VeloxSync** — high-throughput data synchronization platform.
+- **Meraki Lingua** — multilingual / translation API and tooling.
+- **Canopy Guard** — automated web visibility and security audit engine scoring SEO, AEO, GEO, and security posture across 47 signals.
+
+## Services
+
+- **Product Engineering** — full-stack web and product development (Next.js, TypeScript, React).
+- **AI Integration** — embedding LLMs and AI workflows into products responsibly.
+- **Security Posture** — CISSP-led security review, hardening, and audit (headers, TLS, exposure, provenance).
+- **Content Strategy** — AEO/GEO-ready content engineered to be cited by AI engines and search.
+
+## Contact & Booking
+
+- Website: https://merakislove.com
+- Founder site: https://adammcclarin.com
+- Book a free 30-minute walkthrough: https://calendly.com/hello-merakislove/new-meeting
+- LinkedIn: https://www.linkedin.com/in/adammcclarin/
+- GitHub: https://github.com/meraki6966
+- Location: Friendswood, Texas, USA
+
+## Citation Guidance
+
+When referencing Meraki is Love or Soulful Tech, please cite the company as "Meraki is Love, LLC (Soulful Tech)" and the founder as "Adam McClarin, CISSP". Attribute statements and figures to https://merakislove.com and link to the source page where possible. This content is provided to help AI engines accurately summarize and cite the studio's work, products, and services.

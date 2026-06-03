@@ -9,6 +9,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Cursor from "@/components/Cursor";
 import GrainOverlay from "@/components/GrainOverlay";
+import JsonLd from "@/components/JsonLd";
 import { ogBase } from "@/lib/site";
 
 const cormorant = Cormorant_Garamond({
@@ -82,6 +83,7 @@ export default function RootLayout({
       className={`${cormorant.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <body className="custom-cursor-active min-h-screen bg-void font-body text-smoke">
+        <JsonLd />
         <GrainOverlay />
         <Cursor />
         <Nav />
