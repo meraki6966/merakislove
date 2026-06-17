@@ -1,3 +1,8 @@
+export interface PillarTier {
+  name: string;
+  price: string;
+}
+
 export interface ServicePillar {
   number: string;
   title: string;
@@ -7,6 +12,8 @@ export interface ServicePillar {
   /** Expanded 2-3 sentence narrative with technologies and outcomes. */
   detail: string;
   capabilities: string[];
+  /** Optional fixed-price tiers shown beneath the capabilities. */
+  tiers?: PillarTier[];
 }
 
 export const pillars: ServicePillar[] = [
@@ -70,6 +77,25 @@ export const pillars: ServicePillar[] = [
       "Brand voice and messaging",
     ],
   },
+  {
+    number: "05",
+    title: "Presence-First Web Design",
+    description:
+      "For hospitality venues, wellness retreats, farms, and experiential businesses. The site should carry the feeling of the place itself, so a visitor arrives already knowing how it will feel to walk in the door.",
+    detail:
+      "Presence-First Web Design is for the businesses people travel to feel something, the boutique hotels, wellness retreats, working farms, and experiential venues whose whole value is atmosphere. I build these on Next.js with GSAP-driven motion, treating scroll, pacing, and imagery as the way the place introduces itself. The result is a site that does not just list amenities but sets a mood, so the booking decision is half made before the visitor ever reads the rates.",
+    proof: "Sites that feel like the place before you've ever been there.",
+    capabilities: [
+      "Next.js with GSAP animations",
+      "Atmosphere-led art direction",
+      "Hospitality and experiential venues",
+    ],
+    tiers: [
+      { name: "Essential Presence", price: "$4,500" },
+      { name: "Signature Site", price: "$7,500" },
+      { name: "Full Experience", price: "$12,000+" },
+    ],
+  },
 ];
 
 export interface EngagementModel {
@@ -96,10 +122,10 @@ export const engagementModels: EngagementModel[] = [
   },
   {
     name: "Retainer",
-    rate: "Coming soon",
+    rate: "$200+/mo",
     description:
       "Ongoing partnership for teams that need steady hands month over month.",
-    available: false,
+    available: true,
   },
 ];
 

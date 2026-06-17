@@ -24,8 +24,8 @@ export default function ServicesPage() {
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
         eyebrow="Services"
-        title="Four ways to build with intention"
-        subtitle="The work falls into four pillars. Most engagements draw on more than one, because a real product needs the engineering, the AI, the security, and the words around it to move together."
+        title="Five ways to build with intention"
+        subtitle="The work falls into five pillars. Most engagements draw on more than one, because a real product needs the engineering, the AI, the security, the words, and the presence around it to move together."
       />
 
       {/* Pillars */}
@@ -61,6 +61,23 @@ export default function ServicesPage() {
                     </li>
                   ))}
                 </ul>
+                {pillar.tiers ? (
+                  <div className="mt-2 grid gap-4 sm:grid-cols-3">
+                    {pillar.tiers.map((tier) => (
+                      <div
+                        key={tier.name}
+                        className="flex flex-col gap-2 rounded-xl border border-border-mid bg-navy/40 p-5"
+                      >
+                        <span className="font-mono text-xs uppercase tracking-[0.14em] text-amber">
+                          {tier.name}
+                        </span>
+                        <span className="font-display text-2xl font-light text-smoke">
+                          {tier.price}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             </div>
           </ScrollReveal>
