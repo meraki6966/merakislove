@@ -3,6 +3,7 @@
 export const navLinks = [
   { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
+  { label: "The Loop", href: "/loop" },
   { label: "Security", href: "/cybersecurity" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -19,6 +20,14 @@ export const socials = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/adammcclarin/" },
   { label: "GitHub", href: "https://github.com/meraki6966" },
   { label: "Substack", href: "https://adammcclarin.substack.com" },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/merakislove",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/adam.mcclarin.merakislove/",
+  },
   { label: "Website", href: "https://adammcclarin.com" },
 ] as const;
 

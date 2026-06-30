@@ -1,0 +1,142 @@
+/* ------------------------------------------------------------------ *
+ * The Loop — hero animation.
+ * Three nodes (Audit, Fix, Scale) arranged on a circle. A comet of
+ * light travels the ring clockwise on a 6s cycle; each node flares
+ * gold as the comet passes it. Pure CSS — no JS, no animation deps.
+ * Motion stops entirely under prefers-reduced-motion (globals.css).
+ * ------------------------------------------------------------------ */
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  margin-inline: auto;
+  aspect-ratio: 1 / 1;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Faint static guide ring under the comet. */
+.ringTrack {
+  fill: none;
+  stroke: var(--border-mid);
+  stroke-width: 1.5;
+}
+
+/* The travelling comet — a short bright arc that loops forever.
+   Circumference of r=150 ≈ 942.48. Rotated -90° so it starts at the
+   top node and sweeps clockwise: Audit → Fix → Scale → Audit. */
+.comet {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 110 832.48;
+  filter: drop-shadow(0 0 6px var(--amber-glow));
+  animation: cometTravel 6s linear infinite;
+}
+
+@keyframes cometTravel {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -942.48;
+  }
+}
+
+/* A node: an absolutely-positioned marker centred on its point. */
+.node {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transform: translate(-50%, -50%);
+}
+
+.nodeAudit {
+  left: 50%;
+  top: 12.5%;
+}
+.nodeFix {
+  left: 82.48%;
+  top: 68.75%;
+}
+.nodeScale {
+  left: 17.52%;
+  top: 68.75%;
+}
+
+.dot {
+  display: grid;
+  place-items: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 9999px;
+  border: 1.5px solid var(--border-mid);
+  background: color-mix(in srgb, var(--navy) 70%, transparent);
+  font-family: var(--font-jetbrains-mono, monospace);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--smoke-dim);
+  animation: nodeFlare 6s ease-in-out infinite;
+}
+
+/* Stagger each node so its flare coincides with the comet arriving:
+   the comet reaches Fix at 1/3 and Scale at 2/3 of the cycle. */
+.delayAudit {
+  animation-delay: 0s;
+}
+.delayFix {
+  animation-delay: 2s;
+}
+.delayScale {
+  animation-delay: 4s;
+}
+
+@keyframes nodeFlare {
+  0%,
+  100% {
+    border-color: var(--amber);
+    color: var(--smoke);
+    box-shadow: 0 0 28px 2px var(--amber-glow);
+  }
+  18%,
+  82% {
+    border-color: var(--border-mid);
+    color: var(--smoke-dim);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+/* Step label beneath each node. */
+.step {
+  font-family: var(--font-jetbrains-mono, monospace);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Soft amber wash behind the whole loop. */
+.glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60%;
+  height: 60%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: var(--amber);
+  opacity: 0.07;
+  filter: blur(70px);
+  pointer-events: none;
+}
