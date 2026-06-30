@@ -116,7 +116,7 @@ export default function LoopPage() {
                   href={calendly.newProject}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
+                  className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
                 >
                   Book a call
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
@@ -260,7 +260,7 @@ export default function LoopPage() {
                 href={calendly.newProject}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
+                className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
               >
                 Book a call
                 <span className="transition-transform duration-300 group-hover:translate-x-1">
@@ -271,7 +271,7 @@ export default function LoopPage() {
                 href={canopyGuard}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 rounded-full border border-amber px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber hover:text-void"
+                className="inline-flex items-center justify-center gap-3 rounded-full border border-amber px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber! hover:text-void"
               >
                 Get your free audit
               </a>

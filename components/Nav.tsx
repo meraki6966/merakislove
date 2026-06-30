@@ -62,7 +62,7 @@ export default function Nav() {
             href={calendly.newProject}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-amber px-5 py-2 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber hover:text-void"
+            className="rounded-full border border-amber px-5 py-2 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber! hover:text-void"
           >
             Book a Call
           </a>
@@ -116,7 +116,7 @@ export default function Nav() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setOpen(false)}
-            className="mt-5 rounded-full border border-amber px-5 py-3 text-center font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors hover:bg-amber hover:text-void"
+            className="mt-5 rounded-full border border-amber px-5 py-3 text-center font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors hover:bg-amber! hover:text-void"
           >
             Book a Call
           </a>

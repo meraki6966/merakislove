@@ -53,7 +53,7 @@ export default function WorkPage() {
             href={calendly.newProject}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex w-fit items-center gap-3 rounded-full border border-amber px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber hover:text-void"
+            className="group inline-flex w-fit items-center gap-3 rounded-full border border-amber px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber! hover:text-void"
           >
             Book a call
             <span className="transition-transform duration-300 group-hover:translate-x-1">
