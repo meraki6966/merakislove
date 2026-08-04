@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import { pillars, engagementModels, processSteps } from "@/lib/services";
@@ -77,6 +78,17 @@ export default function ServicesPage() {
                       </div>
                     ))}
                   </div>
+                ) : null}
+                {pillar.href ? (
+                  <Link
+                    href={pillar.href}
+                    className="group inline-flex items-center gap-3 self-start font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:text-smoke"
+                  >
+                    {pillar.hrefLabel ?? "Learn more"}
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </Link>
                 ) : null}
               </div>
             </div>

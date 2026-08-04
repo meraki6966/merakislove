@@ -14,6 +14,9 @@ export interface ServicePillar {
   capabilities: string[];
   /** Optional fixed-price tiers shown beneath the capabilities. */
   tiers?: PillarTier[];
+  /** Optional dedicated page for the pillar, linked from the card. */
+  href?: string;
+  hrefLabel?: string;
 }
 
 export const pillars: ServicePillar[] = [
@@ -95,6 +98,8 @@ export const pillars: ServicePillar[] = [
       { name: "Signature Site", price: "$7,500" },
       { name: "Full Experience", price: "$12,000+" },
     ],
+    href: "/services/presence-first-web-design",
+    hrefLabel: "See what a Presence-First site includes",
   },
 ];
 

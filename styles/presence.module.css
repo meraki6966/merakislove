@@ -1,0 +1,622 @@
+/* ------------------------------------------------------------------ *
+ * Presence-First Web Design — page-scoped theme.
+ *
+ * Every token lives under .page so the forest/cream palette never
+ * leaks into the site's navy/amber theme. Cormorant Garamond and
+ * Space Grotesk are already self-hosted site-wide by next/font in
+ * app/layout.tsx (weights 300/400/600/700 and 300/400/500/600), so
+ * the display and body tokens point at those variables rather than
+ * loading the same two families a second time.
+ *
+ * Brand rule: no italics anywhere on this page.
+ * ------------------------------------------------------------------ */
+
+.page {
+  --pf-forest: #1a1f15;
+  --pf-moss: #2a3320;
+  --pf-cream: #e8e0d0;
+  --pf-cream-dim: #9a9080;
+  --pf-gold: #b89a58;
+  --pf-gold-dim: #6b5830;
+  --pf-white: #f4efe6;
+  --pf-display: var(--font-cormorant), Georgia, serif;
+  --pf-body: var(--font-space-grotesk), system-ui, sans-serif;
+
+  background-color: var(--pf-forest);
+  color: var(--pf-cream);
+  font-family: var(--pf-body);
+  font-weight: 300;
+}
+
+/* The no-italics rule, enforced rather than trusted. */
+.page,
+.page * {
+  font-style: normal;
+}
+
+/* ---------------------------------------------------------------- *
+ * Motion. Elements start hidden so GSAP can reveal them cleanly;
+ * anyone who asked for reduced motion (or has JS off, see the
+ * <noscript> block on the page) gets them at rest and visible.
+ * ---------------------------------------------------------------- */
+
+.page [data-pf-reveal],
+.page [data-pf-hero] {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page [data-pf-reveal],
+  .page [data-pf-hero] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------- *
+ * Layout primitives
+ * ---------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.narrow {
+  width: 100%;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.section {
+  padding-block: 7rem;
+  border-top: 1px solid var(--pf-gold-dim);
+}
+
+.sectionMoss {
+  background-color: var(--pf-moss);
+}
+
+/* Offsets the fixed site header when "See the work" jumps down. */
+.anchor {
+  scroll-margin-top: 6rem;
+}
+
+@media (min-width: 640px) {
+  .container,
+  .narrow {
+    padding-inline: 2rem;
+  }
+  .section {
+    padding-block: 9rem;
+  }
+}
+
+/* ---------------------------------------------------------------- *
+ * Type scale
+ * ---------------------------------------------------------------- */
+
+.eyebrow {
+  font-family: var(--pf-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--pf-gold);
+}
+
+.sectionTitle {
+  font-family: var(--pf-display);
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--pf-white);
+}
+
+.lead {
+  font-family: var(--pf-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--pf-cream-dim);
+}
+
+/* Long-form positioning copy — Cormorant at 28–36px, measure-capped. */
+.prose {
+  font-family: var(--pf-display);
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+  font-weight: 300;
+  line-height: 1.42;
+  color: var(--pf-cream);
+}
+
+.prose + .prose {
+  margin-top: 2rem;
+}
+
+/* A hairline of gold used to separate a heading from what follows. */
+.rule {
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background-color: var(--pf-gold);
+}
+
+/* ---------------------------------------------------------------- *
+ * Hero
+ * ---------------------------------------------------------------- */
+
+/* Sized so the eyebrow through the CTAs all clear a ~760px viewport —
+   the "Schedule a call" button never starts below the fold. */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  overflow: hidden;
+  padding-block: 8rem 4rem;
+}
+
+.heroGlow {
+  position: absolute;
+  top: 22%;
+  right: -14rem;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 9999px;
+  background-color: var(--pf-gold);
+  opacity: 0.1;
+  filter: blur(140px);
+  pointer-events: none;
+}
+
+.heroTitle {
+  max-width: 20ch;
+  margin-top: 1.5rem;
+  font-family: var(--pf-display);
+  font-size: clamp(2.5rem, 6.4vw, 5rem);
+  font-weight: 300;
+  line-height: 1.03;
+  letter-spacing: -0.01em;
+  color: var(--pf-white);
+}
+
+.heroCopy {
+  max-width: 38rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--pf-cream-dim);
+}
+
+.ctaRow {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+/* Short laptop viewports — pull the hero in further rather than let it
+   push the buttons off screen. */
+@media (max-height: 720px) {
+  .hero {
+    padding-block: 7rem 3rem;
+  }
+  .heroTitle {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+  }
+}
+
+@media (min-width: 640px) {
+  .ctaRow {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* ---------------------------------------------------------------- *
+ * Buttons. Colors are declared on every state so a third-party CSS
+ * reset cannot flatten them (same lesson as the amber link-buttons).
+ * ---------------------------------------------------------------- */
+
+.buttonSolid,
+.buttonSolid:link,
+.buttonSolid:visited {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1.9rem;
+  border: 1px solid var(--pf-gold);
+  border-radius: 9999px;
+  background-color: var(--pf-gold);
+  color: var(--pf-forest);
+  font-family: var(--pf-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.buttonSolid:hover,
+.buttonSolid:focus-visible {
+  background-color: var(--pf-white);
+  border-color: var(--pf-white);
+  color: var(--pf-forest);
+  transform: translateY(-1px);
+}
+
+.buttonGhost,
+.buttonGhost:link,
+.buttonGhost:visited {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1.9rem;
+  border: 1px solid var(--pf-gold-dim);
+  border-radius: 9999px;
+  background-color: transparent;
+  color: var(--pf-cream);
+  font-family: var(--pf-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.buttonGhost:hover,
+.buttonGhost:focus-visible {
+  border-color: var(--pf-gold);
+  color: var(--pf-white);
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.buttonSolid:hover .arrow,
+.buttonGhost:hover .arrow {
+  transform: translateX(0.25rem);
+}
+
+/* ---------------------------------------------------------------- *
+ * Section 3 — Who this is for
+ * ---------------------------------------------------------------- */
+
+.audienceList {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+  list-style: none;
+}
+
+.audienceItem {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding-block: 1.15rem;
+  border-bottom: 1px solid var(--pf-gold-dim);
+  font-family: var(--pf-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 300;
+  color: var(--pf-cream);
+}
+
+/* Gold marker in place of a default bullet. */
+.marker {
+  flex: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  transform: rotate(45deg) translateY(-0.15rem);
+  background-color: var(--pf-gold);
+}
+
+.audienceClose {
+  max-width: 34rem;
+  margin-top: 2.5rem;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--pf-gold);
+}
+
+/* ---------------------------------------------------------------- *
+ * Section 4 — Pricing
+ * ---------------------------------------------------------------- */
+
+.tierGrid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+
+@media (min-width: 900px) {
+  .tierGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.tierCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2.25rem 2rem;
+  border: 1px solid var(--pf-gold-dim);
+  border-top: 1px solid var(--pf-gold-dim);
+  background-color: rgba(42, 51, 32, 0.4);
+}
+
+/* Middle tier — a thin gold top border, nothing louder. */
+.tierFeatured {
+  border-top: 2px solid var(--pf-gold);
+  background-color: rgba(42, 51, 32, 0.75);
+}
+
+.tierFlag {
+  margin-bottom: 1rem;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--pf-gold);
+}
+
+.tierName {
+  font-family: var(--pf-display);
+  font-size: 1.85rem;
+  font-weight: 300;
+  color: var(--pf-white);
+}
+
+.tierPrice {
+  margin-top: 0.5rem;
+  font-family: var(--pf-display);
+  font-size: 2.75rem;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--pf-gold);
+}
+
+.tierBestFor {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--pf-gold-dim);
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--pf-cream-dim);
+}
+
+.tierCarry {
+  margin-top: 1.5rem;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pf-gold);
+}
+
+.tierList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+  list-style: none;
+}
+
+.tierListItem {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--pf-cream);
+}
+
+.tierDash {
+  flex: none;
+  color: var(--pf-gold);
+}
+
+.tierDelivery {
+  margin-top: auto;
+  padding-top: 2rem;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pf-cream-dim);
+}
+
+/* ---------------------------------------------------------------- *
+ * Section 5 — Process timeline
+ * ---------------------------------------------------------------- */
+
+.timeline {
+  position: relative;
+  margin-top: 3.5rem;
+  padding-left: 2.5rem;
+  list-style: none;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  left: 0.34rem;
+  width: 1px;
+  background-color: var(--pf-gold-dim);
+}
+
+.timelineStep {
+  position: relative;
+  padding-bottom: 3rem;
+}
+
+.timelineStep:last-child {
+  padding-bottom: 0;
+}
+
+.timelineDot {
+  position: absolute;
+  top: 0.55rem;
+  left: -2.5rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--pf-gold);
+}
+
+.timelineWhen {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pf-gold);
+}
+
+.timelineTitle {
+  margin-top: 0.6rem;
+  font-family: var(--pf-display);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 300;
+  color: var(--pf-white);
+}
+
+.timelineBody {
+  max-width: 44rem;
+  margin-top: 0.9rem;
+  font-size: 0.975rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--pf-cream-dim);
+}
+
+/* ---------------------------------------------------------------- *
+ * Section 6 — Tech stack. Deliberately quiet.
+ * ---------------------------------------------------------------- */
+
+.stackTable {
+  width: 100%;
+  max-width: 44rem;
+  margin-top: 2.5rem;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.stackTable th {
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--pf-gold-dim);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pf-gold);
+}
+
+.stackTable td {
+  padding-block: 0.95rem;
+  border-bottom: 1px solid rgba(107, 88, 48, 0.45);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--pf-cream);
+}
+
+.stackTable td:first-child {
+  width: 38%;
+  color: var(--pf-cream-dim);
+}
+
+/* ---------------------------------------------------------------- *
+ * Section 7 — Case description
+ * ---------------------------------------------------------------- */
+
+.caseBlock {
+  max-width: 48rem;
+  margin-top: 3rem;
+  padding: 2.5rem;
+  border-left: 2px solid var(--pf-gold);
+  background-color: rgba(42, 51, 32, 0.45);
+}
+
+.caseText {
+  font-family: var(--pf-display);
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--pf-cream);
+}
+
+.caseNote {
+  margin-top: 2rem;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pf-gold);
+}
+
+/* ---------------------------------------------------------------- *
+ * Section 8 — Closing CTA
+ * ---------------------------------------------------------------- */
+
+.closing {
+  position: relative;
+  overflow: hidden;
+  padding-block: 8rem;
+  border-block: 1px solid var(--pf-gold-dim);
+  background:
+    radial-gradient(
+      60% 90% at 50% 0%,
+      rgba(184, 154, 88, 0.14) 0%,
+      transparent 70%
+    ),
+    linear-gradient(180deg, var(--pf-moss) 0%, var(--pf-forest) 100%);
+  text-align: center;
+}
+
+.closingTitle {
+  max-width: 18ch;
+  margin-inline: auto;
+  font-family: var(--pf-display);
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--pf-white);
+}
+
+.closingSub {
+  max-width: 34rem;
+  margin: 2rem auto 0;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--pf-cream-dim);
+}
+
+.closingCta {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+@media (min-width: 640px) {
+  .closing {
+    padding-block: 10rem;
+  }
+}

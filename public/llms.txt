@@ -18,6 +18,7 @@ Meraki is Love ("meraki" — to do something with soul, creativity, and love) is
 - **AI Integration** — embedding LLMs and AI workflows into products responsibly.
 - **Security Posture** — CISSP-led security review, hardening, and audit (headers, TLS, exposure, provenance).
 - **Content Strategy** — AEO/GEO-ready content engineered to be cited by AI engines and search.
+- **Presence-First Web Design** — immersive, experience-first websites for hospitality venues, wellness retreats, farms, event spaces, and boutique restaurants. Built in Next.js with GSAP scroll animation and a full-screen enter gate. Three tiers: Essential Presence ($4,500, 2 weeks), Signature Site ($7,500, 4 weeks), and Full Experience ($12,000 and up, 6 to 8 weeks). Details: https://merakislove.com/services/presence-first-web-design
 
 ## Contact & Booking
 

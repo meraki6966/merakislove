@@ -42,15 +42,16 @@ export default function Nav() {
           </span>
         </Link>
 
-        {/* Desktop links */}
-        <div className="hidden items-center gap-8 md:flex">
+        {/* Desktop links — lg and up. Seven links plus the CTA need more
+            room than the md breakpoint gives them. */}
+        <div className="hidden items-center gap-6 lg:flex">
           {navLinks.map((link) => {
             const active = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`font-mono text-xs uppercase tracking-[0.18em] transition-colors duration-300 ${
+                className={`whitespace-nowrap font-mono text-xs uppercase tracking-[0.18em] transition-colors duration-300 ${
                   active ? "text-amber" : "text-smoke-dim hover:text-smoke"
                 }`}
               >
@@ -62,7 +63,7 @@ export default function Nav() {
             href={calendly.newProject}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-amber px-5 py-2 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber! hover:text-void"
+            className="whitespace-nowrap rounded-full border border-amber px-5 py-2 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber! hover:text-void"
           >
             Book a Call
           </a>
@@ -74,7 +75,7 @@ export default function Nav() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
         >
           <span
             className={`h-px w-6 bg-smoke transition-all duration-300 ${
@@ -91,8 +92,8 @@ export default function Nav() {
 
       {/* Mobile sheet */}
       <div
-        className={`overflow-hidden border-border bg-void/95 backdrop-blur-md transition-[max-height] duration-500 md:hidden ${
-          open ? "max-h-96 border-b" : "max-h-0"
+        className={`overflow-hidden border-border bg-void/95 backdrop-blur-md transition-[max-height] duration-500 lg:hidden ${
+          open ? "max-h-[32rem] border-b" : "max-h-0"
         }`}
       >
         <div className="flex flex-col gap-1 px-6 py-6">

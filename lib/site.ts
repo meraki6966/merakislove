@@ -3,6 +3,7 @@
 export const navLinks = [
   { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
+  { label: "Web Design", href: "/services/presence-first-web-design" },
   { label: "The Loop", href: "/loop" },
   { label: "Security", href: "/cybersecurity" },
   { label: "About", href: "/about" },

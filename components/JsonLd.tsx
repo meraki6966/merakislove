@@ -63,6 +63,14 @@ const professionalService = {
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Integration" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Security Posture" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Content Strategy" } },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Presence-First Web Design",
+          url: `${baseUrl}/services/presence-first-web-design`,
+        },
+      },
     ],
   },
 };
