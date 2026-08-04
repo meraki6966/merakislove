@@ -470,13 +470,25 @@ export default function PresenceFirstWebDesignPage() {
             See it in motion
           </h2>
 
-          {/* TODO: swap in real client screenshot/embed once first
-              Presence-First project ships */}
           <div data-pf-reveal className={styles.caseBlock}>
             <p className={styles.caseText}>{caseText}</p>
             <p className={styles.caseNote}>
-              First Presence-First build in progress
+              Template demo — swap for a client build once the first one ships
             </p>
+          </div>
+
+          <div data-pf-reveal data-pf-delay="0.08" className={styles.caseCta}>
+            <a
+              href="/demos/presence-first-example.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.buttonSolid}
+            >
+              View the live demo
+              <span aria-hidden className={styles.arrow}>
+                →
+              </span>
+            </a>
           </div>
         </div>
       </section>
