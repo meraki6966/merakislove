@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import ProjectCard from "@/components/ProjectCard";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -28,6 +29,29 @@ export default function WorkPage() {
         title="Built with intention"
         subtitle="Four products, each one answering to the same standard. Real systems, in production, doing the work for the people on the other side of the screen."
       />
+
+      {/* A second kind of proof alongside the case studies below: the demo
+          builds are clickable, where a case study is a description. Muted
+          border rather than the amber of PageHeader, so it reads as a note
+          under the header and not as a competing section. */}
+      <ScrollReveal className="mt-12">
+        <div className="flex flex-col gap-4 border-l-2 border-border-mid pl-6 sm:pl-8">
+          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+            A case study tells you what a project became. If you would rather
+            see one running, the demo builds are complete pages you can open and
+            scroll the way a visitor would.
+          </p>
+          <Link
+            href="/demos"
+            className="group inline-flex w-fit items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:text-smoke"
+          >
+            Explore working templates
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </Link>
+        </div>
+      </ScrollReveal>
 
       <div className="mt-16 grid gap-6 md:grid-cols-2">
         {projects.map((project, i) => (

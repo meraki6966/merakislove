@@ -477,6 +477,11 @@ export default function PresenceFirstWebDesignPage() {
             </p>
           </div>
 
+          <p data-pf-reveal data-pf-delay="0.04" className={styles.prose}>
+            The Corner Table is a second build in the same style, carried all
+            the way through to a full menu and a live booking conversation.
+          </p>
+
           <div data-pf-reveal data-pf-delay="0.08" className={styles.caseCta}>
             <a
               href="/demos/presence-first-example.html"
@@ -488,6 +493,16 @@ export default function PresenceFirstWebDesignPage() {
               <span aria-hidden className={styles.arrow}>
                 →
               </span>
+            </a>
+            {/* Static file under /public, so a plain anchor rather than
+                next/link, same as the demo link above it. */}
+            <a
+              href="/demos/restaurant"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.buttonGhost}
+            >
+              See a working example
             </a>
           </div>
         </div>
