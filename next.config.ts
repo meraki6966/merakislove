@@ -43,6 +43,10 @@ const nextConfig: NextConfig = {
         source: "/demos/restaurant",
         destination: "/demos/restaurant/index.html",
       },
+      {
+        source: "/demos/iron-prism",
+        destination: "/demos/iron-prism/index.html",
+      },
     ];
   },
   async headers() {
