@@ -154,30 +154,6 @@ button, input, select { font: inherit; color: inherit; }
 /* GRADIENT 3 of 4 — the single divider, hero into programs. */
 .prism-rule { height: 2px; border: 0; margin: 0; background: var(--prism); }
 
-/* ── PHOTO PLACEHOLDER ──
-   Holds the exact footprint the photograph will occupy, so dropping an
-   <img> back in shifts nothing. The label is deliberately visible rather
-   than a blank grey box: an honest placeholder says what is missing and
-   what belongs there. Currently used only by the founder slot, whose
-   previous photograph was withdrawn over a likeness concern. */
-.ph {
-  position: relative;
-  display: grid; place-items: center;
-  width: 100%; height: 100%;
-  background:
-    repeating-linear-gradient(135deg, rgba(255,255,255,0.022) 0 2px, transparent 2px 10px),
-    radial-gradient(120% 95% at 28% 12%, rgba(124, 58, 237, 0.22), transparent 62%),
-    var(--char-2);
-  border: 1px solid var(--rule);
-}
-.ph-label {
-  font-size: 0.6rem; font-weight: 500;
-  letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--gray-dim); text-align: center;
-  line-height: 2.1; padding: 1.5rem; max-width: 32ch;
-}
-.ph-label strong { display: block; color: var(--gray); font-weight: 600; }
-
 /* ── HEADER ── */
 .site-head {
   position: sticky; top: 0; z-index: 50;
@@ -709,20 +685,24 @@ button, input, select { font: inherit; color: inherit; }
   <section class="founder section" id="coach" aria-labelledby="coach-heading">
     <div class="wrap founder-grid">
       <div class="founder-media" data-reveal>
-        <!-- REPLACE: /demos/iron-prism/images/founder-portrait.jpg
-             1466 × 1832 · Marcus on the floor mid-session, not posed.
-             The previous photograph was withdrawn over a likeness concern
-             and its file deleted, so this slot is back to the placeholder
-             until a cleared image exists. 1466x1832 is 2x the slot's real
-             maximum, 733x916, which it hits at the 831px single-column
-             tablet breakpoint rather than at desktop width. -->
-        <div class="ph">
-          <p class="ph-label">
-            <strong>Marcus</strong>
-            1466 &times; 1832 &middot; portrait &middot; on the floor
-            mid-session, not posed against a wall
-          </p>
-        </div>
+        <!-- An over-the-shoulder coaching moment rather than a portrait:
+             the coach is foreground with his back to camera and no visible
+             face, which is the point. It fits the copy better than a posed
+             shot did, and it sidesteps the likeness problem that took the
+             previous photograph down. Cropped from the bottom so the bar at
+             lockout survives; there is no face here, so the old headroom
+             constraint does not apply. 1466x1832 is 2x the slot's measured
+             maximum of 733x916, which it reaches at the 831px
+             single-column breakpoint, not at desktop width. -->
+        <img
+          class="photo"
+          src="/demos/iron-prism/images/founder-moment.jpg"
+          alt="A coach stands with his back to the camera holding a clipboard, watching a client hold a barbell overhead at lockout under violet gym lighting."
+          width="1466"
+          height="1832"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
       <div data-reveal data-delay="0.08">
