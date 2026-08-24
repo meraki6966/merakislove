@@ -31,6 +31,20 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: import.meta.dirname,
   },
+  // Static demos are plain HTML files under /public. Next.js does not do
+  // directory-index resolution there, so `/demos/restaurant` would 404 and
+  // `/demos/restaurant/` would 308 straight into that 404. Map each clean
+  // demo URL onto its actual file. Deliberately one entry per demo: a
+  // wildcard like `/demos/:slug` would also swallow the existing
+  // `/demos/presence-first-example.html` and rewrite it into a 404.
+  async rewrites() {
+    return [
+      {
+        source: "/demos/restaurant",
+        destination: "/demos/restaurant/index.html",
+      },
+    ];
+  },
   async headers() {
     return [
       {

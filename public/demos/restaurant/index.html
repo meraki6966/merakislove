@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Corner Table | Neighborhood Restaurant at 4th and Maple</title>
+<meta name="description" content="A neighborhood restaurant at 4th and Maple, serving a short seasonal menu Tuesday through Sunday. Neighborhood cooking, no pretense, no shortcuts." />
+
+<!-- Open Graph, so a shared link previews as the restaurant rather than as a
+     bare URL. Scoped to this page: no visible field names the studio. The
+     merakislove.com host does appear in the URLs below, which is unavoidable
+     and harmless, since that is where the page actually lives and a preview
+     card shows the host domain regardless. -->
+<meta property="og:title" content="The Corner Table" />
+<meta property="og:description" content="A neighborhood restaurant at 4th and Maple, serving a short seasonal menu Tuesday through Sunday. Neighborhood cooking, no pretense, no shortcuts." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="The Corner Table" />
+<meta property="og:url" content="https://merakislove.com/demos/restaurant" />
+
+<!-- og:image must be a fully-qualified URL. A root-relative path like
+     /demos/restaurant/images/hero.jpg is what the rest of the page uses for
+     its own <img> tags, but scrapers do not resolve it against the page URL
+     and the preview comes back with no image at all. Dimensions are the real
+     file: 1920x1084, 123 KB progressive JPEG. -->
+<meta property="og:image" content="https://merakislove.com/demos/restaurant/images/hero.jpg" />
+<meta property="og:image:width" content="1920" />
+<meta property="og:image:height" content="1084" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:alt" content="Candlelit wooden tables in the dining room at The Corner Table." />
+
+<!-- Without this X renders a small square thumbnail instead of the banner. -->
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Kept: this is a template, and it should not compete with real
+     restaurants in search. Social crawlers still read the tags above. -->
+<meta name="robots" content="noindex" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<!-- GSAP is self-hosted, not pulled from a CDN: merakislove.com sends
+     script-src 'self' 'unsafe-inline', which blocks cdnjs outright. These are
+     the files already vendored for the Presence-First demo, byte-identical to
+     the repo's own gsap 3.15.0 dependency. Absolute paths, not ./vendor/ —
+     this page is served at /demos/restaurant via a rewrite, so a relative
+     path would resolve against /demos/ and miss. -->
+<script src="/demos/vendor/gsap.min.js"></script>
+<script src="/demos/vendor/ScrollTrigger.min.js"></script>
+
+<style>
+/* =================================================================== *
+ * THE CORNER TABLE — demo template
+ * Deliberately shares nothing with merakislove.com: its own palette,
+ * its own type, its own chrome. Cream ground, warm earth accents.
+ * Copy, prices and photography are all final.
+ * =================================================================== */
+
+/* ── TOKENS ── */
+:root {
+  --cream:       #FAF6EF;
+  --cream-deep:  #F2EADC;
+  --ink:         #2E2620;
+  --ink-soft:    #6B5D52;
+  --ink-faint:   #9C8E82;
+  --terracotta:  #B5533C;
+  --terracotta-d:#9C4331;
+  --olive:       #5E6B4A;
+  --mustard:     #C98A2E;
+  --rule:        rgba(46, 38, 32, 0.12);
+  --rule-strong: rgba(46, 38, 32, 0.28);
+
+  --display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --body:    'Karla', system-ui, -apple-system, sans-serif;
+
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --measure: 34rem;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+::selection { background: var(--terracotta); color: var(--cream); }
+
+:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--ink); color: var(--cream);
+  padding: 0.75rem 1.25rem; font-size: 0.85rem;
+}
+.skip:focus { left: 0; }
+
+/* ── SHARED ── */
+.wrap { width: 100%; max-width: 68rem; margin-inline: auto; padding-inline: var(--gutter); }
+
+.eyebrow {
+  font-family: var(--body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+
+.section { padding-block: clamp(4rem, 11vw, 8.5rem); }
+.section--deep { background: var(--cream-deep); }
+
+.section-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-top: 1rem;
+}
+
+.lede {
+  font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+  color: var(--ink-soft);
+  max-width: var(--measure);
+  margin-top: 1.5rem;
+}
+
+/* ── PHOTOGRAPHY ──
+   Every image slot now holds a real photo, so the designed placeholder
+   treatment (gradient, diagonal weave, vignette, centered plate mark) has
+   been removed rather than left as dead weight. Each photo sits in exactly
+   the box its placeholder held, at the same aspect ratio, so the swap did
+   not move the layout. width/height attributes reserve the space before the
+   file arrives, so nothing reflows as the photos load. */
+.photo {
+  display: block;
+  width: 100%;
+  /* height:auto is load-bearing, not boilerplate. Without it the presentational
+     height="535" attribute wins over aspect-ratio and the dish cards render
+     three times too tall. The attributes still reserve space before load. */
+  height: auto;
+  object-fit: cover;
+  background: var(--cream-deep);
+}
+.hero-media .photo { position: absolute; inset: 0; height: 100%; }
+.feat-card .photo { aspect-ratio: 4 / 3; border-radius: 3px; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--body); font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.95rem 1.75rem; border-radius: 999px;
+  text-decoration: none; cursor: pointer;
+  transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+}
+.btn--solid { background: var(--terracotta); color: var(--cream); border: 1px solid var(--terracotta); }
+.btn--solid:hover { background: var(--terracotta-d); border-color: var(--terracotta-d); }
+.btn--ghost { background: transparent; color: var(--ink); border: 1px solid var(--rule-strong); }
+.btn--ghost:hover { border-color: var(--ink); background: rgba(46,38,32,0.04); }
+.btn .arr { transition: transform .3s ease; }
+.btn:hover .arr { transform: translateX(3px); }
+
+/* ── HEADER ── */
+.site-head {
+  position: absolute; inset-inline: 0; top: 0; z-index: 20;
+  padding-block: 1.5rem;
+}
+.head-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+
+.wordmark {
+  font-family: var(--display);
+  font-size: 1.15rem; font-weight: 400; letter-spacing: 0.02em;
+  color: var(--cream); text-decoration: none; line-height: 1.2;
+}
+.wordmark span {
+  display: block; font-family: var(--body); font-size: 0.6rem; font-weight: 500;
+  letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.75; margin-top: 0.15rem;
+}
+
+.head-nav { display: none; gap: 2rem; }
+.head-nav a {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--cream); text-decoration: none;
+  opacity: 0.85; transition: opacity .25s ease;
+}
+.head-nav a:hover { opacity: 1; }
+
+.head-cta {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cream); text-decoration: none;
+  border: 1px solid rgba(250,246,239,0.5); border-radius: 999px;
+  padding: 0.6rem 1.2rem; white-space: nowrap;
+  transition: background-color .3s ease, color .3s ease;
+}
+.head-cta:hover { background: var(--cream); color: var(--ink); }
+
+@media (min-width: 60rem) { .head-nav { display: flex; } }
+
+/* ── HERO ── */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; }
+.hero-media { position: absolute; inset: 0; }
+.hero-scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(30,24,19,0.55) 0%, rgba(30,24,19,0.25) 40%, rgba(30,24,19,0.78) 100%);
+}
+.hero-body { position: relative; padding-block: clamp(3.5rem, 9vw, 7rem); color: var(--cream); }
+.hero-eyebrow { color: rgba(250,246,239,0.8); }
+.hero-title {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(2.6rem, 8.5vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin-top: 1.1rem;
+  max-width: 16ch;
+}
+.hero-line {
+  margin-top: 1.5rem; max-width: 32rem;
+  font-size: clamp(1.02rem, 2vw, 1.25rem);
+  color: rgba(250,246,239,0.86);
+}
+.hero-cta { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2.25rem; }
+.hero-cta .btn--ghost { color: var(--cream); border-color: rgba(250,246,239,0.45); }
+.hero-cta .btn--ghost:hover { background: rgba(250,246,239,0.12); border-color: var(--cream); }
+
+/* ── STORY ── */
+.story-grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.story-media { aspect-ratio: 4 / 5; border-radius: 3px; }
+@media (min-width: 52rem) {
+  .story-grid { grid-template-columns: 0.85fr 1fr; }
+}
+.story-quote {
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  line-height: 1.45; font-weight: 300; font-style: italic;
+  color: var(--ink); margin-top: 2rem;
+  padding-left: 1.25rem; border-left: 2px solid var(--mustard);
+}
+.story-sign {
+  margin-top: 1.25rem; font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint);
+}
+
+/* ── FEATURED ── */
+.feat-head { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; justify-content: space-between; }
+.feat-grid {
+  display: grid; gap: 1.5rem; margin-top: 3rem;
+  /* 9rem floor, not 15rem. The floor only decides how many columns fit —
+     each card is 1fr, so desktop cards are unaffected (222px at 1440). At
+     15rem the four cards broke 3+1 at both 1440 and 1024; 13.875rem still
+     broke 3+1 at 1024. 9rem is the only floor that keeps one clean row down
+     to 768, where cards compact to 151px before stacking on mobile. */
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+}
+.feat-card { display: flex; flex-direction: column; }
+.feat-name {
+  font-family: var(--display); font-size: 1.3rem; font-weight: 400;
+  margin-top: 1.1rem; display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+}
+.feat-price { font-family: var(--body); font-size: 0.9rem; font-weight: 500; color: var(--terracotta); }
+.feat-note { font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.4rem; }
+
+/* ── MENU ── */
+.menu-groups { margin-top: clamp(2.5rem, 6vw, 4rem); }
+.menu-group + .menu-group { margin-top: clamp(2.5rem, 5vw, 4rem); }
+.menu-group-head { display: flex; align-items: baseline; gap: 1rem; }
+.menu-group-title {
+  font-family: var(--display); font-size: 1.5rem; font-weight: 400; white-space: nowrap;
+}
+.menu-group-head .line { flex: 1; height: 1px; background: var(--rule); }
+
+.menu-list { list-style: none; margin-top: 1.5rem; }
+.menu-item { padding-block: 1.1rem; border-bottom: 1px solid var(--rule); }
+.menu-item:last-child { border-bottom: 0; }
+.menu-item-top { display: flex; justify-content: space-between; gap: 1.25rem; align-items: baseline; }
+.menu-item-name { font-family: var(--display); font-size: 1.12rem; font-weight: 500; }
+.menu-item-price { font-size: 0.92rem; font-weight: 500; color: var(--ink-soft); white-space: nowrap; }
+.menu-item-desc { font-size: 0.92rem; color: var(--ink-soft); margin-top: 0.3rem; max-width: 44rem; }
+.menu-tag {
+  display: inline-block; margin-left: 0.5rem; vertical-align: middle;
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--olive); border: 1px solid rgba(94,107,74,0.4);
+  border-radius: 999px; padding: 0.12rem 0.5rem;
+}
+.menu-foot { margin-top: 2.5rem; font-size: 0.85rem; color: var(--ink-faint); }
+
+/* ── RESERVATIONS ── */
+.res-grid { display: grid; gap: clamp(2rem, 5vw, 3.5rem); margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+@media (min-width: 52rem) { .res-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+.res-note { font-size: 0.82rem; color: var(--ink-faint); }
+/* ── BOOKING CHAT ──
+   Same cream ground, same terracotta accent, same type as the rest of the
+   page. It should read as part of the restaurant, not as a widget dropped
+   on top of one. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.chat { display: grid; gap: 1rem; }
+
+.chat-log {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+  min-height: 15rem;
+  max-height: 24rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.25rem;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+.chat-msg {
+  max-width: 85%;
+  padding: 0.7rem 0.95rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.chat-msg p + p { margin-top: 0.5rem; }
+
+.chat-msg--bot {
+  justify-self: start;
+  background: var(--cream-deep);
+  border: 1px solid var(--rule);
+  border-bottom-left-radius: 3px;
+  color: var(--ink);
+}
+.chat-msg--you {
+  justify-self: end;
+  background: var(--terracotta);
+  border: 1px solid var(--terracotta);
+  border-bottom-right-radius: 3px;
+  color: var(--cream);
+}
+.chat-msg--error {
+  justify-self: start;
+  background: transparent;
+  border: 1px dashed rgba(181, 83, 60, 0.5);
+  color: var(--terracotta);
+}
+
+.chat-status {
+  min-height: 1.25rem;
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+.chat-form { display: grid; gap: 0.4rem; }
+.chat-label {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.chat-row { display: flex; gap: 0.6rem; align-items: stretch; }
+
+.chat-row input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--body); font-size: 0.95rem; color: var(--ink);
+  background: var(--cream); border: 1px solid var(--rule-strong);
+  border-radius: 3px; padding: 0.8rem 0.9rem;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.chat-row input:focus-visible {
+  border-color: var(--terracotta);
+  box-shadow: 0 0 0 3px rgba(181, 83, 60, 0.18);
+}
+
+.chat-send { flex: 0 0 auto; padding-inline: 1.25rem; }
+.chat-send[disabled],
+.chat-row input[disabled] { opacity: 0.55; cursor: not-allowed; }
+
+@media (max-width: 30rem) {
+  .chat-row { flex-wrap: wrap; }
+  .chat-send { width: 100%; justify-content: center; }
+}
+
+.res-facts { display: grid; gap: 1.5rem; }
+.res-fact-label {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.35rem;
+}
+.res-fact p { color: var(--ink-soft); font-size: 0.95rem; }
+
+/* ── FOOTER ── */
+.site-foot { background: var(--ink); color: var(--cream); padding-block: clamp(3rem, 7vw, 5rem); }
+.foot-grid { display: grid; gap: 2.5rem; }
+@media (min-width: 46rem) { .foot-grid { grid-template-columns: repeat(3, 1fr); } }
+.foot-label {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--mustard); margin-bottom: 0.75rem;
+}
+.foot-grid p, .foot-grid li { color: rgba(250,246,239,0.72); font-size: 0.93rem; }
+.foot-hours { list-style: none; display: grid; gap: 0.3rem; }
+.foot-hours li { display: flex; justify-content: space-between; gap: 1rem; max-width: 16rem; }
+.foot-bottom {
+  margin-top: clamp(2.5rem, 6vw, 4rem); padding-top: 1.5rem;
+  border-top: 1px solid rgba(250,246,239,0.14);
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; justify-content: space-between; align-items: center;
+}
+.foot-bottom p { font-size: 0.78rem; color: rgba(250,246,239,0.5); }
+.foot-bottom a { color: rgba(250,246,239,0.72); text-decoration: underline; text-underline-offset: 3px; }
+.foot-bottom a:hover { color: var(--cream); }
+
+/* ── MOTION ──
+   Hidden only where motion is welcome; readers who prefer reduced motion
+   never have anything hidden to reveal, and <noscript> puts it back for
+   anyone without JS. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] { opacity: 0; transform: translateY(24px); }
+  [data-hero]   { opacity: 0; transform: translateY(28px); }
+}
+
+/* Escape hatch. The rules above hide content that only JS puts back, so if
+   GSAP fails to load the page would render blank — the script sets this class
+   in that case and everything returns to rest. */
+.motion-off [data-reveal],
+.motion-off [data-hero] { opacity: 1 !important; transform: none !important; }
+</style>
+
+<noscript>
+  <style>
+    [data-reveal], [data-hero] { opacity: 1 !important; transform: none !important; }
+  </style>
+</noscript>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================================================ *
+ * HEADER
+ * ============================================================ -->
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="wordmark" href="#top">
+      The Corner Table
+      <span>Est. 2016</span>
+    </a>
+    <nav class="head-nav" aria-label="Primary">
+      <a href="#story">Our Story</a>
+      <a href="#menu">Menu</a>
+      <a href="#reservations">Visit</a>
+    </nav>
+    <a class="head-cta" href="#reservations">Reserve</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ========================================================== *
+   * 1 — HERO
+   * ========================================================== -->
+  <section class="hero" id="top">
+    <!-- Absolute src, not images/…: this page is served at /demos/restaurant
+         through a rewrite, so a relative path resolves against /demos/ and
+         misses. aria-hidden moved off the wrapper and onto the scrim so the
+         photo's alt text is actually exposed. -->
+    <div class="hero-media">
+      <img
+        class="photo"
+        src="/demos/restaurant/images/hero.jpg"
+        alt="The dining room at The Corner Table: candles lit on bare wooden tables, a worn leather banquette along the wall, and stacked plates on a shelf above a deep red sideboard."
+        width="1920"
+        height="1084"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="hero-scrim" aria-hidden="true"></div>
+    </div>
+
+    <div class="wrap hero-body">
+      <p class="eyebrow hero-eyebrow" data-hero>Neighborhood restaurant</p>
+      <h1 class="hero-title" data-hero>The Corner Table</h1>
+      <p class="hero-line" data-hero>
+        Neighborhood cooking. No pretense, no shortcuts.
+      </p>
+      <div class="hero-cta" data-hero>
+        <a class="btn btn--solid" href="#reservations">Reserve a table <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost" href="#menu">See the menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================== *
+   * 2 — STORY
+   * ========================================================== -->
+  <section class="section" id="story">
+    <div class="wrap story-grid">
+      <img
+        class="photo story-media"
+        data-reveal
+        src="/demos/restaurant/images/founder-portrait.jpg"
+        alt="Rosa Delgado laughing in the kitchen at The Corner Table, in a rust-colored blouse and a cream apron, with afternoon light through the window and stacked plates on the steel shelf behind her."
+        width="900"
+        height="1125"
+        loading="lazy"
+        decoding="async"
+      />
+
+      <div>
+        <p class="eyebrow" data-reveal>Our story</p>
+        <h2 class="section-title" data-reveal>Rosa Delgado</h2>
+        <p class="lede" data-reveal>
+          Rosa Delgado spent fifteen years cooking in other people&rsquo;s
+          kitchens before she opened one of her own. In 2016, she took over the
+          corner lot at 4th and Maple, the kind of spot every neighborhood has,
+          and turned it into a place where regulars know the servers by name and
+          the specials board actually changes.
+        </p>
+        <p class="lede" data-reveal>
+          Nothing here is trying to impress you. It&rsquo;s trying to feed you
+          well.
+        </p>
+        <p class="story-sign" data-reveal>Rosa Delgado · Chef &amp; Owner</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================== *
+   * 3 — FEATURED DISHES
+   * ========================================================== -->
+  <section class="section section--deep" id="featured">
+    <div class="wrap">
+      <div class="feat-head">
+        <div>
+          <p class="eyebrow" data-reveal>Featured</p>
+          <h2 class="section-title" data-reveal>What we would order</h2>
+        </div>
+        <a class="btn btn--ghost" href="#menu" data-reveal>Full menu</a>
+      </div>
+
+      <!-- Prices carried over from the scaffold — none were supplied with the
+           copy. Kept in sync with the full menu below so the same dish never
+           shows two different numbers. -->
+      <div class="feat-grid">
+        <article class="feat-card" data-reveal>
+          <img
+            class="photo"
+            src="/demos/restaurant/images/dish-roasted-chicken.jpg"
+            alt="A whole roasted chicken on a stoneware plate, a round of herb butter melting over the crisp skin, with charred lemon halves and market greens alongside."
+            width="720"
+            height="535"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="feat-name"><span>Whole Roasted Chicken</span> <span class="feat-price">$22</span></h3>
+          <p class="feat-note">Herb butter, charred lemon, market greens.</p>
+        </article>
+
+        <article class="feat-card" data-reveal data-delay="0.08">
+          <img
+            class="photo"
+            src="/demos/restaurant/images/dish-short-rib.jpg"
+            alt="A bone-in braised short rib glossy with red wine jus, resting on root vegetable mash with sprigs of thyme, on a dark plate."
+            width="720"
+            height="535"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="feat-name"><span>Braised Short Rib</span> <span class="feat-price">$26</span></h3>
+          <p class="feat-note">Root vegetable mash, red wine jus.</p>
+        </article>
+
+        <article class="feat-card" data-reveal data-delay="0.16">
+          <img
+            class="photo"
+            src="/demos/restaurant/images/dish-cornbread.jpg"
+            alt="A round of cornbread baked in a cast iron skillet, topped with a swirl of whipped honey butter and flaked sea salt."
+            width="720"
+            height="535"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="feat-name"><span>Cast Iron Cornbread</span> <span class="feat-price">$8</span></h3>
+          <p class="feat-note">Whipped honey butter, flaked sea salt.</p>
+        </article>
+
+        <article class="feat-card" data-reveal data-delay="0.24">
+          <img
+            class="photo"
+            src="/demos/restaurant/images/dish-broccolini.jpg"
+            alt="Charred broccolini spears on a pale plate, scattered with sliced red Calabrian chili and shaved parmesan."
+            width="720"
+            height="535"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="feat-name"><span>Charred Broccolini</span> <span class="feat-price">$11</span></h3>
+          <p class="feat-note">Calabrian chili, shaved parmesan, lemon.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================== *
+   * 4 — FULL MENU
+   * ========================================================== -->
+  <section class="section" id="menu">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>The menu</p>
+      <h2 class="section-title" data-reveal>Everything we are cooking</h2>
+
+      <div class="menu-groups">
+
+        <!-- STARTERS -->
+        <div class="menu-group" data-reveal>
+          <div class="menu-group-head">
+            <h3 class="menu-group-title">Starters</h3>
+            <span class="line" aria-hidden="true"></span>
+          </div>
+          <ul class="menu-list">
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Cast Iron Cornbread</span>
+                <span class="menu-item-price">$8</span>
+              </div>
+              <p class="menu-item-desc">Whipped honey butter, flaked sea salt.</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Charred Broccolini</span>
+                <span class="menu-item-price">$11</span>
+              </div>
+              <p class="menu-item-desc">Calabrian chili, shaved parmesan, lemon.</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Fried Green Tomatoes</span>
+                <span class="menu-item-price">$10</span>
+              </div>
+              <p class="menu-item-desc">Buttermilk dressing, pickled onion.</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Soup of the Day</span>
+                <span class="menu-item-price">$7</span>
+              </div>
+              <p class="menu-item-desc">Ask your server, it changes with the season.</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- MAINS -->
+        <div class="menu-group" data-reveal>
+          <div class="menu-group-head">
+            <h3 class="menu-group-title">Mains</h3>
+            <span class="line" aria-hidden="true"></span>
+          </div>
+          <ul class="menu-list">
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Whole Roasted Chicken</span>
+                <span class="menu-item-price">$22</span>
+              </div>
+              <p class="menu-item-desc">Herb butter, charred lemon, market greens.</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Braised Short Rib</span>
+                <span class="menu-item-price">$26</span>
+              </div>
+              <p class="menu-item-desc">Root vegetable mash, red wine jus.</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Pan-Seared Trout</span>
+                <span class="menu-item-price">$24</span>
+              </div>
+              <p class="menu-item-desc">Brown butter, capers, roasted fingerlings.</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Corner Table Burger</span>
+                <span class="menu-item-price">$16</span>
+              </div>
+              <p class="menu-item-desc">Aged cheddar, caramelized onion, house pickles, brioche bun.</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Grilled Vegetable Plate</span>
+                <span class="menu-item-price">$18</span>
+              </div>
+              <p class="menu-item-desc">Seasonal vegetables, romesco, toasted grain.</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- SIDES -->
+        <div class="menu-group" data-reveal>
+          <div class="menu-group-head">
+            <h3 class="menu-group-title">Sides</h3>
+            <span class="line" aria-hidden="true"></span>
+          </div>
+          <ul class="menu-list">
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Garlic Mashed Potatoes</span>
+                <span class="menu-item-price">$6</span>
+              </div>
+            </li>
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Market Greens</span>
+                <span class="menu-item-price">$6</span>
+              </div>
+              <p class="menu-item-desc">Lemon vinaigrette.</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Hand-Cut Fries</span>
+                <span class="menu-item-price">$6</span>
+              </div>
+              <p class="menu-item-desc">Rosemary salt.</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- DESSERT -->
+        <div class="menu-group" data-reveal>
+          <div class="menu-group-head">
+            <h3 class="menu-group-title">Dessert</h3>
+            <span class="line" aria-hidden="true"></span>
+          </div>
+          <ul class="menu-list">
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Buttermilk Pie</span>
+                <span class="menu-item-price">$8</span>
+              </div>
+              <p class="menu-item-desc">Whipped cream, candied lemon zest.</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-item-top">
+                <span class="menu-item-name">Chocolate Skillet Cookie</span>
+                <span class="menu-item-price">$9</span>
+              </div>
+              <p class="menu-item-desc">Vanilla bean ice cream.</p>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <p class="menu-foot" data-reveal>
+        Menu changes with the season. Ask your server about allergens and
+        substitutions.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================================================== *
+   * 5 — RESERVATIONS
+   * ========================================================== -->
+  <section class="section section--deep" id="reservations">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>Reservations</p>
+      <h2 class="section-title" id="res-heading" data-reveal>Grab a table. We&rsquo;ll have it ready.</h2>
+
+      <div class="res-grid">
+        <!-- The transcript is a role="log" live region so a screen reader
+             announces each reply as it lands without moving focus. The form
+             is named by the section heading and described by the disclaimer,
+             which is repeated on the send button because aria-describedby on
+             <form> is announced inconsistently while on a control it is
+             reliable. -->
+        <div class="chat" data-reveal>
+          <div
+            class="chat-log"
+            id="chat-log"
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions text"
+            aria-label="Conversation with the booking assistant"
+          >
+            <div class="chat-msg chat-msg--bot">
+              <span class="sr-only">The Corner Table said:</span>
+              <p>Evening. Want me to find you a table? Tell me the day and roughly what time, and how many are coming.</p>
+            </div>
+          </div>
+
+          <p class="chat-status" id="chat-status" role="status" aria-live="polite"></p>
+
+          <form class="chat-form" id="chat-form" aria-labelledby="res-heading" aria-describedby="chat-disclaimer">
+            <label class="chat-label" for="chat-input">Message the booking assistant</label>
+            <div class="chat-row">
+              <input
+                type="text"
+                id="chat-input"
+                name="message"
+                autocomplete="off"
+                maxlength="1000"
+                placeholder="A table for two on Friday?"
+                aria-describedby="chat-disclaimer"
+              />
+              <button
+                type="submit"
+                class="btn btn--solid chat-send"
+                id="chat-send"
+                aria-describedby="chat-disclaimer"
+              >
+                Send <span class="arr" aria-hidden="true">→</span>
+              </button>
+            </div>
+          </form>
+
+          <p class="res-note" id="chat-disclaimer">
+            This is a demo. You are talking to a real AI assistant, so your
+            messages are sent to an AI provider to generate the replies. No
+            table is actually reserved, and nothing you type is stored.
+          </p>
+        </div>
+
+        <div class="res-facts" data-reveal data-delay="0.08">
+          <div class="res-fact">
+            <p class="res-fact-label">Where</p>
+            <p>4th and Maple</p>
+          </div>
+          <div class="res-fact">
+            <p class="res-fact-label">Hours</p>
+            <p>Tue &ndash; Sun, 5 &ndash; 10 PM<br />Closed Mondays</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================ *
+ * 6 — FOOTER
+ * ============================================================ -->
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="foot-label">Hours</p>
+        <ul class="foot-hours">
+          <li><span>Tue — Sun</span><span>5 — 10 PM</span></li>
+          <li><span>Monday</span><span>Closed</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="foot-label">Find us</p>
+        <p>4th and Maple</p>
+      </div>
+
+      <div>
+        <p class="foot-label">The Corner Table</p>
+        <p>Neighborhood cooking. No pretense, no shortcuts.</p>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p>&copy; <span id="year">2026</span> The Corner Table. 4th and Maple.</p>
+      <p>
+        This is a demo site built by
+        <a href="https://merakislove.com/services/presence-first-web-design" target="_blank" rel="noopener noreferrer">Meraki is Love</a>.
+        Soulful Tech. Technology built with intention and purpose.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  // ── Booking chat ──
+  // The conversation lives here in the tab and is replayed to the API route
+  // on every turn. Nothing is persisted on either end.
+  var chatForm = document.getElementById("chat-form");
+  var chatInput = document.getElementById("chat-input");
+  var chatSend = document.getElementById("chat-send");
+  var chatLog = document.getElementById("chat-log");
+  var chatStatus = document.getElementById("chat-status");
+
+  if (chatForm && chatInput && chatSend && chatLog && chatStatus) {
+    var history = [
+      {
+        role: "assistant",
+        content:
+          "Evening. Want me to find you a table? Tell me the day and roughly what time, and how many are coming."
+      }
+    ];
+    var busy = false;
+
+    function addMessage(kind, text) {
+      var wrap = document.createElement("div");
+      wrap.className = "chat-msg chat-msg--" + kind;
+
+      // Screen readers get an explicit speaker; sighted users get alignment.
+      var who = document.createElement("span");
+      who.className = "sr-only";
+      who.textContent =
+        kind === "you"
+          ? "You said:"
+          : kind === "error"
+            ? "Error:"
+            : "The Corner Table said:";
+      wrap.appendChild(who);
+
+      // Split on blank lines so multi-paragraph replies keep their shape,
+      // and use textContent so a reply can never inject markup.
+      String(text)
+        .split(/\n{2,}/)
+        .forEach(function (para) {
+          var p = document.createElement("p");
+          p.textContent = para.trim();
+          wrap.appendChild(p);
+        });
+
+      chatLog.appendChild(wrap);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function setBusy(state) {
+      busy = state;
+      chatInput.disabled = state;
+      chatSend.disabled = state;
+      chatStatus.textContent = state ? "Checking the book…" : "";
+    }
+
+    chatForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (busy) return;
+
+      var text = chatInput.value.trim();
+      if (!text) return;
+
+      addMessage("you", text);
+      history.push({ role: "user", content: text });
+      chatInput.value = "";
+      setBusy(true);
+
+      fetch("/api/restaurant-reservation-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history })
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { ok: res.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          if (result.data && result.data.reply) {
+            addMessage("bot", result.data.reply);
+            history.push({ role: "assistant", content: result.data.reply });
+            return;
+          }
+          // Drop the turn that failed so the next attempt is not sent twice.
+          history.pop();
+          addMessage(
+            "error",
+            (result.data && result.data.error) ||
+              "Something went wrong. Try that again in a moment."
+          );
+        })
+        .catch(function () {
+          history.pop();
+          addMessage(
+            "error",
+            "Could not reach the booking assistant. Check your connection and try again."
+          );
+        })
+        .then(function () {
+          setBusy(false);
+          chatInput.focus();
+        });
+    });
+  }
+
+  // The reveal CSS hides content that only GSAP puts back. If GSAP did not
+  // load, animating nothing would leave the page blank — so show it all.
+  if (!window.gsap || !window.ScrollTrigger) {
+    document.documentElement.classList.add("motion-off");
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  var mm = gsap.matchMedia();
+
+  mm.add("(prefers-reduced-motion: no-preference)", function () {
+    // Hero — eyebrow, headline, line, buttons, in DOM order on load.
+    gsap.to("[data-hero]", {
+      opacity: 1,
+      y: 0,
+      duration: 1.1,
+      ease: "power3.out",
+      stagger: 0.13,
+      delay: 0.15
+    });
+
+    // Everything below the fold, on entry, with an optional per-card delay.
+    gsap.utils.toArray("[data-reveal]").forEach(function (el) {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        delay: Number(el.dataset.delay || 0),
+        scrollTrigger: { trigger: el, start: "top 88%", once: true }
+      });
+    });
+  });
+
+  // Font swap shifts layout, which moves every trigger point with it.
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+  }
+})();
+</script>
+</body>
+</html>
