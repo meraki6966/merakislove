@@ -42,10 +42,10 @@ interface Demo {
   swatchInk: string;
 }
 
-// Two demos, side by side from `md` up. The swatch is kept as a band across
-// the top of each card rather than dropped: it is the thing that signals
-// each demo has its own design world, and it earns its place precisely
-// because these two palettes are opposites.
+// Three demos: two up from `md`, three up from `lg`. The swatch is kept as a
+// band across the top of each card rather than dropped: it is the thing that
+// signals each demo has its own design world, and it earns its place
+// precisely because these three palettes share nothing.
 const demos: Demo[] = [
   {
     name: "The Corner Table",
@@ -69,6 +69,17 @@ const demos: Demo[] = [
     swatchLabel: "Charcoal · Electric Violet · Prism",
     swatchInk: "rgba(244, 244, 247, 0.72)",
   },
+  {
+    name: "Anchor Home Services",
+    eyebrow: "Home Services · Template",
+    description:
+      "A plumbing, HVAC and electrical contractor, built to look competent before it looks designed. Deep navy and a safety orange-amber, one geometric sans throughout, and steel doing the structural work. The trust section is a readout panel rather than a wall of testimonials.",
+    stack: ["Static HTML", "GSAP ScrollTrigger", "Presence-First"],
+    href: "/demos/anchor",
+    swatch: ["#0A1929", "#F26722"],
+    swatchLabel: "Navy · Safety Amber · Steel",
+    swatchInk: "rgba(242, 246, 250, 0.72)",
+  },
 ];
 
 export default function DemosPage() {
@@ -80,7 +91,7 @@ export default function DemosPage() {
         subtitle="A screenshot shows you a layout. It does not show you how a page feels to move through. Every demo here is a complete build, running on this site, that you can open and scroll the way a visitor would."
       />
 
-      <div className="mt-16 grid gap-6 md:grid-cols-2">
+      <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {demos.map((demo, i) => (
           <ScrollReveal key={demo.name} delay={i * 0.08} className="h-full">
             <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border-mid bg-navy/40">

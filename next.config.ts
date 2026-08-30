@@ -47,6 +47,10 @@ const nextConfig: NextConfig = {
         source: "/demos/iron-prism",
         destination: "/demos/iron-prism/index.html",
       },
+      {
+        source: "/demos/anchor",
+        destination: "/demos/anchor/index.html",
+      },
     ];
   },
   async headers() {
