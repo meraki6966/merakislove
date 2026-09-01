@@ -22,7 +22,7 @@ interface PackageCardProps {
  * already on the hub is comparing rather than discovering.
  */
 export default function PackageCard({ pkg, variant = "home" }: PackageCardProps) {
-  const body = variant === "home" ? pkg.summary : pkg.detail;
+  const body = variant === "home" ? pkg.summary : pkg.detail ?? pkg.summary;
 
   return (
     <TiltCard className="group flex h-full flex-col bg-navy/40">

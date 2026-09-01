@@ -40,8 +40,12 @@ export interface Package {
   amountMax?: string;
   /** Homepage card body. */
   summary: string;
-  /** /packages hub card body. */
-  detail: string;
+  /**
+   * /packages hub card body, where the hub says it differently. Omit it and
+   * the hub uses `summary`, so a package whose framing should be identical
+   * on both surfaces holds that copy once and cannot drift.
+   */
+  detail?: string;
   /** Label on the card's action. */
   cta: string;
   /** The package's own page. */
@@ -176,8 +180,6 @@ export const packages: Package[] = [
     omitDuration: true,
     summary:
       "A new website, an executive presentation, print collateral, a full product build, or private AI inside what you already run. Scoped to what the work actually needs.",
-    detail:
-      "Full-stack product. Presence-First site. Private AI inside a tool you already run. Architecture first. Then build. Then harden.",
     cta: "Book a scoping call",
     detailHref: "/packages/custom",
   },
