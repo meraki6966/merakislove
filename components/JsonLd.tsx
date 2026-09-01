@@ -45,7 +45,7 @@ const professionalService = {
   name: "Meraki is Love · Soulful Tech",
   url: baseUrl,
   description:
-    "Product engineering, AI integration, security posture, and content strategy from a CISSP-certified studio with 20 years of experience.",
+    "Private AI, secure sites, and full-stack systems for service businesses, from a CISSP-certified studio with 20 years of experience.",
   priceRange: "$$$",
   areaServed: "Worldwide",
   address: {
@@ -57,18 +57,55 @@ const professionalService = {
   provider: { "@id": `${baseUrl}/#organization` },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Services",
+    name: "Packages",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Product Engineering" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Integration" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Security Posture" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Content Strategy" } },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Review",
+          description:
+            "A CISSP-informed review of a site or AI stack. Ranked findings and a fix order, MITRE ATT&CK mapped where it applies.",
+          url: `${baseUrl}/packages`,
+        },
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          minPrice: 500,
+          maxPrice: 1500,
+          priceCurrency: "USD",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Meraki BIP",
+          description:
+            "A lead engine, an assistant trained on your documents, and distribution across two platforms from one dashboard.",
+          url: `${baseUrl}/packages`,
+        },
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          minPrice: 7000,
+          priceCurrency: "USD",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Custom build",
+          description:
+            "Full-stack product, Presence-First site, or private AI inside a tool you already run. Scoped after a call.",
+          url: `${baseUrl}/packages`,
+        },
+      },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
           name: "Presence-First Web Design",
-          url: `${baseUrl}/services/presence-first-web-design`,
+          url: `${baseUrl}/packages/presence-first-web-design`,
         },
       },
     ],
@@ -93,7 +130,7 @@ const faqPage = {
       name: "What services does Soulful Tech offer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Soulful Tech offers product engineering, AI integration, security posture review and hardening, and AEO/GEO content strategy. Engagements are led by a CISSP-certified engineer with 20 years of experience.",
+        text: "Soulful Tech works three ways: a five-day review of an existing site or AI stack from $500, Meraki BIP (a six-week lead engine and private assistant) from $7,000, and custom full-stack or Presence-First builds scoped after a call. Engagements are led by a CISSP-certified engineer with 20 years of experience.",
       },
     },
     {
@@ -109,7 +146,7 @@ const faqPage = {
       name: "What products has Meraki is Love built?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Meraki is Love builds VeloxSync (high-throughput data synchronization), Meraki Lingua (multilingual translation API), and Canopy Guard (an automated web visibility and security audit engine covering 47 signals).",
+        text: "Meraki is Love builds VeloxSync (performance intelligence that flags at-risk talent), VeloxSync for Education (AI homeschool planning for families), Canopy Guard (a security posture auditor with findings mapped to MITRE ATT&CK), and Meridian AI (executive intelligence with MFA and RBAC).",
       },
     },
     {
@@ -125,7 +162,7 @@ const faqPage = {
       name: "How do I book a consultation?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "You can book a free 30-minute walkthrough at https://calendly.com/hello-merakislove/new-meeting.",
+        text: "Book a 20-minute call at https://merakislove.com/start. There is no deck and no obligation.",
       },
     },
   ],
@@ -138,9 +175,9 @@ const breadcrumb = {
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
     { "@type": "ListItem", position: 2, name: "Work", item: `${baseUrl}/work` },
-    { "@type": "ListItem", position: 3, name: "Services", item: `${baseUrl}/services` },
+    { "@type": "ListItem", position: 3, name: "Packages", item: `${baseUrl}/packages` },
     { "@type": "ListItem", position: 4, name: "About", item: `${baseUrl}/about` },
-    { "@type": "ListItem", position: 5, name: "Contact", item: `${baseUrl}/contact` },
+    { "@type": "ListItem", position: 5, name: "Book a call", item: `${baseUrl}/start` },
   ],
 };
 

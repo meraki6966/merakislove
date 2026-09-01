@@ -29,19 +29,6 @@ export const projects: Project[] = [
     cover: "/covers/veloxsync-cover.png",
   },
   {
-    name: "Meraki Lingua",
-    slug: "meraki-lingua",
-    type: "AI Widget",
-    year: "2025",
-    description:
-      "37-language AI chat widget. Dialect-accurate, RTL-supported, Claude API-powered. HTML PDF export built in.",
-    stack: ["Claude API", "React", "Node.js", "Vercel"],
-    stat: "37 languages · RTL support",
-    glow: "#10B981",
-    coverBg: "#0F1A0A",
-    cover: "/covers/lingua-cover.png",
-  },
-  {
     name: "Canopy Guard",
     slug: "canopy-guard",
     type: "Security Tool",

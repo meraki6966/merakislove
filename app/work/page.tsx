@@ -7,7 +7,7 @@ import { projects } from "@/lib/projects";
 import { calendly, ogBase } from "@/lib/site";
 
 const description =
-  "Selected work from Meraki is Love: VeloxSync for Education, Meraki Lingua, Canopy Guard, and Meridian AI.";
+  "Selected work from Meraki is Love: VeloxSync for Education, Canopy Guard, and Meridian AI.";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -27,7 +27,7 @@ export default function WorkPage() {
       <PageHeader
         eyebrow="Selected work"
         title="Built with intention"
-        subtitle="Four products, each one answering to the same standard. Real systems, in production, doing the work for the people on the other side of the screen."
+        subtitle="Three products, each one answering to the same standard. Real systems, in production, doing the work for the people on the other side of the screen."
       />
 
       {/* A second kind of proof alongside the case studies below: the demo

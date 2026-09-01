@@ -43,7 +43,7 @@ export const pillars: ServicePillar[] = [
     detail:
       "I bring large language models into products in a way that earns trust, integrating the Claude and OpenAI APIs, adding retrieval-augmented context, and fine-tuning only where the data clearly justifies it. Every integration ships with guardrails, evaluation, and fallbacks so the output is something you can put in front of a client without flinching. The result is AI features that handle real conversation, including multilingual and right-to-left support, instead of demos that fall apart at the edges.",
     proof:
-      "Meraki Lingua holds conversation across 37 language communities, dialect by dialect, on the Claude API.",
+      "Assistants that hold real conversation in production, with guardrails, evaluation, and fallbacks on the Claude API.",
     capabilities: [
       "Claude and OpenAI integration",
       "Fine-tuned and retrieval-augmented systems",
@@ -98,7 +98,7 @@ export const pillars: ServicePillar[] = [
       { name: "Signature Site", price: "$7,500" },
       { name: "Full Experience", price: "$12,000+" },
     ],
-    href: "/services/presence-first-web-design",
+    href: "/packages/presence-first-web-design",
     hrefLabel: "See what a Presence-First site includes",
   },
 ];

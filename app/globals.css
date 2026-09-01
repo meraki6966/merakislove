@@ -50,8 +50,13 @@
     border-color: var(--color-border);
   }
 
+  /* No `scroll-behavior: smooth` here. A long smooth scroll on the homepage
+     runs alongside roughly thirty framer-motion reveals entering the
+     viewport, jams the main thread, and abandons the scroll: a jump to
+     /#process landed back at the top every time. Verified by A/B on the
+     built page, smooth on versus off, before removing it. Anchor jumps are
+     now instant and land exactly on target. */
   html {
-    scroll-behavior: smooth;
     background-color: var(--color-void);
   }
 

@@ -61,35 +61,6 @@
   }
 }
 
-/* Credibility ticker — continuous, ambient horizontal drift.
-   Edges are masked by gradients in the component; pauses on hover. */
-.marquee {
-  display: flex;
-  overflow: hidden;
-  user-select: none;
-}
-
-.marqueeTrack {
-  display: flex;
-  flex-shrink: 0;
-  min-width: 100%;
-  align-items: center;
-  animation: marquee 36s linear infinite;
-}
-
-.marquee:hover .marqueeTrack {
-  animation-play-state: paused;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 /* Scroll indicator — slow vertical drift on the hero cue. */
 .scrollCue {
   animation: scrollCue 2s ease-in-out infinite;

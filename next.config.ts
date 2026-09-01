@@ -53,6 +53,28 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // /services was renamed to /packages. Old backlinks and the footers of the
+  // three published demo pages still point at the old URLs, so both the hub
+  // and its one child route redirect permanently rather than 404.
+  //
+  // Note: Next emits 308 for `permanent: true`, not 301. It is the
+  // method-preserving equivalent and search engines consolidate it the same
+  // way. Only these two exact paths redirect; a wildcard would swallow the
+  // /packages/[slug] routes that ship in phase 2.
+  async redirects() {
+    return [
+      {
+        source: "/services",
+        destination: "/packages",
+        permanent: true,
+      },
+      {
+        source: "/services/presence-first-web-design",
+        destination: "/packages/presence-first-web-design",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

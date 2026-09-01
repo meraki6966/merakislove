@@ -8,23 +8,26 @@ Meraki is Love ("meraki" — to do something with soul, creativity, and love) is
 
 ## Products
 
-- **VeloxSync** — high-throughput data synchronization platform.
-- **Meraki Lingua** — multilingual / translation API and tooling.
+- **VeloxSync** — performance intelligence that flags at-risk talent six weeks before resignation.
+- **VeloxSync for Education** — AI-powered homeschool planning built for families, covering up to six children on one plan.
 - **Canopy Guard** — automated web visibility and security audit engine scoring SEO, AEO, GEO, and security posture across 47 signals.
+- **Meridian AI** — executive intelligence with MFA and RBAC, exporting PPTX, PDF, and HTML from one workflow.
 
-## Services
+## Packages
 
-- **Product Engineering** — full-stack web and product development (Next.js, TypeScript, React).
-- **AI Integration** — embedding LLMs and AI workflows into products responsibly.
-- **Security Posture** — CISSP-led security review, hardening, and audit (headers, TLS, exposure, provenance).
-- **Content Strategy** — AEO/GEO-ready content engineered to be cited by AI engines and search.
-- **Presence-First Web Design** — immersive, experience-first websites for hospitality venues, wellness retreats, farms, event spaces, and boutique restaurants. Built in Next.js with GSAP scroll animation and a full-screen enter gate. Three tiers: Essential Presence ($4,500, 2 weeks), Signature Site ($7,500, 4 weeks), and Full Experience ($12,000 and up, 6 to 8 weeks). Details: https://merakislove.com/services/presence-first-web-design
+- **Review** — $500 to $1,500, five days. A CISSP-informed review of an existing site or AI stack, with ranked findings, a fix order, and MITRE ATT&CK mapping where the stack includes AI or a multi-tenant app. Details: https://merakislove.com/packages
+- **Meraki BIP** — from $7,000, six weeks. A scheduled lead engine, an assistant trained on the client's own documents, services, and pricing, distribution across two platforms from one dashboard, and a live activity view. Details: https://merakislove.com/packages
+- **Custom build** — scoped after a call, two to eight weeks. Full-stack product, Presence-First site, or private AI inside a tool the client already runs. Details: https://merakislove.com/packages
+- **Engagement types** — project (fixed scope), hourly ($85/hr for audits, advisory, and contained work), and retainer (after something is in production). The starting door is a project.
+- **Presence-First Web Design** — immersive, experience-first websites for hospitality venues, wellness retreats, farms, event spaces, and boutique restaurants. Built in Next.js with GSAP scroll animation and a full-screen enter gate. Three tiers: Essential Presence ($4,500, 2 weeks), Signature Site ($7,500, 4 weeks), and Full Experience ($12,000 and up, 6 to 8 weeks). Details: https://merakislove.com/packages/presence-first-web-design
 
 ## Contact & Booking
 
 - Website: https://merakislove.com
 - Founder site: https://adammcclarin.com
-- Book a free 30-minute walkthrough: https://calendly.com/hello-merakislove/new-meeting
+- Book a 20-minute call: https://merakislove.com/start
+- Calendly: https://calendly.com/hello-merakislove/new-meeting
+- Email: hello@merakislove.com
 - LinkedIn: https://www.linkedin.com/in/adammcclarin/
 - GitHub: https://github.com/meraki6966
 - Location: Friendswood, Texas, USA

@@ -71,7 +71,7 @@ const stages: Stage[] = [
       "Omnichannel distribution across the channels that matter",
     ],
     footnote:
-      "Pricing increases with add-ons like Meraki Lingua or custom builds.",
+      "Pricing increases with add-ons and custom builds.",
   },
 ];
 

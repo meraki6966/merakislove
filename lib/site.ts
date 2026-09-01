@@ -1,13 +1,14 @@
 // Shared site-wide data: navigation, external links, and credentials.
 
+// The nav is the sales path, narrowed on purpose. Process is an anchor on
+// the homepage rather than its own route. /loop, /cybersecurity, /demos,
+// /contact and the Presence-First page all still exist and stay in the
+// sitemap; they are simply no longer part of the primary path.
 export const navLinks = [
   { label: "Work", href: "/work" },
-  { label: "Services", href: "/services" },
-  { label: "Web Design", href: "/services/presence-first-web-design" },
-  { label: "The Loop", href: "/loop" },
-  { label: "Security", href: "/cybersecurity" },
+  { label: "Packages", href: "/packages" },
+  { label: "Process", href: "/#process" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const calendly = {
@@ -16,6 +17,8 @@ export const calendly = {
   // Existing clients
   clientDiscussion: "https://calendly.com/hello-merakislove/client-discussion",
 } as const;
+
+export const email = "hello@merakislove.com";
 
 export const socials = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/adammcclarin/" },
@@ -32,14 +35,22 @@ export const socials = [
   { label: "Website", href: "https://adammcclarin.com" },
 ] as const;
 
-// Credibility ticker — order matters, shown left-to-right.
-export const credentials = [
+/** Hero proof row. Four items, shown inline under the buttons. */
+export const proofRow = [
   "CISSP",
   "Azure AI Engineer",
-  "Dual MS Cybersecurity · UMGC",
-  "MBA · Baruch",
-  "Published Author",
-  "20 Years",
+  "20 years",
+  "Products in production",
+] as const;
+
+/** Credentials as a flat list. No ticker, no animation. */
+export const facts = [
+  "20 years across leadership, IT, and information security",
+  "CISSP",
+  "Azure AI Engineer",
+  "Dual M.S., Cybersecurity",
+  "MBA",
+  "Published author",
 ] as const;
 
 // Shared Open Graph fields. Page metadata shallowly overwrites the layout's
@@ -57,4 +68,6 @@ export const studio = {
   site: "https://adammcclarin.com",
   siteLabel: "adammcclarin.com",
   domain: "merakislove.com",
+  descriptor:
+    "Private AI, secure sites, and full-stack systems for service businesses.",
 } as const;

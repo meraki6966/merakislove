@@ -8,14 +8,14 @@ const title = "Presence-First Web Design — Meraki is Love";
 const description =
   "Immersive, experience-first websites for hospitality, wellness, and boutique brands. GSAP-powered design that makes visitors feel something before they ever book. Starting at $4,500.";
 
-const url = "https://merakislove.com/services/presence-first-web-design";
+const url = "https://merakislove.com/packages/presence-first-web-design";
 
 export const metadata: Metadata = {
   // Absolute so the page carries the full brand name rather than the
   // layout's "· Soulful Tech" template.
   title: { absolute: title },
   description,
-  alternates: { canonical: "/services/presence-first-web-design" },
+  alternates: { canonical: "/packages/presence-first-web-design" },
   keywords: [
     "presence-first web design",
     "hospitality web design",
@@ -232,8 +232,8 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       position: 2,
-      name: "Services",
-      item: "https://merakislove.com/services",
+      name: "Packages",
+      item: "https://merakislove.com/packages",
     },
     {
       "@type": "ListItem",

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { navLinks, calendly } from "@/lib/site";
+import { navLinks } from "@/lib/site";
 
 /**
  * Fixed navigation. Transparent over the hero, then fades in a blurred
@@ -42,8 +42,7 @@ export default function Nav() {
           </span>
         </Link>
 
-        {/* Desktop links — lg and up. Seven links plus the CTA need more
-            room than the md breakpoint gives them. */}
+        {/* Desktop links, lg and up. */}
         <div className="hidden items-center gap-6 lg:flex">
           {navLinks.map((link) => {
             const active = pathname === link.href;
@@ -59,14 +58,12 @@ export default function Nav() {
               </Link>
             );
           })}
-          <a
-            href={calendly.newProject}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/start"
             className="whitespace-nowrap rounded-full border border-amber px-5 py-2 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber! hover:text-void"
           >
-            Book a Call
-          </a>
+            Book a call
+          </Link>
         </div>
 
         {/* Mobile toggle */}
@@ -112,15 +109,13 @@ export default function Nav() {
               </Link>
             );
           })}
-          <a
-            href={calendly.newProject}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/start"
             onClick={() => setOpen(false)}
             className="mt-5 rounded-full border border-amber px-5 py-3 text-center font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors hover:bg-amber! hover:text-void"
           >
-            Book a Call
-          </a>
+            Book a call
+          </Link>
         </div>
       </div>
     </header>
