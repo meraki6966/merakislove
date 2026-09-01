@@ -51,6 +51,72 @@ export interface Package {
   tiers?: PackageTier[];
 }
 
+/* ------------------------------------------------------------------ *
+ * Presence-First tiers.
+ *
+ * The amounts live here and nowhere else. They were previously written out
+ * in five places across two pages in three different formats, so a price
+ * change meant finding all five and getting each format right. Everything
+ * downstream now formats from `amount`:
+ *   the tier cards and Offer schema on the Presence-First page,
+ *   the one-line summary on that page's close and on /packages/custom,
+ *   and the "starts at" figure in prose.
+ * ------------------------------------------------------------------ */
+
+export interface PresenceTier {
+  /** Full name, used on the Presence-First page itself. */
+  name: string;
+  /** Short name, used where the copy lists all three in one line. */
+  shortName: string;
+  /** Price in whole dollars. The single source. */
+  amount: number;
+  /** True when the price is a floor rather than a fixed figure. */
+  openEnded?: boolean;
+}
+
+export const presenceFirstTiers: PresenceTier[] = [
+  { name: "Essential Presence", shortName: "Essential", amount: 4500 },
+  { name: "Signature Site", shortName: "Signature", amount: 7500 },
+  {
+    name: "Full Experience",
+    shortName: "Full Experience",
+    amount: 12000,
+    openEnded: true,
+  },
+];
+
+function dollars(amount: number): string {
+  return `$${amount.toLocaleString("en-US")}`;
+}
+
+/** Long form, as the tier cards state it: "$12,000 and up". */
+export function tierPrice(tier: PresenceTier): string {
+  return dollars(tier.amount) + (tier.openEnded ? " and up" : "");
+}
+
+/** Short form, as the one-line summaries state it: "$12,000+". */
+export function tierPriceShort(tier: PresenceTier): string {
+  return dollars(tier.amount) + (tier.openEnded ? "+" : "");
+}
+
+/** Lowest tier as a bare figure, for "starts at" prose. */
+export const presenceFirstFrom = dollars(
+  Math.min(...presenceFirstTiers.map((t) => t.amount)),
+);
+
+/** "Essential $4,500. Signature $7,500. Full Experience $12,000+." */
+export const presenceFirstSummary =
+  presenceFirstTiers
+    .map((t) => `${t.shortName} ${tierPriceShort(t)}`)
+    .join(". ") + ".";
+
+/** Lookup that fails loudly at build time if a name stops matching. */
+export function getPresenceTier(name: string): PresenceTier {
+  const found = presenceFirstTiers.find((t) => t.name === name);
+  if (!found) throw new Error(`Unknown Presence-First tier: ${name}`);
+  return found;
+}
+
 export const packages: Package[] = [
   {
     number: "01",
@@ -108,7 +174,7 @@ export const packages: Package[] = [
     duration: "2 to 8 weeks",
     hubOmitsDuration: true,
     summary:
-      "Full-stack product, Presence-First site, or private AI inside what you already run. Architecture first. Then code. Then harden. Presence-First sites for hospitality and experiential businesses start at $4,500.",
+      `Full-stack product, Presence-First site, or private AI inside what you already run. Architecture first. Then code. Then harden. Presence-First sites for hospitality and experiential businesses start at ${presenceFirstFrom}.`,
     detail:
       "Full-stack product. Presence-First site. Private AI inside a tool you already run. Architecture first. Then build. Then harden.",
     cta: "Book a scoping call",

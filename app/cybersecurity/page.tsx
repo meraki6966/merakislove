@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
+import Breadcrumb from "@/components/Breadcrumb";
 import { calendly, ogBase } from "@/lib/site";
 
 const description =
@@ -75,6 +76,8 @@ const securityServices: SecurityService[] = [
 
 export default function CybersecurityPage() {
   return (
+    <>
+      <Breadcrumb items={[{ name: "Security", path: "/cybersecurity" }]} />
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
         eyebrow="Security Services"
@@ -223,5 +226,6 @@ export default function CybersecurityPage() {
         </div>
       </ScrollReveal>
     </div>
+    </>
   );
 }

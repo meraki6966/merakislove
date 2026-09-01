@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionDivider from "@/components/SectionDivider";
 import Tag from "@/components/Tag";
+import Breadcrumb from "@/components/Breadcrumb";
 import { calendly, ogBase } from "@/lib/site";
 
 const description =
@@ -84,6 +85,8 @@ const demos: Demo[] = [
 
 export default function DemosPage() {
   return (
+    <>
+      <Breadcrumb items={[{ name: "Demos", path: "/demos" }]} />
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
         eyebrow="Demos"
@@ -172,5 +175,6 @@ export default function DemosPage() {
         </a>
       </ScrollReveal>
     </div>
+    </>
   );
 }

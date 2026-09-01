@@ -4,7 +4,8 @@ import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import PackageSection from "@/components/PackageSection";
 import PackageActions from "@/components/PackageActions";
-import { getPackage } from "@/lib/packages";
+import Breadcrumb from "@/components/Breadcrumb";
+import { getPackage, presenceFirstSummary } from "@/lib/packages";
 import { ogBase } from "@/lib/site";
 
 const pkg = getPackage("custom");
@@ -66,7 +67,7 @@ const disciplines: Discipline[] = [
   {
     name: "Presence-First web design",
     detail:
-      "For retreats, venues, farms, wellness, hospitality. Atmosphere first. Booking second. Essential $4,500. Signature $7,500. Full Experience $12,000+.",
+      `For retreats, venues, farms, wellness, hospitality. Atmosphere first. Booking second. ${presenceFirstSummary}`,
     href: presenceFirstHref,
     hrefLabel: "See Presence-First",
   },
@@ -114,31 +115,18 @@ const serviceSchema = {
   },
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "@id": `${url}/#breadcrumb`,
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: "https://merakislove.com",
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Packages",
-      item: "https://merakislove.com/packages",
-    },
-    { "@type": "ListItem", position: 3, name: "Custom build", item: url },
-  ],
-};
 
 export default function CustomPackagePage() {
   return (
     <div className="mx-auto max-w-4xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
-      {[serviceSchema, breadcrumbSchema].map((schema, i) => (
+      <Breadcrumb
+        items={[
+          { name: "Packages", path: "/packages" },
+          { name: "Custom build", path: "/packages/custom" },
+        ]}
+      />
+
+      {[serviceSchema].map((schema, i) => (
         <script
           key={i}
           type="application/ld+json"

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import LoopAnimation from "@/components/LoopAnimation";
+import Breadcrumb from "@/components/Breadcrumb";
 import { calendly, ogBase } from "@/lib/site";
 
 const description =
@@ -77,6 +78,8 @@ const stages: Stage[] = [
 
 export default function LoopPage() {
   return (
+    <>
+      <Breadcrumb items={[{ name: "The Loop", path: "/loop" }]} />
     <>
       {/* Hero */}
       <section className="relative flex min-h-screen items-center overflow-hidden">
@@ -205,7 +208,7 @@ export default function LoopPage() {
                           href={canopyGuard}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group inline-flex items-center gap-3 whitespace-nowrap font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:text-amber"
+                          className="group inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:text-amber sm:whitespace-nowrap"
                         >
                           Visit thecanopyguard.com
                           <span className="transition-transform duration-300 group-hover:translate-x-1">
@@ -279,6 +282,7 @@ export default function LoopPage() {
           </ScrollReveal>
         </div>
       </section>
+    </>
     </>
   );
 }

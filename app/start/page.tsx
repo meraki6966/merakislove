@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import StartForm from "@/components/StartForm";
+import Breadcrumb from "@/components/Breadcrumb";
 import { calendly, email, ogBase } from "@/lib/site";
 
 const title = "Book a call | Meraki is Love";
@@ -24,6 +25,8 @@ export const metadata: Metadata = {
 
 export default function StartPage() {
   return (
+    <>
+      <Breadcrumb items={[{ name: "Book a call", path: "/start" }]} />
     <div className="mx-auto max-w-4xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
         title="One conversation. No deck."
@@ -84,5 +87,6 @@ export default function StartPage() {
         </a>
       </ScrollReveal>
     </div>
+    </>
   );
 }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionDivider from "@/components/SectionDivider";
+import Breadcrumb from "@/components/Breadcrumb";
 import { email, studio, ogBase } from "@/lib/site";
 
 const title = "About | Meraki is Love";
@@ -116,6 +117,8 @@ function SectionLabel({ children }: { children: string }) {
 
 export default function AboutPage() {
   return (
+    <>
+      <Breadcrumb items={[{ name: "About", path: "/about" }]} />
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
         eyebrow="About"
@@ -286,5 +289,6 @@ export default function AboutPage() {
         </ScrollReveal>
       </section>
     </div>
+    </>
   );
 }

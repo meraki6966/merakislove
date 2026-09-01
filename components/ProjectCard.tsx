@@ -28,9 +28,9 @@ export default function ProjectCard({ project }: { project: Project }) {
         {project.cover ? (
           <Image
             src={project.cover}
-            alt={`${project.name} cover`}
+            alt={project.coverAlt ?? `${project.name} cover`}
             fill
-            sizes="(min-width: 1024px) 360px, (min-width: 768px) 45vw, 92vw"
+            sizes="(min-width: 1280px) 530px, (min-width: 1024px) 47vw, (min-width: 768px) 45vw, 92vw"
             className="object-cover"
           />
         ) : (

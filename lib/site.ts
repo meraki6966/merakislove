@@ -18,6 +18,15 @@ export const calendly = {
   clientDiscussion: "https://calendly.com/hello-merakislove/client-discussion",
 } as const;
 
+/**
+ * The footer carries one link the top nav does not: the privacy policy.
+ * Keeping it out of the primary nav keeps that row the sales path.
+ */
+export const footerLinks = [
+  ...navLinks,
+  { label: "Privacy", href: "/privacy" },
+] as const;
+
 export const email = "hello@merakislove.com";
 
 export const socials = [

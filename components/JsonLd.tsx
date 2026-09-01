@@ -1,6 +1,7 @@
 // Structured data (JSON-LD) for SEO / AEO. Rendered site-wide from the root
-// layout so the homepage exposes Organization, ProfessionalService, FAQPage,
-// and BreadcrumbList schemas. Each schema is emitted as its own
+// layout so every page exposes Organization, ProfessionalService and FAQPage.
+// BreadcrumbList is NOT here: it belongs to the page, not the site, and is
+// rendered per page by components/Breadcrumb.tsx. Each schema is emitted as its own
 // `application/ld+json` <script> per the Next.js JSON-LD guidance. JSON is
 // XSS-hardened by escaping `<` to its unicode equivalent.
 
@@ -168,20 +169,7 @@ const faqPage = {
   ],
 };
 
-const breadcrumb = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "@id": `${baseUrl}/#breadcrumb`,
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
-    { "@type": "ListItem", position: 2, name: "Work", item: `${baseUrl}/work` },
-    { "@type": "ListItem", position: 3, name: "Packages", item: `${baseUrl}/packages` },
-    { "@type": "ListItem", position: 4, name: "About", item: `${baseUrl}/about` },
-    { "@type": "ListItem", position: 5, name: "Book a call", item: `${baseUrl}/start` },
-  ],
-};
-
-const schemas = [organization, professionalService, faqPage, breadcrumb];
+const schemas = [organization, professionalService, faqPage];
 
 export default function JsonLd() {
   return (

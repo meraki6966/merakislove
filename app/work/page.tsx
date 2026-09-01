@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import ProjectCard from "@/components/ProjectCard";
 import ScrollReveal from "@/components/ScrollReveal";
+import Breadcrumb from "@/components/Breadcrumb";
 import { projects } from "@/lib/projects";
 import { ogBase } from "@/lib/site";
 
@@ -29,6 +30,8 @@ const nda =
 
 export default function WorkPage() {
   return (
+    <>
+      <Breadcrumb items={[{ name: "Work", path: "/work" }]} />
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
         eyebrow="Work"
@@ -85,5 +88,6 @@ export default function WorkPage() {
         </div>
       </ScrollReveal>
     </div>
+    </>
   );
 }

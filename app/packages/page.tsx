@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import PackageCard from "@/components/PackageCard";
+import Breadcrumb from "@/components/Breadcrumb";
 import { packages, engagementTypes } from "@/lib/packages";
 import { ogBase } from "@/lib/site";
 
@@ -33,6 +34,8 @@ const howToChoose = [
 
 export default function PackagesPage() {
   return (
+    <>
+      <Breadcrumb items={[{ name: "Packages", path: "/packages" }]} />
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
         eyebrow="Packages"
@@ -137,5 +140,6 @@ export default function PackagesPage() {
         </div>
       </ScrollReveal>
     </div>
+    </>
   );
 }

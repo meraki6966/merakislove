@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PresenceMotion from "@/components/PresenceMotion";
+import Breadcrumb from "@/components/Breadcrumb";
 import { calendly, ogBase } from "@/lib/site";
+import {
+  getPresenceTier,
+  presenceFirstFrom,
+  presenceFirstSummary,
+  tierPrice,
+  type PresenceTier,
+} from "@/lib/packages";
 import styles from "@/styles/presence.module.css";
 
 const title = "Presence-First Web Design — Meraki is Love";
 
-const description =
-  "Immersive, experience-first websites for hospitality, wellness, and boutique brands. GSAP-powered design that makes visitors feel something before they ever book. Starting at $4,500.";
+const description = `Immersive, experience-first websites for hospitality, wellness, and boutique brands. GSAP-powered design that makes visitors feel something before they ever book. Starting at ${presenceFirstFrom}.`;
 
 const url = "https://merakislove.com/packages/presence-first-web-design";
 
@@ -64,11 +71,11 @@ const audience = [
 const audienceClose =
   "If you are competing on atmosphere and not on price, this is the right investment.";
 
-interface Tier {
-  name: string;
-  price: string;
-  /** Numeric price used for the Offer schema. */
-  amount: string;
+/**
+ * Name and price come from lib/packages.ts, which is the only place the
+ * numbers live. Everything below is the page's own descriptive content.
+ */
+interface Tier extends PresenceTier {
   bestFor: string;
   /** Optional "Everything in X, plus" line above the feature list. */
   carry?: string;
@@ -79,9 +86,7 @@ interface Tier {
 
 const tiers: Tier[] = [
   {
-    name: "Essential Presence",
-    price: "$4,500",
-    amount: "4500",
+    ...getPresenceTier("Essential Presence"),
     bestFor:
       "New or early-stage businesses that need a strong first impression without the full build.",
     features: [
@@ -96,9 +101,7 @@ const tiers: Tier[] = [
     delivery: "Delivery: 2 weeks",
   },
   {
-    name: "Signature Site",
-    price: "$7,500",
-    amount: "7500",
+    ...getPresenceTier("Signature Site"),
     bestFor:
       "Established businesses ready to upgrade their digital presence to match what they offer in person.",
     carry: "Everything in Essential, plus",
@@ -116,9 +119,7 @@ const tiers: Tier[] = [
     featured: true,
   },
   {
-    name: "Full Experience",
-    price: "$12,000 and up",
-    amount: "12000",
+    ...getPresenceTier("Full Experience"),
     bestFor:
       "Destination businesses, multi-offering venues, and anyone who wants a site that can grow with them for the next five years.",
     carry: "Everything in Signature, plus",
@@ -212,43 +213,25 @@ const serviceSchema = {
   offers: tiers.map((tier) => ({
     "@type": "Offer",
     name: tier.name,
-    price: tier.amount,
+    price: String(tier.amount),
     priceCurrency: "USD",
     description: tier.bestFor,
     url,
   })),
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "@id": `${url}/#breadcrumb`,
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: "https://merakislove.com",
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Packages",
-      item: "https://merakislove.com/packages",
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Presence-First Web Design",
-      item: url,
-    },
-  ],
-};
 
 export default function PresenceFirstWebDesignPage() {
   return (
     <PresenceMotion className={styles.page}>
-      {[serviceSchema, breadcrumbSchema].map((schema, i) => (
+      <Breadcrumb
+        items={[
+          { name: "Packages", path: "/packages" },
+          { name: "Presence-First Web Design", path: "/packages/presence-first-web-design" },
+        ]}
+      />
+
+      {[serviceSchema].map((schema, i) => (
         <script
           key={i}
           type="application/ld+json"
@@ -389,7 +372,7 @@ export default function PresenceFirstWebDesignPage() {
                 ) : null}
 
                 <h3 className={styles.tierName}>{tier.name}</h3>
-                <p className={styles.tierPrice}>{tier.price}</p>
+                <p className={styles.tierPrice}>{tierPrice(tier)}</p>
 
                 <p className={styles.tierBestFor}>
                   Best for: {tier.bestFor}
@@ -538,7 +521,7 @@ export default function PresenceFirstWebDesignPage() {
             data-pf-delay="0.09"
             className={styles.closingPrices}
           >
-            Essential $4,500. Signature $7,500. Full Experience $12,000+.
+            {presenceFirstSummary}
           </p>
 
           <div

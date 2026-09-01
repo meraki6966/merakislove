@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { navLinks, socials, calendly, email, studio } from "@/lib/site";
+import { footerLinks, socials, calendly, email, studio } from "@/lib/site";
 
 /**
  * Brand glyphs for the footer social row, keyed by the social's label.
@@ -71,7 +71,7 @@ export default function Footer() {
 
         <div className="flex flex-col gap-5">
           <nav className="flex flex-wrap gap-x-6 gap-y-3">
-            {navLinks.map((link) => (
+            {footerLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}

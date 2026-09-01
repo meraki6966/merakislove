@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/cybersecurity",
     "/about",
     "/contact",
+    "/privacy",
   ];
 
   return routes.map((route) => ({

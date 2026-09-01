@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
+import Breadcrumb from "@/components/Breadcrumb";
 import { calendly, socials, studio, ogBase } from "@/lib/site";
 
 const description =
@@ -40,6 +41,8 @@ const paths = [
 
 export default function ContactPage() {
   return (
+    <>
+      <Breadcrumb items={[{ name: "Contact", path: "/contact" }]} />
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
         eyebrow="Contact"
@@ -126,5 +129,6 @@ export default function ContactPage() {
         </div>
       </ScrollReveal>
     </div>
+    </>
   );
 }

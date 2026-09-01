@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import PackageSection from "@/components/PackageSection";
 import PackageActions from "@/components/PackageActions";
+import Breadcrumb from "@/components/Breadcrumb";
 import { getPackage } from "@/lib/packages";
 import { ogBase } from "@/lib/site";
 
@@ -113,31 +114,18 @@ const serviceSchema = {
   },
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "@id": `${url}/#breadcrumb`,
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: "https://merakislove.com",
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Packages",
-      item: "https://merakislove.com/packages",
-    },
-    { "@type": "ListItem", position: 3, name: "Meraki BIP", item: url },
-  ],
-};
 
 export default function BipPackagePage() {
   return (
     <div className="mx-auto max-w-4xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
-      {[serviceSchema, breadcrumbSchema].map((schema, i) => (
+      <Breadcrumb
+        items={[
+          { name: "Packages", path: "/packages" },
+          { name: "Meraki BIP", path: "/packages/bip" },
+        ]}
+      />
+
+      {[serviceSchema].map((schema, i) => (
         <script
           key={i}
           type="application/ld+json"
