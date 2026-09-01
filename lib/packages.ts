@@ -29,10 +29,11 @@ export interface Package {
   /** How long the engagement runs. */
   duration: string;
   /**
-   * The hub states the custom band without a duration, because the duration
-   * is not knowable before a scoping call.
+   * Suppresses the duration in the card meta line. Set where a range would
+   * mislead: the custom build covers a one-page flyer and a full product,
+   * so a single span across both is not a useful number on a card.
    */
-  hubOmitsDuration?: boolean;
+  omitDuration?: boolean;
   /** Lowest price as a number, for the Offer schema. Absent when scoped. */
   amount?: string;
   /** Highest price as a number, where the package is a band. */
@@ -172,9 +173,9 @@ export const packages: Package[] = [
     slug: "custom",
     priceLabel: "Scoped after a call",
     duration: "2 to 8 weeks",
-    hubOmitsDuration: true,
+    omitDuration: true,
     summary:
-      `Full-stack product, Presence-First site, or private AI inside what you already run. Architecture first. Then code. Then harden. Presence-First sites for hospitality and experiential businesses start at ${presenceFirstFrom}.`,
+      "A new website, an executive presentation, print collateral, a full product build, or private AI inside what you already run. Scoped to what the work actually needs.",
     detail:
       "Full-stack product. Presence-First site. Private AI inside a tool you already run. Architecture first. Then build. Then harden.",
     cta: "Book a scoping call",
@@ -189,12 +190,9 @@ export function getPackage(slug: string): Package {
   return found;
 }
 
-/**
- * The meta line under a package name. The hub drops the duration for the
- * custom build, where there is nothing honest to put there yet.
- */
-export function packageMeta(pkg: Package, variant: "home" | "hub"): string {
-  if (variant === "hub" && pkg.hubOmitsDuration) return pkg.priceLabel;
+/** The meta line under a package name, on every surface that shows a card. */
+export function packageMeta(pkg: Package): string {
+  if (pkg.omitDuration) return pkg.priceLabel;
   return `${pkg.priceLabel} · ${pkg.duration}`;
 }
 

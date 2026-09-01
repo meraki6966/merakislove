@@ -45,7 +45,7 @@ export default function PackageCard({ pkg, variant = "home" }: PackageCardProps)
         </h3>
 
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-smoke">
-          {packageMeta(pkg, variant)}
+          {packageMeta(pkg)}
         </p>
 
         <p className="font-body text-sm leading-relaxed text-smoke-dim">

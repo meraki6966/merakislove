@@ -71,6 +71,11 @@ const disciplines: Discipline[] = [
     href: presenceFirstHref,
     hrefLabel: "See Presence-First",
   },
+  {
+    name: "Design and collateral",
+    detail:
+      "A website that does not need Presence-First's full build-out. An executive presentation built to leave the room in the format your team already uses. Flyers, one-pagers, and print collateral for a real event or campaign.",
+  },
 ];
 
 const security =
