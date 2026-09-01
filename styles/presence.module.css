@@ -616,14 +616,51 @@
   color: var(--pf-cream-dim);
 }
 
+/* Tier prices under the closing line. Gold rather than dim cream: this is
+   the number the whole page has been building toward. */
+.closingPrices {
+  max-width: 34rem;
+  margin: 1.5rem auto 0;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.8;
+  color: var(--pf-gold);
+}
+
+/* Two actions now, so this needs the same column-to-row behaviour and the
+   same gap as the hero's ctaRow rather than a bare centered flex. */
 .closingCta {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  gap: 1rem;
   margin-top: 3rem;
+}
+
+/* Inline link inside body copy, distinct from the button styles. Colors are
+   declared on every state for the same reason the buttons do it. */
+.inlineLink,
+.inlineLink:link,
+.inlineLink:visited {
+  color: var(--pf-gold);
+  text-decoration: none;
+  border-bottom: 1px solid var(--pf-gold-dim);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.inlineLink:hover,
+.inlineLink:focus-visible {
+  color: var(--pf-white);
+  border-bottom-color: var(--pf-white);
 }
 
 @media (min-width: 640px) {
   .closing {
     padding-block: 10rem;
+  }
+  .closingCta {
+    flex-direction: row;
   }
 }

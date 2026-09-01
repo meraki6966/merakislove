@@ -3,32 +3,65 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionDivider from "@/components/SectionDivider";
-import { ogBase } from "@/lib/site";
+import { email, studio, ogBase } from "@/lib/site";
+
+const title = "About | Meraki is Love";
 
 const description =
-  "Adam McClarin: engineer, CISSP, and Reiki practitioner. The story behind Meraki is Love and Soulful Tech.";
+  "Meraki is Love is the company. Soulful Tech is the standard. I design and ship the work myself.";
 
 export const metadata: Metadata = {
-  title: "About",
+  // Absolute so the pipe-separated title survives the layout template.
+  title: { absolute: title },
   description,
   alternates: { canonical: "/about" },
   openGraph: {
     ...ogBase,
-    title: "Adam McClarin · Soulful Tech",
+    title,
     description,
     url: "https://merakislove.com/about",
   },
 };
 
-const story = [
-  "The day starts in stillness. Before the laptop opens, before the first message lands, before the build resumes where it stopped the night before, there is a few minutes of nothing. Breath, quiet, and intention. That practice is not separate from the engineering. It is the reason the engineering looks the way it does.",
-  "Twenty years across leadership, IT, and information security, and for most of them I believed I was helping people. I was building the systems, closing the tickets, passing the audits, doing the work the way it was supposed to be done. Then it hit me. The systems were serving the org chart, the compliance checklist, the quarterly number. The person on the other side of the screen was an afterthought, if they were thought of at all. That is the moment Meraki is Love started, not as a business plan, but as a refusal to keep building that way.",
-  "So now the work answers to a different standard. VeloxSync gives K-12 teachers AI that moves the way teachers actually think, by grade band, against real state standards. Canopy Guard hands a small business the kind of security posture report that enterprise clients pay consultants six figures to produce. The meditation and the Reiki practice are not a hobby that lives next to the technical work. They are the source of the pace, the attention, and the decision to stop and ask whether a feature actually serves the person using it. Soulful Tech is not a tagline I picked because it sounded warm. It is the only way I know how to build.",
+const theWork =
+  "I build full-stack products, put AI into them only where it earns trust, and treat security as part of the first commit.";
+
+/**
+ * Credentials as a flat list, per the copy. The scrolling ticker that used
+ * to carry these was deleted in phase 1 and is not coming back.
+ *
+ * Deliberately not shared with the homepage's `facts` list in lib/site.ts:
+ * that one is the short form for a sales page ("Dual M.S., Cybersecurity"),
+ * this one names the institutions. Same facts, different copy.
+ */
+const credentials = [
+  "Twenty years across leadership, IT, and information security",
+  "CISSP",
+  "Azure AI Engineer",
+  "Dual M.S. in Cybersecurity, UMGC",
+  "MBA, Baruch",
+  "Published author",
 ];
 
 /**
- * Relocated from the homepage in the 2026 rewrite. The homepage now sells;
- * the longer writing about how the studio works lives here. Text is
+ * The origin story, which predates the 2026 rewrite.
+ *
+ * Two edits, both for coherence with the copy that now surrounds it. The
+ * VeloxSync line described the education product as K-12 with state
+ * standards, which is no longer what it is; it is homeschool planning, and
+ * /work now says so. The closing sentences about Soulful Tech not being a
+ * tagline were cut because "The name" section below makes that point in the
+ * new copy's own words, and the page should not argue it twice.
+ */
+const story = [
+  "The day starts in stillness. Before the laptop opens, before the first message lands, before the build resumes where it stopped the night before, there is a few minutes of nothing. Breath, quiet, and intention. That practice is not separate from the engineering. It is the reason the engineering looks the way it does.",
+  "Twenty years across leadership, IT, and information security, and for most of them I believed I was helping people. I was building the systems, closing the tickets, passing the audits, doing the work the way it was supposed to be done. Then it hit me. The systems were serving the org chart, the compliance checklist, the quarterly number. The person on the other side of the screen was an afterthought, if they were thought of at all. That is the moment Meraki is Love started, not as a business plan, but as a refusal to keep building that way.",
+  "So now the work answers to a different standard. VeloxSync for Education gives homeschool families AI planning built for how a parent actually plans, one plan across up to six children. Canopy Guard hands a small business the kind of security posture report that enterprise clients pay consultants six figures to produce. The meditation and the Reiki practice are not a hobby that lives next to the technical work. They are the source of the pace and the attention.",
+];
+
+/**
+ * Relocated from the homepage in phase 1 of the 2026 rewrite. The homepage
+ * sells; the longer writing about how the studio works lives here. Text is
  * unchanged from the original apart from the lead-in that gives the first
  * paragraph its referent.
  */
@@ -42,48 +75,97 @@ const practice = {
   ],
 };
 
-const credentials = [
-  {
-    title: "CISSP",
-    detail: "Certified Information Systems Security Professional",
-  },
-  { title: "Azure AI Engineer", detail: "Microsoft Certified" },
-  {
-    title: "Dual MS, Cybersecurity",
-    detail: "University of Maryland Global Campus, 2018",
-  },
-  { title: "MBA", detail: "Baruch College, 2014" },
-  { title: "20 Years", detail: "Leadership, IT, and information security" },
+const takes = [
+  "Early-stage founders proving a real idea.",
+  "Established teams who need senior hands on a hard subsystem.",
+  "Service businesses that finally want their AI and their posture taken seriously.",
 ];
 
-const books = [
-  { title: "The Weight of the Mantle", note: "Published" },
-  { title: "The AI Prompt Playbook", note: "Published" },
-  { title: "Radical Endurance", note: "Written as Aris Vala" },
-  { title: "Whispers of the Veil", note: "Published" },
+const takesClose =
+  "The problem should be real and a little messy. Quality should matter more than Friday.";
+
+const declines = [
+  "Work I would have to hide.",
+  "A junior-shaped project at a senior price.",
+  "A request to bolt AI onto a site that cannot hold a form.",
 ];
+
+const declinesClose =
+  "A good referral protects your project more than an honest overreach.";
+
+const theName = [
+  "Meraki means doing the work with the thing in you that has no better English word. Soulful Tech is not warmth as branding. It is the decision to stop and ask whether a feature serves the person using it, and then to harden the system so that care survives a bad day.",
+  "If that sentence is why you hired me, good. If you hired me because the inbox is on fire, also good. Both can be true.",
+];
+
+/**
+ * Section label plus the amber rule, the idiom this page already uses.
+ * Rendered as an h2 rather than a paragraph: it looks identical and gives
+ * the page the outline it was missing.
+ */
+function SectionLabel({ children }: { children: string }) {
+  return (
+    <ScrollReveal className="mb-8 flex flex-col gap-5">
+      <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
+        {children}
+      </h2>
+      <SectionDivider align="left" />
+    </ScrollReveal>
+  );
+}
 
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
         eyebrow="About"
-        title="Adam McClarin"
-        subtitle="Engineer, CISSP, and Reiki practitioner. Building Soulful Tech with intention."
+        title="The studio is small on purpose."
+        subtitle="Meraki is Love is the company. Soulful Tech is the standard. I am Adam McClarin. I design and ship the work myself."
       />
 
-      {/* The Story */}
+      {/* The work */}
       <section className="mt-20 max-w-3xl">
+        <SectionLabel>The work</SectionLabel>
+        <ScrollReveal className="flex flex-col gap-8">
+          <p className="font-body text-xl leading-relaxed text-smoke sm:text-2xl">
+            {theWork}
+          </p>
+          <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
+            {credentials.map((credential) => (
+              <li
+                key={credential}
+                className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
+              >
+                <span
+                  aria-hidden
+                  className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-amber"
+                />
+                {credential}
+              </li>
+            ))}
+          </ul>
+          <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
+            The writing, the books, and the practice live on{" "}
+            <a
+              href={studio.site}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber transition-colors hover:text-smoke"
+            >
+              {studio.siteLabel}
+            </a>
+            . This site is for client work.
+          </p>
+        </ScrollReveal>
+      </section>
+
+      {/* Why the studio exists */}
+      <section className="mt-24 max-w-3xl">
+        <SectionLabel>Why the studio exists</SectionLabel>
         <div className="flex flex-col gap-8">
           {story.map((paragraph, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
-              <p
-                className={`font-body leading-relaxed text-smoke-dim ${
-                  i === 0
-                    ? "text-xl text-smoke sm:text-2xl"
-                    : "text-base sm:text-lg"
-                }`}
-              >
+              <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
                 {paragraph}
               </p>
             </ScrollReveal>
@@ -93,11 +175,8 @@ export default function AboutPage() {
 
       {/* How the work gets made */}
       <section className="mt-24 max-w-3xl">
-        <ScrollReveal className="mb-10 flex flex-col gap-5">
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
-            How the work gets made
-          </p>
-          <SectionDivider align="left" />
+        <SectionLabel>How the work gets made</SectionLabel>
+        <ScrollReveal className="mb-10">
           <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
             {practice.lead}{" "}
             <Link
@@ -120,56 +199,91 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Credentials */}
-      <section className="mt-24">
-        <ScrollReveal className="mb-12 flex flex-col gap-5">
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
-            Credentials
+      {/* Who I take */}
+      <section className="mt-24 max-w-3xl">
+        <SectionLabel>Who I take</SectionLabel>
+        <ScrollReveal className="flex flex-col gap-6">
+          <ul className="flex flex-col gap-3">
+            {takes.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim sm:text-lg"
+              >
+                <span
+                  aria-hidden
+                  className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-amber"
+                />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
+            {takesClose}
           </p>
-          <SectionDivider align="left" />
         </ScrollReveal>
+      </section>
 
-        <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {credentials.map((credential, i) => (
-            <ScrollReveal
-              key={credential.title}
-              delay={i * 0.05}
-              className="flex h-full flex-col gap-3 bg-void p-7"
-            >
-              <h3 className="font-display text-2xl font-light text-smoke">
-                {credential.title}
-              </h3>
-              <p className="font-mono text-xs uppercase tracking-[0.14em] text-smoke-dim">
-                {credential.detail}
+      {/* Who I do not take */}
+      <section className="mt-24 max-w-3xl">
+        <SectionLabel>Who I do not take</SectionLabel>
+        <ScrollReveal className="flex flex-col gap-6">
+          <ul className="flex flex-col gap-3">
+            {declines.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim sm:text-lg"
+              >
+                <span
+                  aria-hidden
+                  className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-muted"
+                />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
+            {declinesClose}
+          </p>
+        </ScrollReveal>
+      </section>
+
+      {/* The name */}
+      <section className="mt-24 max-w-3xl">
+        <SectionLabel>The name</SectionLabel>
+        <div className="flex flex-col gap-8">
+          {theName.map((paragraph, i) => (
+            <ScrollReveal key={i} delay={i * 0.05}>
+              <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
+                {paragraph}
               </p>
             </ScrollReveal>
           ))}
         </div>
       </section>
 
-      {/* Published Work */}
-      <section className="mt-24">
-        <ScrollReveal className="mb-12 flex flex-col gap-5">
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
-            Published work
+      {/* Practical */}
+      <section className="mt-24 max-w-3xl">
+        <SectionLabel>Practical</SectionLabel>
+        <ScrollReveal className="flex flex-col items-start gap-5">
+          <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
+            Friendswood, Texas. Clients nationwide.
           </p>
-          <SectionDivider align="left" />
+          <a
+            href={`mailto:${email}`}
+            className="font-mono text-xs tracking-[0.14em] text-smoke-dim transition-colors hover:text-amber"
+          >
+            {email}
+          </a>
+          <Link
+            href="/start"
+            className="group mt-3 inline-flex items-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
+          >
+            Book a call
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </Link>
         </ScrollReveal>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {books.map((book, i) => (
-            <ScrollReveal key={book.title} delay={i * 0.05} className="h-full">
-              <div className="flex h-full flex-col justify-between gap-8 rounded-xl border border-border-mid bg-navy/40 p-6">
-                <h3 className="font-display text-xl font-light leading-tight text-smoke">
-                  {book.title}
-                </h3>
-                <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-amber">
-                  {book.note}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
       </section>
     </div>
   );

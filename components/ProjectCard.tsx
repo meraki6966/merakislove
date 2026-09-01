@@ -10,6 +10,12 @@ import type { Project } from "@/lib/projects";
  * next/image (fill + object-cover so any source aspect crops into the 16:10
  * frame). coverBg shows while the image loads, and a dark scrim keeps the
  * overlaid type/year and project name legible over any image.
+ *
+ * When a project has no cover yet, the same frame renders as the coverBg
+ * panel with a soft radial in the project's accent color. That is the
+ * card's own load-state treatment standing in for the missing art, which
+ * reads as deliberate rather than broken, and it means a shipped product
+ * does not have to wait on artwork or borrow someone else's.
  */
 export default function ProjectCard({ project }: { project: Project }) {
   return (
@@ -19,13 +25,23 @@ export default function ProjectCard({ project }: { project: Project }) {
         className="relative flex aspect-[16/10] flex-col justify-between overflow-hidden rounded-t-xl p-6"
         style={{ backgroundColor: project.coverBg }}
       >
-        <Image
-          src={project.cover}
-          alt={`${project.name} cover`}
-          fill
-          sizes="(min-width: 1024px) 360px, (min-width: 768px) 45vw, 92vw"
-          className="object-cover"
-        />
+        {project.cover ? (
+          <Image
+            src={project.cover}
+            alt={`${project.name} cover`}
+            fill
+            sizes="(min-width: 1024px) 360px, (min-width: 768px) 45vw, 92vw"
+            className="object-cover"
+          />
+        ) : (
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background: `radial-gradient(120% 90% at 20% 15%, ${project.glow}33 0%, transparent 60%)`,
+            }}
+          />
+        )}
         {/* Scrim for overlay-text legibility */}
         <div
           aria-hidden
@@ -50,9 +66,14 @@ export default function ProjectCard({ project }: { project: Project }) {
             <Tag key={tech}>{tech}</Tag>
           ))}
         </div>
-        <p className="border-t border-border pt-4 font-mono text-xs uppercase tracking-[0.18em] text-amber">
-          {project.stat}
-        </p>
+        <div className="flex flex-col gap-2 border-t border-border pt-4">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-amber">
+            What it proves
+          </p>
+          <p className="font-body text-sm leading-relaxed text-smoke-dim">
+            {project.proves}
+          </p>
+        </div>
       </div>
     </TiltCard>
   );

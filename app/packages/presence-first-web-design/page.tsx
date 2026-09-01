@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PresenceMotion from "@/components/PresenceMotion";
 import { calendly, ogBase } from "@/lib/site";
 import styles from "@/styles/presence.module.css";
@@ -286,6 +287,16 @@ export default function PresenceFirstWebDesignPage() {
             {heroCopy.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
+            {/* Routing line: this page is one custom path among three, and a
+                visitor who wants leads and an assistant belongs on BIP. */}
+            <p>
+              This is one custom path. If you run a practice and need leads and
+              an assistant, go to{" "}
+              <Link href="/packages/bip" className={styles.inlineLink}>
+                Meraki BIP
+              </Link>
+              . If you run a place people travel to feel, stay here.
+            </p>
           </div>
 
           <div data-pf-hero className={styles.ctaRow}>
@@ -522,6 +533,14 @@ export default function PresenceFirstWebDesignPage() {
             building.
           </p>
 
+          <p
+            data-pf-reveal
+            data-pf-delay="0.09"
+            className={styles.closingPrices}
+          >
+            Essential $4,500. Signature $7,500. Full Experience $12,000+.
+          </p>
+
           <div
             data-pf-reveal
             data-pf-delay="0.12"
@@ -538,6 +557,9 @@ export default function PresenceFirstWebDesignPage() {
                 →
               </span>
             </a>
+            <Link href="/packages" className={styles.buttonGhost}>
+              See all packages
+            </Link>
           </div>
         </div>
       </section>

@@ -4,48 +4,51 @@ import PageHeader from "@/components/PageHeader";
 import ProjectCard from "@/components/ProjectCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import { projects } from "@/lib/projects";
-import { calendly, ogBase } from "@/lib/site";
+import { ogBase } from "@/lib/site";
+
+const title = "Work | Meraki is Love";
 
 const description =
-  "Selected work from Meraki is Love: VeloxSync for Education, Canopy Guard, and Meridian AI.";
+  "Real systems, in production, doing work for the person on the other side of the screen.";
 
 export const metadata: Metadata = {
-  title: "Work",
+  // Absolute so the pipe-separated title survives the layout template.
+  title: { absolute: title },
   description,
   alternates: { canonical: "/work" },
   openGraph: {
     ...ogBase,
-    title: "Selected Work · Soulful Tech",
+    title,
     description,
     url: "https://merakislove.com/work",
   },
 };
 
+const nda =
+  "Some of the work does not appear here. Healthcare, finance, and internal tools often stay off the public page. If you need architecture detail, book the call.";
+
 export default function WorkPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
-        eyebrow="Selected work"
-        title="Built with intention"
-        subtitle="Three products, each one answering to the same standard. Real systems, in production, doing the work for the people on the other side of the screen."
+        eyebrow="Work"
+        title="Built with the same standard."
+        subtitle="Real systems. In production. Doing work for the person on the other side of the screen. If you want the running version, the demos are live pages. If you want the confidential work, that conversation happens on a call."
       />
 
-      {/* A second kind of proof alongside the case studies below: the demo
-          builds are clickable, where a case study is a description. Muted
-          border rather than the amber of PageHeader, so it reads as a note
-          under the header and not as a competing section. */}
-      <ScrollReveal className="mt-12">
-        <div className="flex flex-col gap-4 border-l-2 border-border-mid pl-6 sm:pl-8">
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            A case study tells you what a project became. If you would rather
-            see one running, the demo builds are complete pages you can open and
-            scroll the way a visitor would.
-          </p>
+      <ScrollReveal className="mt-10">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <Link
             href="/demos"
-            className="group inline-flex w-fit items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:text-smoke"
+            className="inline-flex items-center justify-center gap-3 rounded-full border border-border-mid px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:border-amber hover:text-amber"
           >
-            Explore working templates
+            Explore demos
+          </Link>
+          <Link
+            href="/start"
+            className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
+          >
+            Book a call
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
@@ -68,22 +71,17 @@ export default function WorkPage() {
             Under NDA
           </p>
           <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
-            Some of the work lives under confidentiality and does not appear
-            here. If you want to see what is behind the curtain, understand the
-            architecture, and talk through whether it fits your problem, the
-            fastest path is a conversation.
+            {nda}
           </p>
-          <a
-            href={calendly.newProject}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/packages"
             className="group inline-flex w-fit items-center gap-3 rounded-full border border-amber px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber! hover:text-void"
           >
-            Book a call
+            See packages
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
-          </a>
+          </Link>
         </div>
       </ScrollReveal>
     </div>
