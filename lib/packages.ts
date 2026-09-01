@@ -1,30 +1,54 @@
-// The three ways to start, shared by the homepage and the /packages hub so
-// the price bands and names live in one place. Card bodies differ between
-// the two surfaces on purpose: the homepage sells the shape of the thing,
-// the hub explains who it is for.
+// The three ways to start, shared by the homepage, the /packages hub, and
+// each package's detail page under /packages/[slug]. Card bodies differ
+// between surfaces on purpose: the homepage sells the shape of the thing,
+// the hub explains who it is for, the detail page does the work.
+//
+// Prices and durations live here and nowhere else. The cards compose their
+// meta line from priceLabel and duration rather than carrying a second copy
+// of the same string.
+
+/** A priced tier inside a package. Shape matches the Offer schema. */
+export interface PackageTier {
+  /** Name as stated in the price block. */
+  name: string;
+  /** Shorter label used where the copy names the tier in passing. */
+  label: string;
+  price: string;
+  /** Numeric price for the Offer schema. */
+  amount: string;
+  /** What the tier covers. */
+  scope: string;
+}
 
 export interface Package {
   number: string;
   name: string;
   slug: string;
-  /** Price and timeline line shown on the homepage card. */
-  meta: string;
-  /** Overrides meta on the /packages hub when the hub states it differently. */
-  hubMeta?: string;
+  /** Price band, as stated on every surface. */
+  priceLabel: string;
+  /** How long the engagement runs. */
+  duration: string;
+  /**
+   * The hub states the custom band without a duration, because the duration
+   * is not knowable before a scoping call.
+   */
+  hubOmitsDuration?: boolean;
+  /** Lowest price as a number, for the Offer schema. Absent when scoped. */
+  amount?: string;
+  /** Highest price as a number, where the package is a band. */
+  amountMax?: string;
   /** Homepage card body. */
   summary: string;
   /** /packages hub card body. */
   detail: string;
   /** Label on the card's action. */
   cta: string;
-  /**
-   * Phase 2 detail page. The routes do not exist yet, so nothing links here
-   * and every card action points at /start instead. Wire the "See what's
-   * included" link up when /packages/[slug] ships.
-   */
+  /** The package's own page. */
   detailHref: string;
   /** Marks the card carrying the "Most chosen" flag. */
   featured?: boolean;
+  /** Priced tiers, where the package has them. */
+  tiers?: PackageTier[];
 }
 
 export const packages: Package[] = [
@@ -32,19 +56,42 @@ export const packages: Package[] = [
     number: "01",
     name: "Review",
     slug: "review",
-    meta: "$500 to $1,500 · 5 days",
+    priceLabel: "$500 to $1,500",
+    duration: "5 days",
+    amount: "500",
+    amountMax: "1500",
     summary:
       "A CISSP-informed look at your site or your AI stack. Ranked findings. A report you can hand to a partner or a client. MITRE ATT&CK mapping when it applies. Best when you already have tools and need to know if they are safe to keep.",
     detail:
       "For teams who already have a site or an AI feature and need a straight answer. You get a written report, ranked findings, and a fix order. CISSP-informed. MITRE-mapped when the stack includes AI or a multi-tenant app.",
     cta: "Request a review",
     detailHref: "/packages/review",
+    tiers: [
+      {
+        name: "Application security review",
+        label: "Application security",
+        price: "$500",
+        amount: "500",
+        scope:
+          "Multi-tenant isolation. OAuth flows. API surface. Authorization gaps. The class of bugs that makes headlines.",
+      },
+      {
+        name: "AI risk assessment",
+        label: "AI risk",
+        price: "$1,500",
+        amount: "1500",
+        scope:
+          "Prompt injection. Data leaving through model responses. Unsafe tool wiring. Training-data and retention questions. Guardrails that exist on the slide and not in the code.",
+      },
+    ],
   },
   {
     number: "02",
     name: "Meraki BIP",
     slug: "bip",
-    meta: "From $7,000 · 6 weeks",
+    priceLabel: "From $7,000",
+    duration: "6 weeks",
+    amount: "7000",
     summary:
       "The system I build for service businesses. A scheduled lead engine. An assistant trained on your documents, services, and pricing. Distribution across two platforms from one dashboard. A live activity view so you can see what the system is doing. Not a plugin stack you babysit. A production system with your name on the front door.",
     detail:
@@ -57,8 +104,9 @@ export const packages: Package[] = [
     number: "03",
     name: "Custom build",
     slug: "custom",
-    meta: "Scoped after a call · 2 to 8 weeks",
-    hubMeta: "Scoped after a call",
+    priceLabel: "Scoped after a call",
+    duration: "2 to 8 weeks",
+    hubOmitsDuration: true,
     summary:
       "Full-stack product, Presence-First site, or private AI inside what you already run. Architecture first. Then code. Then harden. Presence-First sites for hospitality and experiential businesses start at $4,500.",
     detail:
@@ -67,6 +115,22 @@ export const packages: Package[] = [
     detailHref: "/packages/custom",
   },
 ];
+
+/** Lookup for the detail pages, which each render exactly one package. */
+export function getPackage(slug: string): Package {
+  const found = packages.find((p) => p.slug === slug);
+  if (!found) throw new Error(`Unknown package slug: ${slug}`);
+  return found;
+}
+
+/**
+ * The meta line under a package name. The hub drops the duration for the
+ * custom build, where there is nothing honest to put there yet.
+ */
+export function packageMeta(pkg: Package, variant: "home" | "hub"): string {
+  if (variant === "hub" && pkg.hubOmitsDuration) return pkg.priceLabel;
+  return `${pkg.priceLabel} · ${pkg.duration}`;
+}
 
 export interface EngagementType {
   name: string;

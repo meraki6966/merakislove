@@ -66,7 +66,7 @@ const professionalService = {
           name: "Review",
           description:
             "A CISSP-informed review of a site or AI stack. Ranked findings and a fix order, MITRE ATT&CK mapped where it applies.",
-          url: `${baseUrl}/packages`,
+          url: `${baseUrl}/packages/review`,
         },
         priceSpecification: {
           "@type": "PriceSpecification",
@@ -82,7 +82,7 @@ const professionalService = {
           name: "Meraki BIP",
           description:
             "A lead engine, an assistant trained on your documents, and distribution across two platforms from one dashboard.",
-          url: `${baseUrl}/packages`,
+          url: `${baseUrl}/packages/bip`,
         },
         priceSpecification: {
           "@type": "PriceSpecification",
@@ -97,7 +97,7 @@ const professionalService = {
           name: "Custom build",
           description:
             "Full-stack product, Presence-First site, or private AI inside a tool you already run. Scoped after a call.",
-          url: `${baseUrl}/packages`,
+          url: `${baseUrl}/packages/custom`,
         },
       },
       {

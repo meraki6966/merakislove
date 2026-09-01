@@ -1,6 +1,6 @@
 import Link from "next/link";
 import TiltCard from "@/components/TiltCard";
-import type { Package } from "@/lib/packages";
+import { packageMeta, type Package } from "@/lib/packages";
 
 interface PackageCardProps {
   pkg: Package;
@@ -17,13 +17,12 @@ interface PackageCardProps {
  * a per-card accent. Restraint is the point: the only saturated element on
  * the page is the Book a call button.
  *
- * The action goes to /start. The phase 2 detail routes under /packages/[slug]
- * do not exist yet and are deliberately not linked, because a 404 reached
- * from a sales card costs more than a missing secondary link.
+ * Both variants lead into the package's own page. The hub adds the explicit
+ * "See what's included" link from the copy above the action, since a visitor
+ * already on the hub is comparing rather than discovering.
  */
 export default function PackageCard({ pkg, variant = "home" }: PackageCardProps) {
   const body = variant === "home" ? pkg.summary : pkg.detail;
-  const meta = variant === "hub" && pkg.hubMeta ? pkg.hubMeta : pkg.meta;
 
   return (
     <TiltCard className="group flex h-full flex-col bg-navy/40">
@@ -46,22 +45,39 @@ export default function PackageCard({ pkg, variant = "home" }: PackageCardProps)
         </h3>
 
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-smoke">
-          {meta}
+          {packageMeta(pkg, variant)}
         </p>
 
         <p className="font-body text-sm leading-relaxed text-smoke-dim">
           {body}
         </p>
 
-        <Link
-          href="/start"
-          className="mt-auto inline-flex w-fit items-center gap-3 border-t border-border pt-5 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 group-hover:text-amber"
-        >
-          {pkg.cta}
-          <span className="transition-transform duration-300 group-hover:translate-x-1">
-            →
-          </span>
-        </Link>
+        <div className="mt-auto flex flex-col gap-3 border-t border-border pt-5">
+          {variant === "hub" ? (
+            <Link
+              href={pkg.detailHref}
+              className="inline-flex w-fit items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 group-hover:text-amber"
+            >
+              See what&apos;s included
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+          ) : null}
+          <Link
+            href={variant === "hub" ? "/start" : pkg.detailHref}
+            className={`inline-flex w-fit items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] transition-colors duration-300 ${
+              variant === "hub"
+                ? "text-smoke-dim hover:text-amber"
+                : "text-smoke group-hover:text-amber"
+            }`}
+          >
+            {pkg.cta}
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </Link>
+        </div>
       </div>
     </TiltCard>
   );
