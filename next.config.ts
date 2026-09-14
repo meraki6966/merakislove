@@ -17,6 +17,14 @@ const ContentSecurityPolicy = [
 ].join("; ");
 
 const securityHeaders = [
+  // Vercel's CDN adds `Access-Control-Allow-Origin: *` to every static and
+  // prerendered response on its own; nothing in this project sets it. Config
+  // cannot delete a header, only replace it, so pin it to this site's own
+  // origin. Browsers ignore the header on same-origin requests, so this grants
+  // no cross-origin read access to anyone. Nothing on the site or on any other
+  // Meraki property reads this domain cross-origin (checked 2026-09-14). If a
+  // public endpoint ever needs CORS, scope a wildcard to that route alone.
+  { key: "Access-Control-Allow-Origin", value: "https://merakislove.com" },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
