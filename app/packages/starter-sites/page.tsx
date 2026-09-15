@@ -119,9 +119,9 @@ const flyers: Flyer[] = [
     file: "hazel-row.jpg",
     business: "Hazel & Row",
     caption: "New stylist announcement flyer",
-    alt: "Hazel & Row new stylist announcement flyer, with a spa facial photo and a featured services list.",
-    width: 928,
-    height: 1200,
+    alt: "Hazel & Row new stylist announcement flyer, a tan leather and brass armchair in an emerald parlor under a New Season, New Stylist headline.",
+    width: 1200,
+    height: 1600,
   },
   {
     file: "blend-state.jpg",
