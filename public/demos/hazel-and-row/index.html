@@ -14,10 +14,14 @@
 <meta property="og:site_name" content="Hazel & Row" />
 <meta property="og:url" content="https://merakislove.com/demos/hazel-and-row" />
 
-<!-- No og:image yet: the hero is still the designed placeholder mark, not a
-     real photograph. Add the four og:image tags (fully-qualified URL, real
-     width/height/type/alt) once the Kling-generated hero art is wired in -
-     the same step the other three demos took when their photography landed. -->
+<!-- og:image must be a fully-qualified URL. A root-relative path like the
+     rest of this page uses is not resolved by scrapers, and the preview
+     comes back with no image. This is the hero file: 2368x1015. -->
+<meta property="og:image" content="https://merakislove.com/demos/hazel-and-row/images/hero.jpg" />
+<meta property="og:image:width" content="2368" />
+<meta property="og:image:height" content="1015" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:alt" content="A tan leather and brass armchair centered in an emerald green, gold-trimmed parlor, sunlight crossing a patterned rug." />
 
 <meta name="twitter:card" content="summary_large_image" />
 
@@ -56,10 +60,6 @@
  *      opposite mood: Playfair Display is a warm, bracketed-serif
  *      headline face, not a shouting condensed one, paired with Work
  *      Sans for every line of running copy.
- *   3. Every photo slot is the designed placeholder (.ph): a gradient
- *      block holding the slot's real footprint with a centered gold
- *      sprig mark, not a text label. Real Kling-generated art replaces
- *      these blocks slot-by-slot without touching layout.
  *
  * Mood target: warm, elegant, personal. Reveals run closer to the
  * restaurant's unhurried pace than to Iron Prism's ceremony or Anchor's
@@ -148,23 +148,20 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-size: clamp(1.02rem, 1.5vw, 1.14rem);
 }
 
-/* -- PHOTO PLACEHOLDER --
-   Holds the exact footprint each photograph will occupy, so dropping an
-   <img> back in shifts nothing. Deliberately a mark, not a text label:
-   this is v1, ahead of the Kling-generated art, and the sprig reads as a
-   designed element rather than an apology for missing content. Every
-   slot on this page uses it - hero, founder, and all five service tiles. */
-.ph {
-  position: relative;
-  display: grid; place-items: center;
-  width: 100%; height: 100%;
-  background:
-    radial-gradient(120% 95% at 30% 14%, rgba(201, 162, 92, 0.16), transparent 60%),
-    linear-gradient(155deg, var(--emerald-800) 0%, var(--emerald-950) 100%);
-  border: 1px solid var(--rule);
+/* -- PHOTOGRAPHY --
+   Every slot holds a real photo. width/height attributes reserve the box
+   before the file arrives so nothing reflows on load, and height:auto keeps
+   the presentational height attribute from beating aspect-ratio, the same
+   pattern the restaurant, Iron Prism and Anchor demos use. Files are sized
+   to the widest render each slot actually reaches, which for the service
+   tiles and the founder is NOT desktop - see each slot below. */
+.photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  background: var(--emerald-800);
 }
-.ph-mark { width: 22%; max-width: 3.4rem; min-width: 1.6rem; opacity: 0.82; }
-.ph-mark path { stroke: var(--gold); }
 
 /* -- BUTTONS -- */
 .btn {
@@ -219,9 +216,12 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* -- HERO -- */
 .hero { position: relative; isolation: isolate; }
 .hero-media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
-/* SLOT: full-bleed, ~21:9 on wide screens. No width/height attributes here
-   since there is no <img> yet - the placeholder reserves its space with
-   min-height on .hero-inner instead. */
+.hero-media .photo { width: 100%; height: 100%; }
+/* SLOT: full-bleed, 21:9. The hero has no max-width, so its render width
+   grows with the viewport and is uncapped (1905px measured at a 1920px
+   viewport, larger still above that). File is 2368x1015, the generated
+   art's full native width - short of true 2x at the very largest screens,
+   but the ceiling the source resolution allows without upscaling. */
 .hero-scrim {
   position: absolute; inset: 0; z-index: -1;
   background:
@@ -269,9 +269,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
   transition: border-color .3s ease, transform .3s ease;
 }
 .svc:hover { border-color: var(--sage-dim); transform: translateY(-3px); }
-/* SLOT: 4/3, matching the other demos' service-tile ratio. Will hold
-   Kling-generated art specific to each service once it exists. */
+/* SLOT: 4/3. Widest render is 558px - single column at a 639px viewport,
+   NOT desktop, where the three-up column is only 355px. Files are
+   1120x840, 2x that 558px worst case. */
 .svc-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.svc-media .photo { width: 100%; height: 100%; }
 .svc-body { padding: 1.6rem 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
 .svc-num {
   font-size: 0.68rem; font-weight: 600; letter-spacing: 0.24em;
@@ -288,8 +290,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
   align-items: center;
 }
 @media (min-width: 900px) { .founder-grid { grid-template-columns: 0.9fr 1.1fr; } }
-/* SLOT: 4/5, matching the other demos' founder-portrait ratio. */
+/* SLOT: 4/5. Widest render is 794px - single column at an 899px viewport,
+   NOT desktop, where the split column is only 484px. File is 1600x2000,
+   2x that 794px worst case. */
 .founder-media { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 2px; }
+.founder-media .photo { width: 100%; height: 100%; }
 .founder-name { font-size: clamp(2rem, 4.5vw, 2.9rem); font-weight: 600; letter-spacing: -0.008em; }
 .founder-role {
   font-size: 0.72rem; font-weight: 600; letter-spacing: 0.24em;
@@ -447,12 +452,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
 <a class="skip" href="#main">Skip to content</a>
 
 <!-- ============================================================ *
- * SHARED MARK - used by the header brand and every .ph placeholder.
- * A simple gold sprig: two curved strokes meeting at a point with a
- * center vein, echoed by the header's plain ring rather than repeated.
- * ============================================================ -->
-
-<!-- ============================================================ *
  * HEADER
  * ============================================================ -->
 <header class="site-head">
@@ -479,16 +478,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
    * ============================================================ -->
   <section class="hero" aria-labelledby="hero-heading">
     <div class="hero-media">
-      <!-- REPLACE: /demos/hazel-and-row/images/hero.jpg
-           Full-bleed, ~21:9 on wide screens, ~4200x1800 recommended.
-           Warm, softly lit interior - the chair row, gold fixtures, a
-           client mid-service in the background out of focus. -->
-      <div class="ph" style="aspect-ratio: 21 / 9; position: absolute; inset: 0;">
-        <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-          <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
-          <path d="M17 4V30" stroke-width="1.1"/>
-        </svg>
-      </div>
+      <img
+        class="photo"
+        src="/demos/hazel-and-row/images/hero.jpg"
+        alt="A tan leather and brass armchair centered in an emerald green, gold-trimmed parlor, afternoon sun crossing a patterned rug and a herringbone wood floor."
+        width="2368"
+        height="1015"
+        fetchpriority="high"
+        decoding="async"
+      />
     </div>
     <div class="hero-scrim" aria-hidden="true"></div>
 
@@ -518,15 +516,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
         <article class="svc" data-reveal>
           <div class="svc-media">
-            <!-- REPLACE: /demos/hazel-and-row/images/service-hair.jpg
-                 1366x1025 recommended (4/3, 2x the widest single-column
-                 render). Shears mid-cut or a finished blowout, warm light. -->
-            <div class="ph">
-              <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-                <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
-                <path d="M17 4V30" stroke-width="1.1"/>
-              </svg>
-            </div>
+            <img
+              class="photo"
+              src="/demos/hazel-and-row/images/service-hair.jpg"
+              alt="A stylist's hands parting a client's curly auburn hair, the client's face turned toward camera with soft green and gold light blurred behind."
+              width="1120"
+              height="840"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <div class="svc-body">
             <p class="svc-num">01</p>
@@ -537,15 +535,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
         <article class="svc" data-reveal>
           <div class="svc-media">
-            <!-- REPLACE: /demos/hazel-and-row/images/service-braids-locs.jpg
-                 1366x1025 recommended (4/3). Close-up of knotless braids or
-                 a fresh retwist in progress. -->
-            <div class="ph">
-              <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-                <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
-                <path d="M17 4V30" stroke-width="1.1"/>
-              </svg>
-            </div>
+            <img
+              class="photo"
+              src="/demos/hazel-and-row/images/service-braids-locs.jpg"
+              alt="Close-up of two hands braiding dark hair into a single plait, salon shelving lit emerald green and blurred in the background."
+              width="1120"
+              height="840"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <div class="svc-body">
             <p class="svc-num">02</p>
@@ -556,15 +554,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
         <article class="svc" data-reveal>
           <div class="svc-media">
-            <!-- REPLACE: /demos/hazel-and-row/images/service-nails.jpg
-                 1366x1025 recommended (4/3). Hands mid-manicure or a fresh
-                 gel set against a neutral surface. -->
-            <div class="ph">
-              <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-                <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
-                <path d="M17 4V30" stroke-width="1.1"/>
-              </svg>
-            </div>
+            <img
+              class="photo"
+              src="/demos/hazel-and-row/images/service-nails.jpg"
+              alt="A manicurist's hands working on a client's nails at a white vanity with gold polish bottles, a round mirror, and nail tools laid out."
+              width="1120"
+              height="840"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <div class="svc-body">
             <p class="svc-num">03</p>
@@ -575,15 +573,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
         <article class="svc" data-reveal>
           <div class="svc-media">
-            <!-- REPLACE: /demos/hazel-and-row/images/service-skin-facials.jpg
-                 1366x1025 recommended (4/3). Esthetician mid-facial, soft
-                 towel and warm light, product incidental not branded. -->
-            <div class="ph">
-              <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-                <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
-                <path d="M17 4V30" stroke-width="1.1"/>
-              </svg>
-            </div>
+            <img
+              class="photo"
+              src="/demos/hazel-and-row/images/service-skin-facials.jpg"
+              alt="A spa tray holding a dropper bottle of facial oil, a jar of bath salts, rolled emerald green towels, and steel tools on a stone counter."
+              width="1120"
+              height="840"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <div class="svc-body">
             <p class="svc-num">04</p>
@@ -594,15 +592,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
         <article class="svc" data-reveal>
           <div class="svc-media">
-            <!-- REPLACE: /demos/hazel-and-row/images/service-makeup.jpg
-                 1366x1025 recommended (4/3). Makeup brush mid-application
-                 or a finished bridal look, warm and unfiltered. -->
-            <div class="ph">
-              <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-                <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
-                <path d="M17 4V30" stroke-width="1.1"/>
-              </svg>
-            </div>
+            <img
+              class="photo"
+              src="/demos/hazel-and-row/images/service-makeup.jpg"
+              alt="A fan of makeup brushes standing in a glass beside an open eyeshadow palette with a mirrored lid, on a marble table with a green cabinet behind."
+              width="1120"
+              height="840"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <div class="svc-body">
             <p class="svc-num">05</p>
@@ -621,16 +619,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
   <section class="founder section" id="founder" aria-labelledby="founder-heading">
     <div class="wrap founder-grid">
       <div class="founder-media" data-reveal>
-        <!-- REPLACE: /demos/hazel-and-row/images/founder-portrait.jpg
-             1618x2023 recommended (4/5, 2x the widest single-column
-             render). Danielle on the floor, mid-conversation with a client,
-             not posed against a wall. -->
-        <div class="ph">
-          <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-            <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
-            <path d="M17 4V30" stroke-width="1.1"/>
-          </svg>
-        </div>
+        <img
+          class="photo"
+          src="/demos/hazel-and-row/images/founder-portrait.jpg"
+          alt="Danielle smiling and looking off camera, wearing a green blouse and gold hoop earrings, with salon shelving of product bottles lit warm behind her."
+          width="1600"
+          height="2000"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
       <div data-reveal>
