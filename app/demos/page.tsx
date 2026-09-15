@@ -43,10 +43,11 @@ interface Demo {
   swatchInk: string;
 }
 
-// Three demos: two up from `md`, three up from `lg`. The swatch is kept as a
-// band across the top of each card rather than dropped: it is the thing that
-// signals each demo has its own design world, and it earns its place
-// precisely because these three palettes share nothing.
+// Four demos: two up from `md`, three up from `lg` (the fourth wraps to its
+// own row on large screens rather than forcing a 2x2 grid). The swatch is
+// kept as a band across the top of each card rather than dropped: it is the
+// thing that signals each demo has its own design world, and it earns its
+// place precisely because these four palettes share nothing.
 const demos: Demo[] = [
   {
     name: "The Corner Table",
@@ -80,6 +81,17 @@ const demos: Demo[] = [
     swatch: ["#0A1929", "#F26722"],
     swatchLabel: "Navy · Safety Amber · Steel",
     swatchInk: "rgba(242, 246, 250, 0.72)",
+  },
+  {
+    name: "Hazel & Row",
+    eyebrow: "Hair & Spa · Template",
+    description:
+      "A neighborhood hair salon and spa, built to feel like one hand did every service. Deep emerald and warm gold, a display serif paired with a plain sans, and a trust panel that tracks booking rate and client history instead of stacking testimonials. Warm where Anchor is steady and Iron Prism is loud.",
+    stack: ["Static HTML", "GSAP ScrollTrigger", "Presence-First"],
+    href: "/demos/hazel-and-row",
+    swatch: ["#0A2118", "#C9A25C"],
+    swatchLabel: "Emerald · Warm Gold · Ivory",
+    swatchInk: "rgba(248, 243, 231, 0.78)",
   },
 ];
 

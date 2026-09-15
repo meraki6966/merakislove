@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hazel &amp; Row | Hair, Braids &amp; Locs, Nails, Skin &amp; Makeup</title>
+<meta name="description" content="A neighborhood hair salon and spa for hair, braids and locs, nails, skin and makeup, where your stylist already knows your hair." />
+
+<!-- Open Graph, so a shared link previews as the salon rather than as a
+     bare URL. Scoped to this page: no visible field names the studio. -->
+<meta property="og:title" content="Hazel & Row" />
+<meta property="og:description" content="A neighborhood hair salon and spa for hair, braids and locs, nails, skin and makeup, where your stylist already knows your hair." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Hazel & Row" />
+<meta property="og:url" content="https://merakislove.com/demos/hazel-and-row" />
+
+<!-- No og:image yet: the hero is still the designed placeholder mark, not a
+     real photograph. Add the four og:image tags (fully-qualified URL, real
+     width/height/type/alt) once the Kling-generated hero art is wired in -
+     the same step the other three demos took when their photography landed. -->
+
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Kept: this is a template, and it should not compete with real salons in
+     search. Social crawlers still read the tags above. -->
+<meta name="robots" content="noindex" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<!-- GSAP is self-hosted, not pulled from a CDN: merakislove.com sends
+     script-src 'self' 'unsafe-inline', which blocks cdnjs outright. Same two
+     vendored files the restaurant, Iron Prism and Anchor demos use. Absolute
+     paths, not ./vendor/ - this page is served at /demos/hazel-and-row via a
+     rewrite, so a relative path would resolve against /demos/ and miss. -->
+<script src="/demos/vendor/gsap.min.js"></script>
+<script src="/demos/vendor/ScrollTrigger.min.js"></script>
+
+<style>
+/* =================================================================== *
+ * HAZEL & ROW - demo template
+ *
+ * Fourth demo, and it has to hold its own against three existing worlds:
+ * the restaurant's cream/terracotta softness, Iron Prism's near-black
+ * violet ceremony, and Anchor's navy/amber industrial trust. None of
+ * those three touch green, and none pair a display serif with a plain
+ * sans - so the palette and the type system are both doing distinguishing
+ * work on their own, without needing a fourth trick.
+ *
+ *   1. Base is a deep emerald, not black or navy - the room this salon
+ *      sits in, not a neutral backdrop. Gold is the only accent; there is
+ *      no second hue competing with it the way Anchor runs amber against
+ *      steel-blue.
+ *   2. Two typefaces, like Iron Prism's Anton + IBM Plex Sans, but the
+ *      opposite mood: Playfair Display is a warm, bracketed-serif
+ *      headline face, not a shouting condensed one, paired with Work
+ *      Sans for every line of running copy.
+ *   3. Every photo slot is the designed placeholder (.ph): a gradient
+ *      block holding the slot's real footprint with a centered gold
+ *      sprig mark, not a text label. Real Kling-generated art replaces
+ *      these blocks slot-by-slot without touching layout.
+ *
+ * Mood target: warm, elegant, personal. Reveals run closer to the
+ * restaurant's unhurried pace than to Iron Prism's ceremony or Anchor's
+ * clipped industrial timing.
+ * =================================================================== */
+
+/* -- TOKENS -- */
+:root {
+  --emerald-950: #06140F;
+  --emerald-900: #0A2118;
+  --emerald-800: #10301F;
+  --emerald-700: #164028;
+
+  --rule:      #275A3B;
+  --rule-soft: rgba(201, 168, 92, 0.16);
+
+  --ivory:     #F8F3E7;
+  --sage:      #A9C2AE;
+  --sage-dim:  #7C9884;
+
+  --gold:      #C9A25C;
+  --gold-lit:  #E1BD7C;
+  --gold-dim:  rgba(201, 162, 92, 0.14);
+
+  --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --sans:  'Work Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --measure: 36rem;
+}
+
+/* -- RESET -- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--emerald-900);
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: clamp(1rem, 1.05vw, 1.06rem);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, p, ul, figure { margin: 0; }
+h1, h2, h3 { font-family: var(--serif); }
+ul { list-style: none; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 999;
+  background: var(--ivory); color: var(--emerald-950);
+  padding: 0.85rem 1.4rem; font-weight: 600; text-decoration: none;
+}
+.skip:focus { left: 0; }
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--gold-lit);
+  outline-offset: 3px;
+}
+
+.wrap { width: 100%; max-width: 78rem; margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: clamp(4.5rem, 11vw, 8.5rem); }
+
+/* -- TYPE -- */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+}
+.section-title {
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.006em;
+  margin-top: 1rem;
+}
+.lede {
+  color: var(--sage);
+  max-width: var(--measure);
+  font-size: clamp(1.02rem, 1.5vw, 1.14rem);
+}
+
+/* -- PHOTO PLACEHOLDER --
+   Holds the exact footprint each photograph will occupy, so dropping an
+   <img> back in shifts nothing. Deliberately a mark, not a text label:
+   this is v1, ahead of the Kling-generated art, and the sprig reads as a
+   designed element rather than an apology for missing content. Every
+   slot on this page uses it - hero, founder, and all five service tiles. */
+.ph {
+  position: relative;
+  display: grid; place-items: center;
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(120% 95% at 30% 14%, rgba(201, 162, 92, 0.16), transparent 60%),
+    linear-gradient(155deg, var(--emerald-800) 0%, var(--emerald-950) 100%);
+  border: 1px solid var(--rule);
+}
+.ph-mark { width: 22%; max-width: 3.4rem; min-width: 1.6rem; opacity: 0.82; }
+.ph-mark path { stroke: var(--gold); }
+
+/* -- BUTTONS -- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.65rem;
+  font-family: var(--sans);
+  font-size: 0.76rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 1rem 1.9rem; border-radius: 2px;
+  text-decoration: none; cursor: pointer; border: 1px solid transparent;
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+.btn--solid { background: var(--gold); color: var(--emerald-950); border-color: var(--gold); }
+.btn--solid:hover { background: var(--gold-lit); border-color: var(--gold-lit); }
+.btn--ghost { background: transparent; color: var(--ivory); border-color: var(--rule); }
+.btn--ghost:hover { border-color: var(--sage-dim); }
+.btn .arrow { transition: transform .25s ease; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* -- HEADER -- */
+.site-head {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(6, 20, 15, 0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.head-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; min-height: 4.5rem;
+}
+.brand { display: inline-flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+/* The mark is a plain gold ring, not a filled shape - a piece of jewelry,
+   not a logo flourish. Anchor spends a solid plate here; Iron Prism a
+   gradient block; this deliberately does neither. */
+.mark {
+  width: 1.05rem; height: 1.05rem; flex: none;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+}
+.wordmark { font-family: var(--serif); font-weight: 600; letter-spacing: -0.005em; font-size: 1.15rem; }
+.head-nav { display: none; gap: 2rem; }
+@media (min-width: 900px) { .head-nav { display: flex; } }
+.head-nav a {
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--sage); text-decoration: none;
+  transition: color .25s ease;
+}
+.head-nav a:hover { color: var(--ivory); }
+.head-cta { display: none; }
+@media (min-width: 620px) { .head-cta { display: inline-flex; } }
+
+/* -- HERO -- */
+.hero { position: relative; isolation: isolate; }
+.hero-media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+/* SLOT: full-bleed, ~21:9 on wide screens. No width/height attributes here
+   since there is no <img> yet - the placeholder reserves its space with
+   min-height on .hero-inner instead. */
+.hero-scrim {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(6,20,15,0.82) 0%, rgba(6,20,15,0.42) 45%, rgba(6,20,15,0.90) 100%),
+    linear-gradient(90deg, rgba(6,20,15,0.86) 0%, rgba(6,20,15,0.30) 55%, rgba(6,20,15,0.10) 100%);
+}
+.hero-inner {
+  min-height: min(86vh, 44rem);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-block: clamp(5rem, 14vw, 9rem);
+}
+.hero h1 {
+  font-weight: 600;
+  font-size: clamp(2.6rem, 7vw, 5.1rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  margin-top: 1.1rem;
+  max-width: 16ch;
+}
+.hero-trust {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  color: var(--sage);
+  font-size: clamp(1.05rem, 1.7vw, 1.25rem);
+}
+/* One CTA, by design - same reasoning as the other three demos: a second
+   button here turns a clear next step into a choice. */
+.hero-cta { margin-top: 2.4rem; }
+
+/* -- SERVICES -- */
+.svc-grid {
+  display: grid; gap: 1.5rem;
+  grid-template-columns: 1fr;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+@media (min-width: 640px)  { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.svc {
+  background: var(--emerald-800);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: border-color .3s ease, transform .3s ease;
+}
+.svc:hover { border-color: var(--sage-dim); transform: translateY(-3px); }
+/* SLOT: 4/3, matching the other demos' service-tile ratio. Will hold
+   Kling-generated art specific to each service once it exists. */
+.svc-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.svc-body { padding: 1.6rem 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+.svc-num {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.24em;
+  color: var(--sage-dim); font-variant-numeric: tabular-nums;
+}
+.svc h3 { font-size: 1.42rem; font-weight: 600; letter-spacing: -0.006em; }
+.svc p { color: var(--sage); font-size: 0.97rem; }
+
+/* -- FOUNDER -- */
+.founder { background: var(--emerald-800); border-block: 1px solid var(--rule); }
+.founder-grid {
+  display: grid; gap: 2.75rem;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+@media (min-width: 900px) { .founder-grid { grid-template-columns: 0.9fr 1.1fr; } }
+/* SLOT: 4/5, matching the other demos' founder-portrait ratio. */
+.founder-media { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 2px; }
+.founder-name { font-size: clamp(2rem, 4.5vw, 2.9rem); font-weight: 600; letter-spacing: -0.008em; }
+.founder-role {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--gold); margin-top: 0.6rem;
+}
+.founder-copy { color: var(--sage); max-width: var(--measure); margin-top: 1.5rem; }
+.founder-copy p + p { margin-top: 1.05rem; }
+
+/* -- STANDARD (dashboard) --
+   The quiet performance-tracking echo. Presented as a readout panel rather
+   than three stat cards, the same treatment Anchor uses for its trust
+   section: a header strip with a period, tabular figures, and a fill bar
+   per row measured against a stated target. No product is named anywhere
+   on this page, and none should be. */
+.dash {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--emerald-800);
+  overflow: hidden;
+}
+.dash-head {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.9rem 1.35rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--emerald-950);
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sage);
+}
+.dash-dot {
+  width: 0.5rem; height: 0.5rem; border-radius: 50%;
+  background: var(--gold); flex: none;
+  box-shadow: 0 0 0 3px var(--gold-dim);
+}
+.dash-period { margin-left: auto; color: var(--sage-dim); letter-spacing: 0.14em; }
+.dash-grid { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 820px) { .dash-grid { grid-template-columns: repeat(3, 1fr); } }
+.dash-cell { padding: 1.75rem 1.35rem; border-bottom: 1px solid var(--rule-soft); }
+.dash-cell:last-child { border-bottom: 0; }
+@media (min-width: 820px) {
+  .dash-cell { border-bottom: 0; border-right: 1px solid var(--rule-soft); }
+  .dash-cell:last-child { border-right: 0; }
+}
+.dash-label {
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sage-dim);
+}
+.dash-figure {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 5.6vw, 3.4rem);
+  font-weight: 600; line-height: 1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  margin-top: 0.7rem;
+}
+.dash-unit { font-size: 0.42em; font-weight: 600; color: var(--sage); margin-left: 0.15em; letter-spacing: 0; }
+.dash-note { color: var(--sage); font-size: 0.92rem; margin-top: 0.7rem; }
+@media (min-width: 820px) { .dash-note { min-height: 4.4em; } }
+.dash-bar {
+  margin-top: 1rem; height: 3px; border-radius: 2px;
+  background: var(--emerald-700); overflow: hidden;
+}
+.dash-bar span { display: block; height: 100%; background: var(--gold); }
+.dash-target {
+  margin-top: 0.55rem; font-size: 0.7rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--sage-dim); font-variant-numeric: tabular-nums;
+}
+
+/* -- BOOKING -- */
+.booking { background: var(--emerald-950); border-top: 1px solid var(--rule); }
+.booking-grid { display: grid; gap: 3rem; grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 940px) { .booking-grid { grid-template-columns: 1fr 1fr; } }
+.booking-facts { display: grid; gap: 1.75rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 2.5rem; }
+.fact p { color: var(--sage); font-size: 0.97rem; }
+.fact-label {
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ivory); margin-bottom: 0.5rem;
+}
+.form-card {
+  background: var(--emerald-800);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: clamp(1.5rem, 3.5vw, 2.25rem);
+}
+.field { display: block; margin-bottom: 1.1rem; }
+.field-label {
+  display: block; font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 0.5rem;
+}
+.field input, .field select, .field textarea {
+  width: 100%; background: var(--emerald-950);
+  border: 1px solid var(--rule); border-radius: 2px;
+  padding: 0.8rem 0.95rem; color: var(--ivory);
+  transition: border-color .25s ease;
+}
+.field input:hover, .field select:hover, .field textarea:hover { border-color: var(--sage-dim); }
+.field input::placeholder, .field textarea::placeholder { color: var(--sage-dim); }
+.field textarea { resize: vertical; min-height: 6rem; }
+.field-row { display: grid; gap: 1.1rem; grid-template-columns: 1fr; }
+@media (min-width: 520px) { .field-row { grid-template-columns: 1fr 1fr; } }
+.form-submit { margin-top: 1.5rem; }
+.form-submit .btn { width: 100%; justify-content: center; }
+.form-note {
+  margin-top: 1.1rem; color: var(--sage-dim);
+  font-size: 0.85rem; line-height: 1.6;
+}
+
+/* -- FOOTER -- */
+.site-foot { background: var(--emerald-950); border-top: 1px solid var(--rule); padding-block: clamp(3rem, 7vw, 4.5rem); }
+.foot-grid { display: grid; gap: 2.5rem; grid-template-columns: 1fr; }
+@media (min-width: 700px) { .foot-grid { grid-template-columns: repeat(3, 1fr); } }
+.foot-label {
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ivory); margin-bottom: 0.9rem;
+}
+.site-foot p, .site-foot li { color: var(--sage); font-size: 0.94rem; }
+.foot-hours li { display: flex; justify-content: space-between; gap: 1rem; max-width: 17rem; }
+.foot-bottom {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--rule);
+  display: flex; flex-direction: column; gap: 0.85rem;
+}
+@media (min-width: 860px) { .foot-bottom { flex-direction: row; justify-content: space-between; align-items: baseline; gap: 2rem; } }
+.foot-bottom p { color: var(--sage-dim); font-size: 0.85rem; }
+.foot-bottom a { color: var(--sage); text-decoration: underline; text-underline-offset: 3px; }
+.foot-bottom a:hover { color: var(--gold); }
+.foot-note { color: var(--sage); }
+
+/* -- REVEALS --
+   Slightly longer and softer than Anchor's clipped industrial timing -
+   closer to the restaurant's unhurried pace, which fits a spa. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] { opacity: 0; transform: translateY(18px); }
+  [data-hero]   { opacity: 0; transform: translateY(22px); }
+}
+.motion-off [data-reveal],
+.motion-off [data-hero] { opacity: 1 !important; transform: none !important; }
+</style>
+
+<noscript>
+  <style>
+    [data-reveal], [data-hero] { opacity: 1 !important; transform: none !important; }
+  </style>
+</noscript>
+</head>
+
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================================================ *
+ * SHARED MARK - used by the header brand and every .ph placeholder.
+ * A simple gold sprig: two curved strokes meeting at a point with a
+ * center vein, echoed by the header's plain ring rather than repeated.
+ * ============================================================ -->
+
+<!-- ============================================================ *
+ * HEADER
+ * ============================================================ -->
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="#top">
+      <span class="mark" aria-hidden="true"></span>
+      <span class="wordmark">Hazel &amp; Row</span>
+    </a>
+
+    <nav class="head-nav" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#founder">Founder</a>
+      <a href="#standard">Standard</a>
+    </nav>
+
+    <a class="btn btn--ghost head-cta" href="#book">Book a visit</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================================================ *
+   * 1 - HERO
+   * ============================================================ -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-media">
+      <!-- REPLACE: /demos/hazel-and-row/images/hero.jpg
+           Full-bleed, ~21:9 on wide screens, ~4200x1800 recommended.
+           Warm, softly lit interior - the chair row, gold fixtures, a
+           client mid-service in the background out of focus. -->
+      <div class="ph" style="aspect-ratio: 21 / 9; position: absolute; inset: 0;">
+        <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+          <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
+          <path d="M17 4V30" stroke-width="1.1"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+
+    <div class="wrap hero-inner">
+      <p class="eyebrow" data-hero>Hair &middot; Braids &amp; Locs &middot; Nails &middot; Skin &middot; Makeup</p>
+      <h1 id="hero-heading" data-hero>Hazel &amp; Row</h1>
+      <p class="hero-trust" data-hero>
+        Where your stylist already knows your hair.
+      </p>
+      <div class="hero-cta" data-hero>
+        <a class="btn btn--solid" href="#book">
+          Book a visit <span class="arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ *
+   * 2 - SERVICES
+   * ============================================================ -->
+  <section class="section" id="services" aria-labelledby="services-heading">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>What we do</p>
+      <h2 class="section-title" id="services-heading" data-reveal>Five services, one appointment book.</h2>
+
+      <div class="svc-grid">
+
+        <article class="svc" data-reveal>
+          <div class="svc-media">
+            <!-- REPLACE: /demos/hazel-and-row/images/service-hair.jpg
+                 1366x1025 recommended (4/3, 2x the widest single-column
+                 render). Shears mid-cut or a finished blowout, warm light. -->
+            <div class="ph">
+              <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+                <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
+                <path d="M17 4V30" stroke-width="1.1"/>
+              </svg>
+            </div>
+          </div>
+          <div class="svc-body">
+            <p class="svc-num">01</p>
+            <h3>Hair</h3>
+            <p>Cuts, color, and specialists in textured and natural hair.</p>
+          </div>
+        </article>
+
+        <article class="svc" data-reveal>
+          <div class="svc-media">
+            <!-- REPLACE: /demos/hazel-and-row/images/service-braids-locs.jpg
+                 1366x1025 recommended (4/3). Close-up of knotless braids or
+                 a fresh retwist in progress. -->
+            <div class="ph">
+              <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+                <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
+                <path d="M17 4V30" stroke-width="1.1"/>
+              </svg>
+            </div>
+          </div>
+          <div class="svc-body">
+            <p class="svc-num">02</p>
+            <h3>Braids &amp; Locs</h3>
+            <p>Protective styles done right, no rush job.</p>
+          </div>
+        </article>
+
+        <article class="svc" data-reveal>
+          <div class="svc-media">
+            <!-- REPLACE: /demos/hazel-and-row/images/service-nails.jpg
+                 1366x1025 recommended (4/3). Hands mid-manicure or a fresh
+                 gel set against a neutral surface. -->
+            <div class="ph">
+              <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+                <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
+                <path d="M17 4V30" stroke-width="1.1"/>
+              </svg>
+            </div>
+          </div>
+          <div class="svc-body">
+            <p class="svc-num">03</p>
+            <h3>Nails</h3>
+            <p>Manicures and pedicures, the same care as everything else here.</p>
+          </div>
+        </article>
+
+        <article class="svc" data-reveal>
+          <div class="svc-media">
+            <!-- REPLACE: /demos/hazel-and-row/images/service-skin-facials.jpg
+                 1366x1025 recommended (4/3). Esthetician mid-facial, soft
+                 towel and warm light, product incidental not branded. -->
+            <div class="ph">
+              <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+                <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
+                <path d="M17 4V30" stroke-width="1.1"/>
+              </svg>
+            </div>
+          </div>
+          <div class="svc-body">
+            <p class="svc-num">04</p>
+            <h3>Skin &amp; Facials</h3>
+            <p>Real skincare, not an upsell.</p>
+          </div>
+        </article>
+
+        <article class="svc" data-reveal>
+          <div class="svc-media">
+            <!-- REPLACE: /demos/hazel-and-row/images/service-makeup.jpg
+                 1366x1025 recommended (4/3). Makeup brush mid-application
+                 or a finished bridal look, warm and unfiltered. -->
+            <div class="ph">
+              <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+                <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
+                <path d="M17 4V30" stroke-width="1.1"/>
+              </svg>
+            </div>
+          </div>
+          <div class="svc-body">
+            <p class="svc-num">05</p>
+            <h3>Makeup</h3>
+            <p>For the day you actually need to look like yourself, only more.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ *
+   * 3 - FOUNDER
+   * ============================================================ -->
+  <section class="founder section" id="founder" aria-labelledby="founder-heading">
+    <div class="wrap founder-grid">
+      <div class="founder-media" data-reveal>
+        <!-- REPLACE: /demos/hazel-and-row/images/founder-portrait.jpg
+             1618x2023 recommended (4/5, 2x the widest single-column
+             render). Danielle on the floor, mid-conversation with a client,
+             not posed against a wall. -->
+        <div class="ph">
+          <svg class="ph-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <path d="M17 3C17 3 25 9 25 17C25 24.5 17 31 17 31C17 31 9 24.5 9 17C9 9 17 3 17 3Z" stroke-width="1.1"/>
+            <path d="M17 4V30" stroke-width="1.1"/>
+          </svg>
+        </div>
+      </div>
+
+      <div data-reveal>
+        <p class="eyebrow">Who's behind the chair</p>
+        <h2 class="founder-name" id="founder-heading">Danielle</h2>
+        <p class="founder-role">Owner &middot; Master Stylist</p>
+        <div class="founder-copy">
+          <p>
+            Danielle Okafor spent over a decade behind someone else's chair,
+            specializing in textured and natural hair when most salons in
+            the area barely knew where to start. She got tired of being the
+            only stylist in the building who actually understood curls, so
+            she opened her own. At Hazel &amp; Row, nobody explains their
+            hair from scratch.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ *
+   * 4 - THE STANDARD
+   * ============================================================ -->
+  <section class="section" id="standard" aria-labelledby="standard-heading">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>The standard</p>
+      <h2 class="section-title" id="standard-heading" data-reveal>What we track, every week.</h2>
+      <p class="lede" style="margin-top: 1.35rem;" data-reveal>
+        We measure the same three things every week and publish them here,
+        including the weeks they slip.
+      </p>
+
+      <div class="dash" data-reveal>
+        <div class="dash-head">
+          <span class="dash-dot" aria-hidden="true"></span>
+          <span>Floor record</span>
+          <span class="dash-period">Rolling 4 weeks</span>
+        </div>
+
+        <div class="dash-grid">
+
+          <div class="dash-cell">
+            <p class="dash-label">Booked</p>
+            <p class="dash-figure">85<span class="dash-unit">%</span></p>
+            <p class="dash-note">
+              Most clients rebook before they leave the chair.
+            </p>
+            <div class="dash-bar" aria-hidden="true"><span style="width: 85%;"></span></div>
+            <p class="dash-target">Target &middot; 75%+</p>
+          </div>
+
+          <div class="dash-cell">
+            <p class="dash-label">Trained</p>
+            <p class="dash-figure">100<span class="dash-unit">%</span></p>
+            <p class="dash-note">
+              Every stylist certified in the specialty they're booked for,
+              not a little of everything.
+            </p>
+            <div class="dash-bar" aria-hidden="true"><span style="width: 100%;"></span></div>
+            <p class="dash-target">Target &middot; 100%</p>
+          </div>
+
+          <div class="dash-cell">
+            <p class="dash-label">Remembered</p>
+            <p class="dash-figure">100<span class="dash-unit">%</span></p>
+            <p class="dash-note">
+              Your color formula, your last cut, your preferences, on file
+              every time.
+            </p>
+            <div class="dash-bar" aria-hidden="true"><span style="width: 100%;"></span></div>
+            <p class="dash-target">Target &middot; 100%</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ *
+   * 5 - BOOKING
+   * ============================================================ -->
+  <section class="booking section" id="book" aria-labelledby="book-heading">
+    <div class="wrap booking-grid">
+
+      <div data-reveal>
+        <p class="eyebrow">Book a visit</p>
+        <h2 class="section-title" id="book-heading">Find your chair.</h2>
+        <p class="lede" style="margin-top: 1.35rem;">
+          Pick a service and share what you have in mind. We'll follow up
+          with real openings, not a guess.
+        </p>
+
+        <div class="booking-facts">
+          <div class="fact">
+            <p class="fact-label">Location</p>
+            <p>118 Ashland Row,<br />Uptown</p>
+          </div>
+          <div class="fact">
+            <p class="fact-label">New clients</p>
+            <p>Free 15-minute consult<br />before your first visit</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inert on purpose. This is a template, so there is nowhere
+           legitimate to send a real person's name, contact details or
+           appointment request. The submit handler cancels the event and
+           restates that in the live region below. This block is also the
+           placeholder for the assistant that will replace it; wire it to a
+           real endpoint at that point. -->
+      <div class="form-card" data-reveal>
+        <form id="book-form" aria-labelledby="book-heading">
+          <label class="field">
+            <span class="field-label">Name</span>
+            <input type="text" name="name" autocomplete="name" placeholder="Your name" />
+          </label>
+
+          <div class="field-row">
+            <label class="field">
+              <span class="field-label">Email</span>
+              <input type="email" name="email" autocomplete="email" placeholder="you@email.com" />
+            </label>
+            <label class="field">
+              <span class="field-label">Phone</span>
+              <input type="tel" name="phone" autocomplete="tel" placeholder="Best number" />
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field-label">Service</span>
+            <select name="service">
+              <option>Hair</option>
+              <option>Braids &amp; Locs</option>
+              <option>Nails</option>
+              <option>Skin &amp; Facials</option>
+              <option>Makeup</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Tell us what you have in mind</span>
+            <textarea name="detail" placeholder="Looking to switch from box braids to a knotless install."></textarea>
+          </label>
+
+          <div class="form-submit">
+            <button class="btn btn--solid" type="submit">
+              Request an appointment <span class="arrow" aria-hidden="true">&rarr;</span>
+            </button>
+          </div>
+        </form>
+
+        <p class="form-note" id="form-note" role="status" aria-live="polite">
+          This is a demo. The form is inert &mdash; nothing is sent, stored,
+          or booked, and no appointment is actually scheduled.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================ *
+ * 6 - FOOTER
+ * ============================================================ -->
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="foot-label">Hours</p>
+        <ul class="foot-hours">
+          <li><span>Tue &mdash; Sat</span><span>9 AM &mdash; 7 PM</span></li>
+          <li><span>Sun &amp; Mon</span><span>Closed</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="foot-label">Find us</p>
+        <p>118 Ashland Row<br />Uptown</p>
+      </div>
+
+      <div>
+        <p class="foot-label">Hazel &amp; Row</p>
+        <p class="foot-note">
+          Licensed stylists, estheticians and nail technicians. Every
+          service booked through one calendar, every record kept in one
+          file.
+        </p>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p>&copy; <span id="year">2026</span> Hazel &amp; Row.</p>
+      <p>
+        This is a demo site built by
+        <a href="https://merakislove.com/packages/presence-first-web-design" target="_blank" rel="noopener noreferrer">Meraki is Love</a>.
+        Soulful Tech. Technology built with intention and purpose.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  // -- Booking form --
+  // Inert by design. Cancel the submit so the browser cannot navigate, and
+  // restate in the live region that nothing was sent. Replace this whole
+  // block with a real handler when there is somewhere to send it.
+  var bookForm = document.getElementById("book-form");
+  var formNote = document.getElementById("form-note");
+
+  if (bookForm && formNote) {
+    bookForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      formNote.textContent =
+        "Nothing was sent. This is a demo template, so the form is not " +
+        "connected to a booking system and no appointment has been scheduled.";
+    });
+  }
+
+  // The reveal CSS hides content that only GSAP puts back. If GSAP did not
+  // load, animating nothing would leave the page blank - so show it all.
+  if (!window.gsap || !window.ScrollTrigger) {
+    document.documentElement.classList.add("motion-off");
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  var mm = gsap.matchMedia();
+
+  mm.add("(prefers-reduced-motion: no-preference)", function () {
+    gsap.to("[data-hero]", {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: "power2.out",
+      stagger: 0.1,
+      delay: 0.12
+    });
+
+    gsap.utils.toArray("[data-reveal]").forEach(function (el) {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        ease: "power2.out",
+        scrollTrigger: { trigger: el, start: "top 88%", once: true }
+      });
+    });
+  });
+
+  // Reduced motion: no animation at all, everything visible immediately.
+  mm.add("(prefers-reduced-motion: reduce)", function () {
+    document.documentElement.classList.add("motion-off");
+  });
+})();
+</script>
+</body>
+</html>
