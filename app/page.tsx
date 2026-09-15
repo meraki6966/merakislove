@@ -267,6 +267,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 3.5 · Starter Sites. A deliberately lower-key band, not a fourth
+          package card: a different door for local businesses (restaurants,
+          gyms, salons, trades) rather than a stripped-down version of the
+          three above. No price shown here; it lives on the page itself. */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-14 sm:px-8 sm:py-16">
+          <ScrollReveal className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+            <div className="flex flex-col gap-3">
+              <h2 className="font-display text-2xl font-light leading-tight text-smoke sm:text-3xl">
+                Own a shop, a restaurant, or a small practice?
+              </h2>
+              <p className="max-w-xl font-body text-sm leading-relaxed text-smoke-dim">
+                Starter Sites are real, fast, affordably built, and shown
+                before you buy, not a stripped-down version of the work
+                above, a different door entirely.
+              </p>
+            </div>
+            <Link
+              href="/packages/starter-sites"
+              className="inline-flex w-fit shrink-0 items-center justify-center gap-3 rounded-full border border-border-mid px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:border-amber hover:text-amber"
+            >
+              See Starter Sites
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* 4 · Work */}
       <section className="border-t border-border bg-navy/30">
         <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-24">

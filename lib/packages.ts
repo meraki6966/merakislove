@@ -122,6 +122,52 @@ export function getPresenceTier(name: string): PresenceTier {
   return found;
 }
 
+/* ------------------------------------------------------------------ *
+ * Starter Sites tiers.
+ *
+ * A fourth, lower door below Custom build for local businesses that need a
+ * fast, affordable site rather than a custom architecture build. Priced as
+ * two tiers plus an add-on rather than one price band, so it holds its own
+ * shape here rather than forcing a stretched Package/PackageTier fit.
+ * Deliberately kept out of the `packages` array below: it does not appear
+ * as a fourth card on the homepage or the /packages hub, only on its own
+ * page at /packages/starter-sites and the homepage section that links to
+ * it.
+ * ------------------------------------------------------------------ */
+
+export interface StarterSiteTier {
+  name: string;
+  price: string;
+  /** Numeric price for the Offer schema. */
+  amount: string;
+  scope: string;
+}
+
+export const starterSiteTiers: StarterSiteTier[] = [
+  {
+    name: "Starter",
+    price: "$500",
+    amount: "500",
+    scope:
+      "One page. Your info, your photos, mobile-ready. Live in about a week.",
+  },
+  {
+    name: "Starter Plus",
+    price: "$1,000",
+    amount: "1000",
+    scope:
+      "Up to five pages. Room for a fuller menu or service list, a real about section, a working contact or booking flow.",
+  },
+];
+
+export const starterSiteAddOn: StarterSiteTier = {
+  name: "Branded Marketing Package",
+  price: "$400",
+  amount: "400",
+  scope:
+    "Real content in your actual brand, your colors, your voice, your photos. Comes with a 30-day calendar telling you exactly what to post and when. Not a template flyer with your logo pasted on top.",
+};
+
 export const packages: Package[] = [
   {
     number: "01",

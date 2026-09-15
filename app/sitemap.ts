@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/packages/review",
     "/packages/bip",
     "/packages/custom",
+    "/packages/starter-sites",
     "/packages/presence-first-web-design",
     "/start",
     "/demos",
