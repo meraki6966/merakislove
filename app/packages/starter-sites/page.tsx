@@ -95,9 +95,9 @@ const flyers: Flyer[] = [
     file: "corner-table.jpg",
     business: "The Corner Table",
     caption: "Fall specials flyer",
-    alt: "Salsa Soiree at The Corner Table fall specials flyer, with a plated dish and a reserve your table box.",
-    width: 928,
-    height: 1200,
+    alt: "The Corner Table fall specials flyer, an ornate template design with a ribbon banner and decorative border framing a circular photo of roasted chicken with vegetables.",
+    width: 1189,
+    height: 1600,
   },
   {
     file: "iron-prism.jpg",
