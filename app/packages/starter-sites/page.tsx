@@ -8,15 +8,27 @@ import PackageActions from "@/components/PackageActions";
 import TiltCard from "@/components/TiltCard";
 import Tag from "@/components/Tag";
 import Breadcrumb from "@/components/Breadcrumb";
+import Faq, { type FaqItem } from "@/components/Faq";
 import { starterSiteTiers, starterSiteAddOn } from "@/lib/packages";
 import { ogBase } from "@/lib/site";
 
-const title = "Starter Sites | Meraki is Love";
+const title = "Starter Sites $500 and $1,000 | Adam McClarin | Meraki is Love";
 
+// 140 characters, verified programmatically against the 155-char limit
+// before this went in (see the PR description / session notes).
 const description =
-  "A real website, built fast, priced fair. Live examples included.";
+  "Adam McClarin at Meraki is Love builds Starter Sites for small businesses. $500 one page or $1,000 up to five pages. Live demos. Nationwide.";
 
 const url = "https://merakislove.com/packages/starter-sites";
+
+// Real screenshot of this page (captured via the browser tool, not a
+// generated graphic) used for the social card.
+const ogImage = {
+  url: "https://merakislove.com/og/starter-sites.png",
+  width: 1512,
+  height: 790,
+  alt: "Starter Sites pricing and page preview on merakislove.com",
+};
 
 export const metadata: Metadata = {
   // Absolute so the pipe-separated title survives the layout template.
@@ -36,6 +48,13 @@ export const metadata: Metadata = {
     title,
     description,
     url,
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [ogImage.url],
   },
 };
 
@@ -145,7 +164,67 @@ const aLaCarte = [
   "Social account setup.",
   "Rush turnaround.",
   "Extra revision rounds.",
-  "A Canopy Guard visibility scan, a real scored look at your SEO and whether AI tools like ChatGPT would even recommend you.",
+];
+
+const canopyGuardMention =
+  "A Canopy Guard visibility scan, a real scored look at your SEO and whether AI tools like ChatGPT would even recommend you, is available separately as an add-on.";
+
+const whoBuildsBody =
+  "Starter Sites is the small business website package at Meraki is Love, built by Adam McClarin. The person on the call is the person who ships.";
+
+/**
+ * Verbatim comparison copy. Word order and phrasing are load-bearing for the
+ * page's first-100-words SEO requirement (Adam McClarin, Meraki is Love,
+ * Starter Sites, small business website, $500, $1,000 all land before word
+ * 100 once this section is placed right after the price block), so don't
+ * reorder or trim these paragraphs without re-checking that.
+ */
+const whatThisIsNextTo = [
+  "Wix and Squarespace are tools. You still have to finish the site. Plan cost runs about $16 to $29 a month.",
+  "A marketplace gig at $200 to $600 is usually a theme with your logo dropped in. You manage a seller. In six months there is no one to call.",
+  "A mid freelance five-page site often runs $1,000 to $3,000. Agencies start higher than that.",
+  "Starter Sites is a working page adapted from a live demo you can click before you pay. $500 for one page. $1,000 for up to five pages and a contact or booking path. Built by Adam McClarin at Meraki is Love. The person on the call is the person who ships.",
+];
+
+const whatYouGet = [
+  "You click Corner Table, Iron Prism, Anchor, or Hazel first.",
+  "You talk to one owner. Nationwide.",
+  "After launch I can scan the live URL with Canopy Guard for search, AI answers, and visible security.",
+];
+
+// First sentence ("Not Meraki BIP. Not a five day security review. Not a
+// custom product.") is rendered inline in JSX below with a link wrapped
+// around "custom product" — same words, just addressable.
+const whatThisIsNot =
+  "If you need photos, extra pages, or a store, we add that after. Hosting and domain are separate unless we agree in writing.";
+
+const starterFaqs: FaqItem[] = [
+  {
+    id: "what-is-a-starter-site-answer",
+    question: "What is a Starter Site from Meraki is Love?",
+    answer:
+      "A Starter Site is a simple small business website built by Adam McClarin. One page is $500. Up to five pages is $1,000. You can click live demos before you buy.",
+  },
+  {
+    question: "Who is Adam McClarin?",
+    answer:
+      "Adam McClarin is the founder of Meraki is Love, a studio that builds websites and private AI for service businesses. He takes the call and ships the work himself.",
+  },
+  {
+    question: "How much does a small business website from Adam McClarin cost?",
+    answer:
+      "Starter Sites are $500 for one page and $1,000 for up to five pages. Custom work and Meraki BIP are separate offers.",
+  },
+  {
+    question: "Is a Starter Site the same as Wix or Fiverr?",
+    answer:
+      "No. Wix is a tool you still have to finish. A Fiverr gig is usually a theme and a seller. A Starter Site is built by Adam McClarin from a live demo you can click first.",
+  },
+  {
+    question: "Where does Meraki is Love work?",
+    answer:
+      "Nationwide. The studio serves service businesses and shops across the United States.",
+  },
 ];
 
 /* ------------------------------------------------------------------ *
@@ -177,6 +256,86 @@ const serviceSchema = {
   })),
 };
 
+/**
+ * Standalone Offer entities for the two Starter Sites tiers (not the
+ * add-on), independently addressable via @id rather than only nested inside
+ * serviceSchema.offers above.
+ */
+const starterOfferSchema = {
+  "@context": "https://schema.org",
+  "@type": "Offer",
+  "@id": `${url}/#offer-starter`,
+  name: "Starter",
+  price: starterSiteTiers[0].amount,
+  priceCurrency: "USD",
+  url,
+  itemOffered: { "@id": `${url}/#service` },
+};
+
+const starterPlusOfferSchema = {
+  "@context": "https://schema.org",
+  "@type": "Offer",
+  "@id": `${url}/#offer-starter-plus`,
+  name: "Starter Plus",
+  price: starterSiteTiers[1].amount,
+  priceCurrency: "USD",
+  url,
+  itemOffered: { "@id": `${url}/#service` },
+};
+
+/**
+ * Founder Person schema. No sameAs: no Dribbble URL exists anywhere in this
+ * repo, and the brief for this page was explicit not to invent one.
+ */
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://merakislove.com/#person-adam-mcclarin",
+  name: "Adam McClarin",
+  jobTitle: "Founder",
+  url: "https://merakislove.com",
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${url}/#faq`,
+  mainEntity: starterFaqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
+/**
+ * speakable.cssSelector targets the "What is a Starter Site" answer's id,
+ * set on the Faq component via FaqItem.id.
+ */
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${url}/#webpage`,
+  url,
+  name: title,
+  description,
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["#what-is-a-starter-site-answer"],
+  },
+};
+
+const starterSitesSchemas = [
+  serviceSchema,
+  starterOfferSchema,
+  starterPlusOfferSchema,
+  personSchema,
+  faqSchema,
+  webPageSchema,
+];
+
 export default function StarterSitesPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
@@ -187,7 +346,7 @@ export default function StarterSitesPage() {
         ]}
       />
 
-      {[serviceSchema].map((schema, i) => (
+      {starterSitesSchemas.map((schema, i) => (
         <script
           key={i}
           type="application/ld+json"
@@ -210,30 +369,54 @@ export default function StarterSitesPage() {
       </ScrollReveal>
 
       {/* Price */}
-      <PackageSection title="Price">
-        <div className="grid gap-6 sm:grid-cols-3">
-          {[...starterSiteTiers, starterSiteAddOn].map((tier, i) => (
+      <PackageSection title="Starter Sites pricing">
+        <div className="grid gap-6 sm:grid-cols-2">
+          {starterSiteTiers.map((tier, i) => (
             <ScrollReveal key={tier.name} delay={i * 0.08} className="h-full">
-              <TiltCard className="h-full bg-navy/40">
+              <TiltCard className="h-full bg-navy/70 ring-1 ring-inset ring-gold/50">
                 <div className="flex h-full flex-col gap-4 p-7">
                   <h3 className="font-display text-2xl font-light leading-tight text-smoke">
                     {tier.name}
                   </h3>
-                  <div className="mt-auto flex flex-col gap-1">
-                    <p className="font-display text-4xl font-light text-amber">
-                      {tier.price}
-                    </p>
-                    {tier === starterSiteAddOn ? (
-                      <p className="font-mono text-xs uppercase tracking-[0.18em] text-smoke-dim">
-                        Add to either tier
-                      </p>
-                    ) : null}
-                  </div>
+                  <p className="mt-auto font-display text-4xl font-light text-amber">
+                    {tier.price}
+                  </p>
                 </div>
               </TiltCard>
             </ScrollReveal>
           ))}
         </div>
+
+        {/* Add-on: deliberately a slim, lower-weight strip beneath the two
+            main tiers rather than a third equal-size card. */}
+        <ScrollReveal delay={0.16} className="mt-6">
+          <div className="flex flex-col items-start justify-between gap-3 rounded-xl border border-border-mid bg-navy/30 px-6 py-5 sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-1">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-smoke-dim">
+                Add to either tier
+              </p>
+              <p className="font-display text-lg font-light text-smoke">
+                {starterSiteAddOn.name}
+              </p>
+            </div>
+            <p className="font-display text-2xl font-light text-amber">
+              {starterSiteAddOn.price}
+            </p>
+          </div>
+        </ScrollReveal>
+      </PackageSection>
+
+      {/* Who builds Starter Sites. Short, front-loaded on purpose: this is
+          the earliest point after the price block where Adam McClarin,
+          Meraki is Love, and "small business website" can land, which keeps
+          them inside the page's first 100 words alongside the $500/$1,000
+          already shown above. */}
+      <PackageSection title="Who builds Starter Sites">
+        <ScrollReveal>
+          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+            {whoBuildsBody}
+          </p>
+        </ScrollReveal>
       </PackageSection>
 
       {/* What's included */}
@@ -259,9 +442,42 @@ export default function StarterSitesPage() {
         </div>
       </PackageSection>
 
-      {/* See it before you buy it */}
+      {/* What this is next to */}
+      <PackageSection title="What this is next to">
+        <div className="flex flex-col gap-5">
+          {whatThisIsNextTo.map((paragraph, i) => (
+            <ScrollReveal key={i} delay={i * 0.05}>
+              <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+                {paragraph}
+              </p>
+            </ScrollReveal>
+          ))}
+        </div>
+
+        <ScrollReveal delay={0.2} className="mt-10 flex flex-col gap-4">
+          <h3 className="font-display text-xl font-light text-smoke">
+            What you get that the cheap gig does not
+          </h3>
+          <ul className="flex flex-col gap-2">
+            {whatYouGet.map((line) => (
+              <li
+                key={line}
+                className="flex items-start gap-3 font-body text-sm leading-relaxed text-smoke-dim"
+              >
+                <span
+                  aria-hidden
+                  className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber"
+                />
+                {line}
+              </li>
+            ))}
+          </ul>
+        </ScrollReveal>
+      </PackageSection>
+
+      {/* Live demos */}
       <PackageSection
-        title="See it before you buy it"
+        title="Live demos"
         lead="These aren't mockups. Real, live templates you can click through right now."
       >
         <div className="grid gap-6 sm:grid-cols-2">
@@ -356,21 +572,33 @@ export default function StarterSitesPage() {
         </ScrollReveal>
       </PackageSection>
 
+      {/* FAQ */}
+      <PackageSection title="FAQ">
+        <ScrollReveal>
+          <Faq items={starterFaqs} />
+        </ScrollReveal>
+      </PackageSection>
+
       {/* What this is not */}
       <PackageSection title="What this is not">
         <ScrollReveal>
           <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            Not a custom architecture build. Not an AI integration. Need
-            either of those later?{" "}
+            Not Meraki BIP. Not a five day security review. Not a{" "}
             <Link
               href="/packages/custom"
               className="text-amber transition-colors duration-300 hover:text-smoke"
             >
-              Custom build
-            </Link>{" "}
-            is the next door up.
+              custom product
+            </Link>
+            .
           </p>
-          <PackageActions label="Get started" />
+          <p className="mt-4 max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+            {whatThisIsNot}
+          </p>
+          <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
+            {canopyGuardMention}
+          </p>
+          <PackageActions label="Book this site" />
         </ScrollReveal>
       </PackageSection>
     </div>

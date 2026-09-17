@@ -1,6 +1,8 @@
 export interface FaqItem {
   question: string;
   answer: string;
+  /** Optional id on the rendered answer, for a schema `speakable` selector. */
+  id?: string;
 }
 
 /**
@@ -28,7 +30,10 @@ export default function Faq({ items }: { items: FaqItem[] }) {
               <span className="absolute left-1/2 top-0 h-3 w-px -translate-x-1/2 bg-amber transition-transform duration-300 group-open:rotate-90" />
             </span>
           </summary>
-          <p className="px-6 pb-6 font-body text-sm leading-relaxed text-smoke-dim sm:px-8">
+          <p
+            id={item.id}
+            className="px-6 pb-6 font-body text-sm leading-relaxed text-smoke-dim sm:px-8"
+          >
             {item.answer}
           </p>
         </details>
