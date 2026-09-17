@@ -39,8 +39,17 @@ export const projects: Project[] = [
     stack: ["Vercel", "Supabase", "Claude API"],
     proves:
       "a production system can carry a client's actual lead flow, not just a demo of one.",
-    glow: "#EC4899",
-    coverBg: "#1A0713",
+    // Sampled from the real cover below: the CTA button's warm orange, not
+    // the placeholder pink used before real art existed. Deliberately not
+    // the product's own teal (its nav border and eyebrow), which would
+    // reintroduce a color explicitly banned as a site accent elsewhere in
+    // this project; distinct enough from VeloxSync's #F59E0B to still read
+    // as its own card.
+    glow: "#F97316",
+    coverBg: "#1A0D06",
+    cover: "/covers/bip-cover.png",
+    coverAlt:
+      "The Meraki BIP homepage hero on a dark screen: the headline 'Not a tool you manage. A system we run for you.' above two buttons, and a photo of a businessman in a suit working on a laptop outdoors below.",
   },
   {
     name: "Canopy Guard",
