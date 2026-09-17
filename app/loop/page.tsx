@@ -232,7 +232,7 @@ export default function LoopPage() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(135deg, var(--color-purple) 0%, #14072b 45%, var(--color-void) 100%)",
+              "linear-gradient(135deg, var(--color-amber-glow) 0%, transparent 45%)",
           }}
         />
         <div className="relative mx-auto max-w-4xl px-6 py-28 sm:px-8 sm:py-40">

@@ -199,7 +199,7 @@ export default function CybersecurityPage() {
           className="rounded-2xl p-px"
           style={{
             background:
-              "linear-gradient(135deg, var(--color-purple), var(--color-amber) 120%)",
+              "linear-gradient(135deg, var(--color-gold), var(--color-amber) 120%)",
           }}
         >
           <div className="flex flex-col items-start gap-6 rounded-2xl bg-void p-10 sm:p-14">
