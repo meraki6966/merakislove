@@ -203,22 +203,22 @@ const starterFaqs: FaqItem[] = [
     id: "what-is-a-starter-site-answer",
     question: "What is a Starter Site from Meraki is Love?",
     answer:
-      "A Starter Site is a simple small business website built by Adam McClarin. One page is $500. Up to five pages is $1,000. You can click live demos before you buy.",
+      "A Starter Site is a simple small business website built by Meraki is Love. One page is $500. Up to five pages is $1,000. You can click live demos before you buy.",
   },
   {
-    question: "Who is Adam McClarin?",
+    question: "What is Meraki is Love?",
     answer:
-      "Adam McClarin is the founder of Meraki is Love, a studio that builds websites and private AI for service businesses. He takes the call and ships the work himself.",
+      "Meraki is Love is a studio that builds websites and private AI for service businesses. The founder takes the call and ships the work himself, no account managers, no handoffs.",
   },
   {
-    question: "How much does a small business website from Adam McClarin cost?",
+    question: "How much does a small business website from Meraki is Love cost?",
     answer:
       "Starter Sites are $500 for one page and $1,000 for up to five pages. Custom work and Meraki BIP are separate offers.",
   },
   {
     question: "Is a Starter Site the same as Wix or Fiverr?",
     answer:
-      "No. Wix is a tool you still have to finish. A Fiverr gig is usually a theme and a seller. A Starter Site is built by Adam McClarin from a live demo you can click first.",
+      "No. Wix is a tool you still have to finish. A Fiverr gig is usually a theme and a seller. A Starter Site is built by Meraki is Love from a live demo you can click first.",
   },
   {
     question: "Where does Meraki is Love work?",

@@ -30,6 +30,35 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    name: "Meraki BIP",
+    slug: "meraki-bip",
+    type: "Business platform",
+    year: "2026",
+    description:
+      "The operating system for a service business tired of babysitting tools. A scheduled lead engine, an assistant trained on your documents, services, and pricing, and distribution across two platforms from one dashboard.",
+    stack: ["Vercel", "Supabase", "Claude API"],
+    proves:
+      "a production system can carry a client's actual lead flow, not just a demo of one.",
+    glow: "#EC4899",
+    coverBg: "#1A0713",
+  },
+  {
+    name: "Canopy Guard",
+    slug: "canopy-guard",
+    type: "Security tool",
+    year: "2025",
+    description:
+      "Client security posture auditor. MITRE ATT&CK mapped findings. CISSP-informed. Branded, client-ready reports.",
+    stack: ["TypeScript", "Vercel", "MITRE"],
+    proves:
+      "the review I sell is the same discipline I built a product around.",
+    glow: "#EF4444",
+    coverBg: "#1A0A0A",
+    cover: "/covers/canopyguard-cover.png",
+    coverAlt:
+      "A Canopy Guard report card for merakislove.com scoring 95 overall, with separate SEO, AEO, GEO and security panels of passing checks and a compliance quick check along the bottom.",
+  },
+  {
     name: "VeloxSync",
     slug: "veloxsync",
     type: "Performance intelligence",
@@ -60,22 +89,6 @@ export const projects: Project[] = [
     cover: "/covers/veloxsync-education-cover.png",
     coverAlt:
       "The VeloxSync for Education planner on a laptop screen, with a week of lesson blocks laid out per child.",
-  },
-  {
-    name: "Canopy Guard",
-    slug: "canopy-guard",
-    type: "Security tool",
-    year: "2025",
-    description:
-      "Client security posture auditor. MITRE ATT&CK mapped findings. CISSP-informed. Branded, client-ready reports.",
-    stack: ["TypeScript", "Vercel", "MITRE"],
-    proves:
-      "the review I sell is the same discipline I built a product around.",
-    glow: "#EF4444",
-    coverBg: "#1A0A0A",
-    cover: "/covers/canopyguard-cover.png",
-    coverAlt:
-      "A Canopy Guard report card for merakislove.com scoring 95 overall, with separate SEO, AEO, GEO and security panels of passing checks and a compliance quick check along the bottom.",
   },
   {
     name: "Meridian AI",

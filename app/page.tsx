@@ -35,6 +35,15 @@ const audience = [
 
 const work = [
   {
+    name: "Meraki BIP",
+    detail:
+      "A scheduled lead engine and an assistant trained on your documents, distributing across two platforms from one dashboard.",
+  },
+  {
+    name: "Canopy Guard",
+    detail: "Security posture auditor. Findings mapped. Report ready to send.",
+  },
+  {
     name: "VeloxSync",
     detail:
       "Performance intelligence that flags at-risk talent six weeks before resignation, not a table count.",
@@ -43,10 +52,6 @@ const work = [
     name: "VeloxSync for Education",
     detail:
       "AI-powered homeschool planning, built for families, not classrooms. One plan covers up to six children.",
-  },
-  {
-    name: "Canopy Guard",
-    detail: "Security posture auditor. Findings mapped. Report ready to send.",
   },
   {
     name: "Meridian AI",
