@@ -22,15 +22,6 @@ const organization = {
     jobTitle: "Founder & Principal Engineer",
     hasCredential: "CISSP",
   },
-  foundingLocation: {
-    "@type": "Place",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Friendswood",
-      addressRegion: "TX",
-      addressCountry: "US",
-    },
-  },
   sameAs: [
     "https://www.linkedin.com/in/adammcclarin/",
     "https://github.com/meraki6966",
@@ -49,12 +40,6 @@ const professionalService = {
     "Private AI, secure sites, and full-stack systems for service businesses, from a CISSP-certified studio with 20 years of experience.",
   priceRange: "$$$",
   areaServed: "Worldwide",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Friendswood",
-    addressRegion: "TX",
-    addressCountry: "US",
-  },
   provider: { "@id": `${baseUrl}/#organization` },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -155,7 +140,7 @@ const faqPage = {
       name: "Where is Meraki is Love located?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Meraki is Love is based in Friendswood, Texas, USA, and serves clients worldwide.",
+        text: "Meraki is Love works nationwide. The work is remote, with clients already in New York, California, Chicago, North Carolina, Houston, and Austin.",
       },
     },
     {

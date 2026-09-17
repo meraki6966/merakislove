@@ -12,7 +12,7 @@ Portfolio/agency site for Meraki is Love, LLC (brand: Soulful Tech).
 Full-stack product studio. AI integration. Security posture. Built with intention.
 
 - **URL:** merakislove.com
-- **Owner:** Adam McClarin, Friendswood TX
+- **Owner:** Adam McClarin
 - **Deploy target:** Vercel
 - **Framework:** Next.js 16.2 (App Router)
 - **Styling:** Tailwind CSS + CSS Modules for bespoke animation components

@@ -4,6 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import PackageCard from "@/components/PackageCard";
 import Breadcrumb from "@/components/Breadcrumb";
+import Faq, { type FaqItem } from "@/components/Faq";
 import { packages, engagementTypes } from "@/lib/packages";
 import { ogBase } from "@/lib/site";
 
@@ -30,6 +31,39 @@ const howToChoose = [
   "Buy BIP if the inbox, the leads, and the follow-up are the bottleneck.",
   "Buy custom if the product is the business, or the place itself is the product.",
   "If you are unsure, book the call. That is what it is for.",
+];
+
+const faqs: FaqItem[] = [
+  {
+    question: "Can I start small?",
+    answer:
+      "Yes. The five-day review exists so you do not have to buy a six-week build to find out where you stand.",
+  },
+  {
+    question: "Do you only work in Texas?",
+    answer:
+      "No. The work is remote. Clients are already in New York, California, Chicago, North Carolina, Houston, and Austin.",
+  },
+  {
+    question: "I already pay for ChatGPT.",
+    answer:
+      "Good. That is a tool. It is not trained on your fee schedule, it is not mapped to your threat model, and it does not prospect while you are in session.",
+  },
+  {
+    question: "What do you not take?",
+    answer:
+      "The cheapest possible version by Friday. AI bolted onto a weak site with nothing else changed. Work I would not put my name on.",
+  },
+  {
+    question: "Do you build WordPress and simple sites?",
+    answer:
+      "Yes, when that is the right door. If the business sells atmosphere, I will point you to Presence-First instead of a template.",
+  },
+  {
+    question: "How do we start?",
+    answer:
+      "A 20-minute call. No deck. If I am the wrong fit, I will say that and point you somewhere better.",
+  },
 ];
 
 export default function PackagesPage() {
@@ -110,13 +144,29 @@ export default function PackagesPage() {
         </ScrollReveal>
       </section>
 
+      {/* FAQ */}
+      <section className="mt-24">
+        <ScrollReveal className="mb-10 flex flex-col gap-4">
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
+            FAQ
+          </p>
+          <h2 className="font-display text-3xl font-light text-smoke sm:text-4xl">
+            The questions that come up first.
+          </h2>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <Faq items={faqs} />
+        </ScrollReveal>
+      </section>
+
       {/* CTA */}
       <ScrollReveal className="mt-24">
         <div
           className="rounded-2xl p-px"
           style={{
             background:
-              "linear-gradient(135deg, var(--color-purple), var(--color-amber) 120%)",
+              "linear-gradient(135deg, var(--color-gold), var(--color-amber) 120%)",
           }}
         >
           <div className="flex flex-col items-start gap-6 rounded-2xl bg-void p-10 sm:p-14">

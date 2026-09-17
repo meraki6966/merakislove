@@ -269,7 +269,7 @@ export default function AboutPage() {
         <SectionLabel>Practical</SectionLabel>
         <ScrollReveal className="flex flex-col items-start gap-5">
           <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
-            Friendswood, Texas. Clients nationwide.
+            Nationwide. The work is remote.
           </p>
           <a
             href={`mailto:${email}`}

@@ -3,9 +3,8 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import PackageCard from "@/components/PackageCard";
 import Tag from "@/components/Tag";
-import Faq, { type FaqItem } from "@/components/Faq";
 import { packages } from "@/lib/packages";
-import { proofRow, facts, email, ogBase } from "@/lib/site";
+import { proofRow, email, ogBase } from "@/lib/site";
 
 const title =
   "Private AI and Secure Systems for Service Businesses | Meraki is Love";
@@ -83,39 +82,6 @@ const steps = [
   },
 ];
 
-const faqs: FaqItem[] = [
-  {
-    question: "Can I start small?",
-    answer:
-      "Yes. The five-day review exists so you do not have to buy a six-week build to find out where you stand.",
-  },
-  {
-    question: "Do you only work in Texas?",
-    answer:
-      "No. The studio is in Friendswood. The work is remote. Clients are already in New York, California, Chicago, North Carolina, Houston, and Austin.",
-  },
-  {
-    question: "I already pay for ChatGPT.",
-    answer:
-      "Good. That is a tool. It is not trained on your fee schedule, it is not mapped to your threat model, and it does not prospect while you are in session.",
-  },
-  {
-    question: "What do you not take?",
-    answer:
-      "The cheapest possible version by Friday. AI bolted onto a weak site with nothing else changed. Work I would not put my name on.",
-  },
-  {
-    question: "Do you build WordPress and simple sites?",
-    answer:
-      "Yes, when that is the right door. If the business sells atmosphere, I will point you to Presence-First instead of a template.",
-  },
-  {
-    question: "How do we start?",
-    answer:
-      "A 20-minute call. No deck. If I am the wrong fit, I will say that and point you somewhere better.",
-  },
-];
-
 export default function Home() {
   return (
     <>
@@ -153,21 +119,8 @@ export default function Home() {
             </p>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.2}>
-            <p className="mt-5 max-w-2xl font-body text-sm leading-relaxed text-smoke">
-              Nationwide. Clients in New York, California, Chicago, North
-              Carolina, Houston, and Austin.
-            </p>
-          </ScrollReveal>
-
           <ScrollReveal delay={0.24}>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Link
-                href="/packages"
-                className="inline-flex items-center justify-center gap-3 rounded-full border border-border-mid px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:border-amber hover:text-amber"
-              >
-                See packages
-              </Link>
               <Link
                 href="/start"
                 className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
@@ -176,6 +129,12 @@ export default function Home() {
                 <span className="transition-transform duration-300 group-hover:translate-x-1">
                   →
                 </span>
+              </Link>
+              <Link
+                href="/packages/starter-sites"
+                className="inline-flex items-center justify-center gap-3 rounded-full border border-border-mid px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:border-amber hover:text-amber"
+              >
+                I need a simple site
               </Link>
             </div>
           </ScrollReveal>
@@ -220,6 +179,16 @@ export default function Home() {
                 </li>
               ))}
             </ul>
+            <p className="font-body text-sm leading-relaxed text-smoke-dim">
+              Shops and restaurants that need a working site first have a{" "}
+              <Link
+                href="/packages/starter-sites"
+                className="text-amber transition-colors hover:text-smoke"
+              >
+                separate offer
+              </Link>
+              .
+            </p>
           </ScrollReveal>
         </div>
       </section>
@@ -267,33 +236,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3.5 · Starter Sites. A deliberately lower-key band, not a fourth
-          package card: a different door for local businesses (restaurants,
-          gyms, salons, trades) rather than a stripped-down version of the
-          three above. No price shown here; it lives on the page itself. */}
-      <section className="border-t border-border">
-        <div className="mx-auto max-w-6xl px-6 py-14 sm:px-8 sm:py-16">
-          <ScrollReveal className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
-            <div className="flex flex-col gap-3">
-              <h2 className="font-display text-2xl font-light leading-tight text-smoke sm:text-3xl">
-                Own a shop, a restaurant, or a small practice?
-              </h2>
-              <p className="max-w-xl font-body text-sm leading-relaxed text-smoke-dim">
-                Starter Sites are real, fast, affordably built, and shown
-                before you buy, not a stripped-down version of the work
-                above, a different door entirely.
-              </p>
-            </div>
-            <Link
-              href="/packages/starter-sites"
-              className="inline-flex w-fit shrink-0 items-center justify-center gap-3 rounded-full border border-border-mid px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:border-amber hover:text-amber"
-            >
-              See Starter Sites
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section>
-
       {/* 4 · Work */}
       <section className="border-t border-border bg-navy/30">
         <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-24">
@@ -304,9 +246,6 @@ export default function Home() {
             <h2 className="font-display text-3xl font-light leading-[1.1] text-smoke sm:text-4xl">
               Built. Shipped. In use.
             </h2>
-            <p className="max-w-2xl font-body text-smoke-dim">
-              Specs live on the work page. This is what the products do.
-            </p>
           </ScrollReveal>
 
           <ul className="flex flex-col">
@@ -327,7 +266,7 @@ export default function Home() {
             ))}
           </ul>
 
-          <ScrollReveal className="mt-10 flex flex-col gap-6">
+          <ScrollReveal className="mt-10">
             <Link
               href="/work"
               className="group inline-flex w-fit items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-smoke-dim transition-colors hover:text-amber"
@@ -337,10 +276,6 @@ export default function Home() {
                 →
               </span>
             </Link>
-            <p className="max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
-              Some client work sits under NDA. If you need to see behind that,
-              the call is the fastest path.
-            </p>
           </ScrollReveal>
         </div>
       </section>
@@ -382,71 +317,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6 · Why this studio */}
-      <section className="border-t border-border bg-navy/30">
-        <div className="mx-auto max-w-4xl px-6 py-20 sm:px-8 sm:py-24">
-          <ScrollReveal className="flex flex-col gap-6">
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
-              Why this studio
-            </p>
-            <h2 className="font-display text-3xl font-light leading-[1.1] text-smoke sm:text-4xl">
-              A studio of one, on purpose.
-            </h2>
-            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-              You are not handed to a junior team after the pitch. Context does
-              not evaporate between meetings. I take the work I can do well and
-              say so when something is outside that.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.08} className="mt-10 flex flex-col gap-5">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-amber">
-              Facts, not poetry
-            </p>
-            <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
-              {facts.map((fact) => (
-                <li
-                  key={fact}
-                  className="flex items-start gap-3 font-body text-sm leading-relaxed text-smoke"
-                >
-                  <span
-                    aria-hidden
-                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber"
-                  />
-                  {fact}
-                </li>
-              ))}
-            </ul>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.12} className="mt-10">
-            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-              Soulful Tech is the standard, not the sales line. The work is
-              careful. The system is built to hold.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* 7 · FAQ */}
-      <section className="border-t border-border">
-        <div className="mx-auto max-w-4xl px-6 py-20 sm:px-8 sm:py-24">
-          <ScrollReveal className="mb-10 flex flex-col gap-5">
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
-              FAQ
-            </p>
-            <h2 className="font-display text-3xl font-light leading-[1.1] text-smoke sm:text-4xl">
-              The questions that come up first.
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal>
-            <Faq items={faqs} />
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* 8 · Final CTA */}
+      {/* 6 · Final CTA */}
       <section className="border-t border-border bg-navy/30">
         <div className="mx-auto max-w-4xl px-6 py-20 sm:px-8 sm:py-28">
           <ScrollReveal className="flex flex-col items-start gap-6">
@@ -456,7 +327,7 @@ export default function Home() {
             <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
               Tell me what you run, where it hurts, and whether you need a
               review, a system, or a full build. The worst case is a clear
-              answer. The best case is the start of something you can stand
+              answer; the best case is the start of something you can stand
               behind.
             </p>
             <Link

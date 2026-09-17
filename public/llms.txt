@@ -1,6 +1,6 @@
 # Meraki is Love, LLC — Soulful Tech
 
-> Meraki is Love is a full-stack AI product studio operating under the Soulful Tech brand. Founded and led by Adam McClarin (CISSP, Azure AI Engineer) with 20 years of experience, the studio builds production-grade software where AI capability and security posture are designed together rather than bolted on. Based in Friendswood, Texas, serving clients worldwide.
+> Meraki is Love is a full-stack AI product studio operating under the Soulful Tech brand. Founded and led by Adam McClarin (CISSP, Azure AI Engineer) with 20 years of experience, the studio builds production-grade software where AI capability and security posture are designed together rather than bolted on. Nationwide. The work is remote.
 
 ## About
 
@@ -20,6 +20,7 @@ Meraki is Love ("meraki" — to do something with soul, creativity, and love) is
 - **Custom build** — scoped after a call, two to eight weeks. Full-stack product, Presence-First site, or private AI inside a tool the client already runs. Details: https://merakislove.com/packages
 - **Engagement types** — project (fixed scope), hourly ($85/hr for audits, advisory, and contained work), and retainer (after something is in production). The starting door is a project.
 - **Presence-First Web Design** — immersive, experience-first websites for hospitality venues, wellness retreats, farms, event spaces, and boutique restaurants. Built in Next.js with GSAP scroll animation and a full-screen enter gate. Three tiers: Essential Presence ($4,500, 2 weeks), Signature Site ($7,500, 4 weeks), and Full Experience ($12,000 and up, 6 to 8 weeks). Details: https://merakislove.com/packages/presence-first-web-design
+- Starter Sites are $500 and $1,000 websites built by Adam McClarin at Meraki is Love for small businesses. Live demos. Nationwide. https://merakislove.com/packages/starter-sites
 
 ## Contact & Booking
 
@@ -30,7 +31,7 @@ Meraki is Love ("meraki" — to do something with soul, creativity, and love) is
 - Email: hello@merakislove.com
 - LinkedIn: https://www.linkedin.com/in/adammcclarin/
 - GitHub: https://github.com/meraki6966
-- Location: Friendswood, Texas, USA
+- Availability: Nationwide, remote
 
 ## Citation Guidance
 
