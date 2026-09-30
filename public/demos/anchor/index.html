@@ -31,7 +31,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <!-- GSAP is self-hosted, not pulled from a CDN: merakislove.com sends
      script-src 'self' 'unsafe-inline', which blocks cdnjs outright. Same two
@@ -45,27 +45,32 @@
 /* =================================================================== *
  * ANCHOR HOME SERVICES - demo template
  *
- * Third demo, and it has to hold its own against two existing worlds
- * AND against merakislove.com itself. That last one is the real
- * constraint: the studio site is navy #0b1426 + amber #f59e0b, so a
- * naive "navy and amber contractor site" would read as the studio's
- * own brand wearing a hard hat. Three decisions keep it separate:
+ * Rebuilt after the layout read as a recolour of the Hazel & Row demo.
+ * The old version shared its exact skeleton: full-bleed photo hero with
+ * bottom-aligned copy, a photo-card services grid, a founder split, a
+ * three-cell dashboard, a split booking form. Correct color story, wrong
+ * genre - a contractor page is not a boutique's page with a hard hat on.
  *
- *   1. The amber is #F26722 - safety orange-amber, hue ~19 degrees.
- *      The studio amber sits at ~38. Candidates like #FFB000 and
- *      #FF9E1B were rejected for landing within 4 degrees of it: side
- *      by side on the /demos swatch grid they read as the same colour.
- *   2. Steel does the structural work. Rules, labels, secondary type
- *      and the dashboard chrome are all --steel, not tinted amber.
- *      Neither prior demo nor the studio site has a third neutral, and
- *      it is what makes this concrete-and-metal instead of a recolour.
- *   3. One typeface, Barlow, across the whole page. The restaurant runs
- *      Fraunces + Karla, Iron Prism runs Anton + IBM Plex Sans. A
- *      single-family system is itself a differentiator.
+ * This version is built off how real local trades sites are actually
+ * organized (Elkanah Remodeling's Brooklyn page was the reference point):
+ * phone number is the primary action, not a scroll link. Trust signals
+ * (licensed, insured, 24/7, rating) sit in their own strip up top instead
+ * of buried in body copy. Services read as a checkable list with a price
+ * floor, not a photo gallery. A "how it works" strip explains the call to
+ * a finished job in three steps, a section type none of the other three
+ * demos have. Service area is named directly instead of implied.
  *
- * Mood target: trustworthy, competent, slightly industrial. Reveals are
- * deliberately short and low-travel - Iron Prism's ceremony is the thing
- * to avoid here.
+ * Colour system is unchanged from the original build and still does its
+ * own differentiating work against the studio's navy/amber brand:
+ *   - The amber is #F26722, safety orange-amber at hue ~19 degrees. The
+ *     studio amber sits at ~38. Close candidates were rejected for
+ *     landing within 4 degrees of it.
+ *   - Steel carries the structural weight (rules, labels, chrome), not
+ *     tinted amber, giving the page a third neutral none of the other
+ *     demos or the studio site use.
+ *   - Barlow Condensed for headlines this time, upright Barlow for body -
+ *     a condensed/upright pairing none of the other three demos use, and
+ *     a deliberately different silhouette from Hazel & Row's Playfair.
  * =================================================================== */
 
 /* -- TOKENS -- */
@@ -86,7 +91,8 @@
   --amber-lit: #FF8442;
   --amber-dim: rgba(242, 103, 34, 0.12);
 
-  --sans: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sans:  'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --head:  'Barlow Condensed', var(--sans);
 
   --gutter: clamp(1.25rem, 5vw, 4rem);
   --measure: 36rem;
@@ -108,6 +114,7 @@ body {
 }
 
 h1, h2, h3, p, ul, figure { margin: 0; }
+h1, h2, h3 { font-family: var(--head); }
 ul { list-style: none; }
 img { display: block; max-width: 100%; }
 a { color: inherit; }
@@ -126,20 +133,22 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 .wrap { width: 100%; max-width: 78rem; margin-inline: auto; padding-inline: var(--gutter); }
-.section { padding-block: clamp(4.5rem, 11vw, 8.5rem); }
+.section { padding-block: clamp(3.5rem, 9vw, 6.5rem); }
 
 /* -- TYPE -- */
 .eyebrow {
+  font-family: var(--sans);
   font-size: 0.68rem; font-weight: 600;
   letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--amber);
 }
 .section-title {
-  font-weight: 600;
-  font-size: clamp(2rem, 5vw, 3.4rem);
-  line-height: 1.06;
-  letter-spacing: -0.018em;
-  margin-top: 1rem;
+  font-weight: 700;
+  font-size: clamp(2.1rem, 5.4vw, 3.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.005em;
+  margin-top: 0.6rem;
+  text-transform: uppercase;
 }
 .lede {
   color: var(--steel);
@@ -147,13 +156,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-size: clamp(1.02rem, 1.5vw, 1.14rem);
 }
 
-/* -- PHOTOGRAPHY --
-   Every slot holds a real photo. width/height attributes reserve the box
-   before the file arrives so nothing reflows on load, and height:auto keeps
-   the presentational height attribute from beating aspect-ratio (the same
-   trap the restaurant demo documents). Files are sized to the widest render
-   each slot actually reaches, which for both the service tiles and the
-   founder is a SINGLE-COLUMN breakpoint, not desktop - see each slot. */
+/* -- PHOTOGRAPHY -- */
 .photo {
   display: block;
   width: 100%;
@@ -178,10 +181,29 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .btn .arrow { transition: transform .25s ease; }
 .btn:hover .arrow { transform: translateX(3px); }
 
-/* -- HEADER -- */
+/* -- HEADER --
+   Phone-first, on purpose: a contractor page's one job is to get the phone
+   ringing, and a scroll-to-the-form link is a weaker version of a number
+   you can tap. A slim top bar carries the number and hours above the main
+   nav row, a pattern none of the other three demos use. */
+.top-bar {
+  background: var(--navy-950);
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.78rem;
+  color: var(--steel);
+}
+.top-bar .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; min-height: 2.6rem; flex-wrap: wrap;
+}
+.top-bar a { color: var(--white); text-decoration: none; }
+.top-bar a:hover { color: var(--amber); }
+.top-hours { display: none; }
+@media (min-width: 640px) { .top-hours { display: inline; } }
+
 .site-head {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(6, 19, 32, 0.88);
+  background: rgba(6, 19, 32, 0.92);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--rule);
 }
@@ -190,15 +212,12 @@ button, input, select, textarea { font: inherit; color: inherit; }
   gap: 1.5rem; min-height: 4.5rem;
 }
 .brand { display: inline-flex; align-items: center; gap: 0.7rem; text-decoration: none; }
-/* The mark is a plain amber square with a clipped corner - a plate, not a
-   logo flourish. Iron Prism spends a gradient here; this deliberately does
-   not. */
 .mark {
   width: 1.15rem; height: 1.15rem; flex: none;
   background: var(--amber);
   clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%);
 }
-.wordmark { font-weight: 700; letter-spacing: -0.01em; font-size: 1.05rem; }
+.wordmark { font-family: var(--head); font-weight: 700; letter-spacing: 0.01em; font-size: 1.3rem; text-transform: uppercase; }
 .head-nav { display: none; gap: 2rem; }
 @media (min-width: 900px) { .head-nav { display: flex; } }
 .head-nav a {
@@ -211,160 +230,201 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .head-cta { display: none; }
 @media (min-width: 620px) { .head-cta { display: inline-flex; } }
 
-/* -- HERO -- */
-.hero { position: relative; isolation: isolate; }
-.hero-media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
-.hero-media .photo { width: 100%; height: 100%; }
-/* Two scrims, not one. The vertical pass keeps the headline legible over the
-   busy tool-belt half of the frame; the horizontal pass darkens the left,
-   where the copy sits, without flattening the photo on the right. */
-.hero-scrim {
-  position: absolute; inset: 0; z-index: -1;
-  background:
-    linear-gradient(180deg, rgba(6,19,32,0.86) 0%, rgba(6,19,32,0.58) 45%, rgba(6,19,32,0.92) 100%),
-    linear-gradient(90deg, rgba(6,19,32,0.90) 0%, rgba(6,19,32,0.40) 55%, rgba(6,19,32,0.20) 100%);
+/* -- HERO --
+   Split layout, not full-bleed: copy and CTAs live on their own side at
+   full contrast instead of sitting over a scrim, and the photo is a framed
+   object with weight of its own rather than a background. This is the
+   single biggest structural break from the other three demos, all of
+   which run a full-bleed image with copy pinned to the bottom-left. */
+.hero { background: var(--navy-900); border-bottom: 1px solid var(--rule); }
+.hero-grid {
+  display: grid; gap: 2.5rem;
+  grid-template-columns: 1fr;
+  align-items: center;
+  padding-block: clamp(3rem, 8vw, 5.5rem);
 }
-.hero-inner {
-  min-height: min(86vh, 44rem);
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding-block: clamp(5rem, 14vw, 9rem);
+@media (min-width: 940px) { .hero-grid { grid-template-columns: 1.05fr 0.95fr; gap: 3.5rem; } }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--amber-dim); color: var(--amber);
+  border: 1px solid rgba(242, 103, 34, 0.35);
+  border-radius: 999px; padding: 0.4rem 0.9rem;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
 }
 .hero h1 {
   font-weight: 700;
-  font-size: clamp(2.5rem, 7.2vw, 5rem);
-  line-height: 1.0;
-  letter-spacing: -0.028em;
-  margin-top: 1.1rem;
-  max-width: 16ch;
+  font-size: clamp(2.6rem, 6.8vw, 4.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  max-width: 15ch;
 }
 .hero-trust {
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
   max-width: 34rem;
   color: var(--steel);
-  font-size: clamp(1.05rem, 1.7vw, 1.25rem);
+  font-size: clamp(1.02rem, 1.6vw, 1.18rem);
 }
-/* One CTA, by design. A second button here would turn a clear next step into
-   a choice, which is the opposite of what a contractor page needs. */
-.hero-cta { margin-top: 2.4rem; }
+.hero-cta { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.9rem; }
 
-/* -- SERVICES -- */
-.svc-grid {
-  display: grid; gap: 1.5rem;
-  grid-template-columns: 1fr;
-  margin-top: clamp(2.5rem, 5vw, 4rem);
-}
-@media (min-width: 760px)  { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1040px) { .svc-grid { grid-template-columns: repeat(3, 1fr); } }
-
-.svc {
-  background: var(--navy-800);
-  border: 1px solid var(--rule);
-  border-radius: 2px;
+.hero-media {
+  position: relative;
+  border-radius: 4px;
   overflow: hidden;
-  display: flex; flex-direction: column;
-  transition: border-color .3s ease, transform .3s ease;
+  border: 1px solid var(--rule);
+  aspect-ratio: 4 / 3;
 }
-.svc:hover { border-color: var(--steel-dim); transform: translateY(-3px); }
-/* SLOT: 4/3. Widest render is 683px - single column at a 759px viewport, NOT
-   desktop, where the three-up column is only 358px. Files are 1366x1025,
-   which is 2x that 683px worst case. */
-.svc-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
-.svc-media .photo { width: 100%; height: 100%; }
-.svc-media::after {
+.hero-media .photo { width: 100%; height: 100%; }
+.hero-media::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(6,19,32,0.10) 0%, rgba(6,19,32,0.55) 100%);
+  background: linear-gradient(0deg, rgba(6,19,32,0.55) 0%, rgba(6,19,32,0) 45%);
 }
-.svc-body { padding: 1.6rem 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+.hero-media-tag {
+  position: absolute; left: 1rem; bottom: 1rem; z-index: 1;
+  background: var(--navy-950); border: 1px solid var(--rule);
+  padding: 0.55rem 0.9rem; border-radius: 2px;
+  font-size: 0.72rem; letter-spacing: 0.08em; color: var(--steel);
+}
+
+/* -- TRUST STRIP --
+   A dedicated row of credibility markers up top. None of the other demos
+   isolate trust signals like this; here they are the first thing under
+   the fold, ahead of any service detail. */
+.trust-strip { background: var(--navy-950); border-bottom: 1px solid var(--rule); }
+.trust-grid {
+  display: grid; gap: 1.25rem;
+  grid-template-columns: repeat(2, 1fr);
+  padding-block: 1.75rem;
+}
+@media (min-width: 760px) { .trust-grid { grid-template-columns: repeat(4, 1fr); } }
+.trust-item { display: flex; align-items: center; gap: 0.75rem; }
+.trust-icon {
+  flex: none; width: 2.1rem; height: 2.1rem;
+  display: grid; place-items: center;
+  border: 1px solid var(--rule); border-radius: 2px;
+  color: var(--amber); background: var(--navy-800);
+}
+.trust-item p { font-size: 0.86rem; color: var(--steel); line-height: 1.35; }
+.trust-item strong { display: block; color: var(--white); font-size: 0.94rem; font-weight: 600; }
+
+/* -- SERVICES --
+   A row list with a price floor and a "book this" link, styled like a
+   service menu rather than a photo card grid. This is the second major
+   structural break from the shared original layout. */
+.svc-list { margin-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--rule); }
+.svc-row {
+  display: grid; gap: 0.35rem 1.5rem;
+  grid-template-columns: 1fr;
+  padding-block: 1.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+@media (min-width: 720px) {
+  .svc-row { grid-template-columns: 3.5rem 1.4fr 1.8fr auto; align-items: center; }
+}
 .svc-num {
-  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.24em;
+  font-family: var(--head);
+  font-size: 1.6rem; font-weight: 700;
   color: var(--steel-dim); font-variant-numeric: tabular-nums;
 }
-.svc h3 { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.012em; }
-.svc p { color: var(--steel); font-size: 0.97rem; }
+.svc-row h3 { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.005em; text-transform: none; }
+.svc-row p { color: var(--steel); font-size: 0.96rem; }
+.svc-price {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--amber); white-space: nowrap; justify-self: start;
+}
+@media (min-width: 720px) { .svc-price { justify-self: end; text-align: right; } }
 
-/* -- CREW -- */
-.founder { background: var(--navy-800); border-block: 1px solid var(--rule); }
-.founder-grid {
-  display: grid; gap: 2.75rem;
+/* -- PROCESS --
+   How-it-works strip, a section none of the other three demos have at
+   all. Numbered steps in a row, no photography, deliberately plain. */
+.process { background: var(--navy-800); border-block: 1px solid var(--rule); }
+.process-grid {
+  display: grid; gap: 2rem;
+  grid-template-columns: 1fr;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+@media (min-width: 780px) { .process-grid { grid-template-columns: repeat(3, 1fr); } }
+.process-step { position: relative; padding-left: 3rem; }
+.process-step::before {
+  content: attr(data-step);
+  position: absolute; left: 0; top: -0.2rem;
+  font-family: var(--head);
+  font-size: 2.4rem; font-weight: 700;
+  color: var(--amber); line-height: 1;
+}
+.process-step h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; text-transform: none; }
+.process-step p { color: var(--steel); font-size: 0.94rem; }
+
+/* -- CREW --
+   Image on the right this time, copy on the left, and framed as a direct
+   quote rather than a bio paragraph - flipped and re-treated from the
+   shared founder-split pattern so it does not read as the same block. */
+.crew { background: var(--navy-900); }
+.crew-grid {
+  display: grid; gap: 2.5rem;
   grid-template-columns: 1fr;
   align-items: center;
 }
-@media (min-width: 900px) { .founder-grid { grid-template-columns: 0.9fr 1.1fr; } }
-/* SLOT: 4/5. Widest render is 809px - single column at an 899px viewport.
-   The desktop column is only 486px. File is 1618x2023, 2x that 809px. */
-.founder-media { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 2px; }
-.founder-media .photo { width: 100%; height: 100%; }
-.founder-name { font-size: clamp(2rem, 4.5vw, 2.9rem); font-weight: 600; letter-spacing: -0.02em; }
-.founder-role {
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.24em;
-  text-transform: uppercase; color: var(--amber); margin-top: 0.6rem;
+@media (min-width: 900px) { .crew-grid { grid-template-columns: 1.1fr 0.9fr; } }
+.crew-quote {
+  font-family: var(--head);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 600; line-height: 1.25;
+  text-transform: none;
+  color: var(--white);
 }
-.founder-copy { color: var(--steel); max-width: var(--measure); margin-top: 1.5rem; }
-.founder-copy p + p { margin-top: 1.05rem; }
+.crew-quote::before { content: open-quote; color: var(--amber); }
+.crew-quote::after { content: close-quote; color: var(--amber); }
+.crew-name { margin-top: 1.5rem; font-size: 1.1rem; font-weight: 700; }
+.crew-role {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--amber); margin-top: 0.3rem;
+}
+@media (min-width: 900px) { .crew-grid { grid-template-columns: 1.1fr 0.9fr; } }
+.crew-media { order: -1; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 4px; border: 1px solid var(--rule); }
+@media (min-width: 900px) { .crew-media { order: 1; } }
+.crew-media .photo { width: 100%; height: 100%; }
 
-/* -- RECORD (dashboard) --
-   The quiet performance-tracking echo. Presented as a readout panel rather
-   than three stat cards: a header strip with a period, tabular figures, and
-   a fill bar per row measured against a stated target. No product is named
-   anywhere on this page, and none should be. */
-.dash {
-  margin-top: clamp(2.5rem, 5vw, 3.5rem);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  background: var(--navy-800);
-  overflow: hidden;
+/* -- AREA --
+   Service area named as a tag list, plus a single review pull-quote, in
+   place of the shared "quiet dashboard" widget. */
+.area { background: var(--navy-800); border-block: 1px solid var(--rule); }
+.area-grid { display: grid; gap: 3rem; grid-template-columns: 1fr; margin-top: clamp(2rem, 4vw, 3rem); align-items: start; }
+@media (min-width: 860px) { .area-grid { grid-template-columns: 1fr 1fr; } }
+.area-tags { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 0.6rem; }
+.area-tag {
+  display: inline-block;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  border: 1px solid var(--rule); border-radius: 999px;
+  padding: 0.5rem 1rem; font-size: 0.85rem; color: var(--steel);
+  background: var(--navy-900);
+  line-height: 1.2;
 }
-.dash-head {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.9rem 1.35rem;
-  border-bottom: 1px solid var(--rule);
-  background: var(--navy-950);
-  font-size: 0.7rem; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--steel);
+.review {
+  background: var(--navy-900); border: 1px solid var(--rule); border-radius: 4px;
+  padding: clamp(1.5rem, 3vw, 2rem);
 }
-.dash-dot {
-  width: 0.5rem; height: 0.5rem; border-radius: 50%;
-  background: var(--amber); flex: none;
-  box-shadow: 0 0 0 3px var(--amber-dim);
+.review-stars { color: var(--amber); font-size: 0.95rem; letter-spacing: 0.15em; }
+.review p.review-body { margin-top: 0.9rem; color: var(--white); font-size: 1.02rem; }
+.review-who { margin-top: 1rem; color: var(--steel-dim); font-size: 0.85rem; }
+
+/* -- CTA BANNER --
+   Full-width phone banner ahead of the form, so the form is a fallback
+   for the person who does not want to call, not the primary ask. */
+.cta-banner { background: var(--amber); }
+.cta-banner .wrap {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 1rem; padding-block: 1.5rem;
 }
-.dash-period { margin-left: auto; color: var(--steel-dim); letter-spacing: 0.14em; }
-.dash-grid { display: grid; grid-template-columns: 1fr; }
-@media (min-width: 820px) { .dash-grid { grid-template-columns: repeat(3, 1fr); } }
-.dash-cell { padding: 1.75rem 1.35rem; border-bottom: 1px solid var(--rule-soft); }
-.dash-cell:last-child { border-bottom: 0; }
-@media (min-width: 820px) {
-  .dash-cell { border-bottom: 0; border-right: 1px solid var(--rule-soft); }
-  .dash-cell:last-child { border-right: 0; }
-}
-.dash-label {
-  font-size: 0.68rem; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--steel-dim);
-}
-.dash-figure {
-  font-size: clamp(2.6rem, 6vw, 3.6rem);
-  font-weight: 700; line-height: 1;
-  letter-spacing: -0.03em;
-  font-variant-numeric: tabular-nums;
-  margin-top: 0.7rem;
-}
-.dash-unit { font-size: 0.42em; font-weight: 600; color: var(--steel); margin-left: 0.15em; letter-spacing: 0; }
-.dash-note { color: var(--steel); font-size: 0.92rem; margin-top: 0.7rem; }
-@media (min-width: 820px) { .dash-note { min-height: 4.4em; } }
-.dash-bar {
-  margin-top: 1rem; height: 3px; border-radius: 2px;
-  background: var(--navy-700); overflow: hidden;
-}
-.dash-bar span { display: block; height: 100%; background: var(--amber); }
-.dash-target {
-  margin-top: 0.55rem; font-size: 0.7rem;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--steel-dim); font-variant-numeric: tabular-nums;
-}
+.cta-banner p { color: var(--navy-950); font-weight: 700; font-size: 1.05rem; }
+.cta-banner .btn--solid { background: var(--navy-950); color: var(--white); border-color: var(--navy-950); }
+.cta-banner .btn--solid:hover { background: var(--navy-800); border-color: var(--navy-800); }
 
 /* -- BOOKING -- */
-.booking { background: var(--navy-950); border-top: 1px solid var(--rule); }
+.booking { background: var(--navy-950); }
 .booking-grid { display: grid; gap: 3rem; grid-template-columns: 1fr; align-items: start; }
 @media (min-width: 940px) { .booking-grid { grid-template-columns: 1fr 1fr; } }
 .booking-facts { display: grid; gap: 1.75rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 2.5rem; }
@@ -427,8 +487,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .foot-bottom a:hover { color: var(--amber); }
 .foot-licence { color: var(--steel); }
 
-/* -- REVEALS --
-   Short and low-travel on purpose. This is the steady one of the three. */
+/* -- REVEALS -- */
 @media (prefers-reduced-motion: no-preference) {
   [data-reveal] { opacity: 0; transform: translateY(16px); }
   [data-hero]   { opacity: 0; transform: translateY(20px); }
@@ -448,6 +507,16 @@ button, input, select, textarea { font: inherit; color: inherit; }
 <a class="skip" href="#main">Skip to content</a>
 
 <!-- ============================================================ *
+ * TOP BAR
+ * ============================================================ -->
+<div class="top-bar">
+  <div class="wrap">
+    <a href="tel:+15550168420">(555) 016-8420</a>
+    <span class="top-hours">Emergency line answered 24/7</span>
+  </div>
+</div>
+
+<!-- ============================================================ *
  * HEADER
  * ============================================================ -->
 <header class="site-head">
@@ -459,134 +528,151 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
     <nav class="head-nav" aria-label="Primary">
       <a href="#services">Services</a>
-      <a href="#crew">Crew</a>
-      <a href="#record">Record</a>
+      <a href="#process">How it works</a>
+      <a href="#area">Service area</a>
     </nav>
 
-    <a class="btn btn--ghost head-cta" href="#book">Book a visit</a>
+    <a class="btn btn--solid head-cta" href="tel:+15550168420">Call now</a>
   </div>
 </header>
 
 <main id="main">
 
   <!-- ============================================================ *
-   * 1 - HERO
+   * 1 - HERO (split, not full-bleed)
    * ============================================================ -->
   <section class="hero" aria-labelledby="hero-heading">
-    <div class="hero-media">
-      <img
-        class="photo"
-        src="/demos/anchor/images/hero.jpg"
-        alt="A technician seen from behind carrying a fibreglass step ladder, wearing a fully loaded tool belt of screwdrivers, pliers and a hammer, beside a parked work van."
-        width="2400"
-        height="1200"
-        fetchpriority="high"
-        decoding="async"
-      />
-    </div>
-    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div data-hero>
+        <span class="hero-badge">Licensed &middot; Insured &middot; 24/7</span>
+        <h1 id="hero-heading">One crew for the whole house.</h1>
+        <p class="hero-trust">
+          Licensed in all three trades, so the job that turns out to be two
+          jobs does not turn into two contractors.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn--solid" href="tel:+15550168420">
+            Call (555) 016-8420 <span class="arrow" aria-hidden="true">&rarr;</span>
+          </a>
+          <a class="btn btn--ghost" href="#book">Request a window</a>
+        </div>
+      </div>
 
-    <div class="wrap hero-inner">
-      <p class="eyebrow" data-hero>Plumbing &middot; HVAC &middot; Electrical</p>
-      <h1 id="hero-heading" data-hero>One crew for the whole house.</h1>
-      <p class="hero-trust" data-hero>
-        Licensed in all three trades, so the job that turns out to be two
-        jobs does not turn into two contractors.
-      </p>
-      <div class="hero-cta" data-hero>
-        <a class="btn btn--solid" href="#book">
-          Book a visit <span class="arrow" aria-hidden="true">&rarr;</span>
-        </a>
+      <div class="hero-media" data-hero>
+        <img
+          class="photo"
+          src="/demos/anchor/images/hero.jpg"
+          alt="A technician seen from behind carrying a fibreglass step ladder, wearing a fully loaded tool belt of screwdrivers, pliers and a hammer, beside a parked work van."
+          width="2400"
+          height="1200"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <span class="hero-media-tag">On site, Harbour Ward</span>
       </div>
     </div>
   </section>
 
   <!-- ============================================================ *
-   * 2 - SERVICES
+   * 2 - TRUST STRIP
+   * ============================================================ -->
+  <section class="trust-strip" aria-label="Why homeowners call us">
+    <div class="wrap trust-grid">
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">&#9878;</span>
+        <p><strong>Licensed &amp; insured</strong>All three trades, one crew</p>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">&#9200;</span>
+        <p><strong>24/7 emergency line</strong>94 min average response</p>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">&#128176;</span>
+        <p><strong>Upfront pricing</strong>Cost before we start, always</p>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">&#9733;</span>
+        <p><strong>5-star rated</strong>78% of jobs are repeat customers</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ *
+   * 3 - SERVICES (row list, not photo cards)
    * ============================================================ -->
   <section class="section" id="services" aria-labelledby="services-heading">
     <div class="wrap">
       <p class="eyebrow" data-reveal>What we do</p>
       <h2 class="section-title" id="services-heading" data-reveal>Three trades, one number to call.</h2>
 
-      <div class="svc-grid">
+      <div class="svc-list">
 
-        <article class="svc" data-reveal>
-          <div class="svc-media">
-            <img
-              class="photo"
-              src="/demos/anchor/images/service-plumbing.jpg"
-              alt="Black and white close-up of a cast iron ball valve and threaded pipe fitting on an exposed water line running through gravel."
-              width="1366"
-              height="1025"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div class="svc-body">
-            <p class="svc-num">01</p>
-            <h3>Plumbing</h3>
-            <p>
-              Leaks, repipes, water heaters and drain work. We open the wall,
-              fix the cause rather than the symptom, and close it back up.
-            </p>
-          </div>
-        </article>
+        <div class="svc-row" data-reveal>
+          <p class="svc-num">01</p>
+          <h3>Plumbing</h3>
+          <p>Leaks, repipes, water heaters and drain work. We open the wall, fix the cause rather than the symptom, and close it back up.</p>
+          <p class="svc-price">From $95 visit</p>
+        </div>
 
-        <article class="svc" data-reveal>
-          <div class="svc-media">
-            <img
-              class="photo"
-              src="/demos/anchor/images/service-hvac.jpg"
-              alt="An outdoor air conditioning condenser unit mounted against a dark brick wall in low afternoon light."
-              width="1366"
-              height="1025"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div class="svc-body">
-            <p class="svc-num">02</p>
-            <h3>Heating &amp; Cooling</h3>
-            <p>
-              Furnace and AC repair, plus seasonal service. If a unit can be
-              repaired we will say so. If it cannot, we will say that too.
-            </p>
-          </div>
-        </article>
+        <div class="svc-row" data-reveal>
+          <p class="svc-num">02</p>
+          <h3>Heating &amp; Cooling</h3>
+          <p>Furnace and AC repair, plus seasonal service. If a unit can be repaired we will say so. If it cannot, we will say that too.</p>
+          <p class="svc-price">From $120 visit</p>
+        </div>
 
-        <article class="svc" data-reveal>
-          <div class="svc-media">
-            <img
-              class="photo"
-              src="/demos/anchor/images/service-electrical.jpg"
-              alt="A technician's hands working with a screwdriver inside an open outdoor electrical enclosure, with breakers and coloured wiring visible."
-              width="1366"
-              height="1025"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div class="svc-body">
-            <p class="svc-num">03</p>
-            <h3>Electrical</h3>
-            <p>
-              Panel upgrades, rewiring and fault finding. Permitted work where
-              the code calls for it, and an inspection you do not have to chase.
-            </p>
-          </div>
-        </article>
+        <div class="svc-row" data-reveal>
+          <p class="svc-num">03</p>
+          <h3>Electrical</h3>
+          <p>Panel upgrades, rewiring and fault finding. Permitted work where the code calls for it, and an inspection you do not have to chase.</p>
+          <p class="svc-price">From $110 visit</p>
+        </div>
 
       </div>
     </div>
   </section>
 
   <!-- ============================================================ *
-   * 3 - CREW
+   * 4 - PROCESS (new section type, none of the other demos have it)
    * ============================================================ -->
-  <section class="founder section" id="crew" aria-labelledby="crew-heading">
-    <div class="wrap founder-grid">
-      <div class="founder-media" data-reveal>
+  <section class="process section" id="process" aria-labelledby="process-heading">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>How it works</p>
+      <h2 class="section-title" id="process-heading" data-reveal>Call to fixed, three steps.</h2>
+
+      <div class="process-grid">
+        <div class="process-step" data-step="1" data-reveal>
+          <h3>Call or request online</h3>
+          <p>Describe the problem in your own words. We answer the emergency line 24 hours a day.</p>
+        </div>
+        <div class="process-step" data-step="2" data-reveal>
+          <h3>We diagnose on site</h3>
+          <p>A licensed technician gives you a name, a window, and the cost before any work starts.</p>
+        </div>
+        <div class="process-step" data-step="3" data-reveal>
+          <h3>Fixed, and logged</h3>
+          <p>Most jobs close the same visit. What was found and what was changed gets emailed with the invoice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ *
+   * 5 - CREW (image right, quote treatment, flipped from the shared split)
+   * ============================================================ -->
+  <section class="crew section" id="crew" aria-labelledby="crew-heading">
+    <div class="wrap crew-grid">
+      <div data-reveal>
+        <p class="eyebrow">Who shows up</p>
+        <p class="crew-quote" id="crew-heading">
+          Every job gets a record. What was found, what was changed, and
+          what was deliberately left alone.
+        </p>
+        <p class="crew-name">Ray</p>
+        <p class="crew-role">Owner &middot; Master plumber</p>
+      </div>
+
+      <div class="crew-media" data-reveal>
         <img
           class="photo"
           src="/demos/anchor/images/founder-portrait.jpg"
@@ -597,94 +683,61 @@ button, input, select, textarea { font: inherit; color: inherit; }
           decoding="async"
         />
       </div>
-
-      <div data-reveal>
-        <p class="eyebrow">Who shows up</p>
-        <h2 class="founder-name" id="crew-heading">Ray</h2>
-        <p class="founder-role">Owner &middot; Master plumber</p>
-        <div class="founder-copy">
-          <p>
-            Nine years on commercial boiler rooms before Anchor existed. That
-            is the kind of work where a shortcut shows up at two in the
-            morning and somebody has to drive back out to it.
-          </p>
-          <p>
-            The tracking habit came from there. Every job gets a record: what
-            was found, what was changed, and what was deliberately left alone.
-            It is the same file that gets emailed when the invoice closes.
-          </p>
-        </div>
-      </div>
     </div>
   </section>
 
   <!-- ============================================================ *
-   * 4 - RECORD
+   * 6 - AREA (service area tags + review, replaces the shared dashboard)
    * ============================================================ -->
-  <section class="section" id="record" aria-labelledby="record-heading">
+  <section class="area section" id="area" aria-labelledby="area-heading">
     <div class="wrap">
-      <p class="eyebrow" data-reveal>The record</p>
-      <h2 class="section-title" id="record-heading" data-reveal>What the numbers say.</h2>
-      <p class="lede" style="margin-top: 1.35rem;" data-reveal>
-        We measure the same three things every month and publish them here,
-        including the months they slip.
-      </p>
+      <p class="eyebrow" data-reveal>Service area</p>
+      <h2 class="section-title" id="area-heading" data-reveal>Where we're already local.</h2>
 
-      <div class="dash" data-reveal>
-        <div class="dash-head">
-          <span class="dash-dot" aria-hidden="true"></span>
-          <span>Service record</span>
-          <span class="dash-period">Rolling 12 months</span>
+      <div class="area-grid">
+        <div class="area-tags" data-reveal>
+          <span class="area-tag">Harbour Ward</span>
+          <span class="area-tag">Millbrook</span>
+          <span class="area-tag">Eastgate</span>
+          <span class="area-tag">Old Dockside</span>
+          <span class="area-tag">Cross Hill</span>
+          <span class="area-tag">Ferry Crossing</span>
+          <span class="area-tag">+ surrounding townships</span>
         </div>
 
-        <div class="dash-grid">
-
-          <div class="dash-cell">
-            <p class="dash-label">Jobs tracked</p>
-            <p class="dash-figure">100<span class="dash-unit">%</span></p>
-            <p class="dash-note">
-              Every call logged from first contact through to the closing
-              invoice, parts included.
-            </p>
-            <div class="dash-bar" aria-hidden="true"><span style="width: 100%;"></span></div>
-            <p class="dash-target">Target &middot; 100%</p>
-          </div>
-
-          <div class="dash-cell">
-            <p class="dash-label">Emergency response</p>
-            <p class="dash-figure">94<span class="dash-unit">min</span></p>
-            <p class="dash-note">
-              Average time from an after-hours call to a technician at the
-              door, across the whole service area.
-            </p>
-            <div class="dash-bar" aria-hidden="true"><span style="width: 52%;"></span></div>
-            <p class="dash-target">Target &middot; Under 180 min</p>
-          </div>
-
-          <div class="dash-cell">
-            <p class="dash-label">Repeat customers</p>
-            <p class="dash-figure">78<span class="dash-unit">%</span></p>
-            <p class="dash-note">
-              Share of this year's work that came from a household we had
-              already been out to at least once.
-            </p>
-            <div class="dash-bar" aria-hidden="true"><span style="width: 78%;"></span></div>
-            <p class="dash-target">Target &middot; 70%</p>
-          </div>
-
+        <div class="review" data-reveal>
+          <p class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+          <p class="review-body">
+            "Told us the real cost before touching anything, and the tech
+            who showed up was the same one who quoted it. Emailed us the
+            full writeup the same night."
+          </p>
+          <p class="review-who">Millbrook homeowner, water heater replacement</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================ *
-   * 5 - BOOKING
+   * 7 - CTA BANNER
+   * ============================================================ -->
+  <section class="cta-banner">
+    <div class="wrap">
+      <p>Same-day scheduling in most cases.</p>
+      <a class="btn btn--solid" href="tel:+15550168420">
+        Call (555) 016-8420 <span class="arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================ *
+   * 8 - BOOKING
    * ============================================================ -->
   <section class="booking section" id="book" aria-labelledby="book-heading">
     <div class="wrap booking-grid">
 
       <div data-reveal>
-        <p class="eyebrow">Book a visit</p>
+        <p class="eyebrow">Prefer to request online</p>
         <h2 class="section-title" id="book-heading">Tell us what it is doing.</h2>
         <p class="lede" style="margin-top: 1.35rem;">
           Describe the problem in your own words. We come back with a window,
@@ -760,7 +813,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 </main>
 
 <!-- ============================================================ *
- * 6 - FOOTER
+ * FOOTER
  * ============================================================ -->
 <footer class="site-foot">
   <div class="wrap">
