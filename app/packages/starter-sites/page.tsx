@@ -127,6 +127,14 @@ const flyers: Flyer[] = [
     height: 1200,
   },
   {
+    file: "keelhouse.jpg",
+    business: "Keelhouse Home Services",
+    caption: "Fall furnace tune up flyer",
+    alt: "Keelhouse Home Services fall furnace tune up flyer, a red brick Columbus home glowing at dusk under a copper maple, with a $129 flat rate offer and the headline Ready before the first cold night.",
+    width: 1200,
+    height: 1600,
+  },
+  {
     file: "hazel-row.jpg",
     business: "Hazel & Row",
     caption: "New stylist announcement flyer",
@@ -509,7 +517,7 @@ export default function StarterSitesPage() {
       {/* See the marketing package in action */}
       <PackageSection
         title="See the marketing package in action"
-        lead="Four businesses, four identities, real branded content, not a template with a logo swapped in."
+        lead="Five businesses, five identities, each with branded content made for that business and its customers."
       >
         {/* Widest render measured at 547px, single column at a 639px
             viewport, NOT the steady 227px desktop tile once lg:grid-cols-3
