@@ -42,3 +42,6 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# Python bytecode from the demo generators
+__pycache__/
