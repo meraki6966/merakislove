@@ -56,8 +56,8 @@ const nextConfig: NextConfig = {
         destination: "/demos/iron-prism/index.html",
       },
       {
-        source: "/demos/anchor",
-        destination: "/demos/anchor/index.html",
+        source: "/demos/keelhouse",
+        destination: "/demos/keelhouse/index.html",
       },
       {
         source: "/demos/hazel-and-row",
@@ -83,6 +83,20 @@ const nextConfig: NextConfig = {
       {
         source: "/services/presence-first-web-design",
         destination: "/packages/presence-first-web-design",
+        permanent: true,
+      },
+      // The home services demo was renamed from Anchor to Keelhouse on
+      // 2026-10-01 after finding real businesses already using the Anchor
+      // name for the same trades (Orlando, FL and Rittman, OH). Old links,
+      // including any shared on social or in outreach, land on the new demo.
+      {
+        source: "/demos/anchor",
+        destination: "/demos/keelhouse",
+        permanent: true,
+      },
+      {
+        source: "/demos/anchor/:path*",
+        destination: "/demos/keelhouse",
         permanent: true,
       },
     ];

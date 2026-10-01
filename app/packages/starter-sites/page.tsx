@@ -79,9 +79,9 @@ const liveExamples: LiveExample[] = [
     href: "/demos/iron-prism",
   },
   {
-    name: "Anchor Home Services",
+    name: "Keelhouse Home Services",
     category: "Trades, home services",
-    href: "/demos/anchor",
+    href: "/demos/keelhouse",
   },
   {
     name: "Hazel & Row",
@@ -124,14 +124,6 @@ const flyers: Flyer[] = [
     caption: "6-week strength challenge flyer",
     alt: "Iron Prism 6-week strength challenge flyer, a black and white gym photo with orange accent stripes.",
     width: 928,
-    height: 1200,
-  },
-  {
-    file: "anchor.jpg",
-    business: "Anchor Home Services",
-    caption: "Fall HVAC tune-up flyer",
-    alt: "Anchor Home Services fall HVAC tune-up flyer, listing electrical and HVAC services on a black background.",
-    width: 849,
     height: 1200,
   },
   {
@@ -187,7 +179,7 @@ const whatThisIsNextTo = [
 ];
 
 const whatYouGet = [
-  "You click Corner Table, Iron Prism, Anchor, or Hazel first.",
+  "You click Corner Table, Iron Prism, Keelhouse, or Hazel first.",
   "You talk to one owner. Nationwide.",
   "After launch I can scan the live URL with Canopy Guard for search, AI answers, and visible security.",
 ];
@@ -517,7 +509,7 @@ export default function StarterSitesPage() {
       {/* See the marketing package in action */}
       <PackageSection
         title="See the marketing package in action"
-        lead="Five businesses, five identities, real branded content, not a template with a logo swapped in."
+        lead="Four businesses, four identities, real branded content, not a template with a logo swapped in."
       >
         {/* Widest render measured at 547px, single column at a 639px
             viewport, NOT the steady 227px desktop tile once lg:grid-cols-3
