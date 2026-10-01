@@ -137,7 +137,7 @@ def head(title, desc, path, schemas, og_img="og.jpg"):
 <meta name="theme-color" content="#0E141B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
 <link rel="stylesheet" href="assets/site.css">
 {"".join(ld(s) for s in schemas)}
 </head>
@@ -219,7 +219,7 @@ def review_card(text, who, where):
             f'<blockquote>{text}</blockquote><figcaption><span>{who}  ·  {where}</span><span class="sample">Sample review</span></figcaption></figure>')
 
 
-def booking(title="Tell us what the house is <em class=\"accent\">doing.</em>", lead="A photo of the leak, the panel or the thermostat helps the tech bring the right parts the first time.", preset=None):
+def booking(title="Tell us what the house is <span class=\"accent\">doing.</span>", lead="A photo of the leak, the panel or the thermostat helps the tech bring the right parts the first time.", preset=None):
     needs = "".join(
         f'<label class="need"><input type="checkbox" name="need" value="{v}"{" checked" if preset == v else ""}>{t}</label>' for v, _, t in NEEDS)
     return f'''<section id="book" class="section dark grid-bg" aria-labelledby="book-h">

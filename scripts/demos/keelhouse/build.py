@@ -65,7 +65,7 @@ def city_cells(link=True):
     return "".join(out)
 
 
-def reviews_band(items, title='What neighbors <em class="accent">say.</em>'):
+def reviews_band(items, title='What neighbors <span class="accent">say.</span>'):
     cards = "".join(review_card(*r) for r in items)
     return f'''{angle("var(--paper)", "var(--ink)")}<section class="section dark grid-bg" style="padding-top:72px" aria-labelledby="rev-h">
 <div class="wrap">
@@ -83,7 +83,7 @@ PHASES = [("01", "Call or book", "Tell us what the house is doing. We text back 
           ("04", "Fixed and documented", "Photos and notes go into your home's file, so the next visit starts with the history.")]
 
 
-def phases_block(dark=True, title='From the first call to the <em class="accent">final photo.</em>', link=True):
+def phases_block(dark=True, title='From the first call to the <span class="accent">final photo.</span>', link=True):
     ph = "".join(f'<div class="phase reveal"><div class="num">{n}</div><h3>{t}</h3><p>{d}</p></div>' for n, t, d in PHASES)
     more = '<div class="center" style="margin-top:64px"><a class="btn btn-ghost" href="how-we-work.html">See the full process</a></div>' if link else ""
     return f'''<section class="section {"dark grid-bg" if dark else "paper"}" aria-labelledby="how-h">
@@ -124,7 +124,7 @@ def worries_block():
 '''
 
 
-def areas_block(title='Service areas across <em>Central Ohio.</em>'):
+def areas_block(title='Service areas across <span class="accent">Central Ohio.</span>'):
     return f'''<section class="section white" aria-labelledby="areas-h">
 <div class="wrap">
 <div class="section-head"><div><span class="eyebrow">Where we work</span><h2 class="h-lg" id="areas-h">{title}</h2></div>
@@ -144,7 +144,7 @@ def build_home():
 <div class="hero-inner"><div class="wrap hero-grid">
 <div class="hero-copy">
 <span class="eyebrow">Columbus  ·  Dublin  ·  Westerville  ·  Grove City</span>
-<h1 class="h-xl">One crew for the <em class="accent">whole house.</em></h1>
+<h1 class="h-xl">One crew for the <span class="accent">whole house.</span></h1>
 <p class="lede">Plumbing, heating and electrical for Central Ohio homes, handled by licensed techs who show up when they say and leave the house the way they found it.</p>
 <div class="btn-row"><a class="btn btn-copper" href="#book">Book a visit</a><a class="btn btn-ghost" href="#work">See recent work</a></div>
 </div>
@@ -162,7 +162,7 @@ def build_home():
 '''
     services = f'''<section class="section paper" style="padding-top:0" aria-labelledby="svc-h">
 <div class="wrap">
-<div class="section-head center"><div><span class="eyebrow">Our services</span><h2 class="h-lg" id="svc-h">Three trades. <em>One</em> number to call.</h2></div></div>
+<div class="section-head center"><div><span class="eyebrow">Our services</span><h2 class="h-lg" id="svc-h">Three trades. <span class="accent">One</span> number to call.</h2></div></div>
 <div class="grid cols-3">{svc_cards()}</div>
 </div>
 </section>
@@ -198,13 +198,13 @@ def build_services_hub():
 </div>''')
     cross = f'''<section class="section dark grid-bg" aria-labelledby="cross-h">
 <div class="wrap split" style="gap:56px;align-items:center">
-<div style="display:grid;gap:20px"><span class="eyebrow">When it's more than one trade</span><h2 class="h-lg" id="cross-h">The water heater that keeps <em class="accent">tripping a breaker.</em></h2>
+<div style="display:grid;gap:20px"><span class="eyebrow">When it's more than one trade</span><h2 class="h-lg" id="cross-h">The water heater that keeps <span class="accent">tripping a breaker.</span></h2>
 <p class="lede" style="font-size:17px">Half the calls we get sit between trades. A plumber blames the wiring, an electrician blames the heater, and you pay for two visits. Our techs are cross trained to trace the whole problem, and a licensed specialist for each trade is one radio call away.</p></div>
 <ul class="checks">{"".join(f"<li>{ic('check')}<span>{t}</span></li>" for t in ["Sump pump that kills a GFCI outlet", "Furnace that won't light after a power surge", "Tankless heater that needs a new circuit", "Heat pump install with a panel upgrade", "Bathroom remodel rough in, water and power", "Basement flood, then the electrical check"])}</ul>
 </div>
 </section>
 '''
-    body = (page_hero("hero", "Services", 'Plumbing, heating and electrical, <em class="accent">under one roof.</em>',
+    body = (page_hero("hero", "Services", 'Plumbing, heating and electrical, <span class="accent">under one roof.</span>',
                       "Three licensed trades on one crew, with written prices and diagnostic visits credited toward the repair.",
                       [("Home", "index.html"), ("Services", "")], "A Keelhouse technician arriving at a brick colonial home")
             + "".join(rows) + cross + faq_block("Service questions.", SERVICES_FAQ, "Answers about pricing, scheduling and what each trade covers.") + booking())
@@ -288,7 +288,7 @@ def map_svg():
         main = name in ("Columbus", "Dublin", "Westerville", "Grove City")
         if main:
             dots += f'<circle cx="{x:.0f}" cy="{y:.0f}" r="{9 if name == "Columbus" else 7}" fill="#C9733A"/>'
-            dots += f'<text x="{x + 14:.0f}" y="{y + 7:.0f}" fill="#F3EEE6" font-size="24" font-family="Instrument Serif, serif">{name}</text>'
+            dots += f'<text x="{x + 14:.0f}" y="{y + 7:.0f}" fill="#F3EEE6" font-size="24" font-family="Archivo, sans-serif">{name}</text>'
         else:
             dots += f'<circle cx="{x:.0f}" cy="{y:.0f}" r="4" fill="none" stroke="#A9B3BE" stroke-width="1.5"/>'
             dots += f'<text x="{x + 10:.0f}" y="{y + 5:.0f}" fill="#A9B3BE" font-size="13" font-family="Hanken Grotesk, sans-serif">{name}</text>'
@@ -297,12 +297,12 @@ def map_svg():
 
 
 def build_areas_hub():
-    body = (page_hero("city-columbus", "Service areas", 'Local to <em class="accent">Central Ohio.</em>',
+    body = (page_hero("city-columbus", "Service areas", 'Local to <span class="accent">Central Ohio.</span>',
                       "One dispatch in Columbus, four home bases, and techs who already know the housing stock in your neighborhood.",
                       [("Home", "index.html"), ("Service Areas", "")], "Brick Italianate homes on a brick street in Columbus")
             + f'''<section class="section dark grid-bg" aria-labelledby="map-h">
 <div class="wrap split" style="gap:56px;align-items:center">
-<div style="display:grid;gap:20px"><span class="eyebrow">Drive times</span><h2 class="h-lg" id="map-h">Close enough to be <em class="accent">same day.</em></h2>
+<div style="display:grid;gap:20px"><span class="eyebrow">Drive times</span><h2 class="h-lg" id="map-h">Close enough to be <span class="accent">same day.</span></h2>
 <p class="lede" style="font-size:17px">Our trucks leave from one Columbus dispatch every morning. Most of the metro sits inside a thirty minute ring, which is why most weekday calls get a same day window.</p>
 <p class="small">Rings are approximate drive times outside rush hour.</p></div>
 <div class="map-wrap">{map_svg()}</div>
@@ -373,7 +373,7 @@ def build_city(c):
 <div class="cells">{nearby}</div>
 </div>
 </section>
-''' + booking(title=f'Book a visit in <em class="accent">{c["name"]}.</em>'))
+''' + booking(title=f'Book a visit in <span class="accent">{c["name"]}.</span>'))
     lb = business_schema()
     lb["areaServed"] = {"@type": "City", "name": f'{c["name"]}, Ohio'}
     schemas = [lb, faq_schema(cp["faq"]), crumbs_schema([("Home", ""), ("Service Areas", "service-areas.html"), (c["name"], f'{c["slug"]}.html')])]
@@ -382,7 +382,7 @@ def build_city(c):
 
 # ====================================================================== PROJECTS
 def build_projects_hub():
-    body = (page_hero("proj-heatpump", "Projects", 'Every job gets <em class="accent">a write up.</em>',
+    body = (page_hero("proj-heatpump", "Projects", 'Every job gets <span class="accent">a write up.</span>',
                       "The problem we found, what we did, and what it took. Each page is named by the job and the town, so a neighbor with the same problem can find it.",
                       [("Home", "index.html"), ("Projects", "")], "A new heat pump on a concrete pad beside a brick ranch home", btns=False)
             + f'''<section class="section paper" aria-label="Project write ups">
@@ -391,7 +391,7 @@ def build_projects_hub():
 <div class="grid cols-2 gap-32">{proj_card(PROJECTS[1])}{proj_card(PROJECTS[2])}</div>
 </div>
 </section>
-''' + stats_block() + booking(title='Have a job like <em class="accent">these?</em>'))
+''' + stats_block() + booking(title='Have a job like <span class="accent">these?</span>'))
     schemas = [business_schema(), crumbs_schema([("Home", ""), ("Projects", "projects.html")]),
                {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f'{BASE}/{p["slug"]}.html', "name": strip(p["title"])} for i, p in enumerate(PROJECTS)]}]
     write("projects.html", page("projects.html", "Projects | Keelhouse Home Services, Columbus OH",
@@ -424,7 +424,7 @@ def build_project(p):
 <div class="grid cols-2 gap-32">{"".join(proj_card(o) for o in others)}</div>
 </div>
 </section>
-''' + booking(title=f'Need the same in <em class="accent">{p["city"]}?</em>', preset=pp["preset"]))
+''' + booking(title=f'Need the same in <span class="accent">{p["city"]}?</span>', preset=pp["preset"]))
     art = {"@context": "https://schema.org", "@type": "Article", "headline": strip(p["title"]), "image": f'{BASE}/img/{p["img"]}.webp',
            "author": {"@id": f"{BASE}/#business"}, "publisher": {"@id": f"{BASE}/#business"}, "about": strip(p["trade"]),
            "contentLocation": {"@type": "Place", "name": f'{p["city"]}, Ohio'}, "datePublished": pp["date"]}
@@ -448,13 +448,13 @@ def build_how():
                  "Written price before any work starts", "Shoe covers, floor runners and cleanup on every job", "One year labor warranty on repairs, longer on installs"]
     crew = f'''<section id="crew" class="split paper" aria-labelledby="crew-h">
 <div class="split-media"><img src="img/founder.webp" alt="{FOUNDER}, founder of Keelhouse" loading="lazy" style="object-position:center 25%"></div>
-<div class="split-body"><span class="eyebrow">The crew</span><h2 class="h-lg" id="crew-h">Started by a plumber who got tired of <em>handing jobs off.</em></h2>
+<div class="split-body"><span class="eyebrow">The crew</span><h2 class="h-lg" id="crew-h">Started by a plumber who got tired of <span class="accent">handing jobs off.</span></h2>
 <p class="lede" style="font-size:17px">{FOUNDER} started Keelhouse in {YEAR_FOUNDED} after years of finishing his half of a job and telling the homeowner to call someone else for the rest. Today the crew covers all three trades, and every tech is cross trained to spot what the others would.</p>
 <p class="lede" style="font-size:17px">The name comes from the keel of a boat: the part nobody sees that keeps everything steady. That's the work we do inside the walls.</p>
 <div><a class="btn btn-ink" href="#book">Book a visit</a></div></div>
 </section>
 '''
-    body = (page_hero("how-runner", "How we work", 'Respect for the house, <em class="accent">start to finish.</em>',
+    body = (page_hero("how-runner", "How we work", 'Respect for the house, <span class="accent">start to finish.</span>',
                       "Four things happen on every Keelhouse visit, whether it's a dripping faucet or a whole new heating system.",
                       [("Home", "index.html"), ("How We Work", "")], "A Keelhouse technician laying a protective runner in a home's entryway", even=True)
             + rows
