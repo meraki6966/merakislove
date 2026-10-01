@@ -354,9 +354,9 @@ def footer():
 <div><h2>Contact</h2><address>Charlotte, North Carolina<br>Call or text <a href="tel:{TEL}">{PHONE}</a><br>Same day emergency visits</address></div>
 <div><h2>Offices</h2><ul>{offs}</ul></div>
 <div><h2>Services</h2><ul>{svc}<li><a href="services.html">All services</a></li></ul></div>
-<div><h2>Patients</h2><ul><li><a href="new-patients.html">New patients</a></li><li><a href="insurance-financing.html">Insurance and financing</a></li><li><a href="our-dentists.html">Our dentists</a></li><li><a href="myers-park.html">Myers Park patients</a></li></ul></div>
+<div><h2>Patients</h2><ul><li><a href="new-patients.html">New patients</a></li><li><a href="insurance-financing.html">Insurance and financing</a></li><li><a href="our-dentists.html">Our dentists</a></li><li><a href="myers-park.html">Myers Park patients</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
 </div>
-<div class="foot-base"><span>Licensed by the North Carolina State Board of Dental Examiners. © 2026 {BRAND}.</span><span>A demo site by <a href="https://merakislove.com/packages/presence-first-web-design">Meraki is Love</a>. Tessel Dental is a fictional practice.</span></div>
+<div class="foot-base"><span>Licensed by the North Carolina State Board of Dental Examiners. © 2026 {BRAND}. <a href="privacy.html">Privacy</a></span><span>A demo site by <a href="https://merakislove.com/packages/presence-first-web-design">Meraki is Love</a>. Tessel Dental is a fictional practice.</span></div>
 </div>
 </footer>
 <div class="mobile-bar"><a class="btn btn-line" href="tel:{TEL}">{ic("phone")}Call</a><a class="btn btn-sea" href="#book">Book online</a></div>

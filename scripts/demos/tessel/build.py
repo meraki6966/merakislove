@@ -418,6 +418,43 @@ def build_myers_park():
                                   schemas, "offices", body))
 
 
+def build_privacy():
+    sections = [
+        ("What this website collects", [
+            "The booking form asks for your name, phone, email, the kind of visit, which office you prefer and your insurance carrier. It does not ask about your health, and the form says so.",
+            "That information travels over an encrypted connection to our scheduling system and is used for one thing: setting up your visit.",
+        ]),
+        ("Your health information", [
+            "Health history, medications and allergies are collected only through the secure intake link we send after your visit is booked, never through email or the booking form.",
+            "Your health information is protected under HIPAA. Our Notice of Privacy Practices explains how we use and share it, and your rights to see, copy and correct your records. A live Tessel site publishes that full notice on this page.",
+        ]),
+        ("Cookies and tracking", [
+            "There are no advertising trackers or tracking pixels on any page of this site. We count visits in aggregate, without cookies and without building a profile of you.",
+        ]),
+        ("How we keep it safe", [
+            "Every page loads over HTTPS with strict transport security. The patient portal asks for a code sent to your phone at sign in. Staff see only what their role needs, and every view of a patient record is logged.",
+        ]),
+        ("Your choices", [
+            f"You can ask for a copy of your records, ask us to correct them, or ask us to delete a website message you sent. Call {PHONE} and ask for our privacy officer.",
+        ]),
+    ]
+    body_html = "".join(f'<h2 class="h-md" style="margin:40px 0 12px">{h}</h2>' + "".join(f"<p>{p}</p>" for p in ps) for h, ps in sections)
+    body = f'''<section class="hero hero-page" style="padding-bottom:24px"><div class="wrap">
+{crumbs([("Home", "index.html"), ("Privacy", "")])}
+<span class="eyebrow">Privacy</span>
+<h1 class="h-xl">Your privacy at <span class="accent">Tessel Dental.</span></h1>
+<p class="lede" style="margin-top:20px">What this website collects, what it never asks for, and how your health information stays protected.</p>
+</div></section>
+<section class="section white" style="padding-top:56px"><div class="wrap" style="max-width:780px">{body_html}
+<p class="fine" style="margin-top:40px">This is a demo site by Meraki is Love. Tessel Dental is a fictional practice, and nothing entered on this site is sent anywhere.</p>
+</div></section>
+''' + booking()
+    schemas = [org_schema(), crumbs_schema([("Home", ""), ("Privacy", "privacy.html")])]
+    write("privacy.html", page("privacy.html", "Privacy | Tessel Dental, Charlotte NC",
+                               "How the Tessel Dental website handles your information: no health details in the booking form, secure intake, no ad trackers, and HIPAA protection.",
+                               schemas, "", body))
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     print("Building Tessel demo:")
@@ -432,3 +469,4 @@ if __name__ == "__main__":
     for o in OFFICES:
         build_office(o["slug"])
     build_myers_park()
+    build_privacy()
