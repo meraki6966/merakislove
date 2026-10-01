@@ -31,7 +31,20 @@ const securityHeaders = [
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
   { key: "Content-Security-Policy", value: ContentSecurityPolicy },
   { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
+  // Keep this site's windows in their own browsing context group, so a page
+  // opened from another site can't hold a reference to ours (and the reverse).
+  // Every outbound link already uses rel="noopener", and nothing here relies
+  // on window.opener, so this changes no behavior.
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  // Only pages on merakislove.com (and its subdomains) may embed this site's
+  // files. The share and cover images below are the exception.
+  { key: "Cross-Origin-Resource-Policy", value: "same-site" },
 ];
+
+// Share and cover images are meant to be shown elsewhere (link previews,
+// other Meraki properties), so they stay embeddable from any site. This entry
+// comes after the global one, and for the same header key the later match wins.
+const embeddableImageHeaders = [{ key: "Cross-Origin-Resource-Policy", value: "cross-origin" }];
 
 const nextConfig: NextConfig = {
   // Pin the workspace root to this project. A stray package-lock.json in the
@@ -111,6 +124,8 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
+      { source: "/og/:path*", headers: embeddableImageHeaders },
+      { source: "/covers/:path*", headers: embeddableImageHeaders },
     ];
   },
 };

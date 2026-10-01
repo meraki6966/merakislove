@@ -10,16 +10,22 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         crawlDelay: 10,
       },
+      // AI crawlers are welcome: being cited in AI answers is part of how
+      // this studio gets found. Named explicitly so the choice is on record
+      // per bot. Anthropic runs three (training, search, and fetches a user
+      // asks for); "Anthropic" was never one of their agent names.
       {
-        userAgent: "GPTBot",
-        allow: "/",
-      },
-      {
-        userAgent: "Google-Extended",
-        allow: "/",
-      },
-      {
-        userAgent: "Anthropic",
+        userAgent: [
+          "GPTBot",
+          "OAI-SearchBot",
+          "ChatGPT-User",
+          "ClaudeBot",
+          "Claude-SearchBot",
+          "Claude-User",
+          "PerplexityBot",
+          "Perplexity-User",
+          "Google-Extended",
+        ],
         allow: "/",
       },
     ],
