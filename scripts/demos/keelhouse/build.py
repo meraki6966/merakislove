@@ -44,13 +44,13 @@ def write(name, html):
 
 
 def svc_cards():
-    return "".join(f'''<a class="svc-card reveal" href="{s["slug"]}.html"><img src="img/{s["img"]}.webp" alt="" loading="lazy" width="1100" height="1480">
+    return "".join(f'''<a class="svc-card reveal" href="{s["slug"]}.html"><img src="img/{s["img"]}.webp" alt="{IMG_ALT[s["img"]]}" loading="lazy" width="1100" height="1480">
 <span class="svc-body"><span class="svc-text"><span class="label">0{i+1}  /  Visits from {s["visit"]}</span><b>{s["name"]}</b><span>{s["short"]}</span></span><span class="circle-arrow">{ic("arrow")}</span></span></a>''' for i, s in enumerate(SERVICES))
 
 
 def proj_card(p, feature=False):
     return f'''<a class="proj-card reveal{" proj-feature" if feature else ""}" href="{p["slug"]}.html">
-<span class="img"><img src="img/{p["img"]}.webp" alt="" loading="lazy" width="1800" height="1338"></span>
+<span class="img"><img src="img/{p["img"]}.webp" alt="{IMG_ALT[p["img"]]}" loading="lazy" width="1800" height="1338"></span>
 <span class="label">{p["trade"]}  ·  {p["city"]}</span>
 <b>{p["title"]}</b>
 <span class="go">Read the project{ic("arrow")}</span></a>'''
@@ -178,9 +178,9 @@ def build_home():
 '''
     body = (hero + triage + services + reviews_band(REVIEWS[:3]) + work + phases_block() + stats_block() + worries_block() + areas_block()
             + faq_block("Straight answers.", HOME_FAQ, "These are marked up so Google and AI search can quote them word for word.") + booking())
-    schemas = [business_schema(), faq_schema(HOME_FAQ), {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": f"{BASE}/"}]
-    write("index.html", page("index.html", "Keelhouse Home Services | Plumbing, Heating &amp; Electrical in Columbus, OH",
-                             "Licensed plumbing, heating and cooling, and electrical for Columbus, Dublin, Westerville and Grove City homes. Same day windows, written prices, 24/7 emergency line.",
+    schemas = [org_schema(), business_schema(), faq_schema(HOME_FAQ), {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": f"{BASE}/"}]
+    write("index.html", page("index.html", "Keelhouse | Columbus Plumbing, Heating and Electrical",
+                             "Licensed plumbing, heating and electrical for Columbus, Dublin, Westerville and Grove City homes. Same day windows, written prices, 24/7 emergency line.",
                              schemas, "home", body))
 
 
@@ -209,7 +209,7 @@ def build_services_hub():
                       [("Home", "index.html"), ("Services", "")], "A Keelhouse technician arriving at a brick colonial home")
             + "".join(rows) + cross + faq_block("Service questions.", SERVICES_FAQ, "Answers about pricing, scheduling and what each trade covers.") + booking())
     schemas = [business_schema(), faq_schema(SERVICES_FAQ), crumbs_schema([("Home", ""), ("Services", "services.html")])]
-    write("services.html", page("services.html", "Services | Plumbing, Heating &amp; Cooling, Electrical | Keelhouse Home Services",
+    write("services.html", page("services.html", "Plumbing, Heating and Electrical Services | Keelhouse",
                                 "Plumbing, heating and cooling, and electrical services for Central Ohio homes. Written prices, credited diagnostic visits, 24/7 emergency line.",
                                 schemas, "services", body))
 
@@ -251,7 +251,7 @@ def build_service(s):
 <p class="lede" style="font-size:17px">{PROJECT_PAGES[proj["slug"]]["summary"]}</p>
 <div><a class="text-link" href="{proj["slug"]}.html">Read the project{ic("arrow")}</a></div>
 <p class="small">Other trades: {" and ".join(f'<a href="{o["slug"]}.html">{o["name"]}</a>' for o in others)}.</p></div>
-<a class="proj-card" href="{proj["slug"]}.html"><span class="img"><img src="img/{proj["img"]}.webp" alt="" loading="lazy" width="1800" height="1338" style="height:440px"></span></a>
+<a class="proj-card" href="{proj["slug"]}.html"><span class="img"><img src="img/{proj["img"]}.webp" alt="{IMG_ALT[proj["img"]]}" loading="lazy" width="1800" height="1338" style="height:440px"></span></a>
 </div>
 </section>
 ''' + faq_block(f"{plain} questions.", sp["faq"], "Written for the searches people run when something stops working.")
@@ -310,7 +310,7 @@ def build_areas_hub():
 </section>
 ''' + areas_block("Pick your city.") + faq_block("Service area questions.", AREAS_FAQ, "Coverage, arrival windows and permits across the metro.") + booking())
     schemas = [business_schema(), faq_schema(AREAS_FAQ), crumbs_schema([("Home", ""), ("Service Areas", "service-areas.html")])]
-    write("service-areas.html", page("service-areas.html", "Service Areas | Columbus, Dublin, Westerville, Grove City | Keelhouse",
+    write("service-areas.html", page("service-areas.html", "Service Areas in Central Ohio | Keelhouse",
                                      "Keelhouse serves Columbus, Dublin, Westerville and Grove City, plus Hilliard, Upper Arlington, Worthington, Gahanna and Powell.",
                                      schemas, "areas", body))
 
@@ -329,7 +329,7 @@ def build_city(c):
     if proj:
         proj_html = f'''<section class="section white" aria-labelledby="cproj-h">
 <div class="wrap split" style="gap:56px;align-items:center">
-<a class="proj-card" href="{proj["slug"]}.html"><span class="img"><img src="img/{proj["img"]}.webp" alt="" loading="lazy" width="1800" height="1338" style="height:420px"></span></a>
+<a class="proj-card" href="{proj["slug"]}.html"><span class="img"><img src="img/{proj["img"]}.webp" alt="{IMG_ALT[proj["img"]]}" loading="lazy" width="1800" height="1338" style="height:420px"></span></a>
 <div style="display:grid;gap:20px"><span class="eyebrow">A {c["name"]} job</span><h2 class="h-md" id="cproj-h">{proj["title"]}</h2>
 <p class="lede" style="font-size:17px">{PROJECT_PAGES[proj["slug"]]["summary"]}</p><div><a class="text-link" href="{proj["slug"]}.html">Read the project{ic("arrow")}</a></div></div>
 </div>
@@ -429,7 +429,7 @@ def build_project(p):
            "author": {"@id": f"{BASE}/#business"}, "publisher": {"@id": f"{BASE}/#business"}, "about": strip(p["trade"]),
            "contentLocation": {"@type": "Place", "name": f'{p["city"]}, Ohio'}, "datePublished": pp["date"]}
     schemas = [art, crumbs_schema([("Home", ""), ("Projects", "projects.html"), (strip(p["title"]), f'{p["slug"]}.html')])]
-    write(f'{p["slug"]}.html', page(f'{p["slug"]}.html', f'{strip(p["title"])} | Keelhouse Projects', pp["desc"], schemas, "projects", body))
+    write(f'{p["slug"]}.html', page(f'{p["slug"]}.html', p.get("seo_title", strip(p["title"])), pp["desc"], schemas, "projects", body))
 
 
 # ====================================================================== HOW WE WORK
@@ -441,7 +441,7 @@ def build_how():
         ("how-tablet", "Phase four", "Photos, notes and a file for your house.", ["When we're done, you get photos of the finished work and a short summary by text. It goes into your home's file, so the next tech starts with the history of every visit."]),
     ]
     rows = "".join(f'''<div class="alt-row{" flip" if i % 2 else ""} {"white" if i % 2 else "paper"}">
-<div class="alt-media"><img src="img/{img}.webp" alt="" loading="lazy"></div>
+<div class="alt-media"><img src="img/{img}.webp" alt="{IMG_ALT[img]}" loading="lazy"></div>
 <div class="alt-body"><div class="num">0{i+1}</div><span class="eyebrow">{eb}</span><h2 class="h-lg">{h}</h2>{"".join(f'<p class="lede" style="font-size:17px">{t}</p>' for t in ps)}</div>
 </div>''' for i, (img, eb, h, ps) in enumerate(steps))
     standards = ["Licensed master plumber, master electrician and EPA 608 certified HVAC techs", "Background checked, drug tested and employed by us, never subcontracted", "Two hour arrival windows by text, with a heads up twenty minutes out",

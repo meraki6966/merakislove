@@ -41,6 +41,17 @@ MARK = ('<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">'
 TILES = '<div class="tiles" aria-hidden="true">' + "<span></span>" * 9 + "</div>"
 
 
+# Alt text for every photo, so card images describe what they show.
+IMG_ALT = {
+    "svc-cleaning": "A hygienist cleaning a relaxed patient's teeth in a bright treatment room",
+    "svc-cosmetic": "A woman laughing on a leafy sidewalk with a natural bright smile",
+    "svc-implants": "A dentist explaining a dental implant model to an older patient",
+    "svc-emergency": "A dental assistant handing a cold pack to a young man holding his cheek",
+    "office-south-end": "The Tessel South End office, a red brick building beside the Rail Trail",
+    "office-ballantyne": "The Tessel Ballantyne office, a stone and wood building among trees",
+}
+
+
 def ic(name, cls=""):
     c = f' class="{cls}"' if cls else ""
     fill = ' fill="currentColor"' if name == "star" else ' fill="none"'

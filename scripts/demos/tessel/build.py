@@ -57,7 +57,7 @@ OFF = {o["slug"]: o for o in OFFICES}
 
 # ---------------------------------------------------------------- blocks
 def svc_cards(exclude=None):
-    return "".join(f'''<a class="svc-card reveal" href="{s["slug"]}.html"><span class="ph"><img src="img/{s["img"]}.webp" alt="" loading="lazy" width="1400" height="1041"></span>
+    return "".join(f'''<a class="svc-card reveal" href="{s["slug"]}.html"><span class="ph"><img src="img/{s["img"]}.webp" alt="{IMG_ALT[s["img"]]}" loading="lazy" width="1400" height="1041"></span>
 <span class="body"><span class="tag">{s["tag"]}</span><h3>{s["name"]}</h3><p>{s["short"]}</p><span class="more">Learn more{ic("arrow")}</span></span></a>'''
                    for s in SERVICES if s["slug"] != exclude)
 
@@ -93,7 +93,7 @@ def worries_block():
 def office_cards(heading=True):
     cards = ""
     for o in OFFICES:
-        cards += f'''<article class="office reveal"><div class="ph"><img src="img/{o["img"]}.webp" alt="" loading="lazy" width="1800" height="1016"></div>
+        cards += f'''<article class="office reveal"><div class="ph"><img src="img/{o["img"]}.webp" alt="{IMG_ALT[o["img"]]}" loading="lazy" width="1800" height="1016"></div>
 <div class="body"><h3>{o["name"]}</h3>{status_line(o)}
 <dl><dt>Where</dt><dd>{o["where"]}</dd><dt>Parking</dt><dd>{o["parking"]}</dd><dt>Dentist</dt><dd>{o["dentist"]}</dd><dt>Close to</dt><dd>{o["serves"]}</dd></dl>
 <div class="btn-row"><a class="btn btn-sea" href="?office={o["slug"]}#book">Book at {o["name"]}</a><a class="btn btn-line" href="{o["slug"]}.html">Office details</a></div></div></article>'''
@@ -159,8 +159,8 @@ def build_home():
     body = (hero + carriers_strip() + first_visit_steps() + svc + worries_block() + doc + office_cards()
             + reviews_band(REVIEWS[:3]) + member + faq_block("Before you book.", HOME_FAQ, "Quick answers to what new patients ask most.") + booking())
     schemas = [org_schema()] + [office_schema(o) for o in OFFICES] + [faq_schema(HOME_FAQ)]
-    write("index.html", page("index.html", "Tessel Dental | Dentist in South End and Ballantyne, Charlotte NC",
-                             "Calm, unhurried dentistry at two Charlotte offices, South End and Ballantyne. Cleanings, cosmetic work, implants and same day emergencies. Most PPO plans accepted.",
+    write("index.html", page("index.html", "Tessel Dental | Charlotte Dentist, South End and Ballantyne",
+                             "Calm, unhurried dentistry at two Charlotte offices. Cleanings, cosmetic work, implants and same day emergencies. Most PPO plans accepted.",
                              schemas, "home", body))
 
 
@@ -275,7 +275,7 @@ def build_insurance():
 </div></section>
 ''' + faq_block("Insurance and payment.", INSURANCE_FAQ, "Common questions about plans, bills and payment.") + booking())
     schemas = [org_schema(), faq_schema(INSURANCE_FAQ), crumbs_schema([("Home", ""), ("Insurance and Financing", "insurance-financing.html")])]
-    write("insurance-financing.html", page("insurance-financing.html", "Dental Insurance, Membership Plan and Financing | Tessel Dental Charlotte",
+    write("insurance-financing.html", page("insurance-financing.html", "Dental Insurance and Membership Plan | Tessel Dental",
                                            "Tessel Dental is in network with most PPO dental plans in Charlotte. No insurance? Our membership plan starts at $32 a month. Self pay prices and financing.",
                                            schemas, "insurance", body))
 
@@ -340,7 +340,7 @@ def build_offices_hub():
             + office_cards(heading=False) + compare + faq_block("About our offices.", HOME_FAQ[4:5] + AREA_FAQ["south-end"][:2] + AREA_FAQ["ballantyne"][:1], "Parking, transit and hours.", "") + booking())
     qa = HOME_FAQ[4:5] + AREA_FAQ["south-end"][:2] + AREA_FAQ["ballantyne"][:1]
     schemas = [org_schema()] + [office_schema(o) for o in OFFICES] + [faq_schema(qa), crumbs_schema([("Home", ""), ("Offices", "offices.html")])]
-    write("offices.html", page("offices.html", "Our Offices in South End and Ballantyne | Tessel Dental Charlotte",
+    write("offices.html", page("offices.html", "Dentist Offices in South End and Ballantyne | Tessel",
                                "Tessel Dental has two Charlotte offices: South End on the Rail Trail near the East/West Blvd light rail station, and Ballantyne off I-485 with Saturday hours.",
                                schemas, "offices", body))
 

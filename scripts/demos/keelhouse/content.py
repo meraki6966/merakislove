@@ -38,7 +38,7 @@ HOW_FAQ = [
 
 SERVICE_PAGES = {
     "plumbing": {
-        "title": "Plumbing in Columbus, OH | Water Heaters, Leaks &amp; Drains | Keelhouse",
+        "title": "Plumber in Columbus, OH | Keelhouse",
         "desc": "Licensed plumbing for Columbus, Dublin, Westerville and Grove City homes: leaks, drains, water heaters, sump pumps and repipes. Visits from $95.",
         "h1": 'Water where you want it. <span class="accent">Nowhere else.</span>',
         "lede": "Leaks, slow drains, water heaters and old supply lines, fixed by a licensed plumbing crew. Diagnostic visits from $95, credited toward the repair.",
@@ -66,7 +66,7 @@ SERVICE_PAGES = {
         ],
     },
     "heating-cooling": {
-        "title": "Heating &amp; Cooling in Columbus, OH | Furnace, AC &amp; Heat Pumps | Keelhouse",
+        "title": "Furnace and AC Repair in Columbus, OH | Keelhouse",
         "desc": "Furnace and AC repair, tune ups and heat pump installs for Columbus, Dublin, Westerville and Grove City. Visits from $120, written prices, 24/7 emergency line.",
         "h1": 'Heat that comes on. <span class="accent">Air that stays cold.</span>',
         "lede": "Furnace, AC and heat pump repair, tune ups and installs. Diagnostic visits from $120, credited toward the repair.",
@@ -94,7 +94,7 @@ SERVICE_PAGES = {
         ],
     },
     "electrical": {
-        "title": "Electrician in Columbus, OH | Panels, EV Chargers &amp; Lighting | Keelhouse",
+        "title": "Electrician in Columbus, OH | Keelhouse",
         "desc": "Licensed electrical work for Columbus, Dublin, Westerville and Grove City homes: panel upgrades, EV chargers, lighting and surge protection. Visits from $110.",
         "h1": 'Power you never <span class="accent">have to think about.</span>',
         "lede": "Panels, circuits, lighting and EV chargers, done to code by a licensed electrician and inspected when the city requires it. Diagnostic visits from $110.",
@@ -125,8 +125,8 @@ SERVICE_PAGES = {
 
 CITY_PAGES = {
     "columbus-oh": {
-        "title": "Plumbing, Heating &amp; Electrical in Columbus, OH | Keelhouse",
-        "desc": "Keelhouse is based in Columbus. Plumbing, heating and electrical for German Village, Clintonville, Short North and Victorian Village homes, with same day windows.",
+        "title": "Home Services in Columbus, OH | Keelhouse",
+        "desc": "Based in Columbus. Plumbing, heating and electrical for German Village, Clintonville, Short North and Victorian Village homes, with same day windows.",
         "h1": 'Plumbing, heating and electrical in <span class="accent">Columbus.</span>',
         "lede": "Our shop and dispatch are here, so Columbus gets the shortest arrival windows we offer.",
         "img_alt": "Brick Italianate homes along a brick street in a historic Columbus neighborhood",
@@ -158,7 +158,7 @@ CITY_PAGES = {
         "also": "Bexley, Grandview Heights and Upper Arlington",
     },
     "dublin-oh": {
-        "title": "Plumbing, Heating &amp; Electrical in Dublin, OH | Keelhouse",
+        "title": "Plumbing, HVAC and Electrical in Dublin, OH | Keelhouse",
         "desc": "Plumbing, heating and electrical for Dublin, Ohio homes in Historic Dublin, Bridge Park, Muirfield Village and Ballantrae. Same day windows, written prices.",
         "h1": 'Plumbing, heating and electrical in <span class="accent">Dublin, Ohio.</span>',
         "lede": "From the stone buildings in Historic Dublin to the newer builds around Bridge Park and Muirfield, Dublin mixes old plumbing with new systems.",
@@ -191,7 +191,7 @@ CITY_PAGES = {
         "also": "Hilliard, Powell and Upper Arlington",
     },
     "westerville-oh": {
-        "title": "Plumbing, Heating &amp; Electrical in Westerville, OH | Keelhouse",
+        "title": "Home Services in Westerville, OH | Keelhouse",
         "desc": "Plumbing, heating and electrical for Westerville, Ohio homes in Uptown, near Alum Creek and in Genoa Township. Same day windows, written prices.",
         "h1": 'Plumbing, heating and electrical in <span class="accent">Westerville.</span>',
         "lede": "Older homes around Uptown and Otterbein, newer neighborhoods out toward Alum Creek, and one crew that works on both.",
@@ -224,7 +224,7 @@ CITY_PAGES = {
         "also": "Worthington, Gahanna and Powell",
     },
     "grove-city-oh": {
-        "title": "Plumbing, Heating &amp; Electrical in Grove City, OH | Keelhouse",
+        "title": "Home Services in Grove City, OH | Keelhouse",
         "desc": "Plumbing, heating and electrical for Grove City, Ohio homes in Town Center, Beulah Park and Pinnacle. Same day windows, written prices.",
         "h1": 'Plumbing, heating and electrical in <span class="accent">Grove City.</span>',
         "lede": "Ranch homes from the 1960s and 70s, newer neighborhoods like Beulah Park, and a crew that's twenty minutes away.",

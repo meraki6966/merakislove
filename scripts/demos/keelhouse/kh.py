@@ -44,6 +44,23 @@ KEEL = ('<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width
         '<path d="M5 24h30"/><path d="M14 24l6 10 6-10"/></svg>')
 
 
+# Alt text for every photo, so card and row images describe what they show.
+IMG_ALT = {
+    "svc-plumbing": "A plumber fitting new copper water lines in a basement",
+    "svc-hvac": "An HVAC technician checking a gas furnace with pressure gauges",
+    "svc-electrical": "An electrician working inside a residential breaker panel",
+    "proj-panel": "A newly installed 200 amp residential breaker panel in a basement",
+    "proj-repipe": "New PEX and copper water lines along basement joists, with removed galvanized pipe on a drop cloth",
+    "proj-heatpump": "A new heat pump outdoor unit on a concrete pad beside a brick ranch home",
+    "how-runner": "A Keelhouse technician laying a protective runner in a home's entryway",
+    "how-tablet": "A Keelhouse technician showing a homeowner photos of the finished work on a tablet in her kitchen",
+    "city-columbus": "Brick Italianate homes on a brick street in Columbus",
+    "city-dublin": "Historic stone storefront buildings along a riverside street in Dublin",
+    "city-westerville": "A brick main street with Victorian storefronts in Westerville",
+    "city-grove-city": "A tree lined street of brick homes in Grove City",
+}
+
+
 def ic(name, cls=""):
     c = f' class="{cls}"' if cls else ""
     fill = ' fill="currentColor"' if name == "star" else ' fill="none"'
@@ -64,11 +81,11 @@ CITIES = [
     {"slug": "grove-city-oh", "name": "Grove City", "hoods": "Town Center, Beulah Park, Pinnacle", "drive": "About 20 min from dispatch"},
 ]
 PROJECTS = [
-    {"slug": "panel-upgrade-dublin-oh", "trade": "Electrical", "city": "Dublin", "city_slug": "dublin-oh", "img": "proj-panel",
+    {"slug": "panel-upgrade-dublin-oh", "seo_title": "Panel Upgrade in Dublin, OH | Keelhouse Projects", "trade": "Electrical", "city": "Dublin", "city_slug": "dublin-oh", "img": "proj-panel",
      "title": "200 amp panel upgrade in a 1990s Muirfield Village home"},
-    {"slug": "galvanized-repipe-westerville-oh", "trade": "Plumbing", "city": "Westerville", "city_slug": "westerville-oh", "img": "proj-repipe",
+    {"slug": "galvanized-repipe-westerville-oh", "seo_title": "Galvanized Repipe in Westerville, OH | Keelhouse", "trade": "Plumbing", "city": "Westerville", "city_slug": "westerville-oh", "img": "proj-repipe",
      "title": "Galvanized water line replacement in an Uptown Westerville home"},
-    {"slug": "heat-pump-install-grove-city-oh", "trade": "Heating &amp; Cooling", "city": "Grove City", "city_slug": "grove-city-oh", "img": "proj-heatpump",
+    {"slug": "heat-pump-install-grove-city-oh", "seo_title": "Heat Pump Install in Grove City, OH | Keelhouse", "trade": "Heating &amp; Cooling", "city": "Grove City", "city_slug": "grove-city-oh", "img": "proj-heatpump",
      "title": "Dual fuel heat pump install in a Grove City ranch"},
 ]
 NEEDS = [("leak", "drop", "Leak or clog"), ("no-heat", "flame", "No heat"), ("no-cooling", "snow", "AC not cooling"),
@@ -91,7 +108,14 @@ def business_schema():
         "areaServed": [{"@type": "City", "name": f"{c['name']}, Ohio"} for c in CITIES],
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "07:00", "closes": "19:00"}],
         "founder": {"@type": "Person", "name": FOUNDER, "jobTitle": "Founder and master plumber"},
+        "parentOrganization": {"@id": f"{BASE}/#org"},
     }
+
+
+def org_schema():
+    return {"@context": "https://schema.org", "@type": "Organization", "@id": f"{BASE}/#org", "name": BRAND,
+            "url": f"{BASE}/", "logo": f"{BASE}/img/og.jpg", "telephone": "+1-614-555-0142",
+            "foundingDate": str(YEAR_FOUNDED), "founder": {"@type": "Person", "name": FOUNDER}}
 
 
 def faq_schema(qa):

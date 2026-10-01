@@ -25,8 +25,8 @@ SERVICES_FAQ = [
 
 SERVICE_PAGES = {
     "cleanings-exams": {
-        "title": "Teeth Cleaning and Dental Exams in Charlotte, NC | Tessel Dental",
-        "desc": "Unhurried cleanings and exams for adults and kids at Tessel Dental in South End and Ballantyne. Most PPO plans accepted, membership plan for patients without insurance.",
+        "title": "Teeth Cleaning and Exams in Charlotte, NC | Tessel Dental",
+        "desc": "Unhurried cleanings and exams for adults and kids in South End and Ballantyne. Most PPO plans accepted, and a membership plan if you have no insurance.",
         "eyebrow": "Cleanings and exams",
         "h1": 'Cleanings and checkups, <span class="accent">without the rush.</span>',
         "lede": "An hour for new patients and 50 minutes for returning ones, so there's time to talk about what we see and what it means.",
@@ -49,7 +49,7 @@ SERVICE_PAGES = {
         ],
     },
     "cosmetic-dentistry": {
-        "title": "Cosmetic Dentist in Charlotte, NC: Whitening, Veneers, Bonding | Tessel Dental",
+        "title": "Cosmetic Dentist in Charlotte, NC | Tessel Dental",
         "desc": "Teeth whitening, bonding, porcelain veneers and clear aligners at Tessel Dental in Charlotte. Free cosmetic consult with a digital smile preview.",
         "eyebrow": "Cosmetic dentistry",
         "h1": 'A brighter smile that still <span class="accent">looks like you.</span>',
@@ -72,7 +72,7 @@ SERVICE_PAGES = {
         ],
     },
     "dental-implants": {
-        "title": "Dental Implants in Charlotte, NC | Tessel Dental Ballantyne and South End",
+        "title": "Dental Implants in Charlotte, NC | Tessel Dental",
         "desc": "Single tooth implants to full arch restorations at Tessel Dental in Charlotte, planned with a 3D scan. Single implant with crown from $4,300.",
         "eyebrow": "Dental implants",
         "h1": 'Replace a missing tooth, <span class="accent">root and all.</span>',
@@ -96,7 +96,7 @@ SERVICE_PAGES = {
         ],
     },
     "emergency-dentist": {
-        "title": "Emergency Dentist in Charlotte, NC: Same Day Visits | Tessel Dental",
+        "title": "Emergency Dentist in Charlotte, NC | Tessel Dental",
         "desc": "Same day emergency dental visits in South End and Ballantyne for tooth pain, broken teeth, swelling and knocked out teeth. Emergency exam with x-ray $119.",
         "eyebrow": "Emergency dentist",
         "h1": 'Tooth pain today? <span class="accent">Be seen today.</span>',
@@ -166,7 +166,7 @@ AREA_FAQ = {
 AREA_PAGES = {
     "south-end": {
         "title": "Dentist in South End, Charlotte NC | Tessel Dental",
-        "desc": "Tessel Dental's South End office sits on the Rail Trail near the East/West Blvd light rail station. Cleanings, cosmetic work and same day emergencies. Open from 7:30 AM.",
+        "desc": "Our South End office sits on the Rail Trail near the East/West Blvd light rail station. Cleanings, cosmetic work and same day emergencies from 7:30 AM.",
         "h1": 'Your dentist on the <span class="accent">Rail Trail.</span>',
         "lede": "Our first office, in a converted brick building on the Rail Trail. Open at 7:30 AM on weekdays, two minutes from the East/West Blvd light rail stop.",
         "alt": "A red brick building with tall black framed windows beside a greenway trail in South End",
