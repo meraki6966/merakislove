@@ -63,6 +63,10 @@ const nextConfig: NextConfig = {
         source: "/demos/hazel-and-row",
         destination: "/demos/hazel-and-row/index.html",
       },
+      {
+        source: "/demos/tessel",
+        destination: "/demos/tessel/index.html",
+      },
     ];
   },
   // /services was renamed to /packages. Old backlinks and the footers of the

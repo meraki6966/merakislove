@@ -43,11 +43,11 @@ interface Demo {
   swatchInk: string;
 }
 
-// Four demos: two up from `md`, three up from `lg` (the fourth wraps to its
-// own row on large screens rather than forcing a 2x2 grid). The swatch is
+// Five demos: two up from `md`, three up from `lg` (the last two wrap to
+// their own row on large screens rather than forcing an even grid). The swatch is
 // kept as a band across the top of each card rather than dropped: it is the
 // thing that signals each demo has its own design world, and it earns its
-// place precisely because these four palettes share nothing.
+// place precisely because these palettes share nothing.
 const demos: Demo[] = [
   {
     name: "The Corner Table",
@@ -75,7 +75,7 @@ const demos: Demo[] = [
     name: "Keelhouse Home Services",
     eyebrow: "Home Services · Multi-page",
     description:
-      "A plumbing, heating and electrical contractor in Columbus, Ohio, built as a full fifteen page site: a page for every trade, every city and every project write up. Editorial serif type, near-black and warm paper, and a copper accent. Every page carries FAQ and LocalBusiness schema so search and AI answers can quote it.",
+      "A plumbing, heating and electrical contractor in Columbus, Ohio, built as a full fifteen page site: a page for every trade, every city and every project write up. Wide Archivo headlines, near-black and warm paper, and a copper accent. Every page carries FAQ and LocalBusiness schema so search and AI answers can quote it.",
     stack: ["Static HTML", "Schema.org", "Presence-First"],
     href: "/demos/keelhouse",
     swatch: ["#0E141B", "#C9733A"],
@@ -92,6 +92,17 @@ const demos: Demo[] = [
     swatch: ["#0A2118", "#C9A25C"],
     swatchLabel: "Emerald · Warm Gold · Ivory",
     swatchInk: "rgba(248, 243, 231, 0.78)",
+  },
+  {
+    name: "Tessel Dental",
+    eyebrow: "Dental · Multi-page",
+    description:
+      "A two office dental practice in Charlotte, North Carolina, built as a thirteen page site: every service, both offices and a neighborhood page, each with prices in plain view. Light and calm, sea glass and clay on soft white, with a tile motif taken from the name. The new patient page shows how a health form should be handled, and every page carries Dentist and FAQ schema.",
+    stack: ["Static HTML", "Schema.org", "Presence-First"],
+    href: "/demos/tessel",
+    swatch: ["#F3F6F4", "#2B6B62"],
+    swatchLabel: "Soft White · Sea Glass · Clay",
+    swatchInk: "rgba(20, 48, 42, 0.72)",
   },
 ];
 
