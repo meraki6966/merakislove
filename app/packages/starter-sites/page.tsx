@@ -93,6 +93,11 @@ const liveExamples: LiveExample[] = [
     category: "Dental, medical",
     href: "/demos/tessel",
   },
+  {
+    name: "Pikewell Real Estate",
+    category: "Real estate, professional services",
+    href: "/demos/pikewell",
+  },
 ];
 
 const liveExamplesClose =
@@ -192,7 +197,7 @@ const whatThisIsNextTo = [
 ];
 
 const whatYouGet = [
-  "You click Corner Table, Iron Prism, Keelhouse, Hazel, or Tessel first.",
+  "You click Corner Table, Iron Prism, Keelhouse, Hazel, Tessel, or Pikewell first.",
   "You talk to one owner. Nationwide.",
   "After launch I can scan the live URL with Canopy Guard for search, AI answers, and visible security.",
 ];

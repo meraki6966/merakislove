@@ -80,6 +80,10 @@ const nextConfig: NextConfig = {
         source: "/demos/tessel",
         destination: "/demos/tessel/index.html",
       },
+      {
+        source: "/demos/pikewell",
+        destination: "/demos/pikewell/index.html",
+      },
     ];
   },
   // /services was renamed to /packages. Old backlinks and the footers of the

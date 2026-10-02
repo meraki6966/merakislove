@@ -43,8 +43,8 @@ interface Demo {
   swatchInk: string;
 }
 
-// Five demos: two up from `md`, three up from `lg` (the last two wrap to
-// their own row on large screens rather than forcing an even grid). The swatch is
+// Six demos: two up from `md`, three up from `lg` (two full rows on large
+// screens). The swatch is
 // kept as a band across the top of each card rather than dropped: it is the
 // thing that signals each demo has its own design world, and it earns its
 // place precisely because these palettes share nothing.
@@ -103,6 +103,17 @@ const demos: Demo[] = [
     swatch: ["#F3F6F4", "#2B6B62"],
     swatchLabel: "Soft White · Sea Glass · Clay",
     swatchInk: "rgba(20, 48, 42, 0.72)",
+  },
+  {
+    name: "Pikewell Real Estate",
+    eyebrow: "Real Estate · Multi-page",
+    description:
+      "A three broker real estate firm in Denver, Colorado, built as a seventeen page site: six neighborhood guides, three listing pages, and separate paths for buying, selling and a home value report. Alpine navy and aspen gold with a slab serif headline. The guides stick to homes, parks, streets and transit, the way fair housing rules ask, and the buying page explains the buyer agreement rules that took effect in August 2024.",
+    stack: ["Static HTML", "Schema.org", "Presence-First"],
+    href: "/demos/pikewell",
+    swatch: ["#122341", "#E2A72B"],
+    swatchLabel: "Alpine Navy · Aspen Gold · Snow",
+    swatchInk: "rgba(243, 246, 250, 0.8)",
   },
 ];
 
