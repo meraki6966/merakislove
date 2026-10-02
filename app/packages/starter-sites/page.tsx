@@ -153,7 +153,7 @@ const flyers: Flyer[] = [
     file: "tessel.jpg",
     business: "Tessel Dental",
     caption: "Year-end benefits flyer",
-    alt: "Tessel Dental year-end benefits flyer, a green tiled treatment room under the headline Your dental benefits reset on January 1, with a $289 new patient visit and three Charlotte offices.",
+    alt: "Tessel Dental year-end benefits flyer, a green tiled treatment room under the headline Your dental benefits reset on January 1, with a $289 new patient visit and the three Charlotte neighborhoods it serves.",
     width: 1200,
     height: 1600,
   },
