@@ -43,8 +43,8 @@ interface Demo {
   swatchInk: string;
 }
 
-// Eight demos: two up from `md`, three up from `lg` (the last two sit on a
-// third row on large screens). The swatch is
+// Nine demos: two up from `md`, three up from `lg` (three full rows on
+// large screens). The swatch is
 // kept as a band across the top of each card rather than dropped: it is the
 // thing that signals each demo has its own design world, and it earns its
 // place precisely because these palettes share nothing.
@@ -136,6 +136,17 @@ const demos: Demo[] = [
     swatch: ["#E9EEED", "#1C46BE"],
     swatchLabel: "Deck Grey · Report White · Tile Blue",
     swatchInk: "rgba(11, 43, 51, 0.78)",
+  },
+  {
+    name: "Fernhollow Veterinary Clinic",
+    eyebrow: "Veterinary · Multi-page",
+    description:
+      "A dog and cat clinic in Sellwood, Portland, built as a sixteen page site around the question a worried owner arrives with: can it wait until morning? The home page is a three lane board, go now, call us today and book this week, with a switch for dogs and cats. A status bar works out open or closed in Portland time and points to the 24 hour hospital after hours. The three lane colors carry the same meaning on every page. Navy on fog, set in Gabarito.",
+    stack: ["Static HTML", "Schema.org", "Presence-First"],
+    href: "/demos/fernhollow",
+    swatch: ["#EEF2F5", "#C7321F"],
+    swatchLabel: "Fog · Navy Ink · Lane Colors",
+    swatchInk: "rgba(19, 32, 58, 0.78)",
   },
 ];
 

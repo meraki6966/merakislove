@@ -1,6 +1,7 @@
-/* Fernhollow previews. Three small behaviors, all optional: the page reads
-   fine with this file missing.
-   1. Dogs or Cats switch: swaps anything marked data-for and filters data-who.
+/* Fernhollow. Three small behaviors, all optional: every page reads fine with
+   this file missing.
+   1. Dog or Cat switch: swaps anything marked data-for.
+      The choice is kept for the browser session so it follows you between pages.
    2. Open or closed, worked out in Portland time, never the visitor's clock.
    3. The demo form says plainly that nothing was sent. */
 (function () {
@@ -12,17 +13,17 @@
 
   /* 1. species */
   var buttons = doc.querySelectorAll("[data-species]");
-  function setSpecies(sp) {
+  function setSpecies(sp, keep) {
     buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-species") === sp)); });
     doc.querySelectorAll("[data-for]").forEach(function (el) { el.hidden = el.getAttribute("data-for") !== sp; });
-    doc.querySelectorAll("[data-who]").forEach(function (el) {
-      var who = el.getAttribute("data-who");
-      el.hidden = !(who === "both" || who === sp);
-    });
+    if (keep) { try { sessionStorage.setItem("fh-species", sp); } catch (e) { /* private mode */ } }
   }
   buttons.forEach(function (b) {
-    b.addEventListener("click", function () { setSpecies(b.getAttribute("data-species")); });
+    b.addEventListener("click", function () { setSpecies(b.getAttribute("data-species"), true); });
   });
+  if (buttons.length) {
+    try { if (sessionStorage.getItem("fh-species") === "cat") setSpecies("cat", false); } catch (e) { /* private mode */ }
+  }
 
   /* 2. open or closed in Portland */
   var DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -78,8 +79,7 @@
       }
     }
 
-    var call = doc.querySelector("[data-callus]");
-    if (call) {
+    doc.querySelectorAll("[data-callus]").forEach(function (call) {
       var note = call.querySelector("[data-callus-note]"), head = call.querySelector("b");
       if (open && now.mins < 900) {
         note.textContent = "Call before 3 PM for a same day visit";
@@ -90,15 +90,11 @@
         head.textContent = "Closed now. Call " + er.name;
         note.textContent = er.phone + ". We open " + reopen + ".";
       }
-    }
+    });
 
     /* mark this month on the year table and the entry bars */
     doc.querySelectorAll(".yeartbl tr").forEach(function (tr) {
       var cell = tr.children[now.month];
-      if (cell) cell.classList.add("now");
-    });
-    doc.querySelectorAll(".yr").forEach(function (yr) {
-      var cell = yr.children[now.month - 1];
       if (cell) cell.classList.add("now");
     });
   } catch (e) { /* the written hours stay on the page */ }
