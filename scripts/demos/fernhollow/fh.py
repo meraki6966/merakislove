@@ -74,8 +74,10 @@ def org_schema():
 
 
 def business_schema():
+    # VeterinaryCare sits under MedicalOrganization in schema.org, so LocalBusiness is
+    # named as well. That is what carries the address and the opening hours.
     return {
-        "@context": "https://schema.org", "@type": "VeterinaryCare", "@id": f"{BASE}/#business", "name": BRAND, "url": f"{BASE}/",
+        "@context": "https://schema.org", "@type": ["VeterinaryCare", "LocalBusiness"], "@id": f"{BASE}/#business", "name": BRAND, "url": f"{BASE}/",
         "telephone": "+1-503-555-0146", "image": f"{BASE}/img/og.jpg", "priceRange": "$$",
         "address": {"@type": "PostalAddress", "addressLocality": "Portland", "addressRegion": "OR", "postalCode": "97202", "addressCountry": "US"},
         "areaServed": [{"@type": "Place", "name": n} for n in ["Sellwood, Portland", "Westmoreland, Portland", "Eastmoreland, Portland", "Woodstock, Portland"]],
