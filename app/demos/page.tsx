@@ -43,8 +43,8 @@ interface Demo {
   swatchInk: string;
 }
 
-// Six demos: two up from `md`, three up from `lg` (two full rows on large
-// screens). The swatch is
+// Seven demos: two up from `md`, three up from `lg` (the last one starts a
+// third row on large screens). The swatch is
 // kept as a band across the top of each card rather than dropped: it is the
 // thing that signals each demo has its own design world, and it earns its
 // place precisely because these palettes share nothing.
@@ -114,6 +114,17 @@ const demos: Demo[] = [
     swatch: ["#122341", "#E2A72B"],
     swatchLabel: "Alpine Navy · Aspen Gold · Snow",
     swatchInk: "rgba(243, 246, 250, 0.8)",
+  },
+  {
+    name: "Tallybrook Tax and Accounting",
+    eyebrow: "CPA · Multi-page",
+    description:
+      "A CPA firm in Old City, Philadelphia, built as a fifteen page site around the taxes the city adds: Wage Tax, BIRT, Net Profits and School Income Tax, with the rates the city published for 2026. Ledger paper, oxblood and door green, set in Caslon with ruled rows where other sites use cards. The deadline calendar counts down in Philadelphia time, and the upload page shows how tax documents should travel.",
+    stack: ["Static HTML", "Schema.org", "Presence-First"],
+    href: "/demos/tallybrook",
+    swatch: ["#F6F1E6", "#7B2D26"],
+    swatchLabel: "Ledger Paper · Oxblood · Door Green",
+    swatchInk: "rgba(34, 27, 23, 0.72)",
   },
 ];
 
