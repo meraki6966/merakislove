@@ -43,7 +43,7 @@ interface Demo {
   swatchInk: string;
 }
 
-// Seven demos: two up from `md`, three up from `lg` (the last one starts a
+// Eight demos: two up from `md`, three up from `lg` (the last two sit on a
 // third row on large screens). The swatch is
 // kept as a band across the top of each card rather than dropped: it is the
 // thing that signals each demo has its own design world, and it earns its
@@ -125,6 +125,17 @@ const demos: Demo[] = [
     swatch: ["#F6F1E6", "#7B2D26"],
     swatchLabel: "Ledger Paper · Oxblood · Door Green",
     swatchInk: "rgba(34, 27, 23, 0.72)",
+  },
+  {
+    name: "Saltbrush Pool Care",
+    eyebrow: "Pool Service · Multi-page",
+    description:
+      "A pool service and repair company in Phoenix, Arizona, built as a fifteen page site: four services with prices on the page, a monsoon and dust storm guide, Arizona's pool barrier law in one table, and three neighborhood pages. Pool teal, sand and terracotta with a sample water report on the home page. The season note counts the days to monsoon in Phoenix time, and the reports page shows how a gate code should be stored.",
+    stack: ["Static HTML", "Schema.org", "Presence-First"],
+    href: "/demos/saltbrush",
+    swatch: ["#DDF1F1", "#0E7C86"],
+    swatchLabel: "Pool Teal · Sand · Terracotta",
+    swatchInk: "rgba(11, 60, 73, 0.78)",
   },
 ];
 

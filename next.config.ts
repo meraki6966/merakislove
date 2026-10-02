@@ -88,6 +88,10 @@ const nextConfig: NextConfig = {
         source: "/demos/tallybrook",
         destination: "/demos/tallybrook/index.html",
       },
+      {
+        source: "/demos/saltbrush",
+        destination: "/demos/saltbrush/index.html",
+      },
     ];
   },
   // /services was renamed to /packages. Old backlinks and the footers of the

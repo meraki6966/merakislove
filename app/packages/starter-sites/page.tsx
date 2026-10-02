@@ -103,6 +103,11 @@ const liveExamples: LiveExample[] = [
     category: "Accounting, professional services",
     href: "/demos/tallybrook",
   },
+  {
+    name: "Saltbrush Pool Care",
+    category: "Pool service, home services",
+    href: "/demos/saltbrush",
+  },
 ];
 
 const liveExamplesClose =
@@ -226,7 +231,7 @@ const whatThisIsNextTo = [
 ];
 
 const whatYouGet = [
-  "You click Corner Table, Iron Prism, Keelhouse, Hazel, Tessel, Pikewell, or Tallybrook first.",
+  "You click Corner Table, Iron Prism, Keelhouse, Hazel, Tessel, Pikewell, Tallybrook, or Saltbrush first.",
   "You talk to one owner. Nationwide.",
   "After launch I can scan the live URL with Canopy Guard for search, AI answers, and visible security.",
 ];
