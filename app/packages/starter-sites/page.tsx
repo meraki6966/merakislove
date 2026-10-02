@@ -150,6 +150,30 @@ const flyers: Flyer[] = [
     height: 1600,
   },
   {
+    file: "tessel.jpg",
+    business: "Tessel Dental",
+    caption: "Year-end benefits flyer",
+    alt: "Tessel Dental year-end benefits flyer, a green tiled treatment room under the headline Your dental benefits reset on January 1, with a $289 new patient visit and three Charlotte offices.",
+    width: 1200,
+    height: 1600,
+  },
+  {
+    file: "pikewell.jpg",
+    business: "Pikewell Real Estate",
+    caption: "Fall home value report flyer",
+    alt: "Pikewell Real Estate fall home value report flyer, a brick Denver bungalow beside a gold aspen under the headline Know your number before you list, with a free written report in two business days.",
+    width: 1200,
+    height: 1600,
+  },
+  {
+    file: "tallybrook.jpg",
+    business: "Tallybrook Tax and Accounting",
+    caption: "October 15 deadline flyer",
+    alt: "Tallybrook Tax and Accounting October 15 deadline flyer, a brass desk lamp against dark brick under the headline Filed an extension? The last day is close, with three sample filing prices.",
+    width: 1200,
+    height: 1600,
+  },
+  {
     file: "hazel-row.jpg",
     business: "Hazel & Row",
     caption: "New stylist announcement flyer",
@@ -532,7 +556,7 @@ export default function StarterSitesPage() {
       {/* See the marketing package in action */}
       <PackageSection
         title="See the marketing package in action"
-        lead="Five businesses, five identities, each with branded content made for that business and its customers."
+        lead="Eight businesses, eight identities, each with branded content made for that business and its customers."
       >
         {/* Widest render measured at 547px, single column at a 639px
             viewport, NOT the steady 227px desktop tile once lg:grid-cols-3
