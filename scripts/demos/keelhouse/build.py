@@ -468,6 +468,43 @@ def build_how():
                                    schemas, "how", body))
 
 
+def build_privacy():
+    sections = [
+        ("What this website collects", [
+            "The booking form asks for your name, phone number, address, the kind of problem and, if you choose, a photo of it. That is all the form asks for.",
+            "The form travels over an encrypted connection to our dispatch desk. We use it to schedule your visit and to text you an arrival window.",
+        ]),
+        ("Photos and your home's file", [
+            "Photos you send, and photos our techs take of finished work, go into a file for your address. The next tech opens that file before the visit, so nobody has to ask you the same questions twice.",
+            "Only Keelhouse employees can open a home's file. We do not post photos of your home anywhere without asking you first.",
+        ]),
+        ("Payment details", [
+            "We never ask for a card number through this website, by text or by email. You pay on the tech's tablet at the end of the job, or through the secure link on your invoice.",
+        ]),
+        ("What we never do", [
+            "We do not sell or rent your information, and we do not share it with lead brokers, lenders or other contractors. If a job needs a specialist we do not employ, we ask you before passing along your name.",
+        ]),
+        ("Cookies and tracking", [
+            "This site has no advertising trackers and no tracking pixels. We count visits in aggregate, without cookies and without building a profile of you.",
+        ]),
+        ("Your choices", [
+            f"You can ask what we hold about you and your home, ask us to correct it, or ask us to delete it. Call {PHONE} and ask for the office manager.",
+        ]),
+    ]
+    body_html = "".join(f'<h2 class="h-md" style="font-size:clamp(22px,2.2vw,28px);margin:40px 0 12px">{h}</h2>' + "".join(f'<p style="margin:0 0 14px;line-height:1.7">{p}</p>' for p in ps) for h, ps in sections)
+    body = (page_hero("how-tablet", "Privacy", 'Your privacy at <span class="accent">Keelhouse.</span>',
+                      "What this website collects, what goes into your home's file, and what we never ask for online.",
+                      [("Home", "index.html"), ("Privacy", "")], IMG_ALT["how-tablet"], even=True, btns=False)
+            + f'''<section class="section paper"><div class="wrap" style="max-width:820px">{body_html}
+<p style="margin-top:40px;font-size:14px;color:var(--body)">This is a demo site by Meraki is Love. Keelhouse is a fictional business, and nothing entered on this site is sent anywhere. Read more about <a href="how-we-work.html">how we work</a> or <a href="services.html">our services</a>.</p>
+</div></section>
+''' + booking())
+    schemas = [business_schema(), crumbs_schema([("Home", ""), ("Privacy", "privacy.html")])]
+    write("privacy.html", page("privacy.html", "Privacy | Keelhouse Home Services, Columbus OH",
+                               "How the Keelhouse website handles your information: what the booking form collects, how job photos are kept, and what we never ask for online.",
+                               schemas, "", body))
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     print("Building Keelhouse demo:")
@@ -482,3 +519,4 @@ if __name__ == "__main__":
     for p in PROJECTS:
         build_project(p)
     build_how()
+    build_privacy()

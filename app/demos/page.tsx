@@ -75,7 +75,7 @@ const demos: Demo[] = [
     name: "Keelhouse Home Services",
     eyebrow: "Home Services · Multi-page",
     description:
-      "A plumbing, heating and electrical contractor in Columbus, Ohio, built as a full fifteen page site: a page for every trade, every city and every project write up. Wide Archivo headlines, near-black and warm paper, and a copper accent. Every page carries FAQ and LocalBusiness schema so search and AI answers can quote it.",
+      "A plumbing, heating and electrical contractor in Columbus, Ohio, built as a full sixteen page site: a page for every trade, every city and every project write up, plus a privacy page. Wide Archivo headlines, near-black and warm paper, and a copper accent. Every page carries FAQ and LocalBusiness schema so search and AI answers can quote it.",
     stack: ["Static HTML", "Schema.org", "Presence-First"],
     href: "/demos/keelhouse",
     swatch: ["#0E141B", "#C9733A"],

@@ -271,7 +271,7 @@ def booking(title="Tell us what the house is <span class=\"accent\">doing.</span
 <label class="field">Email (optional)<input type="email" name="email" autocomplete="email"></label>
 </div>
 <button class="btn btn-copper" type="submit">Request a visit</button>
-<p class="form-note">We text to confirm a window. Your number is only used for this visit.</p>
+<p class="form-note">We text to confirm a window. Your number is only used for this visit. See our <a href="privacy.html">privacy page</a>.</p>
 <div class="form-done" role="status">This is a demo site, so nothing was sent. On a live Keelhouse site, this request lands in the office inbox and the customer gets a text with an arrival window.</div>
 </form>
 </div>
@@ -289,7 +289,7 @@ def footer():
 <div><h2>Contact</h2><address>Columbus, Ohio<br><a href="tel:{TEL}">{PHONE}</a><br>Mon to Sat, 7 AM to 7 PM<br>Emergency line 24/7</address></div>
 <div><h2>Services</h2><ul>{svc}<li><a href="services.html">All services</a></li></ul></div>
 <div><h2>Service areas</h2><ul>{cty}<li><a href="service-areas.html">All areas</a></li></ul></div>
-<div><h2>Company</h2><ul><li><a href="how-we-work.html">How we work</a></li><li><a href="projects.html">Projects</a></li><li><a href="how-we-work.html#crew">The crew</a></li><li><a href="#book">Book a visit</a></li></ul></div>
+<div><h2>Company</h2><ul><li><a href="how-we-work.html">How we work</a></li><li><a href="projects.html">Projects</a></li><li><a href="how-we-work.html#crew">The crew</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="#book">Book a visit</a></li></ul></div>
 </div>
 <div class="foot-base"><span>Ohio contractor license on file. Insured. © 2026 {BRAND}.</span><span>A demo site by <a href="https://merakislove.com/packages/presence-first-web-design">Meraki is Love</a>. Keelhouse is a fictional business.</span></div>
 </div>
