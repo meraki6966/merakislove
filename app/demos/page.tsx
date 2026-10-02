@@ -130,12 +130,12 @@ const demos: Demo[] = [
     name: "Saltbrush Pool Care",
     eyebrow: "Pool Service · Multi-page",
     description:
-      "A pool service and repair company in Phoenix, Arizona, built as a fifteen page site: four services with prices on the page, a monsoon and dust storm guide, Arizona's pool barrier law in one table, and three neighborhood pages. Pool teal, sand and terracotta with a sample water report on the home page. The season note counts the days to monsoon in Phoenix time, and the reports page shows how a gate code should be stored.",
+      "A pool service and repair company in Phoenix, Arizona, built as a fifteen page site. The home page opens on a moving pool, and under it sits a sample visit report you can switch between a normal week, the morning after a dust storm and day one of a green pool. Prices read as a statement, routes as a table by weekday, and a season strip marks today's date. Pool deck grey, white report sheets and waterline tile blue, set in Geologica.",
     stack: ["Static HTML", "Schema.org", "Presence-First"],
     href: "/demos/saltbrush",
-    swatch: ["#DDF1F1", "#0E7C86"],
-    swatchLabel: "Pool Teal · Sand · Terracotta",
-    swatchInk: "rgba(11, 60, 73, 0.78)",
+    swatch: ["#E9EEED", "#1C46BE"],
+    swatchLabel: "Deck Grey · Report White · Tile Blue",
+    swatchInk: "rgba(11, 43, 51, 0.78)",
   },
 ];
 

@@ -156,10 +156,46 @@ def ld(obj):
     return '<script type="application/ld+json">' + json.dumps(obj, ensure_ascii=False).replace("</", "<\\/") + "</script>"
 
 
+# ---------------------------------------------------------------- report data
+# name, unit, scale low, scale high, target low, target high, target text
+GAUGES = [("fc", "Free chlorine", "ppm", 0, 6, 2, 4, "2 to 4"), ("ph", "pH", "", 6.8, 8.4, 7.4, 7.6, "7.4 to 7.6"),
+          ("ta", "Total alkalinity", "ppm", 0, 200, 80, 120, "80 to 120"), ("ch", "Calcium hardness", "ppm", 0, 600, 200, 400, "200 to 400"),
+          ("cya", "Cyanuric acid", "ppm", 0, 150, 30, 50, "30 to 50"), ("salt", "Salt", "ppm", 1500, 4500, 2700, 3400, "2,700 to 3,400")]
+NORMAL = {"fc": 3.0, "ph": 7.5, "ta": 90, "ch": 340, "cya": 45, "salt": 3200}
+
+
+def fmt(k, v):
+    return f"{v:.1f}" if k in ("fc", "ph") else f"{int(v):,}"
+
+
+def pct(v, lo, hi):
+    return max(2.0, min(98.0, (v - lo) / (hi - lo) * 100))
+
+
+def state(v, tlo, thi):
+    return "In range" if tlo <= v <= thi else ("Low" if v < tlo else "High")
+
+
+def gauges_html(values):
+    out = ""
+    for k, name, unit, lo, hi, tlo, thi, ttxt in GAUGES:
+        v = values[k]
+        st = state(v, tlo, thi)
+        out += (f'<div class="g" data-k="{k}" data-state="{st}"><span class="g-k">{name}<small>Target {ttxt}</small></span>'
+                f'<span class="g-v"><b>{fmt(k, v)}</b>{(" " + unit) if unit else ""}</span>'
+                f'<span class="g-t" aria-hidden="true"><span class="band" style="left:{pct(tlo, lo, hi):.1f}%;width:{pct(thi, lo, hi) - pct(tlo, lo, hi):.1f}%"></span>'
+                f'<span class="dot" style="left:{pct(v, lo, hi):.1f}%"></span></span><span class="g-s">{st}</span></div>')
+    return out
+
+
 # ---------------------------------------------------------------- chrome
+NAV = [("services.html", "Services", "services"), ("monsoon-pool-care.html", "Monsoon care", "monsoon"),
+       ("pool-safety.html", "Pool safety", "safety"), ("pricing.html", "Pricing", "pricing"), ("about.html", "About", "about")]
+
+
 def head(title, desc, path, schemas):
     url = f"{BASE}/" if path == "index.html" else f"{BASE}/{path}"
-    return f'''<!doctype html>
+    return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -176,156 +212,127 @@ def head(title, desc, path, schemas):
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{BASE}/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0B3C49">
+<meta name="theme-color" content="#07303A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Albert+Sans:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300..800&amp;display=swap">
 <link rel="stylesheet" href="assets/site.css">
 {"".join(ld(s) for s in schemas)}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-'''
-
-
-def brand_html():
-    return f'<a class="brand" href="index.html" aria-label="{BRAND}, home">{MARK}<span class="brand-name"><b>Saltbrush</b><span>Pool Care</span></span></a>'
+"""
 
 
 def header(current=""):
-    def cur(key):
-        return ' aria-current="page"' if key == current else ""
-    svc_dd = "".join(f'<li><a href="{s["slug"]}.html">{s["name"]}</a></li>' for s in SERVICES)
-    return f'''<header class="site-header">
-<div class="wrap bar">
-{brand_html()}
-<nav class="nav" aria-label="Main">
-<ul>
-<li><a class="nav-link" href="services.html"{cur("services")}>Services{ic("chev")}</a><ul class="dropdown">{svc_dd}<li><a href="services.html">All services</a></li></ul></li>
-<li><a class="nav-link" href="monsoon-pool-care.html"{cur("monsoon")}>Monsoon care</a></li>
-<li><a class="nav-link" href="pool-safety.html"{cur("safety")}>Pool safety</a></li>
-<li><a class="nav-link" href="pricing.html"{cur("pricing")}>Pricing</a></li>
-<li><a class="nav-link" href="about.html"{cur("about")}>About</a></li>
-</ul>
-<div class="nav-cta"><a class="nav-phone" href="tel:{TEL}">{ic("phone")}{PHONE}</a><a class="btn btn-clay" href="index.html#contact">Get a quote</a>
-<button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open menu">{ic("menu")}</button></div>
-</nav>
-</div>
-</header>
-'''
+    links = ""
+    for href, text, key in NAV:
+        cur = ' aria-current="page"' if key == current else ""
+        links += f'<a href="{href}"{cur}>{text}</a>'
+    return f"""<header class="hd"><div class="w hd-in">
+<a class="mark" href="index.html" aria-label="{BRAND}, home">{MARK}<span>Saltbrush Pool Care</span></a>
+<nav aria-label="Main">{links}</nav>
+<a class="tel" href="tel:{TEL}">{PHONE}</a><a class="btn" href="index.html#quote">Get a quote</a>
+</div></header>
+"""
 
 
 def crumbs(items):
     out = []
     for i, (n, href) in enumerate(items):
         if i < len(items) - 1:
-            out.append(f'<a href="{href or "index.html"}">{n}</a><span aria-hidden="true">›</span>')
+            out.append(f'<a href="{href or "index.html"}">{n}</a><span aria-hidden="true">/</span>')
         else:
             out.append(f'<span aria-current="page">{n}</span>')
     return f'<nav class="crumbs" aria-label="Breadcrumb">{"".join(out)}</nav>'
 
 
 def page_hero(tag, h1, lede, crumb_items, img=None, alt="", points=None, buttons=""):
+    """Inner page opener. `tag` is kept in the signature for the callers and is not shown."""
     pts = ""
     if points:
-        pts = '<ul class="hero-points">' + "".join(f"<li>{ic('check')}<span>{p}</span></li>" for p in points) + "</ul>"
-    copy = f'''<div class="copy">
-{crumbs(crumb_items)}
-<p class="tag">{tag}</p>
-<h1 class="h-xl">{h1}</h1>
-<p class="lede">{lede}</p>
-{f'<div class="btn-row">{buttons}</div>' if buttons else ""}{pts}
-</div>'''
-    if img:
-        inner = f'<div class="grid">{copy}<div class="frame"><img src="img/{img}.webp" alt="{alt}" fetchpriority="high" width="1600" height="1200"></div></div>'
-    else:
-        inner = f'<div class="solo">{copy}</div>'
-    return f'<section class="hero-page"><div class="wrap">{inner}</div>{WAVE}</section>\n'
+        pts = '<ul class="points">' + "".join(f"<li>{p}</li>" for p in points) + "</ul>"
+    acts = f'<div class="acts">{buttons}</div>' if buttons else ""
+    copy = f'<div class="phero-copy">{crumbs(crumb_items)}<h1>{h1}</h1><p class="lede">{lede}</p>{acts}{pts}</div>'
+    fig = f'<figure class="phero-img"><img src="img/{img}.webp" alt="{alt}" fetchpriority="high" width="1600" height="1200"></figure>' if img else ""
+    return f'<section class="phero"><div class="w phero-g{"" if img else " solo"}">{copy}{fig}</div></section>\n'
 
 
-def water_card(title="This week at a sample pool", note="Sample report. Every weekly visit ends with one like it."):
-    rows = "".join(
-        f'<div class="read"><span class="k">{k}</span><span class="v">{v}<small>{u}</small></span><span class="r">Target {r}</span></div>'
-        for k, v, u, r in READINGS)
-    return (f'<aside class="water" aria-label="Sample water test report"><div class="water-top"><span>{ic("drop")}{title}</span><b>Balanced</b></div>'
-            f'<div class="reads">{rows}</div><p class="water-note">{note}</p></aside>')
+def season_note():
+    return ('<p class="season" data-monsoon><span class="txt">Monsoon season runs June 15 to September 30.</span> '
+            '<a href="monsoon-pool-care.html">Read the storm care guide</a></p>')
+
+
+def water_card(title="Visit report", note="Sample report. Every weekly visit ends with one like it."):
+    return (f'<article class="sheet" aria-label="Sample visit report"><header class="sheet-hd"><div><h2>{title}</h2><p>Sample pool, Arcadia 85018</p></div>'
+            f'<p class="status">Balanced</p></header><div class="gauges">{gauges_html(NORMAL)}</div><p class="sheet-ft">{note}</p></article>')
+
+
+def faq_items(qa):
+    return "".join(f'<details{" open" if i == 0 else ""}><summary>{q}</summary><p>{a}</p></details>' for i, (q, a) in enumerate(qa))
 
 
 def faq_block(title, qa, lead, bg=""):
-    items = "".join(f'<details{" open" if i == 0 else ""}><summary>{q}{ic("plus")}</summary><p>{a}</p></details>' for i, (q, a) in enumerate(qa))
-    return f'''<section class="section {bg}" aria-labelledby="faq-h">
-<div class="wrap faq-layout">
-<div><p class="tag">Questions owners ask</p><h2 class="h-lg" id="faq-h">{title}</h2><p class="small" style="margin-top:14px">{lead}</p></div>
-<div class="acc">{items}</div>
-</div>
-</section>
-'''
+    return f"""<section class="sec {bg}" aria-labelledby="faq-h"><div class="w faq-g">
+<div><h2 id="faq-h">{title}</h2><p>{lead}</p></div>
+<div class="faq">{faq_items(qa)}</div>
+</div></section>
+"""
 
 
 def review_card(text, who, where):
-    stars = "".join(ic("star") for _ in range(5))
-    return (f'<figure class="review reveal"><div class="stars" role="img" aria-label="5 out of 5 stars">{stars}</div>'
-            f'<blockquote>{text}</blockquote><figcaption><span>{who}, {where}</span><span class="sample">Sample review</span></figcaption></figure>')
+    return f'<figure><blockquote>{text}</blockquote><figcaption>{who}, {where} <span>Sample review</span></figcaption></figure>'
 
 
-def contact(title="Tell us about <span class=\"accent\">your pool.</span>",
-            lead="Four quick questions and we send a written quote the same business day. No one comes to the gate until you say so.",
-            need=None):
+def quote_form(need=None):
     opts = [("weekly", "Weekly service"), ("green", "My pool is green"), ("repair", "Something is broken"), ("filter", "Filter cleaning")]
-    choices = "".join(f'<label class="choice"><input type="radio" name="need" value="{v}"{" checked" if need == v else ""}>{t}</label>' for v, t in opts)
-    return f'''<section id="contact" class="section deep" aria-labelledby="contact-h">
-<div class="wrap form-layout">
-<div>
-<p class="tag">Get a quote</p>
-<h2 class="h-lg" id="contact-h">{title}</h2>
-<p class="lead">{lead}</p>
-<a class="band-phone" href="tel:{TEL}">{ic("phone")}{PHONE}</a>
-<p class="small">Routes run Monday to Friday from 6 AM. The office answers 7 AM to 4 PM, Arizona time.</p>
-</div>
-<form class="form" action="#contact" method="post" novalidate data-demo>
-<fieldset><legend class="step">1. What do you need</legend><div class="choice-grid">{choices}</div></fieldset>
-<p class="step">2. About the pool</p>
+    choices = ""
+    for v, t in opts:
+        checked = " checked" if need == v else ""
+        choices += f'<label class="choice"><input type="radio" name="need" value="{v}"{checked}>{t}</label>'
+    return f"""<form class="form" action="#quote" method="post" novalidate data-demo>
+<fieldset><legend>What do you need?</legend><div class="choices">{choices}</div></fieldset>
 <div class="fields">
-<label class="field">ZIP code<input type="text" name="zip" inputmode="numeric" autocomplete="postal-code"></label>
-<label class="field">Pool type<select name="type"><option>Chlorine</option><option>Salt</option><option>Not sure</option></select></label>
+<label>ZIP code<input type="text" name="zip" inputmode="numeric" autocomplete="postal-code"></label>
+<label>Pool type<select name="type"><option>Chlorine</option><option>Salt</option><option>Not sure</option></select></label>
+<label>Full name<input type="text" name="name" autocomplete="name"></label>
+<label>Phone<input type="tel" name="phone" autocomplete="tel"></label>
+<label class="full">Email<input type="email" name="email" autocomplete="email"></label>
 </div>
-<p class="step">3. How to reach you</p>
-<div class="fields">
-<label class="field">Full name<input type="text" name="name" autocomplete="name"></label>
-<label class="field">Phone<input type="tel" name="phone" autocomplete="tel"></label>
-<label class="field full">Email<input type="email" name="email" autocomplete="email"></label>
-</div>
-<button class="btn btn-clay" type="submit">Send my quote request</button>
-<p class="form-note">Please leave gate codes and alarm codes out of this form. We collect those by phone after you sign up. See our <a href="privacy.html">privacy page</a>.</p>
-<div class="form-done" role="status">This is a demo site, so nothing was sent. On a live Saltbrush site, this request reaches the office and a written quote comes back the same business day.</div>
-</form>
-</div>
-</section>
-'''
+<button class="btn" type="submit">Request my quote</button>
+<p class="form-note">Leave gate codes and alarm codes out of this form. We collect those by phone after you sign up. See the <a href="privacy.html">privacy page</a>.</p>
+<p class="form-done" role="status">This is a demo site, so nothing was sent. On a live Saltbrush site, a written quote comes back the same business day.</p>
+</form>"""
 
 
-def footer():
+def contact(title="Tell us about your pool",
+            lead="Five details and we send a written quote the same business day. No one comes to the gate until you say so.",
+            need=None):
+    return f"""<section class="sec white" id="quote" aria-labelledby="quote-h"><div class="w quote-g">
+<div><h2 id="quote-h">{title}</h2><p>{lead}</p>
+<p class="bigtel"><a href="tel:{TEL}">{PHONE}</a></p><p class="fine">Routes run Monday to Friday from 6 AM. The office answers 7 AM to 4 PM, Arizona time.</p></div>
+{quote_form(need)}
+</div></section>
+"""
+
+
+def footer(extra=""):
     svcs = "".join(f'<li><a href="{s["slug"]}.html">{s["name"]}</a></li>' for s in SERVICES)
     areas = "".join(f'<li><a href="{a["slug"]}.html">{a["name"]}</a></li>' for a in AREAS)
-    return f'''<footer class="site-footer">
-{WAVE}
-<div class="wrap">
-<div class="foot-top">{brand_html()}<p class="foot-tag">Clear water every week, and a report that proves it.</p></div>
-<div class="foot-cols">
-<div><h2>Contact</h2><address>Phoenix, AZ 85016<br><a href="tel:{TEL}">{PHONE}</a><br>Routes Mon to Fri from 6 AM<br>Office 7 AM to 4 PM</address></div>
+    return f"""<footer class="ft"><div class="w">
+<div class="ft-cols">
+<div><h2>Contact</h2><address>Phoenix, AZ 85016<br><a href="tel:{TEL}">{PHONE}</a><br>Routes Monday to Friday from 6 AM<br>Office 7 AM to 4 PM</address></div>
 <div><h2>Services</h2><ul>{svcs}<li><a href="pricing.html">Pricing</a></li></ul></div>
 <div><h2>Guides</h2><ul><li><a href="monsoon-pool-care.html">Monsoon and dust storm care</a></li><li><a href="pool-safety.html">Arizona pool barrier law</a></li><li><a href="service-reports.html">Your weekly report</a></li></ul></div>
 <div><h2>Where we work</h2><ul>{areas}<li><a href="about.html">About Saltbrush</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
 </div>
-<div class="foot-base"><span>© 2026 {BRAND}. Licensed for residential pool service and repair in Arizona, ROC classification R-6.</span><span>A demo site by <a href="https://merakislove.com/packages/presence-first-web-design">Meraki is Love</a>. Saltbrush is a fictional company, and its prices are samples.</span></div>
-</div>
-</footer>
-<div class="mobile-bar"><a class="btn btn-line" href="tel:{TEL}">{ic("phone")}Call</a><a class="btn btn-clay" href="index.html#contact">Get a quote</a></div>
-<script src="assets/site.js" defer></script>
+<p class="ft-base">© 2026 {BRAND}. Licensed for residential pool service and repair in Arizona, ROC classification R-6. A demo site by <a href="https://merakislove.com/packages/presence-first-web-design">Meraki is Love</a>. Saltbrush is a fictional company, and its prices are samples.</p>
+</div></footer>
+{extra}<script src="assets/site.js" defer></script>
 </body>
 </html>
-'''
+"""
 
 
-def page(path, title, desc, schemas, current, body):
-    return head(title, desc, path, schemas) + header(current) + f'<main id="main">\n{body}</main>\n' + footer()
+def page(path, title, desc, schemas, current, body, extra=""):
+    return head(title, desc, path, schemas) + header(current) + f'<main id="main">\n{body}</main>\n' + footer(extra)
