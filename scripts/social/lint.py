@@ -13,7 +13,7 @@ for p in sys.argv[1:]:
         if ch in s: hits.append(f"{name} x{s.count(ch)}")
     hits += [f"spaced hyphen: {m.group(0)!r}" for m in re.finditer(r"\w+ - \w+", s)]
     hits += [f"banned: {w}" for w in BAN if w in low]
-    hits += [f"'real' in: {s[max(0, m.start() - 30):m.end() + 20]!r}" for m in re.finditer(r"\breal\b", low)]
+    hits += [f"'real' in: {s[max(0, m.start() - 30):m.end() + 20]!r}" for m in re.finditer(r"\breal\b(?! estate)", low)]
     hits += [f"italic markup: {m.group(0)!r}" for m in re.finditer(r"(?<![\*\w])\*[^\*\n]+\*(?!\*)|(?<![_\w])_[^_\n]+_(?![_\w])", s)]
     print(p, "->", hits or "clean"); bad = bad or bool(hits)
 sys.exit(1 if bad else 0)
