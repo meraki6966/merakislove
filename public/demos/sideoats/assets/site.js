@@ -1,5 +1,8 @@
-/* Sideoats preview A. The deductible example recalculates as the dials move.
-   The page is complete without this file: the starting numbers are in the HTML. */
+/* Sideoats. Two small behaviors, both optional: every page reads fine with
+   this file missing.
+   1. The deductible example recalculates as the dials move. The starting
+      numbers are already in the HTML.
+   2. The demo form says plainly that nothing was sent. */
 (function () {
   "use strict";
   var doc = document;

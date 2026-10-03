@@ -96,6 +96,10 @@ const nextConfig: NextConfig = {
         source: "/demos/fernhollow",
         destination: "/demos/fernhollow/index.html",
       },
+      {
+        source: "/demos/sideoats",
+        destination: "/demos/sideoats/index.html",
+      },
     ];
   },
   // /services was renamed to /packages. Old backlinks and the footers of the

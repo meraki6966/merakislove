@@ -113,6 +113,11 @@ const liveExamples: LiveExample[] = [
     category: "Veterinary, pet care",
     href: "/demos/fernhollow",
   },
+  {
+    name: "Sideoats Insurance Agency",
+    category: "Insurance, professional services",
+    href: "/demos/sideoats",
+  },
 ];
 
 const liveExamplesClose =
@@ -236,7 +241,7 @@ const whatThisIsNextTo = [
 ];
 
 const whatYouGet = [
-  "You click Corner Table, Iron Prism, Keelhouse, Hazel, Tessel, Pikewell, Tallybrook, Saltbrush, or Fernhollow first.",
+  "You click Corner Table, Iron Prism, Keelhouse, Hazel, Tessel, Pikewell, Tallybrook, Saltbrush, Fernhollow, or Sideoats first.",
   "You talk to one owner. Nationwide.",
   "After launch I can scan the live URL with Canopy Guard for search, AI answers, and visible security.",
 ];

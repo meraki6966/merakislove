@@ -43,8 +43,8 @@ interface Demo {
   swatchInk: string;
 }
 
-// Nine demos: two up from `md`, three up from `lg` (three full rows on
-// large screens). The swatch is
+// Ten demos: two up from `md`, three up from `lg` (the last one sits on a
+// fourth row on large screens). The swatch is
 // kept as a band across the top of each card rather than dropped: it is the
 // thing that signals each demo has its own design world, and it earns its
 // place precisely because these palettes share nothing.
@@ -147,6 +147,17 @@ const demos: Demo[] = [
     swatch: ["#EEF2F5", "#C7321F"],
     swatchLabel: "Fog · Navy Ink · Lane Colors",
     swatchInk: "rgba(19, 32, 58, 0.78)",
+  },
+  {
+    name: "Sideoats Insurance Agency",
+    eyebrow: "Insurance · Multi-page",
+    description:
+      "An independent insurance agency in Fort Worth, Texas, built as a sixteen page site around one number most homeowners have never seen: their hail deductible in dollars. The home page is a working example you can move, with the result circled like an adjuster's chalk mark, and every other page opens the same way with its own number. A hail size scale is drawn to true proportion, and the Texas auto minimum is set in giant numerals. Chalk white, ink and survey flag orange on a ruled grid, set in Chivo.",
+    stack: ["Static HTML", "Schema.org", "Presence-First"],
+    href: "/demos/sideoats",
+    swatch: ["#F4F4F1", "#EE4B0B"],
+    swatchLabel: "Chalk White · Ink · Flag Orange",
+    swatchInk: "rgba(19, 19, 19, 0.78)",
   },
 ];
 
