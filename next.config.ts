@@ -100,6 +100,10 @@ const nextConfig: NextConfig = {
         source: "/demos/sideoats",
         destination: "/demos/sideoats/index.html",
       },
+      {
+        source: "/demos/meraki-inn",
+        destination: "/demos/meraki-inn/index.html",
+      },
     ];
   },
   // /services was renamed to /packages. Old backlinks and the footers of the

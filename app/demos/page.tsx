@@ -43,7 +43,7 @@ interface Demo {
   swatchInk: string;
 }
 
-// Ten demos: two up from `md`, three up from `lg` (the last one sits on a
+// Eleven demos: two up from `md`, three up from `lg` (the last two sit on a
 // fourth row on large screens). The swatch is
 // kept as a band across the top of each card rather than dropped: it is the
 // thing that signals each demo has its own design world, and it earns its
@@ -158,6 +158,17 @@ const demos: Demo[] = [
     swatch: ["#F4F4F1", "#EE4B0B"],
     swatchLabel: "Chalk White · Ink · Flag Orange",
     swatchInk: "rgba(19, 19, 19, 0.78)",
+  },
+  {
+    name: "The Meraki Inn",
+    eyebrow: "Boutique Inn · Multi-page",
+    description:
+      "A five room inn in Galveston's East End, built as a sixteen page site that tells one day at the inn, hour by hour. Sunrise, golden hour and sunset are worked out in the browser for the island on today's date, and every other page opens on its own hour in very large numerals. Photographs hang over the edge of each ground and the text sits in bordered cards. Cream, Gulf green and dawn blush, set in Noto Serif Display, Source Serif and Jost.",
+    stack: ["Static HTML", "Schema.org", "Presence-First"],
+    href: "/demos/meraki-inn",
+    swatch: ["#FBF5E6", "#6C9384"],
+    swatchLabel: "Cream · Gulf Green · Dawn Blush",
+    swatchInk: "rgba(20, 38, 31, 0.78)",
   },
 ];
 

@@ -1,7 +1,11 @@
-/* The Meraki Inn preview B. Two small behaviors, both optional.
-   1. Today's sunrise and sunset in Galveston, worked out in the browser from
-      the date and the island's position, and shown in island time.
-   2. The stay form totals the nights. Rates are samples. */
+/* The Meraki Inn. Four small behaviors, all optional: every page reads fine
+   with this file missing.
+   1. Today's sunrise, golden hour and sunset in Galveston, worked out in the
+      browser from the date and the island's position, shown in island time.
+      Nothing is fetched and the visitor's location is never asked for.
+   2. The date request form totals the nights. Rates are samples.
+   3. "Stay in this room" buttons choose that room in the form.
+   4. The menu button on a phone. */
 (function () {
   "use strict";
   var doc = document;
@@ -38,15 +42,16 @@
   }
   try {
     var t = sunTimes(new Date());
-    var rise = clock(t.rise), set = clock(t.set), golden = clock(new Date(t.set.getTime() - 3600000));
+    var times = { sunrise: clock(t.rise), golden: clock(new Date(t.set.getTime() - 3600000)), sunset: clock(t.set) };
     var line = doc.querySelector("[data-sun]");
-    if (line) line.textContent = "Today in Galveston the sun rises at " + rise + " and sets at " + set + ".";
-    doc.querySelectorAll('[data-time="sunrise"]').forEach(function (el) { setClock(el, rise); });
-    doc.querySelectorAll('[data-time="golden"]').forEach(function (el) { setClock(el, golden); });
-    doc.querySelectorAll('[data-time="sunset"]').forEach(function (el) { setClock(el, set); });
+    if (line) line.textContent = "Today in Galveston the sun rises at " + times.sunrise + " and sets at " + times.sunset + ".";
+    doc.querySelectorAll("[data-time]").forEach(function (el) {
+      var v = times[el.getAttribute("data-time")];
+      if (v) setClock(el, v);
+    });
   } catch (e) { /* the written words stay on the page */ }
 
-  /* 2. the stay form */
+  /* 2. the date request form */
   function nextFriday() {
     var d = new Date();
     var add = (5 - d.getDay() + 7) % 7 || 7;
@@ -63,13 +68,44 @@
     form.querySelector("[data-sum]").textContent = "$" + (rate * nights).toLocaleString("en-US");
   }
   if (form) {
-    if (!form.elements.arrive.value) form.elements.arrive.value = nextFriday();
+    var arrive = form.elements.arrive;
+    arrive.min = new Date().toISOString().slice(0, 10);
+    if (!arrive.value) arrive.value = nextFriday();
     form.addEventListener("change", update);
     update();
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var done = form.querySelector(".form-done");
       if (done) done.classList.add("show");
+    });
+  }
+
+  /* 3. choose a room from anywhere on the page */
+  doc.querySelectorAll("[data-pick]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!form) return;
+      form.elements.room.value = b.getAttribute("data-pick");
+      update();
+      var stay = doc.getElementById("stay");
+      if (stay) stay.scrollIntoView();
+      form.elements.arrive.focus({ preventScroll: true });
+    });
+  });
+
+  /* 4. the menu on a phone */
+  var btn = doc.querySelector("[data-menu]"), nav = doc.getElementById("nav");
+  if (btn && nav) {
+    btn.hidden = false;
+    btn.addEventListener("click", function () {
+      var open = nav.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "Close" : "Menu";
+    });
+    nav.addEventListener("click", function (ev) {
+      if (ev.target.tagName === "A") { nav.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); btn.textContent = "Menu"; }
+    });
+    doc.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape" && nav.classList.contains("open")) { nav.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); btn.textContent = "Menu"; btn.focus(); }
     });
   }
 })();

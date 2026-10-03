@@ -118,6 +118,11 @@ const liveExamples: LiveExample[] = [
     category: "Insurance, professional services",
     href: "/demos/sideoats",
   },
+  {
+    name: "The Meraki Inn",
+    category: "Boutique inn, hospitality",
+    href: "/demos/meraki-inn",
+  },
 ];
 
 const liveExamplesClose =
@@ -241,7 +246,7 @@ const whatThisIsNextTo = [
 ];
 
 const whatYouGet = [
-  "You click Corner Table, Iron Prism, Keelhouse, Hazel, Tessel, Pikewell, Tallybrook, Saltbrush, Fernhollow, or Sideoats first.",
+  "You click Corner Table, Iron Prism, Keelhouse, Hazel, Tessel, Pikewell, Tallybrook, Saltbrush, Fernhollow, Sideoats, or The Meraki Inn first.",
   "You talk to one owner. Nationwide.",
   "After launch I can scan the live URL with Canopy Guard for search, AI answers, and visible security.",
 ];
