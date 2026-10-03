@@ -3,11 +3,13 @@ import { NextResponse } from "next/server";
 
 import {
   FILL_TOOL_NAME,
+  KEEP_OUT_NOTE,
   LIMITS,
   checkMessages,
   confirmation,
   createLimiter,
   fillTool,
+  mentionsEmail,
   systemPrompt,
   tidyReply,
   todayInGalveston,
@@ -137,8 +139,12 @@ export async function POST(req: Request) {
           reply: `${result.reason} Tell me the arrival date, the number of nights and the room, and I will try again.`,
         });
       }
+      // The confirmation is ours, so the model's own reminder is lost with its
+      // text. If the visitor just typed an email address, say it here instead.
+      const latest = checked.messages[checked.messages.length - 1].content;
+      const note = mentionsEmail(latest) ? `\n\n${KEEP_OUT_NOTE}` : "";
       return NextResponse.json({
-        reply: confirmation(result.fill, ROOMS, today),
+        reply: confirmation(result.fill, ROOMS, today) + note,
         fill: result.fill,
       });
     }

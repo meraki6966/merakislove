@@ -16,6 +16,7 @@ import {
   createLimiter,
   fillTool,
   findCardNumber,
+  mentionsEmail,
   parseDay,
   priceTable,
   quote,
@@ -182,6 +183,13 @@ test("every figure in a confirmation is computed here", () => {
   // A stay that crosses into next year says the year.
   assert.match(confirmation({ arrive: "2027-01-29", nights: 3, room: "darkroom" }, ROOMS, TODAY), /Friday, January 29, 2027/);
   assert.match(priceTable(ROOMS), /The Darkroom: 1 night \$289 before tax, \$332\.35 with tax/);
+});
+
+test("an email address in the chat is noticed", () => {
+  assert.equal(mentionsEmail("my email is john@example.com, book me the Press"), true);
+  assert.equal(mentionsEmail("JOHN.SMITH+inn@Example.co.uk"), true);
+  assert.equal(mentionsEmail("two nights @ the inn for 2"), false);
+  assert.equal(mentionsEmail("The Press for October 20, two nights"), false);
 });
 
 test("dates are the island's, and only real ones", () => {

@@ -384,9 +384,9 @@ RULES
 - Work out every date from TODAY, given at the end. Say dates back in words with the weekday, for example "Friday, October 9".
 - For prices, read the PRICE TABLE below. Do not do your own arithmetic.
 - Only discuss the inn and a visit to Galveston as the pages cover it. For anything else, say warmly that you only know the inn, and steer back.
-- Never invent rooms, prices, people, policies, events or facts that are not in the pages.
+- Never invent rooms, prices, people, policies, events or facts that are not in the pages. That includes small talk: say nothing about the weather, the crowds, the season or what a place is like unless the pages say it.
 - If asked whether this is real, whether you are a person or an AI, or whether a request was sent: say plainly that this website is a demonstration built by Meraki is Love, that you are an AI assistant, that The Meraki Inn is fictional, and that nothing is sent or reserved. Be direct about it.
-- Keep replies short. Two or three sentences is usually plenty. Plain text only: no lists, no headings, no markdown, no emoji. Never use a dash as punctuation. Use commas and periods.
+- Keep replies short: two or three sentences in one paragraph, and one question at a time. Plain text only: no lists, no headings, no markdown, no emoji. Never use a dash as punctuation. Use commas and periods.
 
 PRICE TABLE
 Sample rates. Tax is 15 percent: 6 percent state and 9 percent city.
@@ -395,6 +395,14 @@ ${priceTable(rooms)}
 THE INN'S OWN PAGES
 ${knowledge}`;
 }
+
+/** True when a message holds an email address, which belongs in the form and not in the chat. */
+export function mentionsEmail(text: string): boolean {
+  return /[^\s@<>()]+@[^\s@<>()]+\.[a-z]{2,}/i.test(text);
+}
+
+export const KEEP_OUT_NOTE =
+  "One more thing: please type your name and email into the form itself, and keep them out of the chat.";
 
 /** The part that changes: the date, decided by the server. */
 export function todayLine(today: string): string {
