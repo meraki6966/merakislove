@@ -55,7 +55,7 @@ const stages: Stage[] = [
     points: [
       "Security hardening from the audit findings",
       "AEO and GEO restructuring so AI and search can find you",
-      "Product engineering — features, fixes, and rebuilds",
+      "Product engineering: features, fixes, and rebuilds",
     ],
     footnote:
       "Loop customers save 25% off the quoted project price.",
@@ -192,9 +192,10 @@ export default function LoopPage() {
                     <ul className="flex flex-col gap-2 font-body text-sm leading-relaxed text-smoke-dim">
                       {stage.points.map((point) => (
                         <li key={point} className="flex gap-2.5">
-                          <span aria-hidden className="text-amber">
-                            —
-                          </span>
+                          <span
+                            aria-hidden
+                            className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber"
+                          />
                           <span>{point}</span>
                         </li>
                       ))}
@@ -238,7 +239,7 @@ export default function LoopPage() {
         </div>
       </section>
 
-      {/* Closing — Then it loops */}
+      {/* Closing: then it loops */}
       <section className="relative overflow-hidden border-y border-border-mid">
         <div
           aria-hidden

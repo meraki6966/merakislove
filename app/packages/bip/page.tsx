@@ -49,8 +49,10 @@ const basePackage = [
 const addOns =
   "Add-ons after discovery: more platforms, larger libraries, branded dashboard.";
 
+const merakiBip = "https://merakibip.com";
+
 const byName =
-  "Prefer the exact system I run for my own clients? Ask for Meraki BIP by name.";
+  "This page is for a system built around your practice. The system I built and run for my own clients is sold by the month, with its plans and prices at";
 
 const fits =
   "Service businesses with a clear offer and a real intake process. If you cannot describe what you sell in one paragraph, we fix that in discovery before we train anything.";
@@ -169,7 +171,16 @@ export default function BipPackagePage() {
             {addOns}
           </p>
           <p className="max-w-2xl border-l-2 border-amber pl-5 font-body text-base leading-relaxed text-smoke">
-            {byName}
+            {byName}{" "}
+            <a
+              href={merakiBip}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber underline underline-offset-4 transition-colors duration-300 hover:text-smoke"
+            >
+              merakibip.com
+            </a>
+            .
           </p>
         </ScrollReveal>
       </PackageSection>
