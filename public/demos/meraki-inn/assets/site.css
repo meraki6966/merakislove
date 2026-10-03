@@ -107,6 +107,12 @@ section[id], article[id] { scroll-margin-top: 96px; }
 .block.hero .big img { aspect-ratio: 1 / 1; object-position: 50% 62%; }
 .block.hero .card { margin-top: 84px; padding-bottom: 40px; }
 .card h1 { text-transform: none; letter-spacing: 0.01em; font-size: clamp(2.2rem, 3.6vw, 3.3rem); line-height: 1.12; }
+/* the moving hero */
+.vid video { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 62%; background: var(--slate); }
+.vid .still { display: none; }
+.motion { position: absolute; left: 16px; bottom: 16px; padding: 10px 14px; border: 1px solid rgba(251, 245, 230, 0.8); background: rgba(18, 35, 29, 0.72); color: var(--cream); cursor: pointer; font: 500 0.7rem/1 var(--sans); letter-spacing: 0.2em; text-transform: uppercase; }
+.motion:hover { background: var(--deep); }
+.motion[hidden] { display: none; }
 .sun { padding: 16px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); font-weight: 600; }
 
 /* the hours */
@@ -274,6 +280,8 @@ section[id], article[id] { scroll-margin-top: 96px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .vid video, .vid .motion { display: none; }
+  .vid .still { display: block; }
   .go::before { transition: none; }
 }
 @media (max-width: 1160px) {
@@ -300,6 +308,7 @@ section[id], article[id] { scroll-margin-top: 96px; }
   .block .small { display: none; }
   .block .big, .block.flip .big { margin: 0; }
   .block .big img, .block.hero .big img { aspect-ratio: 4 / 3; }
+  .vid video { aspect-ratio: 4 / 3; }
   .block .card, .block.flip .card, .block.solo .card, .block.flip.solo .card, .block.hero .card { margin: 0; padding: 32px 0 0; border: 0; background: none; }
   .block.hero { padding: 32px var(--gut) 70px; }
   .blocks .block:first-child { padding-top: 70px; }
@@ -339,7 +348,8 @@ section[id], article[id] { scroll-margin-top: 96px; }
 @media (max-width: 560px) {
   body { font-size: 1.06rem; }
   .chat { right: 0; bottom: 0; left: 0; width: 100%; height: min(640px, 86vh); border-width: 1px 0 0; }
-  .chat-open[data-chat-launch] { right: 14px; bottom: 14px; }
+  .chat-open[data-chat-launch] { right: 12px; bottom: 12px; gap: 9px; padding: 8px 14px 8px 8px; font-size: 0.7rem; letter-spacing: 0.18em; }
+  .chat-open[data-chat-launch] svg { width: 26px; height: 26px; padding: 4px; }
   .mark { font-size: 1.02rem; gap: 9px; }
   .mark svg { width: 34px; height: 34px; padding: 6px; }
   .hd-in { min-height: 68px; gap: 12px; }

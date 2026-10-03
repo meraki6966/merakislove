@@ -1,4 +1,4 @@
-/* The Meraki Inn. Five small behaviors, all optional: every page reads fine
+/* The Meraki Inn. Six small behaviors, all optional: every page reads fine
    with this file missing.
    1. Today's sunrise, golden hour and sunset in Galveston, worked out in the
       browser from the date and the island's position, shown in island time.
@@ -9,7 +9,9 @@
    5. Ask the inn: an AI assistant that answers from these pages and can fill
       in the arrival day, the nights and the room on the form. It never asks
       for a name, an email or a card, and a message that looks like a card
-      number is stopped here, before it leaves the browser. */
+      number is stopped here, before it leaves the browser.
+   6. The moving hero has a pause button, and does not play at all for a
+      visitor who has asked their device for less motion. */
 (function () {
   "use strict";
   var doc = document;
@@ -111,6 +113,25 @@
     doc.addEventListener("keydown", function (ev) {
       if (ev.key === "Escape" && nav.classList.contains("open")) { nav.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); btn.textContent = "Menu"; btn.focus(); }
     });
+  }
+
+  /* 6. the moving hero */
+  var video = doc.querySelector(".vid video"), motionBtn = doc.querySelector("[data-motion]");
+  if (video && motionBtn) {
+    var setMotion = function (playing) {
+      motionBtn.textContent = playing ? "Pause video" : "Play video";
+      motionBtn.setAttribute("aria-pressed", playing ? "false" : "true");
+    };
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.removeAttribute("autoplay");
+      video.pause();
+    } else {
+      motionBtn.hidden = false;
+      motionBtn.addEventListener("click", function () {
+        if (video.paused) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); setMotion(true); }
+        else { video.pause(); setMotion(false); }
+      });
+    }
   }
 
   /* 5. the assistant */

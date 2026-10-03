@@ -219,6 +219,19 @@ def hour(cls, hid, name, clock_html, copy, figure, layout="", attrs=""):
 '''
 
 
+def hero_loop():
+    """The moving hero: a silent four second loop of the house with the palms in the breeze.
+    A visitor who has asked their device for less motion gets the still photograph instead,
+    with or without the script, and anyone can pause it."""
+    w, h, alt = PICS["exterior"]
+    return f'''<figure class="big vid">
+<video autoplay muted loop playsinline preload="metadata" poster="img/hero-poster.webp" width="1200" height="900" aria-label="{alt}. A short silent loop: the palms move in the breeze.">
+<source src="img/hero-loop.webm" type="video/webm"><source src="img/hero-loop.mp4" type="video/mp4"></video>
+<img class="still" src="img/hero-poster.webp" alt="{alt}" loading="lazy" width="1200" height="900">
+<button class="motion" type="button" aria-pressed="false" data-motion hidden>Pause video</button>
+</figure>'''
+
+
 def build_home():
     hours = hour("dawn", "h-first", "First light", clock_live("sunrise", "Sunrise"),
                  "<p><b>The Gulf side of the island faces southeast,</b> so the sun comes up over the water. The beach is a ten minute bike ride from the porch, and we keep six bikes by the side gate.</p>"
@@ -253,7 +266,7 @@ def build_home():
 <p>Five rooms in an 1894 house on Galveston's East End. Here is what a day looks like, set to today's sun.</p>
 <p class="sun" data-sun>Today in Galveston the sun rises over the Gulf and sets behind the bay.</p>
 {gos(BOOK, CALL)}</div>
-<figure class="big">{pic("exterior", first=True)}</figure>
+{hero_loop()}
 </section>
 
 {hours}{night}
