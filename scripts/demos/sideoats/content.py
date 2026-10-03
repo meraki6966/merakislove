@@ -27,6 +27,7 @@ REVIEWS = [
 
 HOME_FAQ = [
     ("What is a percentage deductible?", 'It is a deductible set as a share of what your house is insured for. On a house insured for $380,000, a 2% wind and hail deductible is $7,600. You pay that amount on each claim before the policy pays anything. The <a href="hail-deductible.html">hail deductible guide</a> has a table for other house values.'),
+    ("Does home insurance cover hail damage in Fort Worth?", "Most home policies cover windstorm and hail. The deductible comes out first, and for wind and hail it is often a percentage of what the house is insured for. The example at the top of this page shows that deductible in dollars."),
     ("Does home insurance cover flooding in Texas?", 'No. Home policies do not cover flooding. <a href="flood-insurance.html">Flood insurance</a> is a separate policy, and most flood policies have a 30 day waiting period before they start, so it has to be in place before a storm is on the forecast.'),
     ("What is the minimum auto insurance in Texas?", 'Texas requires liability coverage of at least $30,000 for each injured person, up to $60,000 per accident, and $25,000 for property damage. It is written as 30/60/25. The <a href="auto-insurance.html">auto page</a> explains where those numbers run out.'),
     ("What is an independent insurance agency?", "An independent agency is not tied to one insurance company. We place your policy with the carrier that fits, and at renewal we can check it against the others we represent."),

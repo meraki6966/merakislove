@@ -214,7 +214,14 @@ def build_home():
 {figure("kitchen", KITCHEN_ALT)}
 <div><h2 id="people-h">Who reads your policy?</h2>{people_list()}<p class="fine">Fictional people, written for this demo. <a href="about.html">About the agency</a>.</p></div>
 </div></section>
-''' + reviews_section("") + areas_section("tint") + faq_block("Questions we answer every week", HOME_FAQ) + quote())
+''' + reviews_section("") + f'''<section class="sec tint" aria-labelledby="where-h"><div class="w people-g">
+<div><h2 id="where-h">Where is the office?</h2>
+<p>We are on Magnolia Avenue in the Near Southside of Fort Worth, in a brick building with parking at the curb. Walk in with your policy and we will read it with you, or ask and we will come to your kitchen table.</p>
+<p>We write policies across Tarrant County, and most of our clients live within a short drive of the office.</p>
+{hours_table()}</div>
+{figure("office", OFFICE_ALT)}
+</div></section>
+''' + areas_section("") + faq_block("Questions we answer every week", HOME_FAQ, "tint") + quote())
     schemas = [org_schema(), business_schema(), website_schema(), faq_schema(HOME_FAQ), crumbs_schema([("Home", "")])]
     write("index.html", page("index.html", "Insurance Agency in Fort Worth, TX | Sideoats Insurance",
                              "Sideoats is an independent insurance agency in Fort Worth, Texas. Home, auto and business coverage, with your hail deductible worked out in dollars first.",
