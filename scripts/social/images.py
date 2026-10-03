@@ -1,8 +1,8 @@
 """Images for scheduled social posts. Run from the repo root.
 
   python3 scripts/social/images.py flyer public/demos/starter-sites/flyers/tessel.jpg public/social/2026-10-12/tessel-4x5.jpg
-      A 3:4 flyer on a 1080x1350 canvas (4:5, the tallest shape Instagram takes),
-      whole flyer kept, thin blurred strips of itself at the sides.
+      A portrait flyer on a 1080x1350 canvas (4:5, the tallest shape Instagram takes),
+      whole flyer kept, blurred strips of itself at the sides.
 
   python3 scripts/social/images.py shot https://merakislove.com/demos/tessel/cleanings-exams.html "#price-h" public/social/2026-10-12/tessel-prices.jpg --size 1080x1350
       A screenshot of a live page with the element scrolled near the top.
@@ -15,12 +15,14 @@ import sys
 from PIL import Image, ImageFilter
 
 def flyer(src, out):
+    """Any portrait flyer, kept whole on a 1080x1350 canvas over a blurred copy of itself."""
     im = Image.open(src).convert("RGB")
     w, h = im.size
-    if abs(w / h - 0.75) > 0.02:
-        sys.exit(f"{src} is {w}x{h}. This only handles 3:4 flyers.")
-    bg = im.resize((1080, 1440)).crop((0, 45, 1080, 1395)).filter(ImageFilter.GaussianBlur(28))
-    bg.paste(im.resize((1012, 1350), Image.LANCZOS), (34, 0))
+    if w >= h: sys.exit(f"{src} is {w}x{h}. This is for portrait flyers.")
+    k = min(1080 / w, 1350 / h); fw, fh = round(w * k), round(h * k)
+    c = max(1080 / w, 1350 / h); cw, ch = round(w * c), round(h * c)
+    bg = im.resize((cw, ch)).crop(((cw - 1080) // 2, (ch - 1350) // 2, (cw - 1080) // 2 + 1080, (ch - 1350) // 2 + 1350)).filter(ImageFilter.GaussianBlur(28))
+    bg.paste(im.resize((fw, fh), Image.LANCZOS), ((1080 - fw) // 2, (1350 - fh) // 2))
     bg.save(out, quality=88, optimize=True)
     print(out, bg.size)
 
