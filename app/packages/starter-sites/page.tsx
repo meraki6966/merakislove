@@ -194,6 +194,38 @@ const flyers: Flyer[] = [
     height: 1600,
   },
   {
+    file: "saltbrush.jpg",
+    business: "Saltbrush Pool Care",
+    caption: "Weekly service flyer",
+    alt: "Saltbrush Pool Care weekly service flyer, a technician brushing a Phoenix pool above a sample visit report with chlorine, pH and alkalinity readings, under the headline We service your pool every week, and send you the proof, with weekly service at $155 a month.",
+    width: 1200,
+    height: 1600,
+  },
+  {
+    file: "fernhollow.jpg",
+    business: "Fernhollow Veterinary Clinic",
+    caption: "Can it wait flyer",
+    alt: "Fernhollow Veterinary Clinic flyer asking Can it wait until morning, with a red Go now column, a yellow Call us today column and a green Book this week column, a terrier on a yellow backdrop, and same day sick visits at $95.",
+    width: 1200,
+    height: 1600,
+  },
+  {
+    file: "sideoats.jpg",
+    business: "Sideoats Insurance Agency",
+    caption: "Hail deductible flyer",
+    alt: "Sideoats Insurance Agency flyer headed Your hail deductible, in dollars, with $7,600 circled in orange as the cost of a 2 percent deductible on a $380,000 house, and the line Have us read your policy.",
+    width: 1200,
+    height: 1600,
+  },
+  {
+    file: "meraki-inn.jpg",
+    business: "The Meraki Inn",
+    caption: "Dickens on The Strand weekend flyer",
+    alt: "The Meraki Inn flyer for Dickens on The Strand, December 4 to 6, with the pale green Victorian inn behind a bordered card that reads Five rooms in an 1894 house on the East End, from $189 a night with breakfast.",
+    width: 1200,
+    height: 1600,
+  },
+  {
     file: "hazel-row.jpg",
     business: "Hazel & Row",
     caption: "New stylist announcement flyer",
@@ -576,7 +608,7 @@ export default function StarterSitesPage() {
       {/* See the marketing package in action */}
       <PackageSection
         title="See the marketing package in action"
-        lead="Eight businesses, eight identities, each with branded content made for that business and its customers."
+        lead="Twelve businesses, twelve identities, each with branded content made for that business and its customers."
       >
         {/* Widest render measured at 547px, single column at a 639px
             viewport, NOT the steady 227px desktop tile once lg:grid-cols-3

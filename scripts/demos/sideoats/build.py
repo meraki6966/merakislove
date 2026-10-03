@@ -175,7 +175,7 @@ def calc_hero(h1, lede, crumb_items=None):
 <p class="big">{RING}<span data-o="ded">{money(ded)}</span></p>
 <div class="bar" aria-hidden="true"><span class="you" data-bar style="width:{share}%"></span></div>
 <dl class="split"><div><dt>You pay</dt><dd data-o="you">{money(you)}</dd></div><div><dt>The policy pays</dt><dd data-o="pays">{money(pays)}</dd></div></dl>
-<p class="say" data-o="say">On a {money(roof)} roof, a {pct}% deductible leaves you with {money(you)} and the policy with {money(pays)}.</p>
+<p class="say" data-o="say">On {"an" if str(roof).startswith(("8", "11", "18")) else "a"} {money(roof)} roof, a {pct}% deductible leaves you with {money(you)} and the policy with {money(pays)}.</p>
 </div>
 </div>
 <p class="fine">An illustration with round numbers. It is not a quote, and your policy may work differently. The percentage is applied to your dwelling coverage, the amount the house is insured for. <a href="#quote">Have us read your policy</a>.</p>

@@ -25,9 +25,11 @@
     set("pays", money(pays));
     var bar = doc.querySelector("[data-bar]");
     if (bar) bar.style.width = (you / roof * 100).toFixed(2) + "%";
+    // "an $18,500 roof", "an $8,000 roof", "an $11,000 roof": the article follows how the number is said aloud.
+    var an = /^(8|11|18)/.test(String(roof));
     var say = pays > 0
-      ? "On a " + money(roof) + " roof, a " + pct + "% deductible leaves you with " + money(you) + " and the policy with " + money(pays) + "."
-      : "A " + money(roof) + " roof costs less than your " + money(ded) + " deductible, so the policy pays nothing and the whole roof is yours.";
+      ? "On " + (an ? "an " : "a ") + money(roof) + " roof, a " + pct + "% deductible leaves you with " + money(you) + " and the policy with " + money(pays) + "."
+      : (an ? "An " : "A ") + money(roof) + " roof costs less than your " + money(ded) + " deductible, so the policy pays nothing and the whole roof is yours.";
     set("say", say);
   }
   if (form) {
