@@ -29,14 +29,17 @@ export const metadata: Metadata = {
  * no analytics package in package.json, no cookie or storage API called
  * anywhere in app/, components/ or lib/, fonts self-hosted by next/font so
  * no request reaches Google at runtime, the /start form composing a mailto
- * link in the browser, and exactly one server route, the demo booking chat.
+ * link in the browser, and exactly two server routes, the two demo chat
+ * assistants (the restaurant demo and the inn demo). The static demos under
+ * public/demos are separate pages with their own privacy notes; two of them
+ * keep a small setting or the chat conversation in the tab's sessionStorage.
  *
  * If any of that changes, this page has to change with it. A privacy policy
  * that overclaims is worse than none, because it is a promise nobody is
  * keeping.
  */
 
-const LAST_UPDATED = "1 September 2026";
+const LAST_UPDATED = "2 October 2026";
 
 interface Section {
   title: string;
@@ -73,14 +76,15 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "The demo booking assistant",
+    title: "The demo chat assistants",
     paragraphs: [
-      "One page on this site does send data to a server: the restaurant demo, which has a working AI booking chat so you can see one running rather than read about it. It is the only route on this site that receives anything.",
+      "Two demos on this site do send data to a server: the restaurant demo and the inn demo. Each has a working AI assistant so you can see one running rather than read about it. Those two chats are the only routes on this site that receive anything.",
     ],
     bullets: [
-      "What you type in that chat is sent to Anthropic's API to generate a reply, and is handled under Anthropic's terms as a processor. Do not type anything sensitive into a demo.",
+      "What you type in either chat is sent to Anthropic's API to generate a reply, and is handled under Anthropic's terms as a processor. Do not type anything sensitive into a demo.",
       "Your IP address is read from the request and held in memory for up to one minute, purely to stop one visitor from running the cost up. It is not written to a database and does not survive a restart.",
-      "The conversation itself is not stored. It lives in your browser tab and is replayed to the route on each turn; when you close the tab it is gone.",
+      "The conversation itself is not stored on the server. It lives in your browser tab and is replayed to the route on each turn; when you close the tab it is gone. The inn demo keeps it in the tab's session storage so it can follow you from page to page.",
+      "The inn demo's assistant can fill in an arrival date, a number of nights and a room on that demo's form, and nothing else. A message that looks like a payment card number is stopped before it is sent to Anthropic.",
       "The server log records how many tokens a reply used and whether it finished cleanly. It does not record what you typed.",
     ],
   },

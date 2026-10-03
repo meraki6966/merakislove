@@ -163,7 +163,7 @@ const demos: Demo[] = [
     name: "The Meraki Inn",
     eyebrow: "Boutique Inn · Multi-page",
     description:
-      "A five room inn in Galveston's East End, built as a sixteen page site that tells one day at the inn, hour by hour. Sunrise, golden hour and sunset are worked out in the browser for the island on today's date, and every other page opens on its own hour in very large numerals. Photographs hang over the edge of each ground and the text sits in bordered cards. Cream, Gulf green and dawn blush, set in Noto Serif Display, Source Serif and Jost.",
+      "A five room inn in Galveston's East End, built as a sixteen page site that tells one day at the inn, hour by hour. Sunrise, golden hour and sunset are worked out in the browser for the island on today's date, and every other page opens on its own hour in very large numerals. An AI assistant answers questions from the site's own pages and fills in the date request for you. Photographs hang over the edge of each ground and the text sits in bordered cards. Cream, Gulf green and dawn blush, set in Noto Serif Display, Source Serif and Jost.",
     stack: ["Static HTML", "Schema.org", "Presence-First"],
     href: "/demos/meraki-inn",
     swatch: ["#FBF5E6", "#6C9384"],

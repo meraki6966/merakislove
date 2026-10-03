@@ -349,12 +349,14 @@ PAGES = [
                       "items": [("The form asks for five things", "Your arrival day, the number of nights, a room, your name and your email. Nothing else."),
                                 ("Cards are taken by phone", "You read the number to Celeste and she keys it into the card terminal. It is never written down, emailed or sent through this website."),
                                 ("We never ask for a gift card, a wire or a payment app", "If a message asks you to pay for a room that way, it is not from us. Call the inn."),
+                                ("The chat is an AI, and it says so", "It answers from these pages and can fill in your dates and room on the request form. It never asks for a name, an email or a card."),
                                 ("You can ask what we hold", 'Call and we will tell you what is in your booking record. The <a href="privacy.html">privacy page</a> has the rest.')]}),
         ],
         "faq_title": "The inn, answered",
         "faq": [("Who owns The Meraki Inn?", "Celeste Arceneaux, who is also the innkeeper. She and Isadora Fontenot are fictional people, written for this demo."),
                 ("How do you pronounce meraki?", "meh RAH kee, with the weight on the middle."),
-                ("How do I pay for my room?", "By card, over the phone, once we have confirmed your dates. We never take a card number through the website or by email.")],
+                ("How do I pay for my room?", "By card, over the phone, once we have confirmed your dates. We never take a card number through the website, the chat or by email."),
+                ("Is the chat a person?", "No. Ask the inn is an AI assistant. It answers from the pages of this website and can fill in the date request form for you. On this demo, nothing it fills in is sent anywhere.")],
         "more": [("breakfast.html", "Breakfast on the gallery"), ("the-house.html", "The house")],
     },
     {
@@ -394,6 +396,10 @@ PRIVACY = [
     ("What does this website collect?", [
         "The date request form asks for five things: your arrival day, the number of nights, a room, your name and your email. That is all it asks for.",
         "This is a demo site, so the form sends nothing anywhere. On a live site, those five details would go to the innkeeper and to no one else."]),
+    ("What happens to what I type in the chat?", [
+        "The Ask the inn chat is an AI assistant. What you type is sent through this website's server to Anthropic, the AI provider that writes the replies, and is handled under its terms. This website does not store it.",
+        "The conversation is kept in your browser tab so it can follow you from page to page, and it is gone when you close the tab. The server keeps your internet address in memory for up to a minute, only to stop one visitor from running up the cost.",
+        "The assistant never asks for your name, your email, your phone number or a card. It can fill in the arrival day, the nights and the room on the date request form, and nothing else. If a message looks like a card number, it is stopped before it is sent to the provider."]),
     ("How is a card taken?", [
         "By phone, once your dates are confirmed. You read the number to the innkeeper and it is keyed into the card terminal while you are on the line.",
         "A card number is never asked for on this website, by email or by text, and it is never written down."]),
@@ -404,7 +410,7 @@ PRIVACY = [
         "A booking record: your name, email, phone number, dates, room and anything you told us about breakfast. On a live site it would be kept for as long as tax law requires and then deleted.",
         "We do not sell guest details and we do not share them, except with the card processor that handles the payment."]),
     ("Does the website use cookies or tracking?", [
-        "This demo sets no cookies and loads no advertising or analytics scripts. It loads its typefaces from Google Fonts.",
+        "This demo sets no cookies and loads no advertising or analytics scripts. It loads its typefaces from Google Fonts. The chat keeps its conversation in your browser tab's own storage until the tab is closed.",
         "Today's sunrise and sunset are worked out in your own browser from the date. The page does not ask for your location."]),
     ("How do I ask what you hold about me?", [
         f"Call {PHONE} and ask. We will tell you what is in your booking record and correct or delete it where the law allows."]),

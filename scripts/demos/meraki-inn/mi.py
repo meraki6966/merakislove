@@ -267,10 +267,33 @@ def stay_section(selected="the-loom", title="Ask for your dates",
 <div><p class="label">Your dates</p><h2 class="cap" id="stay-h">{title}</h2>
 <p>{lead}</p>
 <p class="bigtel"><a href="tel:{TEL}">{PHONE}</a></p>
-<p class="fine">Rates are samples for this demo and are before tax. See <a href="stay.html">rates and policies</a>.</p></div>
+<p class="fine">Rates are samples for this demo and are before tax. See <a href="stay.html">rates and policies</a>.</p>
+<p class="gos"><button class="go" type="button" data-chat-open hidden>Ask the inn a question</button></p></div>
 {stay_form(selected)}
 </div></section>
 '''
+
+
+CHAT_HELLO = "Hello from the inn. Ask me about the rooms, breakfast or the island, or tell me when you would like to arrive and I will fill in the date request for you."
+CHAT_STARTERS = ["Which room has no stairs?", "Two nights next weekend", "Can I park for a cruise?"]
+
+# The assistant. It is in the page for every visitor but stays hidden until the
+# script runs, so a browser without scripts never shows a chat that cannot answer.
+CHAT = f"""<button class="chat-open" type="button" data-chat-open data-chat-launch aria-controls="chat" aria-expanded="false" hidden>{MARK}<span>Ask the inn</span></button>
+<section class="chat" id="chat" aria-label="Chat with the inn's assistant" hidden>
+<div class="chat-hd"><h2>Ask the inn</h2><button type="button" class="chat-x" data-chat-close>Close</button></div>
+<div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Conversation with the inn's assistant" tabindex="0">
+<div class="chat-msg bot"><span class="sr">The inn said:</span><p>{CHAT_HELLO}</p></div>
+<p class="chat-starters" data-chat-starters>{"".join(f'<button type="button" data-chat-say="{t}">{t}</button>' for t in CHAT_STARTERS)}</p>
+</div>
+<p class="chat-status" id="chat-status" role="status" aria-live="polite"></p>
+<form class="chat-form" id="chat-form">
+<label for="chat-input">Your message</label>
+<div class="chat-row"><input type="text" id="chat-input" name="message" autocomplete="off" maxlength="1000" placeholder="Is breakfast included?" aria-describedby="chat-note"><button class="btn" type="submit" id="chat-send" aria-describedby="chat-note">Send</button></div>
+</form>
+<p class="chat-note" id="chat-note">This is a demo. You are talking to an AI assistant, so your messages go to an AI provider to write the replies. No room is reserved. Keep names, emails and card numbers out of the chat. <button type="button" data-chat-reset>Start over</button></p>
+</section>
+"""
 
 
 def footer():
@@ -286,7 +309,7 @@ def footer():
 </div>
 <p class="ft-base">© 2026 {BRAND}. A demo site by <a href="https://merakislove.com/packages/presence-first-web-design">Meraki is Love</a>. The Meraki Inn is a fictional inn, and its house, people, rooms, rates and policies are samples. The district, the Seawall, the ferry, the festivals, the port and the weather service are real and are not affiliated with this demo.</p>
 </footer>
-<script src="assets/site.js" defer></script>
+{CHAT}<script src="assets/site.js" defer></script>
 </body>
 </html>
 """
