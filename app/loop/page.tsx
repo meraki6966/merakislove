@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 };
 
 const canopyGuard = "https://thecanopyguard.com";
+const merakiBip = "https://merakibip.com";
 
 interface Stage {
   number: string;
@@ -62,9 +63,9 @@ const stages: Stage[] = [
   {
     number: "03",
     name: "Scale",
-    price: "$500 to launch, then $197/mo",
-    priceNote: "Launch fee plus monthly",
-    body: "With the foundation solid, we build the engine that grows it. The Meraki Business Intelligence Portal launches for $500 and runs at $197 a month, turning a clean, secure site into a system that finds and answers your next customers for you.",
+    price: "From $100/mo",
+    priceNote: "Monthly plan plus a one time setup fee",
+    body: "With the foundation solid, we add the engine that grows it. The Meraki Business Intelligence Portal is the system I built and run, and it is sold by the month at merakibip.com. The chat assistant alone is $100 a month with a $197 setup. All three engines together are $897 a month with a $697 setup.",
     points: [
       "Meraki Business Intelligence Portal",
       "Lead prospecting that fills your pipeline",
@@ -72,7 +73,7 @@ const stages: Stage[] = [
       "Omnichannel distribution across the channels that matter",
     ],
     footnote:
-      "Pricing increases with add-ons and custom builds.",
+      "Want a system built around your practice? Custom builds start at $7,000.",
   },
 ];
 
@@ -211,6 +212,18 @@ export default function LoopPage() {
                           className="group inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:text-amber sm:whitespace-nowrap"
                         >
                           Visit thecanopyguard.com
+                          <span className="transition-transform duration-300 group-hover:translate-x-1">
+                            →
+                          </span>
+                        </a>
+                      ) : stage.name === "Scale" ? (
+                        <a
+                          href={merakiBip}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:text-amber sm:whitespace-nowrap"
+                        >
+                          See plans at merakibip.com
                           <span className="transition-transform duration-300 group-hover:translate-x-1">
                             →
                           </span>
