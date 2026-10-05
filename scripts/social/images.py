@@ -34,12 +34,14 @@ def shot(url, selector, out, size):
         b = p.chromium.launch(args=["--hide-scrollbars"])
         ctx = b.new_context(viewport={"width": int(w * 1.25), "height": int(h * 1.25)}, device_scale_factor=0.8, bypass_csp=True)
         pg = ctx.new_page()
-        for attempt in range(4):
+        for attempt in range(5):
             try:
-                pg.goto(url, wait_until="networkidle", timeout=45000); break
+                resp = pg.goto(url, wait_until="networkidle", timeout=45000)
+                if resp is not None and resp.status == 200: break
+                if attempt == 4: sys.exit(f"{url} answered {resp.status if resp else 'nothing'}. No image written.")
             except Exception as e:
-                if attempt == 3: raise
-                pg.wait_for_timeout(3000)
+                if attempt == 4: raise
+            pg.wait_for_timeout(3000)
         pg.add_style_tag(content="html{scroll-behavior:auto!important} [data-chat-launch],.mobile-bar,.float-call{display:none!important}")
         if selector != "top":
             if pg.locator(selector).count() == 0: sys.exit(f"{selector} is not on {url}")
