@@ -26,6 +26,14 @@ def flyer(src, out):
     bg.save(out, quality=88, optimize=True)
     print(out, bg.size)
 
+def busy(im):
+    """Share of the picture that is not the single most common color. An empty page scores near zero."""
+    small = im.convert("L").resize((270, round(270 * im.height / im.width)))
+    hist = small.histogram()
+    mode = hist.index(max(hist))
+    near = sum(hist[max(0, mode - 6):mode + 7])
+    return 1 - near / (small.width * small.height)
+
 def shot(url, selector, out, size):
     from playwright.sync_api import sync_playwright
     w, h = (int(x) for x in size.split("x"))
@@ -34,24 +42,32 @@ def shot(url, selector, out, size):
         b = p.chromium.launch(args=["--hide-scrollbars"])
         ctx = b.new_context(viewport={"width": int(w * 1.25), "height": int(h * 1.25)}, device_scale_factor=0.8, bypass_csp=True)
         pg = ctx.new_page()
+        errs = []
+        pg.on("pageerror", lambda e: errs.append(str(e)))
         for attempt in range(5):
+            del errs[:]
             try:
                 resp = pg.goto(url, wait_until="networkidle", timeout=45000)
-                if resp is not None and resp.status == 200: break
-                if attempt == 4: sys.exit(f"{url} answered {resp.status if resp else 'nothing'}. No image written.")
+                # A script chunk that fails to load leaves the page body empty under a working header.
+                broken = any("Failed to load chunk" in e for e in errs)
+                if resp is not None and resp.status == 200 and not broken: break
+                if attempt == 4: sys.exit(f"{url} answered {resp.status if resp else 'nothing'}{', scripts failed to load' if broken else ''}. No image written.")
             except Exception as e:
                 if attempt == 4: raise
             pg.wait_for_timeout(3000)
-        pg.add_style_tag(content="html{scroll-behavior:auto!important} [data-chat-launch],.mobile-bar,.float-call{display:none!important}")
+        pg.add_style_tag(content="html{scroll-behavior:auto!important} [data-chat-launch],.mobile-bar,.float-call,.cursor-el{display:none!important}")
         if selector != "top":
             if pg.locator(selector).count() == 0: sys.exit(f"{selector} is not on {url}")
             pg.evaluate("(s)=>{const e=document.querySelector(s);window.scrollTo(0,e.getBoundingClientRect().top+window.scrollY-170)}", selector)
         pg.wait_for_timeout(1500)
         pg.screenshot(path=out + ".png")
         b.close()
+    import os
     im = Image.open(out + ".png").convert("RGB").resize((w, h), Image.LANCZOS)
+    os.remove(out + ".png")
+    filled = busy(im)
+    if filled < 0.04: sys.exit(f"The picture of {url} is {filled:.1%} content and the rest is one flat color. The page did not render. No image written.")
     im.save(out, quality=88, optimize=True)
-    import os; os.remove(out + ".png")
     print(out, im.size)
 
 if __name__ == "__main__":
