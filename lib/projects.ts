@@ -26,6 +26,12 @@ export interface Project {
    * see the image.
    */
   coverAlt?: string;
+  /**
+   * Optional outside link, such as a published case study. Rendered at the
+   * bottom of the card only when present, so a card can go live before its
+   * write-up does and gain the link later with a one-line change.
+   */
+  link?: { href: string; label: string };
 }
 
 export const projects: Project[] = [
@@ -50,6 +56,23 @@ export const projects: Project[] = [
     cover: "/covers/bip-cover.png",
     coverAlt:
       "The Meraki BIP homepage hero on a dark screen: the headline 'Not a tool you manage. A system we run for you.' above two buttons, and a photo of a businessman in a suit working on a laptop outdoors below.",
+  },
+  {
+    name: "Social Posting Pipeline",
+    slug: "social-posting-pipeline",
+    type: "Content automation",
+    year: "2026",
+    description:
+      "The system that runs my own Facebook, Instagram and YouTube. Claude drafts each week and builds the pictures and Shorts in code, ElevenLabs narrates in my voice, Kling draws the cartoons, and Make hands the week to Buffer only after I approve it.",
+    stack: ["Claude", "Make", "Buffer", "ElevenLabs", "Kling"],
+    proves:
+      "an AI agent can run a public channel under my name when the fences go up first. Nothing posts without my yes, nothing posts on the spot, and no key ever sits in a chat.",
+    // The Soulful Tech gold from the pipeline diagram, on its deep purple.
+    glow: "#C8A96E",
+    coverBg: "#14061F",
+    cover: "/covers/social-pipeline-cover.png",
+    coverAlt:
+      "The seven steps of the posting pipeline as gold-edged tiles on deep purple: Plan, Make, Write and Approve across the top, with Approve outlined in gold, then Host, Schedule and Publish below beside a dashed Guardrails tile.",
   },
   {
     name: "Canopy Guard",

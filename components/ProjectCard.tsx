@@ -74,6 +74,19 @@ export default function ProjectCard({ project }: { project: Project }) {
             {project.proves}
           </p>
         </div>
+        {project.link && (
+          <a
+            href={project.link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/link inline-flex w-fit items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:text-smoke"
+          >
+            {project.link.label}
+            <span aria-hidden className="transition-transform duration-300 group-hover/link:translate-x-1">
+              →
+            </span>
+          </a>
+        )}
       </div>
     </TiltCard>
   );
