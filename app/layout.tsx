@@ -82,6 +82,12 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        {/* Google Analytics 4, self-hosted loader. It runs only on the
+            production hosts, skips Global Privacy Control and noindex pages,
+            and keeps Google signals off. See public/analytics.js. */}
+        <script src="/analytics.js" async />
+      </head>
       <body className="custom-cursor-active min-h-screen bg-void font-body text-smoke">
         <JsonLd />
         <GrainOverlay />

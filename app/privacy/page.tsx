@@ -9,7 +9,7 @@ import { email, ogBase } from "@/lib/site";
 const title = "Privacy | Meraki is Love";
 
 const description =
-  "What this site collects, which is almost nothing. No cookies, no analytics, no tracking. Written to describe what the site actually does.";
+  "What this site collects and why. One analytics tool, Google Analytics, with Google signals off and Global Privacy Control respected. Written to describe what the site actually does.";
 
 export const metadata: Metadata = {
   // Absolute so the pipe-separated title survives the layout template.
@@ -26,20 +26,26 @@ export const metadata: Metadata = {
 
 /**
  * Written against what the code actually does, checked rather than assumed:
- * no analytics package in package.json, no cookie or storage API called
- * anywhere in app/, components/ or lib/, fonts self-hosted by next/font so
- * no request reaches Google at runtime, the /start form composing a mailto
- * link in the browser, and exactly two server routes, the two demo chat
- * assistants (the restaurant demo and the inn demo). The static demos under
- * public/demos are separate pages with their own privacy notes; two of them
- * keep a small setting or the chat conversation in the tab's sessionStorage.
+ * one analytics tool, Google Analytics 4, loaded by public/analytics.js only
+ * on merakislove.com and www.merakislove.com, never when the browser sends
+ * Global Privacy Control, never on a noindex page, with Google signals and
+ * ad personalization off. It is included on the main pages (app/layout.tsx)
+ * and on /demos/presence-first-example.html, and on no other demo. No other
+ * cookie or storage API is called anywhere in app/, components/ or lib/,
+ * fonts are self-hosted by next/font, the /start form composes a mailto
+ * link in the browser, and there are exactly two server routes, the two demo
+ * chat assistants (the restaurant demo and the inn demo). The static demos
+ * under public/demos are separate pages with their own privacy notes; two of
+ * them keep a small setting or the chat conversation in the tab's
+ * sessionStorage. scripts/tests/analytics.test.mjs enforces the analytics
+ * half of this.
  *
  * If any of that changes, this page has to change with it. A privacy policy
  * that overclaims is worse than none, because it is a promise nobody is
  * keeping.
  */
 
-const LAST_UPDATED = "2 October 2026";
+const LAST_UPDATED = "15 October 2026";
 
 interface Section {
   title: string;
@@ -51,15 +57,38 @@ const sections: Section[] = [
   {
     title: "The short version",
     paragraphs: [
-      "This site does not set cookies, does not run analytics, and does not track you across pages or across the web. There is no advertising pixel, no session recording, and no third-party script loading in the background. Nothing you do here builds a profile of you.",
-      "The only way this site learns anything about you is if you choose to write to me or book a call, and in both cases you are the one who starts it.",
+      "I use one analytics tool, Google Analytics, to see which pages people read and how they found the site. It sets two cookies to tell a returning visitor from a new one. Google signals and ad personalization are switched off, so Analytics does not connect your visit to a signed-in Google account or use it to personalize ads. There is no advertising pixel and no session recording.",
+      "If your browser sends Global Privacy Control, the analytics tag does not load at all. The sample business sites under /demos do not load it either.",
+      "The only way this site learns anything about you personally is if you choose to write to me or book a call, and in both cases you are the one who starts it.",
     ],
   },
   {
-    title: "What the site collects on its own",
+    title: "What the site itself stores",
     paragraphs: [
       "Nothing that identifies you. There is no account to create, no newsletter list, no form that posts to a database on this site.",
       "The typefaces are served from this site rather than fetched from Google, so simply reading a page does not tell a font provider that you were here.",
+    ],
+  },
+  {
+    title: "Google Analytics",
+    paragraphs: [
+      "Analytics runs on the main pages of merakislove.com and on the Presence-First design demo. It does not run on the other demo sites under /demos, on preview copies of this site, or on any page hidden from search engines.",
+    ],
+    bullets: [
+      "What Google receives: the address and title of the page, the page that sent you here, your browser, device type, screen size and language, and an approximate location worked out from your IP address. Google says Analytics does not log or store IP addresses.",
+      "While you are on a page it also records scrolling, clicks on links that leave the site, and file downloads.",
+      "Cookies: two first-party cookies, _ga and _ga_CD61SSYP84, each holding a random ID. They last up to two years unless you clear them.",
+      "Google signals and ad personalization are off for this site.",
+      "Event data is kept for two months, the shortest setting Analytics offers. Google processes it under the data processing terms I have accepted for this account.",
+    ],
+  },
+  {
+    title: "Turning analytics off for yourself",
+    paragraphs: [],
+    bullets: [
+      "Turn on Global Privacy Control in your browser or with a browser extension. When it is on, the tag never loads here.",
+      "Install Google's opt-out add-on from tools.google.com/dlpage/gaoptout.",
+      "Block or clear cookies for merakislove.com in your browser settings. A content blocker that blocks Google Analytics works too.",
     ],
   },
   {
@@ -113,13 +142,13 @@ const sections: Section[] = [
   {
     title: "Your choices",
     paragraphs: [
-      "Because there is nothing stored here, there is usually nothing to delete. If you have emailed me and would rather I did not keep the message, say so and I will delete it from the inbox and confirm that I have. If you booked through Calendly and want that record removed, tell me and I will remove it on my side and point you to Calendly for theirs.",
+      "Apart from the analytics above, nothing is stored here, so there is usually nothing to delete. Analytics data is not tied to your name, and it expires on the schedule above. If you have emailed me and would rather I did not keep the message, say so and I will delete it from the inbox and confirm that I have. If you booked through Calendly and want that record removed, tell me and I will remove it on my side and point you to Calendly for theirs.",
     ],
   },
   {
     title: "Changes",
     paragraphs: [
-      "If the site starts doing something this page does not describe, adding analytics for instance, this page changes first. The date below is the last time it was reviewed against the actual code.",
+      "If the site starts doing something this page does not describe, this page changes first. The date below is the last time it was reviewed against the actual code.",
     ],
   },
 ];
@@ -132,7 +161,7 @@ export default function PrivacyPage() {
       <PageHeader
         eyebrow="Privacy"
         title="What this site collects."
-        subtitle="Almost nothing, and this page says exactly what. It describes what the code actually does rather than what a template would cover."
+        subtitle="Very little, and this page says exactly what. It describes what the code actually does rather than what a template would cover."
       />
 
       <div className="mt-16 flex flex-col">

@@ -12,6 +12,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/packages/custom",
     "/packages/starter-sites",
     "/packages/presence-first-web-design",
+    // The one demo that is a main page: indexed, in the sitemap, and tagged.
+    // The other demos are noindex samples and stay out.
+    "/demos/presence-first-example.html",
     "/start",
     "/demos",
     "/loop",
