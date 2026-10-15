@@ -21,9 +21,11 @@ Last reviewed: 15 October 2026, on the analytics-ga4 branch.
   - The Content-Security-Policy allows gtag.js from www.googletagmanager.com, and hits to `*.google-analytics.com`, `*.analytics.google.com` and `www.googletagmanager.com` only.
   - Google's own guide for Analytics without Ads features also lists `*.google.com` in connect-src. It's left out on purpose, so gtag's extra beacon to www.google.com/g/collect is blocked by the browser. The main hit to www.google-analytics.com still goes through.
   - scripts/tests/analytics.test.mjs enforces all of the above.
-- **Still to do in Analytics Admin:**
-  - Accept the Data Processing Terms (Admin, Account settings, Account details). Until they're accepted, Google is not bound as a processor for this data.
-  - Confirm that Google signals is off and that event data retention is 2 months.
+- **Analytics Admin, done 15 October 2026 (confirmed by Adam):**
+  - Data Processing Terms accepted (Admin, Account settings, Account details).
+  - Google signals off. User-ID collection and user-provided data collection off.
+  - Event data retention set to 2 months.
+- **End to end:** after the merge, Realtime showed Adam's own visit as one active user in the United States.
 - **Security posture:** Google is a large processor with its own certifications. No credential for this property lives in the repository. The measurement ID is public by design.
 
 ## Vercel
