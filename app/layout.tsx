@@ -11,6 +11,7 @@ import Cursor from "@/components/Cursor";
 import GrainOverlay from "@/components/GrainOverlay";
 import JsonLd from "@/components/JsonLd";
 import { ogBase } from "@/lib/site";
+import { headers } from "next/headers";
 import { REVEAL_FALLBACK_SCRIPT, REVEAL_NOSCRIPT } from "@/lib/reveal-fallback";
 
 const cormorant = Cormorant_Garamond({
@@ -73,11 +74,15 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // This request's nonce, from proxy.ts. The security policy runs only scripts
+  // that carry it, so the two the site writes itself must. Reading it makes
+  // every page render per request, which a nonce requires. See lib/csp.ts.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <html
       lang="en"
@@ -87,10 +92,10 @@ export default function RootLayout({
         {/* Google Analytics 4, self-hosted loader. It runs only on the
             production hosts, skips Global Privacy Control and noindex pages,
             and keeps Google signals off. See public/analytics.js. */}
-        <script src="/analytics.js" async />
+        <script src="/analytics.js" async nonce={nonce} />
         {/* Keeps the text visible if the page's JavaScript is off or never
             loads. See lib/reveal-fallback.ts. */}
-        <script dangerouslySetInnerHTML={{ __html: REVEAL_FALLBACK_SCRIPT }} />
+        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: REVEAL_FALLBACK_SCRIPT }} />
         <noscript dangerouslySetInnerHTML={{ __html: REVEAL_NOSCRIPT }} />
       </head>
       <body className="custom-cursor-active min-h-screen bg-void font-body text-smoke">

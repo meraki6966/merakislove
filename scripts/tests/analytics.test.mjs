@@ -168,6 +168,7 @@ const EXPECTED_CSP = [
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: https:",
   "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
+  "object-src 'none'",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

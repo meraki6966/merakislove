@@ -53,7 +53,7 @@ test("the visible rule overrides the inline hidden state, and only on ScrollReve
 
 test("the root layout carries the noscript rule and the inline fallback", () => {
   assert.match(layout, /<noscript dangerouslySetInnerHTML=\{\{ __html: REVEAL_NOSCRIPT \}\} \/>/);
-  assert.match(layout, /<script dangerouslySetInnerHTML=\{\{ __html: REVEAL_FALLBACK_SCRIPT \}\} \/>/);
+  assert.match(layout, /<script nonce=\{nonce\} dangerouslySetInnerHTML=\{\{ __html: REVEAL_FALLBACK_SCRIPT \}\} \/>/);
   assert.equal(REVEAL_NOSCRIPT, `<style>${REVEAL_VISIBLE_CSS}</style>`);
 });
 

@@ -1,26 +1,17 @@
 import type { NextConfig } from "next";
 
-// Security headers applied to every route. Tuned to pass the Canopy Guard
-// security audit while remaining compatible with Next.js inline styles/scripts
-// and Google Fonts. CSP allows 'unsafe-inline' for styles (Tailwind/inline) and
-// the JSON-LD <script> tags; tighten with nonces later if desired.
+import { API_POLICY, STATIC_POLICY } from "./lib/csp.ts";
+
+// Security headers applied to every route. The Content-Security-Policy set here
+// is the one for the static files under /public, the demos above all; every
+// page Next.js renders gets a stricter one with a per-request nonce from
+// proxy.ts, which replaces this header on those responses. Both policies live
+// in lib/csp.ts, and scripts/tests/csp.test.mjs pins them.
 //
 // Google Analytics 4 (public/analytics.js) needs exactly two additions:
 // gtag.js from www.googletagmanager.com in script-src, and the collection
 // endpoints in connect-src. Nothing else was widened for it.
-// scripts/tests/analytics.test.mjs pins this whole policy, so any change
-// here has to be made there too, on purpose.
-const ContentSecurityPolicy = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com data:",
-  "img-src 'self' data: https:",
-  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
-  "frame-ancestors 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-].join("; ");
+const ContentSecurityPolicy = STATIC_POLICY;
 
 const securityHeaders = [
   // Vercel's CDN adds `Access-Control-Allow-Origin: *` to every static and
@@ -154,6 +145,8 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
+      // JSON only: nothing to run, load or frame.
+      { source: "/api/:path*", headers: [{ key: "Content-Security-Policy", value: API_POLICY }] },
       { source: "/og/:path*", headers: embeddableImageHeaders },
       { source: "/covers/:path*", headers: embeddableImageHeaders },
     ];
