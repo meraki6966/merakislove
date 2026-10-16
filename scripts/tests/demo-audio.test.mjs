@@ -22,6 +22,12 @@ const APPROVED = {
     "So the first question on this page is what's going on at the house. Pick water heater, and the booking form opens with it already checked. The visit fees sit in plain view. " +
     "Every trade, every town and every finished job has its own page, so a neighbor searching for the same fix can find it. " +
     "Keelhouse is a demo, and the company doesn't exist. If you run a trade, I can adapt this layout to yours. Book a call with me at merakislove.com.",
+  "/demos/restaurant/index.html":
+    "I'm Adam McClarin, and I built The Corner Table for the call a restaurant can't pick up at seven on a Friday. " +
+    "The hosts are seating people, and the guest on the phone books somewhere else. So reservations on this page happen in a conversation. " +
+    "Tell the assistant the day, the time, how many are coming and a name, and it reads the booking back in one plain sentence. " +
+    "It answers from the menu, the prices and the hours on this page, and it won't invent a dish. Ask for a Monday and it tells you the kitchen is closed. " +
+    "The Corner Table is a demo, and the restaurant doesn't exist. If you run a restaurant, I can set this up with your menu. Book a call with me at merakislove.com.",
 };
 
 function walk(dirUrl) {

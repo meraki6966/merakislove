@@ -437,6 +437,54 @@ a { color: inherit; }
    in that case and everything returns to rest. */
 .motion-off [data-reveal],
 .motion-off [data-hero] { opacity: 1 !important; transform: none !important; }
+
+/* ── LISTEN ──
+   The builder's note, in Adam's cloned voice. Dark ink ground so it reads
+   as separate from the restaurant itself. Without JavaScript the native
+   audio controls stay visible, so the recording always plays. */
+.listen { background: var(--ink); color: var(--cream); }
+.listen-inner { display: flex; align-items: flex-start; gap: 1.4rem; padding-block: clamp(1.75rem, 4vw, 2.25rem); }
+.listen-play {
+  flex: none; width: 3.6rem; height: 3.6rem; margin-top: 0.2rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 0; border-radius: 50%; cursor: pointer;
+  background: var(--terracotta); color: var(--cream);
+  transition: transform .25s ease;
+}
+.listen-play:hover { transform: scale(1.05); }
+.listen-play[hidden] { display: none; }
+.listen-play svg { width: 1.45rem; height: 1.45rem; }
+.listen-play .i-pause,
+.listen-play[aria-pressed="true"] .i-play { display: none; }
+.listen-play[aria-pressed="true"] .i-pause { display: block; }
+.listen-play:focus-visible { outline: 2px solid var(--mustard); outline-offset: 3px; }
+.listen-body { flex: 1; min-width: 0; }
+.listen-kicker {
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--mustard);
+}
+.listen-title {
+  font-family: var(--display); font-weight: 700; line-height: 1.25;
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem); letter-spacing: -0.01em; margin-top: 0.4rem;
+}
+.listen-time {
+  margin-left: 0.5rem; font-family: var(--body); font-size: 0.82rem; font-weight: 500;
+  letter-spacing: 0.06em; color: #C1BCB5; white-space: nowrap;
+}
+.listen-bar { max-width: 40rem; height: 4px; margin-top: 0.8rem; border-radius: 2px; background: rgba(250,246,239,0.16); overflow: hidden; }
+.listen-bar[hidden] { display: none; }
+.listen-bar span { display: block; width: 0; height: 100%; background: var(--mustard); }
+.listen-audio { display: block; width: 100%; max-width: 32rem; margin-top: 0.8rem; }
+.listen-audio:not([controls]) { display: none; }
+.listen-note { margin-top: 0.8rem; font-size: 0.86rem; font-weight: 400; line-height: 1.55; color: #C1BCB5; }
+.listen-note a { color: var(--mustard); }
+.listen-transcript { margin-top: 0.65rem; font-size: 0.9rem; }
+.listen-transcript summary { cursor: pointer; font-weight: 600; color: var(--cream); }
+.listen-transcript p { max-width: 46rem; margin-top: 0.65rem; font-weight: 400; line-height: 1.7; color: var(--cream); }
+@media (max-width: 37.5rem) {
+  .listen-inner { gap: 1rem; }
+  .listen-play { width: 3.1rem; height: 3.1rem; }
+}
 </style>
 
 <noscript>
@@ -499,6 +547,27 @@ a { color: inherit; }
       <div class="hero-cta" data-hero>
         <a class="btn btn--solid" href="#reservations">Reserve a table <span class="arr" aria-hidden="true">→</span></a>
         <a class="btn btn--ghost" href="#menu">See the menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================== *
+   * LISTEN: the builder's note. The transcript must match the
+   * approved script in scripts/tests/demo-audio.test.mjs.
+   * ========================================================== -->
+  <section class="listen" aria-labelledby="listen-h" data-listen>
+    <div class="wrap listen-inner">
+      <button class="listen-play" type="button" aria-pressed="false" aria-label="Play: why I built The Corner Table this way, 42 seconds" hidden>
+        <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+        <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
+      </button>
+      <div class="listen-body">
+        <p class="listen-kicker">From the builder of this demo</p>
+        <h2 class="listen-title" id="listen-h">Listen: why I built The Corner Table this way <span class="listen-time" aria-live="off">0:42</span></h2>
+        <div class="listen-bar" hidden><span></span></div>
+        <audio class="listen-audio" controls preload="none" src="/demos/restaurant/audio/listen-adam.mp3"></audio>
+        <p class="listen-note">AI voice clone of Adam McClarin, who built this demo. <a href="https://merakislove.com/packages/starter-sites">See how Starter Sites work</a></p>
+        <details class="listen-transcript"><summary>Read the transcript</summary><p>I&#8217;m Adam McClarin, and I built The Corner Table for the call a restaurant can&#8217;t pick up at seven on a Friday. The hosts are seating people, and the guest on the phone books somewhere else. So reservations on this page happen in a conversation. Tell the assistant the day, the time, how many are coming and a name, and it reads the booking back in one plain sentence. It answers from the menu, the prices and the hours on this page, and it won&#8217;t invent a dish. Ask for a Monday and it tells you the kitchen is closed. The Corner Table is a demo, and the restaurant doesn&#8217;t exist. If you run a restaurant, I can set this up with your menu. Book a call with me at merakislove.com.</p></details>
       </div>
     </div>
   </section>
@@ -839,7 +908,7 @@ a { color: inherit; }
           </div>
           <div class="res-fact">
             <p class="res-fact-label">Hours</p>
-            <p>Tue &ndash; Sun, 5 &ndash; 10 PM<br />Closed Mondays</p>
+            <p>Tue to Sun, 5 to 10 PM<br />Closed Mondays</p>
           </div>
         </div>
       </div>
@@ -857,7 +926,7 @@ a { color: inherit; }
       <div>
         <p class="foot-label">Hours</p>
         <ul class="foot-hours">
-          <li><span>Tue — Sun</span><span>5 — 10 PM</span></li>
+          <li><span>Tue to Sun</span><span>5 to 10 PM</span></li>
           <li><span>Monday</span><span>Closed</span></li>
         </ul>
       </div>
@@ -1034,6 +1103,42 @@ a { color: inherit; }
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
   }
+})();
+</script>
+<script>
+// "Listen to Adam": a custom play button over the native player. Without
+// JavaScript the native controls stay visible, so the audio always works.
+(function () {
+  "use strict";
+  var box = document.querySelector("[data-listen]");
+  if (!box) return;
+  var audio = box.querySelector(".listen-audio");
+  var btn = box.querySelector(".listen-play");
+  var bar = box.querySelector(".listen-bar");
+  var fill = bar && bar.querySelector("span");
+  var time = box.querySelector(".listen-time");
+  if (!audio || !btn || !bar || !fill || !time || !audio.canPlayType("audio/mpeg")) return;
+  var label = "why I built The Corner Table this way";
+  function fmt(s) { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
+  audio.removeAttribute("controls");
+  btn.hidden = false;
+  bar.hidden = false;
+  function sync() {
+    var playing = !audio.paused && !audio.ended;
+    btn.setAttribute("aria-pressed", playing ? "true" : "false");
+    btn.setAttribute("aria-label", (playing ? "Pause: " : "Play: ") + label);
+  }
+  btn.addEventListener("click", function () {
+    if (audio.paused || audio.ended) { audio.play(); } else { audio.pause(); }
+  });
+  audio.addEventListener("play", sync);
+  audio.addEventListener("pause", sync);
+  audio.addEventListener("timeupdate", function () {
+    var d = audio.duration || 42;
+    fill.style.width = Math.min(100, (audio.currentTime / d) * 100) + "%";
+    time.textContent = fmt(audio.currentTime) + " / " + fmt(d);
+  });
+  audio.addEventListener("ended", function () { fill.style.width = "0%"; time.textContent = fmt(audio.duration); sync(); });
 })();
 </script>
 </body>
