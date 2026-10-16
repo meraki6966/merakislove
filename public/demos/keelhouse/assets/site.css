@@ -389,3 +389,28 @@ a.cell:hover { background: var(--paper); color: var(--text); }
   .navbar .wrap { gap: 12px; }
   .price { flex-direction: column; gap: 8px; }
 }
+
+/* "Listen to Adam": the builder's note, kept visually apart from the fictional business. */
+.listen { background: var(--ink-2); border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); color: var(--cream); }
+.listen-inner { display: flex; align-items: flex-start; gap: 22px; padding-top: 30px; padding-bottom: 30px; }
+.listen-play { flex: none; width: 58px; height: 58px; border-radius: 50%; border: 0; background: var(--copper); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; margin-top: 4px; }
+.listen-play[hidden] { display: none; }
+.listen-play svg { width: 24px; height: 24px; }
+.listen-play .i-pause, .listen-play[aria-pressed="true"] .i-play { display: none; }
+.listen-play[aria-pressed="true"] .i-pause { display: block; }
+.listen-play:focus-visible { outline: 3px solid var(--copper-light); outline-offset: 3px; }
+.listen-body { flex: 1; min-width: 0; }
+.listen-kicker { display: block; color: var(--copper-light); font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; }
+.listen-title { margin: 6px 0 0; font: 700 clamp(19px, 2vw, 23px)/1.25 var(--display); color: var(--white); }
+.listen-time { margin-left: 8px; font: 600 13px/1 var(--sans); letter-spacing: 1px; color: var(--muted); white-space: nowrap; }
+.listen-bar { margin-top: 12px; height: 4px; border-radius: 2px; background: var(--line-dark); overflow: hidden; }
+.listen-bar[hidden] { display: none; }
+.listen-bar span { display: block; height: 100%; width: 0; background: var(--copper); }
+.listen-audio { display: block; width: 100%; max-width: 520px; margin-top: 12px; }
+.listen-audio:not([controls]) { display: none; }
+.listen-note { margin: 12px 0 0; font-size: 13px; line-height: 1.55; color: var(--muted); }
+.listen-note a { color: var(--copper-light); }
+.listen-transcript { margin-top: 10px; font-size: 14px; }
+.listen-transcript summary { cursor: pointer; color: var(--cream); font-weight: 600; }
+.listen-transcript p { margin: 10px 0 0; max-width: 760px; line-height: 1.7; color: var(--cream); }
+@media (max-width: 600px) { .listen-inner { gap: 16px; } .listen-play { width: 50px; height: 50px; } }
