@@ -32,7 +32,8 @@ Last reviewed: 15 October 2026, on the analytics-ga4 branch.
 
 - **What it is:** hosting and the CDN for every page.
 - **What it receives:** every request, including the IP address, user agent and path, in Vercel's operational logs.
-- **Controls:** no logging is added by this site. The two API routes log only token counts and finish status.
+- **Controls:** no logging is added by this site. The two API routes log only token counts, finish status and the model that answered.
+- **Firewall:** one rate limit rule, "Chat API rate limit", published by Adam in the dashboard on 16 October 2026: any path starting with /api/ allows 10 requests a minute per IP, counted at the edge, then answers 429. Seen working on production the same day: ten requests through, the 11th to 13th refused, normal pages unaffected. The Vercel API could not create or read the firewall config for this project (404), so changes to it go through the dashboard.
 - **Data processing agreement:** to confirm on the Vercel account.
 
 ## Anthropic
@@ -44,7 +45,8 @@ Last reviewed: 15 October 2026, on the analytics-ga4 branch.
   - Rate limiting keys on a salted hash of the IP address, never the address. Entries older than a minute are cleared as the server handles requests.
   - Nothing is stored on the server.
   - In both chats, a message that looks like a card number is stopped before it's sent.
-  - The restaurant chat sends only the last 10 turns.
+  - The restaurant chat sends only the last 10 turns, to Haiku 5.5 with thinking off (switched from Sonnet 4.6 on 16 October 2026). The inn chat runs on Sonnet 4.6.
+  - The site uses its own API key in its own Console workspace with a monthly spend limit, set up by Adam on 16 October 2026. Both chats were seen answering on the new key after the redeploy.
   - Anthropic deletes API inputs and outputs within 30 days by default, or keeps them up to 2 years if flagged by its safety systems, and doesn't train on them (checked 16 October 2026).
 - **Data processing agreement:** under Anthropic's commercial terms, as a processor.
 
