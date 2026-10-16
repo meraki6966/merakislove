@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "test:chat-guard": "node --experimental-strip-types --test scripts/tests/chat-guard.test.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:chat-guard": "node --experimental-strip-types --test scripts/tests/chat-guard.test.mjs",
     "test:inn-chat": "node --experimental-strip-types --test scripts/tests/meraki-inn-chat.test.mjs",
     "test:analytics": "node --experimental-strip-types --test scripts/tests/analytics.test.mjs",
     "test:demo-audio": "node --test scripts/tests/demo-audio.test.mjs"
