@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/loop",
     "/cybersecurity",
     "/shadow-ai",
+    "/cookbook",
     "/about",
     "/contact",
     "/privacy",
