@@ -12,7 +12,7 @@ import {
 } from "@/lib/packages";
 import styles from "@/styles/presence.module.css";
 
-const title = "Presence-First Web Design — Meraki is Love";
+const title = "Presence-First Web Design | Meraki is Love";
 
 const description = `Immersive, experience-first websites for hospitality, wellness, and boutique brands. GSAP-powered design that makes visitors feel something before they ever book. Starting at ${presenceFirstFrom}.`;
 
@@ -385,9 +385,7 @@ export default function PresenceFirstWebDesignPage() {
                 <ul className={styles.tierList}>
                   {tier.features.map((feature) => (
                     <li key={feature} className={styles.tierListItem}>
-                      <span aria-hidden className={styles.tierDash}>
-                        —
-                      </span>
+                      <span aria-hidden className={styles.tierDash} />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -466,9 +464,6 @@ export default function PresenceFirstWebDesignPage() {
 
           <div data-pf-reveal className={styles.caseBlock}>
             <p className={styles.caseText}>{caseText}</p>
-            <p className={styles.caseNote}>
-              Template demo — swap for a client build once the first one ships
-            </p>
           </div>
 
           <p data-pf-reveal data-pf-delay="0.04" className={styles.prose}>

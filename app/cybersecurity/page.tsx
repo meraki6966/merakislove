@@ -39,28 +39,28 @@ interface SecurityService {
 const securityServices: SecurityService[] = [
   {
     name: "Site Security Audit",
-    price: "$500 – $750",
+    price: "$500 to $750",
     tag: "One-time",
     description:
       "One-time Canopy Guard assessment plus manual review. Findings mapped to MITRE ATT&CK. Client-ready PDF report.",
   },
   {
     name: "Security Posture Review",
-    price: "$1,500 – $3,000",
+    price: "$1,500 to $3,000",
     tag: "Architecture",
     description:
       "Architecture-level review. Headers, TLS, dependency audit, and data-handling paths.",
   },
   {
     name: "Security Hardening",
-    price: "$1,000 – $2,500",
+    price: "$1,000 to $2,500",
     tag: "Remediation",
     description:
       "Remediation of audit findings. Also available hourly at $85/hr.",
   },
   {
     name: "AI Security Integration Review",
-    price: "$1,500 – $3,500",
+    price: "$1,500 to $3,500",
     tag: "AI Systems",
     description:
       "Guardrails, data-exposure review, output validation, and prompt-injection risk.",
@@ -172,7 +172,7 @@ export default function CybersecurityPage() {
             Referrals
           </p>
           <h2 className="max-w-2xl font-display text-3xl font-light leading-tight text-smoke sm:text-4xl">
-            Know a business that needs this? Earn 15 – 25% on every referral.
+            Know a business that needs this? Earn 15 to 25% on every referral.
           </h2>
           <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
             If you send a client my way and the engagement closes, you earn a
