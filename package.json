@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test:reduced-motion": "node --test scripts/tests/reduced-motion.test.mjs",
     "test:inn-chat": "node --experimental-strip-types --test scripts/tests/meraki-inn-chat.test.mjs",
     "test:analytics": "node --experimental-strip-types --test scripts/tests/analytics.test.mjs",
-    "test:demo-audio": "node --test scripts/tests/demo-audio.test.mjs",
-    "test:reduced-motion": "node --test scripts/tests/reduced-motion.test.mjs"
+    "test:demo-audio": "node --test scripts/tests/demo-audio.test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.120.0",
