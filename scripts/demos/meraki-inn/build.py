@@ -232,6 +232,40 @@ def hero_loop():
 </figure>'''
 
 
+# The builder's note, in Adam's cloned voice. LISTEN_SCRIPT must match the approved
+# script in scripts/tests/demo-audio.test.mjs word for word, and the recording in
+# audio/listen-adam.mp3. It is a note about the demo, so it stays out of
+# knowledge_text(): the inn's assistant never quotes it.
+LISTEN_SCRIPT = (
+    "I'm Adam McClarin, and I built The Meraki Inn for the guest planning a weekend at eleven at night, after the innkeeper has gone to bed. "
+    "The page opens on a day at the inn, hour by hour, set to today's sunrise and sunset in Galveston. "
+    "Ask the inn a question, like which room has no stairs, and the assistant answers from the inn's own pages. "
+    "Tell it your dates, and it fills in the request form with the arrival, the nights and the room. "
+    "The site works out the price, and a card is only ever taken by phone. "
+    "The Meraki Inn is a demo, and the inn doesn't exist. If you run an inn, I can build this around your house. "
+    "Book a call with me at merakislove.com."
+)
+
+
+def listen_block():
+    """A play button over the native player. Without the script the native controls
+    stay visible, so the recording always plays. Nothing autoplays or preloads."""
+    return f'''<section class="listen dark" aria-labelledby="listen-h" data-listen>
+<div class="w listen-in">
+<button class="listen-play" type="button" aria-pressed="false" aria-label="Play: why I built The Meraki Inn this way, 45 seconds" hidden><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg></button>
+<div class="listen-body">
+<p class="listen-kicker">From the builder of this demo</p>
+<h2 class="listen-title" id="listen-h">Listen: why I built The Meraki Inn this way <span class="listen-time" aria-live="off">0:45</span></h2>
+<div class="listen-bar" hidden><span></span></div>
+<audio class="listen-audio" controls preload="none" src="audio/listen-adam.mp3"></audio>
+<p class="listen-note">AI voice clone of Adam McClarin, who built this demo. <a href="https://merakislove.com/packages/starter-sites">See how Starter Sites work</a></p>
+<details class="listen-transcript"><summary>Read the transcript</summary><p>{LISTEN_SCRIPT}</p></details>
+</div>
+</div>
+</section>
+'''
+
+
 def build_home():
     hours = hour("dawn", "h-first", "First light", clock_live("sunrise", "Sunrise"),
                  "<p><b>The Gulf side of the island faces southeast,</b> so the sun comes up over the water. The beach is a ten minute bike ride from the porch, and we keep six bikes by the side gate.</p>"
@@ -268,7 +302,7 @@ def build_home():
 {gos(BOOK, CALL)}</div>
 {hero_loop()}
 </section>
-
+{listen_block()}
 {hours}{night}
 <section class="sec" aria-labelledby="people-h"><div class="split">
 <figure>{pic("innkeeper")}</figure>

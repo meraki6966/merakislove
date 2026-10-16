@@ -299,3 +299,38 @@
     if (wasOpen && window.innerWidth >= 900) openChat(false);
   }
 })();
+
+// "Listen to Adam": a custom play button over the native player. Without
+// JavaScript the native controls stay visible, so the audio always works.
+(function () {
+  "use strict";
+  var box = document.querySelector("[data-listen]");
+  if (!box) return;
+  var audio = box.querySelector(".listen-audio");
+  var btn = box.querySelector(".listen-play");
+  var bar = box.querySelector(".listen-bar");
+  var fill = bar && bar.querySelector("span");
+  var time = box.querySelector(".listen-time");
+  if (!audio || !btn || !bar || !fill || !time || !audio.canPlayType("audio/mpeg")) return;
+  var label = "why I built The Meraki Inn this way";
+  function fmt(s) { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
+  audio.removeAttribute("controls");
+  btn.hidden = false;
+  bar.hidden = false;
+  function sync() {
+    var playing = !audio.paused && !audio.ended;
+    btn.setAttribute("aria-pressed", playing ? "true" : "false");
+    btn.setAttribute("aria-label", (playing ? "Pause: " : "Play: ") + label);
+  }
+  btn.addEventListener("click", function () {
+    if (audio.paused || audio.ended) { audio.play(); } else { audio.pause(); }
+  });
+  audio.addEventListener("play", sync);
+  audio.addEventListener("pause", sync);
+  audio.addEventListener("timeupdate", function () {
+    var d = audio.duration || 45;
+    fill.style.width = Math.min(100, (audio.currentTime / d) * 100) + "%";
+    time.textContent = fmt(audio.currentTime) + " / " + fmt(d);
+  });
+  audio.addEventListener("ended", function () { fill.style.width = "0%"; time.textContent = fmt(audio.duration); sync(); });
+})();
