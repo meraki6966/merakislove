@@ -18,6 +18,7 @@ import {
   type Room,
 } from "@/lib/meraki-inn-chat";
 import inn from "@/lib/meraki-inn-knowledge.json";
+import { addressKey, checkRequest } from "@/lib/chat-guard";
 
 /**
  * The assistant on The Meraki Inn demo (/demos/meraki-inn). It answers
@@ -25,9 +26,9 @@ import inn from "@/lib/meraki-inn-knowledge.json";
  * date request form: arrival date, nights and room.
  *
  * Like the restaurant demo's route, this is a public, unauthenticated page
- * that spends money, so the order below is cheapest check first: rate limit,
- * body size, shape of the conversation, card numbers. Only a request that
- * passes all of them reaches the provider.
+ * that spends money, so the order below is cheapest check first: JSON from
+ * this site only, rate limit, body size, shape of the conversation, card
+ * numbers. Only a request that passes all of them reaches the provider.
  *
  * What the model can and cannot do is in lib/meraki-inn-chat.ts, with tests
  * in scripts/tests. The short version:
@@ -73,7 +74,12 @@ function fail(error: string, status: number, extra: Record<string, unknown> = {}
 }
 
 export async function POST(req: Request) {
-  if (limited(clientIp(req))) {
+  // JSON from this page's own site only (lib/chat-guard.ts).
+  const request = checkRequest(req.headers);
+  if (!request.ok) return fail(request.error, request.status);
+
+  // Keyed on a salted hash of the address, never the address itself.
+  if (limited(addressKey(clientIp(req)))) {
     return fail("That is a lot of questions at once. Give it a minute and try again.", 429);
   }
 

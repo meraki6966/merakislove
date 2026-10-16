@@ -40,9 +40,12 @@ Last reviewed: 15 October 2026, on the analytics-ga4 branch.
 - **What it is:** the API behind the two demo chat assistants (the restaurant demo and the inn demo).
 - **What it receives:** the messages a visitor types into either chat, and the conversation replayed on each turn.
 - **Controls:**
-  - The IP address is held in memory for up to one minute for rate limiting.
+  - Both routes accept JSON from their own page only (lib/chat-guard.ts), and cap the request body, every message and the number of turns before anything is sent.
+  - Rate limiting keys on a salted hash of the IP address, never the address. Entries older than a minute are cleared as the server handles requests.
   - Nothing is stored on the server.
-  - A message that looks like a card number is stopped before it's sent.
+  - In both chats, a message that looks like a card number is stopped before it's sent.
+  - The restaurant chat sends only the last 10 turns.
+  - Anthropic deletes API inputs and outputs within 30 days by default, or keeps them up to 2 years if flagged by its safety systems, and doesn't train on them (checked 16 October 2026).
 - **Data processing agreement:** under Anthropic's commercial terms, as a processor.
 
 ## Calendly

@@ -1,17 +1,31 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 
+import {
+  BODY_CHARS,
+  addressKey,
+  checkConversation,
+  checkRequest,
+  createLimiter,
+  lastTurns,
+  tidyReply,
+} from "@/lib/chat-guard";
+
 /**
  * Conversational booking assistant for the Corner Table demo
  * (/demos/restaurant).
  *
- * The demo is a public, unauthenticated page, so this route is the money-
- * spending surface of the whole site. Everything below the system prompt is
- * there to bound that: a per-IP rate limit, a cap on how long a single
- * message can be, and a cap on how many turns one conversation can run.
+ * The demo is a public, unauthenticated page, so this route is a money-
+ * spending surface. Every check below runs before the AI provider is called,
+ * cheapest first, using the same shared checks as the inn's assistant
+ * (lib/chat-guard.ts): JSON from this site only, a rate limit per visitor, a
+ * cap on the request body, caps on every message in both roles, a cap on the
+ * number of turns, and card numbers stopped before they are sent. Only the
+ * last few turns go to the provider.
  *
  * Nothing is persisted. The conversation lives in the browser tab and is
  * replayed to this route on each turn; when the tab closes it is gone.
+ * scripts/tests/chat-guard.test.mjs holds the route to all of this.
  */
 
 /**
@@ -29,21 +43,24 @@ const MODEL = "claude-sonnet-4-6";
 /** Deliberately small: replies are a sentence or three, never an essay. */
 const MAX_TOKENS = 500;
 
-/** Longest single visitor message we will forward, in characters. */
-const MAX_MESSAGE_CHARS = 1000;
+/** Caps on what the browser can send back, checked before anything is spent. */
+const LIMITS = {
+  /** Longest visitor message, in characters. */
+  userChars: 1000,
+  /** Longest assistant reply accepted back from the browser. Replies run a few sentences. */
+  assistantChars: 2400,
+  /** Most messages, both roles, in one conversation. */
+  messages: 24,
+} as const;
 
-/** Most messages (visitor + assistant) we will carry in one conversation. */
-const MAX_HISTORY_MESSAGES = 24;
+/** A booking needs four answers. Only the most recent turns go to the provider. */
+const KEEP_TURNS = 10;
 
-const RATE_LIMIT = 15; // requests
-const RATE_WINDOW_MS = 60 * 1000; // per minute, per IP
+/** 15 requests a minute per visitor, per server instance. */
+const limited = createLimiter(15, 60 * 1000);
 
-/**
- * In-memory, so it is per serverless instance rather than global. That makes
- * it a speed bump against casual abuse, not a hard quota. If this demo ever
- * draws real traffic, move the counter to Redis or Vercel's rate limiter.
- */
-const hits = new Map<string, number[]>();
+const CARD_ERROR =
+  "Please keep card numbers out of the chat. That message was not sent on.";
 
 function clientIp(req: Request): string {
   const forwarded = req.headers.get("x-forwarded-for");
@@ -51,16 +68,8 @@ function clientIp(req: Request): string {
   return req.headers.get("x-real-ip")?.trim() || "unknown";
 }
 
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (recent.length >= RATE_LIMIT) {
-    hits.set(ip, recent);
-    return true;
-  }
-  recent.push(now);
-  hits.set(ip, recent);
-  return false;
+function fail(error: string, status: number, extra: Record<string, unknown> = {}) {
+  return NextResponse.json({ error, ...extra }, { status });
 }
 
 /**
@@ -98,76 +107,41 @@ RULES
 
 const client = new Anthropic();
 
-interface IncomingMessage {
-  role: "user" | "assistant";
-  content: string;
-}
-
-function isValidMessage(m: unknown): m is IncomingMessage {
-  if (typeof m !== "object" || m === null) return false;
-  const { role, content } = m as Record<string, unknown>;
-  return (
-    (role === "user" || role === "assistant") &&
-    typeof content === "string" &&
-    content.trim().length > 0
-  );
-}
-
 export async function POST(req: Request) {
+  const request = checkRequest(req.headers);
+  if (!request.ok) return fail(request.error, request.status);
+
+  if (limited(addressKey(clientIp(req)))) {
+    return fail("That's a lot of questions at once. Give it a minute and try again.", 429);
+  }
+
+  // Read as text first so an oversized body is refused before it is parsed.
+  const text = await req.text().catch(() => "");
+  if (text.length > BODY_CHARS) {
+    return fail("This conversation has run long. Start a new one to keep going.", 413);
+  }
+  let body: unknown = null;
+  try {
+    body = JSON.parse(text);
+  } catch {
+    body = null;
+  }
+
+  const checked = checkConversation(
+    (body as { messages?: unknown } | null)?.messages,
+    LIMITS,
+    CARD_ERROR,
+  );
+  if (!checked.ok) {
+    return fail(checked.error, checked.status, checked.card ? { card: true } : {});
+  }
+  const messages: Anthropic.MessageParam[] = lastTurns(checked.messages, KEEP_TURNS);
+
   // A key that is present but empty is the same as no key at all, and it is
   // the more likely failure: Vercel's sensitive variables pull down blank.
   if (!process.env.ANTHROPIC_API_KEY?.trim()) {
-    return NextResponse.json(
-      {
-        error:
-          "The booking assistant is not configured right now. Please try again later.",
-      },
-      { status: 503 },
-    );
+    return fail("The booking assistant is not configured right now. Please try again later.", 503);
   }
-
-  if (isRateLimited(clientIp(req))) {
-    return NextResponse.json(
-      { error: "That's a lot of questions at once. Give it a minute and try again." },
-      { status: 429 },
-    );
-  }
-
-  const body = await req.json().catch(() => null);
-  const raw = (body as { messages?: unknown } | null)?.messages;
-
-  if (!Array.isArray(raw) || raw.length === 0 || !raw.every(isValidMessage)) {
-    return NextResponse.json(
-      { error: "Expected a non-empty messages array." },
-      { status: 400 },
-    );
-  }
-
-  if (raw.length > MAX_HISTORY_MESSAGES) {
-    return NextResponse.json(
-      { error: "This conversation has run long. Start a new one to keep going." },
-      { status: 400 },
-    );
-  }
-
-  const last = raw[raw.length - 1];
-  if (last.role !== "user") {
-    return NextResponse.json(
-      { error: "The last message must be from the visitor." },
-      { status: 400 },
-    );
-  }
-  if (last.content.length > MAX_MESSAGE_CHARS) {
-    return NextResponse.json(
-      { error: `Please keep it under ${MAX_MESSAGE_CHARS} characters.` },
-      { status: 400 },
-    );
-  }
-
-  const messages: Anthropic.MessageParam[] = raw.map((m) => ({
-    role: m.role,
-    content: m.content,
-  }));
 
   try {
     // `thinking` is deliberately omitted: on Sonnet 4.6 that means no
@@ -187,11 +161,12 @@ export async function POST(req: Request) {
       `[reservation-chat] in=${response.usage.input_tokens} out=${response.usage.output_tokens}/${MAX_TOKENS} stop=${response.stop_reason} model=${response.model}`,
     );
 
-    const reply = response.content
-      .filter((block): block is Anthropic.TextBlock => block.type === "text")
-      .map((block) => block.text)
-      .join("")
-      .trim();
+    const reply = tidyReply(
+      response.content
+        .filter((block): block is Anthropic.TextBlock => block.type === "text")
+        .map((block) => block.text)
+        .join(""),
+    );
 
     if (response.stop_reason === "refusal") {
       return NextResponse.json(
