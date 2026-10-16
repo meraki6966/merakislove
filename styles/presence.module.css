@@ -428,8 +428,13 @@
 }
 
 .tierDash {
+  /* A short drawn rule as the bullet, so no dash character reaches the page. */
   flex: none;
-  color: var(--pf-gold);
+  display: inline-block;
+  width: 0.9em;
+  height: 1px;
+  margin-top: 0.8em;
+  background: var(--pf-gold);
 }
 
 .tierDelivery {
