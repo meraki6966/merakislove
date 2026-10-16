@@ -11,6 +11,7 @@ import Cursor from "@/components/Cursor";
 import GrainOverlay from "@/components/GrainOverlay";
 import JsonLd from "@/components/JsonLd";
 import { ogBase } from "@/lib/site";
+import { REVEAL_FALLBACK_SCRIPT, REVEAL_NOSCRIPT } from "@/lib/reveal-fallback";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -87,6 +88,10 @@ export default function RootLayout({
             production hosts, skips Global Privacy Control and noindex pages,
             and keeps Google signals off. See public/analytics.js. */}
         <script src="/analytics.js" async />
+        {/* Keeps the text visible if the page's JavaScript is off or never
+            loads. See lib/reveal-fallback.ts. */}
+        <script dangerouslySetInnerHTML={{ __html: REVEAL_FALLBACK_SCRIPT }} />
+        <noscript dangerouslySetInnerHTML={{ __html: REVEAL_NOSCRIPT }} />
       </head>
       <body className="custom-cursor-active min-h-screen bg-void font-body text-smoke">
         <JsonLd />

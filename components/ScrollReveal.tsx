@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -33,8 +33,15 @@ export default function ScrollReveal({
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as];
 
+  // Tells the inline fallback in the root layout that the page's code is
+  // running, so it leaves the reveal to this component (lib/reveal-fallback.ts).
+  useEffect(() => {
+    (window as Window & { __revealReady?: boolean }).__revealReady = true;
+  }, []);
+
   return (
     <MotionTag
+      data-reveal=""
       className={className}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
