@@ -151,9 +151,10 @@ test("no demo page loads analytics, except the Presence-First example, which loa
   }
 });
 
-test("the sitemap lists the 16 tagged pages, the Presence-First example among them", () => {
+test("the sitemap lists the 17 tagged pages, the Presence-First example and the self-assessment among them", () => {
   const urls = sitemap().map((e) => e.url);
-  assert.equal(urls.length, 16);
+  assert.equal(urls.length, 17);
+  assert.ok(urls.includes("https://merakislove.com/shadow-ai"));
   assert.ok(urls.includes(`https://merakislove.com${EXAMPLE}`));
   assert.ok(!urls.some((u) => u.includes("/demos/") && !u.endsWith(EXAMPLE)), "no other demo is listed");
 });

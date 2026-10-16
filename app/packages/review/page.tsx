@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 import PackageSection from "@/components/PackageSection";
@@ -256,6 +257,13 @@ export default function ReviewPackagePage() {
             Send the URL or the repo context. We agree on tier before I begin.
           </p>
           <PackageActions label={pkg.cta} bookCall />
+          <p className="mt-8 max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
+            Not sure where your team stands with AI tools? Start with the free{" "}
+            <Link href="/shadow-ai" className="text-amber underline underline-offset-4 hover:text-smoke">
+              Shadow AI self-assessment
+            </Link>
+            . Your answers never leave your browser.
+          </p>
         </ScrollReveal>
       </PackageSection>
     </div>

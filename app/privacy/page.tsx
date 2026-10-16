@@ -99,6 +99,13 @@ const sections: Section[] = [
     ],
   },
   {
+    title: "The Shadow AI self-assessment",
+    paragraphs: [
+      "The questions and the scoring on the self-assessment page run entirely in your browser. Your answers are not sent to this site, to Google Analytics or to anyone else, and they are not saved anywhere, so closing the tab clears them.",
+      "Google Analytics records a visit to that page the same way it does for any other page here. It never receives your answers or your result.",
+    ],
+  },
+  {
     title: "Booking a call",
     paragraphs: [
       "The Book a call links go to Calendly, which is a separate company running its own service. If you schedule a call there, Calendly collects whatever you enter on its own page, under its own privacy policy, and passes the booking to me. Clicking the link is what starts that; nothing is shared with Calendly by your simply reading this site.",
