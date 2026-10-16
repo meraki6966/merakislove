@@ -567,15 +567,6 @@
   color: var(--pf-cream);
 }
 
-.caseNote {
-  margin-top: 2rem;
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--pf-gold);
-}
-
 .caseCta {
   display: flex;
   flex-wrap: wrap;

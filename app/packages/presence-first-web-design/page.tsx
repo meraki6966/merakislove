@@ -464,9 +464,6 @@ export default function PresenceFirstWebDesignPage() {
 
           <div data-pf-reveal className={styles.caseBlock}>
             <p className={styles.caseText}>{caseText}</p>
-            <p className={styles.caseNote}>
-              Template demo — swap for a client build once the first one ships
-            </p>
           </div>
 
           <p data-pf-reveal data-pf-delay="0.04" className={styles.prose}>
