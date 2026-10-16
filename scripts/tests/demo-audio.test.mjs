@@ -16,6 +16,12 @@ const root = new URL("../../", import.meta.url);
 
 // The approved scripts, keyed by page. Change a recording, change it here too.
 const APPROVED = {
+  "/demos/meraki-inn/index.html":
+    "I'm Adam McClarin, and I built The Meraki Inn for the guest planning a weekend at eleven at night, after the innkeeper has gone to bed. " +
+    "The page opens on a day at the inn, hour by hour, set to today's sunrise and sunset in Galveston. " +
+    "Ask the inn a question, like which room has no stairs, and the assistant answers from the inn's own pages. " +
+    "Tell it your dates, and it fills in the request form with the arrival, the nights and the room. The site works out the price, and a card is only ever taken by phone. " +
+    "The Meraki Inn is a demo, and the inn doesn't exist. If you run an inn, I can build this around your house. Book a call with me at merakislove.com.",
   "/demos/keelhouse/index.html":
     "I'm Adam McClarin, and I built Keelhouse for the moment something breaks at the house. " +
     "A homeowner standing in a wet basement wants three answers: who fixes this, what it costs, and how fast they can book. " +

@@ -363,3 +363,34 @@ section[id], article[id] { scroll-margin-top: 96px; }
   .ft-cols { grid-template-columns: minmax(0, 1fr); }
   .gos.wide { flex-direction: column; }
 }
+
+/* "Listen to Adam": the builder's note, on the dark ground so it reads as
+   separate from the fictional inn. Without the script the native audio
+   controls stay visible, so the recording always plays. */
+.listen { border-top: 1px solid rgba(251, 245, 230, 0.3); border-bottom: 1px solid rgba(251, 245, 230, 0.3); }
+.listen-in { display: flex; align-items: flex-start; gap: 26px; padding-top: 40px; padding-bottom: 40px; }
+.listen-play { flex: none; width: 60px; height: 60px; margin-top: 2px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: var(--sea); color: var(--deep); cursor: pointer; }
+.listen-play:hover { background: #fff; }
+.listen-play:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
+.listen-play[hidden] { display: none; }
+.listen-play svg { width: 24px; height: 24px; }
+.listen-play .i-pause, .listen-play[aria-pressed="true"] .i-play { display: none; }
+.listen-play[aria-pressed="true"] .i-pause { display: block; }
+.listen-body { flex: 1; min-width: 0; }
+.listen-kicker { margin: 0; max-width: none; font: 500 0.78rem/1.4 var(--sans); letter-spacing: 0.24em; text-transform: uppercase; color: var(--sea); }
+.listen-title { margin: 10px 0 0; font-size: clamp(1.35rem, 2.3vw, 1.8rem); font-weight: 300; line-height: 1.25; letter-spacing: 0.04em; text-transform: uppercase; }
+.listen-time { margin-left: 12px; font: 500 0.85rem/1 var(--sans); letter-spacing: 0.12em; color: var(--sea); white-space: nowrap; }
+.listen-bar { max-width: 760px; height: 3px; margin-top: 16px; background: rgba(251, 245, 230, 0.2); overflow: hidden; }
+.listen-bar[hidden] { display: none; }
+.listen-bar span { display: block; width: 0; height: 100%; background: var(--sea); }
+.listen-audio { display: block; width: 100%; max-width: 520px; margin-top: 16px; }
+.listen-audio:not([controls]) { display: none; }
+.listen-note { margin: 16px 0 0; max-width: none; font-size: 0.95rem; line-height: 1.55; color: var(--sea); }
+.listen-transcript { margin-top: 12px; }
+.listen-transcript summary { cursor: pointer; font: 500 0.8rem/1.6 var(--sans); letter-spacing: 0.16em; text-transform: uppercase; }
+.listen-transcript p { margin: 12px 0 0; max-width: 62ch; font-size: 1.05rem; }
+@media (max-width: 600px) {
+  .listen-in { gap: 16px; padding-top: 32px; padding-bottom: 32px; }
+  .listen-play { width: 52px; height: 52px; }
+  .listen-kicker { font-size: 0.7rem; letter-spacing: 0.14em; }
+}
