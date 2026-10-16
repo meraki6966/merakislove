@@ -152,6 +152,20 @@ test("the restaurant route runs every check, in order, before the key and the pr
   assert.ok(!/req\.json\(\)/.test(code), "the body must be read as text and capped, never parsed straight from the request");
 });
 
+test("the restaurant route runs Haiku 5.5 with thinking off and a small reply budget", () => {
+  const code = read("app/api/restaurant-reservation-chat/route.ts");
+  assert.match(code, /const MODEL = "claude-haiku-5-5";/, "the restaurant chat runs on Haiku 5.5");
+  assert.match(code, /model: MODEL,/);
+  // Haiku 5.5 thinks by default; a reasoning pass would add cost a booking does not need.
+  assert.match(code, /thinking: \{ type: "disabled" \}/, "thinking must be switched off explicitly");
+  assert.match(code, /output_config: \{ effort: "low" \}/);
+  const max = Number(code.match(/const MAX_TOKENS = (\d+);/)?.[1]);
+  assert.ok(max > 0 && max <= 800, `the reply budget must stay small (found ${max})`);
+  // Haiku 5.5 refuses sampling settings and prefilled replies.
+  assert.ok(!/temperature|top_p|top_k/.test(code), "no sampling settings");
+  assert.match(code, /stop_reason === "refusal"/, "a refusal gets its own reply");
+});
+
 test("the inn route runs the same request check and hashed limit first", () => {
   const code = read("app/api/meraki-inn-chat/route.ts");
   order(code, [

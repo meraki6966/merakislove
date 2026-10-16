@@ -29,19 +29,23 @@ import {
  */
 
 /**
- * Sonnet 4.6, not Opus 5. This is a four-slot booking conversation, not
- * reasoning work, and it is the same model Meraki BIP runs in production for
- * comparable conversational tasks.
+ * Haiku 5.5. This is a four-slot booking conversation, not reasoning work,
+ * and Haiku 5.5 costs about a thirtieth of Sonnet 4.6 per token (switched on
+ * 16 October 2026, after the security review, to shrink what a flood of
+ * requests could cost).
  *
- * Note the family difference: on Opus 5, omitting `thinking` still runs
- * adaptive thinking. On Sonnet 4.6, omitting it means no thinking at all.
- * That is the behavior wanted here, and it is why the reply gets the whole
- * token budget instead of sharing it with a reasoning pass.
+ * Haiku 5.5 runs adaptive thinking unless told otherwise, so `thinking` is
+ * set to disabled below. Without that, a reasoning pass would spend tokens
+ * and share the budget with the visible reply.
  */
-const MODEL = "claude-sonnet-4-6";
+const MODEL = "claude-haiku-5-5";
 
-/** Deliberately small: replies are a sentence or three, never an essay. */
-const MAX_TOKENS = 500;
+/**
+ * Replies are a sentence or three, never an essay. A little higher than the
+ * 500 used with Sonnet because Haiku 5.5 writes the same reply in somewhat
+ * more tokens, and a reply cut off at the ceiling is worse than a few cents.
+ */
+const MAX_TOKENS = 700;
 
 /** Caps on what the browser can send back, checked before anything is spent. */
 const LIMITS = {
@@ -144,12 +148,13 @@ export async function POST(req: Request) {
   }
 
   try {
-    // `thinking` is deliberately omitted: on Sonnet 4.6 that means no
-    // reasoning pass, so the whole budget goes to the visible reply.
+    // Thinking off: on Haiku 5.5 the default is adaptive thinking, which would
+    // spend tokens on a reasoning pass a booking question does not need.
     const response = await client.messages.create({
       model: MODEL,
       max_tokens: MAX_TOKENS,
       system: SYSTEM_PROMPT,
+      thinking: { type: "disabled" },
       output_config: { effort: "low" },
       messages,
     });
