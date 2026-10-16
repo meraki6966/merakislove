@@ -2,9 +2,10 @@
  * The rules of the Meraki Inn chat assistant, kept apart from the route so
  * they can be tested on their own (scripts/tests/meraki-inn-chat.test.mjs).
  *
- * Nothing in this file talks to the network, reads the environment or imports
- * anything. The route passes in what it needs. That is deliberate: every
- * guarantee the chat makes is a plain function here with a test that can fail.
+ * Nothing in this file talks to the network or reads the environment. Its
+ * only import is the shared checks in lib/chat-guard.ts. The route passes in
+ * what it needs. That is deliberate: every guarantee the chat makes is a plain
+ * function with a test that can fail.
  *
  * The guarantees:
  *  1. The model can change three fields on the date request form and nothing
@@ -24,10 +25,18 @@ export interface Room {
   rate: number;
 }
 
-export interface ChatMessage {
-  role: "user" | "assistant";
-  content: string;
-}
+import {
+  checkConversation,
+  createLimiter,
+  findCardNumber,
+  tidyReply,
+  type ChatMessage,
+} from "./chat-guard.ts";
+
+// The checks both demo chats share live in lib/chat-guard.ts. They are
+// re-exported here so this module's callers and tests keep one import.
+export { createLimiter, findCardNumber, tidyReply };
+export type { ChatMessage };
 
 export interface Fill {
   arrive: string; // YYYY-MM-DD
@@ -207,126 +216,23 @@ export function confirmation(
   );
 }
 
-// ------------------------------------------------------------------ card numbers
-
-function luhn(digits: string): boolean {
-  let sum = 0;
-  let double = false;
-  for (let i = digits.length - 1; i >= 0; i--) {
-    let n = digits.charCodeAt(i) - 48;
-    if (double) {
-      n *= 2;
-      if (n > 9) n -= 9;
-    }
-    sum += n;
-    double = !double;
-  }
-  return sum % 10 === 0;
-}
-
-/**
- * True when the text holds 13 to 19 digits, allowing spaces and hyphens
- * between them, that pass the Luhn check every payment card number passes.
- * A phone number or a date is too short. A long order number will only match
- * by the one in ten chance of the checksum, which is the safe direction to be
- * wrong in.
- */
-export function findCardNumber(text: string): boolean {
-  const runs = text.match(/\d(?:[ -]?\d){12,18}/g);
-  if (!runs) return false;
-  return runs.some((run) => {
-    const digits = run.replace(/[ -]/g, "");
-    return digits.length >= 13 && digits.length <= 19 && luhn(digits);
-  });
-}
-
 // ------------------------------------------------------------------ the conversation
 
 export type MessagesResult =
   | { ok: true; messages: ChatMessage[] }
   | { ok: false; status: number; error: string; card?: boolean };
 
-function isMessage(m: unknown): m is ChatMessage {
-  if (typeof m !== "object" || m === null) return false;
-  const { role, content } = m as Record<string, unknown>;
-  return (
-    (role === "user" || role === "assistant") &&
-    typeof content === "string" &&
-    content.trim().length > 0
-  );
-}
-
 /**
- * Everything the browser sends is checked here before a cent is spent. The
- * result holds only role and content: any other field the browser added is
- * dropped, so nothing but the conversation can reach the provider.
+ * Everything the browser sends is checked before a cent is spent: shape,
+ * length, size and card numbers, both roles (checkConversation in
+ * lib/chat-guard.ts), with the inn's own limits and wording.
  */
 export function checkMessages(raw: unknown, phone: string): MessagesResult {
-  if (!Array.isArray(raw) || raw.length === 0 || !raw.every(isMessage)) {
-    return { ok: false, status: 400, error: "Expected a non-empty messages array." };
-  }
-  if (raw.length > LIMITS.messages) {
-    return {
-      ok: false,
-      status: 400,
-      error: "This conversation has run long. Start over to keep going.",
-    };
-  }
-  // The greeting is drawn by the page. A conversation starts with the visitor.
-  let start = 0;
-  while (start < raw.length && raw[start].role === "assistant") start++;
-  const messages = raw
-    .slice(start)
-    .map((m) => ({ role: m.role, content: m.content }));
-  if (messages.length === 0 || messages[messages.length - 1].role !== "user") {
-    return { ok: false, status: 400, error: "The last message must be from the visitor." };
-  }
-  for (const m of messages) {
-    const cap = m.role === "user" ? LIMITS.userChars : LIMITS.assistantChars;
-    if (m.content.length > cap) {
-      return {
-        ok: false,
-        status: 400,
-        error: `Please keep it under ${LIMITS.userChars} characters.`,
-      };
-    }
-  }
-  // Checked across the whole conversation, both roles, so a number typed three
-  // turns ago is not replayed to the provider on this turn either.
-  if (messages.some((m) => findCardNumber(m.content))) {
-    return {
-      ok: false,
-      status: 400,
-      card: true,
-      error: `Please keep card numbers out of the chat. That message was not sent on. A card is only ever taken by phone, at ${phone}.`,
-    };
-  }
-  return { ok: true, messages };
-}
-
-// ------------------------------------------------------------------ rate limit
-
-/**
- * In memory, so it is per server instance. A speed bump against one visitor
- * running up the bill, not a global quota.
- */
-export function createLimiter(limit: number, windowMs: number, maxKeys = 5000) {
-  const hits = new Map<string, number[]>();
-  return function limited(key: string, now: number = Date.now()): boolean {
-    if (hits.size > maxKeys) {
-      for (const [k, times] of hits) {
-        if (times.every((t) => now - t >= windowMs)) hits.delete(k);
-      }
-    }
-    const recent = (hits.get(key) ?? []).filter((t) => now - t < windowMs);
-    if (recent.length >= limit) {
-      hits.set(key, recent);
-      return true;
-    }
-    recent.push(now);
-    hits.set(key, recent);
-    return false;
-  };
+  return checkConversation(
+    raw,
+    { userChars: LIMITS.userChars, assistantChars: LIMITS.assistantChars, messages: LIMITS.messages },
+    `Please keep card numbers out of the chat. That message was not sent on. A card is only ever taken by phone, at ${phone}.`,
+  );
 }
 
 // ------------------------------------------------------------------ what the model is told
@@ -407,12 +313,4 @@ export const KEEP_OUT_NOTE =
 /** The part that changes: the date, decided by the server. */
 export function todayLine(today: string): string {
   return `TODAY is ${sayDay(today, "0000")} (${today}) in Galveston.`;
-}
-
-/** House style for anything the model writes: no dashes as punctuation. */
-export function tidyReply(text: string): string {
-  return text
-    .replace(/\s*[\u2014\u2013]\s*/g, ", ")
-    .replace(/[*_#`]+/g, "")
-    .trim();
 }

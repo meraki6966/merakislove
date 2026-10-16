@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "test:chat-guard": "node --experimental-strip-types --test scripts/tests/chat-guard.test.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
