@@ -134,7 +134,8 @@ const sections: Section[] = [
     bullets: [
       "When you send a message, it goes to merakibip.com along with the name of this site's knowledge base. Voyage AI turns the question into a search vector so the right documents can be found, and Anthropic writes the reply from those documents alone. Both handle it under their own terms as processors.",
       "The assistant's server does not save your messages. Its host, Vercel, keeps ordinary request logs like any web host.",
-      "Unlike the two demo chats, the site assistant does not screen for card numbers. Do not type payment details, client files or anything else sensitive into it.",
+      "Your conversation lives in the chat window. Each new message is sent with the last few turns so the assistant can follow along; close the page and it is gone.",
+      "A message that looks like a payment card number or a Social Security number is stopped before it reaches Voyage AI or Anthropic. Even so, do not type payment details, client files or anything else sensitive into it.",
     ],
   }] : []),
   {

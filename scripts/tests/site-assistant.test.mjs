@@ -31,5 +31,5 @@ test("the widget loads from the one origin the CSP allows", () => {
 
 test("the privacy page discloses the assistant under the same switch", () => {
   assert.match(privacy, /\.\.\.\(SITE_ASSISTANT_ON \? \[\{\s*title: "The site assistant"/);
-  assert.match(privacy, /does not screen for card numbers/);
+  assert.match(privacy, /stopped before it reaches Voyage AI or Anthropic/);
 });
