@@ -188,3 +188,11 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* The site assistant's chat button (the Meraki BIP widget) is plum, which
+   nearly disappears on this site's dark panels. A gold ring makes it findable
+   without changing the widget's color for every BIP client. The widget sets
+   its styles inline, so this needs !important; it touches only box-shadow. */
+button[title^="Chat with"] {
+  box-shadow: 0 0 0 2px #e6c372, 0 6px 18px rgba(0, 0, 0, 0.45) !important;
+}
