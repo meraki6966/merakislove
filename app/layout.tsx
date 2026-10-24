@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import SiteAssistant from "@/components/SiteAssistant";
 import { ogBase } from "@/lib/site";
 
 // Archivo is variable on weight and width. The width axis is what lets
@@ -81,6 +82,7 @@ export default function RootLayout({
         <Nav />
         <main className="relative">{children}</main>
         <Footer />
+        <SiteAssistant />
       </body>
     </html>
   );

@@ -12,7 +12,8 @@
     "test:inn-chat": "node --experimental-strip-types --test scripts/tests/meraki-inn-chat.test.mjs",
     "test:analytics": "node --experimental-strip-types --test scripts/tests/analytics.test.mjs",
     "test:demo-audio": "node --test scripts/tests/demo-audio.test.mjs",
-    "test:shadow-ai": "node --experimental-strip-types --test scripts/tests/shadow-ai.test.mjs"
+    "test:shadow-ai": "node --experimental-strip-types --test scripts/tests/shadow-ai.test.mjs",
+    "test:site-assistant": "node --test scripts/tests/site-assistant.test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.120.0",

@@ -164,11 +164,11 @@ test("the sitemap lists the 18 tagged pages, the Presence-First example, the sel
 
 const EXPECTED_CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.merakibip.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: https:",
-  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.merakibip.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -192,7 +192,21 @@ test("the policy allows gtag.js to load and send, and is otherwise unchanged", a
   const all = rules.find((r) => r.source === "/:path*");
   const csp = all.headers.find((h) => h.key === "Content-Security-Policy").value;
   assertPolicyAllowsAnalytics(csp);
-  assert.equal(csp, EXPECTED_CSP, "the policy changed beyond the Google addresses");
+  assert.equal(csp, EXPECTED_CSP, "the policy changed beyond the Google addresses and the BIP widget origin");
+});
+
+// The site assistant (components/SiteAssistant.tsx) is the Meraki BIP widget.
+// It may add exactly one origin, and only to script-src and connect-src.
+test("the BIP widget origin appears only in script-src and connect-src", async () => {
+  const rules = await nextConfig.headers();
+  const all = rules.find((r) => r.source === "/:path*");
+  const d = directives(all.headers.find((h) => h.key === "Content-Security-Policy").value);
+  for (const [name, values] of Object.entries(d)) {
+    const has = values.includes("https://www.merakibip.com");
+    if (name === "script-src" || name === "connect-src") assert.ok(has, `${name} must allow the widget`);
+    else assert.ok(!has, `${name} must not mention the widget origin`);
+  }
+  assert.ok(!Object.values(d).flat().some((v) => /merakibip\.com/.test(v) && v !== "https://www.merakibip.com"), "no wildcard or other BIP host");
 });
 
 // --------------------------------------------- against a running copy

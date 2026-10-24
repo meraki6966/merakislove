@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_ASSISTANT_ON } from "@/components/SiteAssistant";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Panel, { PageStack } from "@/components/Panel";
@@ -115,7 +116,7 @@ const sections: Section[] = [
   {
     title: "The demo chat assistants",
     paragraphs: [
-      "Two demos on this site do send data to a server: the restaurant demo and the inn demo. Each has a working AI assistant so you can see one running rather than read about it. Those two chats are the only routes on this site that receive anything.",
+      "Two demos on this site do send data to a server: the restaurant demo and the inn demo. Each has a working AI assistant so you can see one running rather than read about it. Those two chats are the only routes on this site's own server that receive anything.",
     ],
     bullets: [
       "What you type in either chat is sent to Anthropic's API to generate a reply, and is handled under Anthropic's terms as a processor. Anthropic deletes API messages within 30 days by default, or keeps them for up to two years if its safety systems flag them, and does not use them to train its models. Do not type anything sensitive into a demo.",
@@ -125,6 +126,17 @@ const sections: Section[] = [
       "The server log records how many tokens a reply used, whether it finished cleanly and which model answered, and the error message if something fails. It does not record what you typed.",
     ],
   },
+  ...(SITE_ASSISTANT_ON ? [{
+    title: "The site assistant",
+    paragraphs: [
+      "The chat button in the corner of every page is the Meraki BIP assistant, a service I built and run at merakibip.com. It answers from a set of documents I wrote about this studio, its packages and its demos. It loads only when the page is idle and does nothing until you open it.",
+    ],
+    bullets: [
+      "When you send a message, it goes to merakibip.com along with the name of this site's knowledge base. Voyage AI turns the question into a search vector so the right documents can be found, and Anthropic writes the reply from those documents alone. Both handle it under their own terms as processors.",
+      "The assistant's server does not save your messages. Its host, Vercel, keeps ordinary request logs like any web host.",
+      "Unlike the two demo chats, the site assistant does not screen for card numbers. Do not type payment details, client files or anything else sensitive into it.",
+    ],
+  }] : []),
   {
     title: "Hosting",
     paragraphs: [
