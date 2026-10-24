@@ -57,7 +57,7 @@ Last reviewed: 15 October 2026, on the analytics-ga4 branch.
 - **Processors behind it:** Vercel (hosting), Supabase (the tenant's documents), Voyage AI (embeddings), Anthropic (replies).
 - **Controls:** CSP on this site allows only https://www.merakibip.com, in script-src and connect-src (pinned by scripts/tests/analytics.test.mjs, mutation-checked). On the BIP side, retrieval is scoped to the tenant found by slug, and a per-IP rate limit runs in memory.
 - **BIP fixes merged 24 October 2026 (meraki-rag-intelligence PR #48), seen working on production the same night:** card numbers and SSNs are stopped before any outside call; messages over 2,000 characters are refused; the widget sends the last 6 turns; replies are plain text with clickable links; the stray quote in the fallback is trimmed.
-- **Waiting on Adam:** migration 20261024_widget_quota.sql (durable per-visitor limit, daily cap, allowed_origins). Until it runs, BIP uses the old in-memory limit and allows every origin. After it runs, set allowed_origins for meraki-is-love to https://merakislove.com and https://www.merakislove.com.
+- **Migration 20261024_widget_quota.sql run by Adam on 23 October 2026, with allowed_origins set to merakislove.com and www.merakislove.com.** Checked on production the same night: a request from another site gets 403, merakislove.com, www.merakislove.com and the BIP portal origin get answers, and the quota table is counting messages. Limits: 20 messages a minute per visitor, 500 a day for the tenant.
 - **Data processing agreements:** Voyage AI and Supabase to confirm on the BIP accounts.
 
 ## Calendly
