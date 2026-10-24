@@ -44,8 +44,9 @@ export const socials = [
   { label: "Website", href: "https://adammcclarin.com" },
 ] as const;
 
-/** Hero proof row. Four items, shown inline under the buttons. */
+/** Hero proof row, shown as one sentence under the buttons. */
 export const proofRow = [
+  "United States Marine Corps veteran, Operation Enduring Freedom",
   "CISSP",
   "Azure AI Engineer",
   "20 years",
@@ -55,6 +56,7 @@ export const proofRow = [
 /** Credentials as a flat list. No ticker, no animation. */
 export const facts = [
   "20 years across leadership, IT, and information security",
+  "United States Marine Corps veteran, Operation Enduring Freedom",
   "CISSP",
   "Azure AI Engineer",
   "Dual M.S., Cybersecurity",

@@ -11,23 +11,25 @@ interface PageHeaderProps {
 }
 
 /**
- * Reusable interior-page header. Amber left border accent, mono eyebrow,
- * Cormorant display title, optional subtitle.
+ * Reusable interior-page header. 2026-10 redesign: wide, heavy Archivo
+ * title and a sentence-case gold kicker instead of the tracked all-caps
+ * label and the amber left rule. The inner pages get their full redesign
+ * one at a time; this keeps them in the same family meanwhile.
  */
 export default function PageHeader({ eyebrow, title, subtitle }: PageHeaderProps) {
   return (
     <ScrollReveal>
-      <header className="border-l-2 border-amber pl-6 sm:pl-8">
+      <header>
         {eyebrow ? (
-          <p className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-amber">
+          <p className="mb-4 font-sans text-base font-semibold text-amber">
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="font-display text-4xl font-light leading-[1.05] text-smoke sm:text-6xl">
+        <h1 className="type-heading text-[clamp(2.5rem,5.6vw,4.75rem)] text-smoke">
           {title}
         </h1>
         {subtitle ? (
-          <p className="mt-5 max-w-2xl font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
+          <p className="mt-6 max-w-2xl font-body text-lg leading-relaxed text-smoke-dim">
             {subtitle}
           </p>
         ) : null}

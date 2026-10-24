@@ -8,15 +8,18 @@ import type { NextConfig } from "next";
 // Google Analytics 4 (public/analytics.js) needs exactly two additions:
 // gtag.js from www.googletagmanager.com in script-src, and the collection
 // endpoints in connect-src. Nothing else was widened for it.
+// The site assistant (components/SiteAssistant.tsx, the Meraki BIP widget)
+// adds one origin, https://www.merakibip.com, to script-src for its loader
+// and to connect-src for its question endpoint. Nothing else.
 // scripts/tests/analytics.test.mjs pins this whole policy, so any change
 // here has to be made there too, on purpose.
 const ContentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.merakibip.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: https:",
-  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.merakibip.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

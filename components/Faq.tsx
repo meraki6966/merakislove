@@ -14,13 +14,13 @@ export interface FaqItem {
  */
 export default function Faq({ items }: { items: FaqItem[] }) {
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl border border-border">
+    <div className="flex flex-col overflow-hidden rounded-2xl ring-1 ring-border-mid">
       {items.map((item) => (
         <details
           key={item.question}
           className="group border-b border-border last:border-b-0 [&_summary::-webkit-details-marker]:hidden"
         >
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 font-body text-base text-smoke transition-colors duration-300 hover:bg-navy/40 sm:px-8">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 font-sans text-lg font-semibold text-smoke transition-colors duration-300 hover:bg-navy/40 sm:px-8">
             {item.question}
             <span
               aria-hidden
@@ -32,7 +32,7 @@ export default function Faq({ items }: { items: FaqItem[] }) {
           </summary>
           <p
             id={item.id}
-            className="px-6 pb-6 font-body text-sm leading-relaxed text-smoke-dim sm:px-8"
+            className="px-6 pb-6 font-body text-base leading-relaxed text-smoke-dim sm:px-8"
           >
             {item.answer}
           </p>

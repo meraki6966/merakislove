@@ -188,14 +188,9 @@ export default function StartForm() {
           href={href}
           aria-disabled={!ready}
           tabIndex={ready ? undefined : -1}
-          className={`group inline-flex w-fit items-center gap-3 rounded-full border border-amber px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber! hover:text-void ${
-            ready ? "" : "pointer-events-none opacity-40"
-          }`}
+          className={`group inline-flex w-fit items-center gap-3 rounded-full border border-amber px-7 py-3.5 font-sans font-semibold text-sm text-amber transition-colors duration-300 hover:bg-amber! hover:text-void ${ready ? "" : "pointer-events-none opacity-40" }`}
         >
           Send
-          <span className="transition-transform duration-300 group-hover:translate-x-1">
-            →
-          </span>
         </a>
         <p className="font-body text-sm leading-relaxed text-smoke-dim">
           {ready

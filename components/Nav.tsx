@@ -34,12 +34,9 @@ export default function Nav() {
         {/* Wordmark */}
         <Link
           href="/"
-          className="group flex items-center gap-2 font-display text-lg tracking-tight text-smoke"
+          className="type-heading text-lg text-smoke"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-amber transition-transform duration-300 group-hover:scale-125" />
-          <span className="font-light">
-            Meraki <span className="text-amber">is Love</span>
-          </span>
+          Meraki is Love
         </Link>
 
         {/* Desktop links, lg and up. */}
@@ -50,8 +47,8 @@ export default function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`whitespace-nowrap font-mono text-xs uppercase tracking-[0.18em] transition-colors duration-300 ${
-                  active ? "text-amber" : "text-smoke-dim hover:text-smoke"
+                className={`whitespace-nowrap font-sans text-[0.95rem] font-medium transition-colors duration-300 ${
+                  active ? "text-amber" : "text-smoke hover:text-amber"
                 }`}
               >
                 {link.label}
@@ -60,7 +57,7 @@ export default function Nav() {
           })}
           <Link
             href="/start"
-            className="whitespace-nowrap rounded-full border border-amber px-5 py-2 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber! hover:text-void"
+            className="whitespace-nowrap rounded-full bg-amber! px-5 py-2.5 font-sans text-[0.95rem] font-semibold text-void transition-colors duration-300 hover:bg-gold!"
           >
             Book a call
           </Link>
@@ -101,8 +98,8 @@ export default function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`border-b border-border py-4 font-mono text-sm uppercase tracking-[0.18em] transition-colors ${
-                  active ? "text-amber" : "text-smoke-dim hover:text-smoke"
+                className={`border-b border-border py-4 font-sans text-lg font-medium transition-colors ${
+                  active ? "text-amber" : "text-smoke hover:text-amber"
                 }`}
               >
                 {link.label}
@@ -112,7 +109,7 @@ export default function Nav() {
           <Link
             href="/start"
             onClick={() => setOpen(false)}
-            className="mt-5 rounded-full border border-amber px-5 py-3 text-center font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors hover:bg-amber! hover:text-void"
+            className="mt-5 rounded-full bg-amber! px-5 py-3.5 text-center font-sans text-base font-semibold text-void transition-colors hover:bg-gold!"
           >
             Book a call
           </Link>

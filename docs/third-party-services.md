@@ -50,6 +50,15 @@ Last reviewed: 15 October 2026, on the analytics-ga4 branch.
   - Anthropic deletes API inputs and outputs within 30 days by default, or keeps them up to 2 years if flagged by its safety systems, and doesn't train on them (checked 16 October 2026).
 - **Data processing agreement:** under Anthropic's commercial terms, as a processor.
 
+## Meraki BIP (the site assistant, added 23 October 2026)
+
+- **What it is:** Adam's own BIP chat widget, loaded on every page from https://www.merakibip.com/api/rag/widget/meraki-is-love (components/SiteAssistant.tsx, idle-time load).
+- **What it receives:** each message a visitor sends, with the tenant slug. Read in the meraki-rag-intelligence code on 23 October 2026, not yet proven by a test against production: the query route embeds the message with Voyage AI (voyage-3), retrieves only that tenant's chunks, answers with Anthropic (claude-sonnet-4-6), and does not insert the message into the database.
+- **Processors behind it:** Vercel (hosting), Supabase (the tenant's documents), Voyage AI (embeddings), Anthropic (replies).
+- **Controls:** CSP on this site allows only https://www.merakibip.com, in script-src and connect-src (pinned by scripts/tests/analytics.test.mjs, mutation-checked). On the BIP side, retrieval is scoped to the tenant found by slug, and a per-IP rate limit runs in memory.
+- **Open items on the BIP side:** no card-number screen on /api/rag/query (the merakislove demo chats have one); the rate limit is per server instance, so it resets on cold starts; the meraki-is-love tenant currently answers with merakibip.com pricing, not this site's packages.
+- **Data processing agreements:** Voyage AI and Supabase to confirm on the BIP accounts.
+
 ## Calendly
 
 - **What it is:** call booking, reached only when a visitor clicks a Book a call link.

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { SITE_ASSISTANT_ON } from "@/components/SiteAssistant";
 import Link from "next/link";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/PageHero";
+import Panel, { PageStack } from "@/components/Panel";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionDivider from "@/components/SectionDivider";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -114,7 +116,7 @@ const sections: Section[] = [
   {
     title: "The demo chat assistants",
     paragraphs: [
-      "Two demos on this site do send data to a server: the restaurant demo and the inn demo. Each has a working AI assistant so you can see one running rather than read about it. Those two chats are the only routes on this site that receive anything.",
+      "Two demos on this site do send data to a server: the restaurant demo and the inn demo. Each has a working AI assistant so you can see one running rather than read about it. Those two chats are the only routes on this site's own server that receive anything.",
     ],
     bullets: [
       "What you type in either chat is sent to Anthropic's API to generate a reply, and is handled under Anthropic's terms as a processor. Anthropic deletes API messages within 30 days by default, or keeps them for up to two years if its safety systems flag them, and does not use them to train its models. Do not type anything sensitive into a demo.",
@@ -124,6 +126,17 @@ const sections: Section[] = [
       "The server log records how many tokens a reply used, whether it finished cleanly and which model answered, and the error message if something fails. It does not record what you typed.",
     ],
   },
+  ...(SITE_ASSISTANT_ON ? [{
+    title: "The site assistant",
+    paragraphs: [
+      "The chat button in the corner of every page is the Meraki BIP assistant, a service I built and run at merakibip.com. It answers from a set of documents I wrote about this studio, its packages and its demos. It loads only when the page is idle and does nothing until you open it.",
+    ],
+    bullets: [
+      "When you send a message, it goes to merakibip.com along with the name of this site's knowledge base. Voyage AI turns the question into a search vector so the right documents can be found, and Anthropic writes the reply from those documents alone. Both handle it under their own terms as processors.",
+      "The assistant's server does not save your messages. Its host, Vercel, keeps ordinary request logs like any web host.",
+      "Unlike the two demo chats, the site assistant does not screen for card numbers. Do not type payment details, client files or anything else sensitive into it.",
+    ],
+  }] : []),
   {
     title: "Hosting",
     paragraphs: [
@@ -162,88 +175,93 @@ const sections: Section[] = [
 
 export default function PrivacyPage() {
   return (
-    <div className="mx-auto max-w-4xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
+    <PageStack>
       <Breadcrumb items={[{ name: "Privacy", path: "/privacy" }]} />
 
-      <PageHeader
-        eyebrow="Privacy"
+      <PageHero
+        art={{
+          src: "/art/privacy.jpg",
+          alt: "Engraving of a letter closed with a wax seal, beside a seal stamp, sealing wax, a candle and a pen.",
+        }}
+        kicker="Privacy"
         title="What this site collects."
         subtitle="Very little, and this page says exactly what. It describes what the code actually does rather than what a template would cover."
       />
 
-      <div className="mt-16 flex flex-col">
-        {sections.map((section, i) => (
-          <section key={section.title} className="mt-14 first:mt-0">
-            <ScrollReveal delay={i * 0.03} className="mb-6 flex flex-col gap-4">
-              <h2 className="font-display text-2xl font-light text-smoke sm:text-3xl">
-                {section.title}
-              </h2>
-              <SectionDivider align="left" />
-            </ScrollReveal>
+      <Panel tone="paper" width="4xl">
+        <div className="flex flex-col">
+          {sections.map((section, i) => (
+            <section key={section.title} className="mt-14 first:mt-0">
+              <ScrollReveal delay={i * 0.03} className="mb-6 flex flex-col gap-4">
+                <h2 className="type-heading text-2xl text-smoke sm:text-3xl">
+                  {section.title}
+                </h2>
+                <SectionDivider align="left" />
+              </ScrollReveal>
 
-            <div className="flex flex-col gap-5">
-              {section.paragraphs.map((paragraph) => (
-                <ScrollReveal key={paragraph}>
-                  <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-                    {paragraph}
-                  </p>
-                </ScrollReveal>
-              ))}
+              <div className="flex flex-col gap-5">
+                {section.paragraphs.map((paragraph) => (
+                  <ScrollReveal key={paragraph}>
+                    <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+                      {paragraph}
+                    </p>
+                  </ScrollReveal>
+                ))}
 
-              {section.bullets ? (
-                <ScrollReveal>
-                  <ul className="flex max-w-2xl flex-col gap-3">
-                    {section.bullets.map((bullet) => (
-                      <li
-                        key={bullet}
-                        className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
-                      >
-                        <span
-                          aria-hidden
-                          className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-amber"
-                        />
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                </ScrollReveal>
-              ) : null}
-            </div>
-          </section>
-        ))}
-      </div>
+                {section.bullets ? (
+                  <ScrollReveal>
+                    <ul className="flex max-w-2xl flex-col gap-3">
+                      {section.bullets.map((bullet) => (
+                        <li
+                          key={bullet}
+                          className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
+                        >
+                          <span
+                            aria-hidden
+                            className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-amber"
+                          />
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
+                  </ScrollReveal>
+                ) : null}
+              </div>
+            </section>
+          ))}
+        </div>
 
-      {/* Contact */}
-      <section className="mt-16 border-t border-border pt-10">
-        <ScrollReveal className="flex flex-col items-start gap-4">
-          <h2 className="font-display text-2xl font-light text-smoke sm:text-3xl">
-            Questions about any of this
-          </h2>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            Write to me and a person will answer. If something on this page is
-            unclear or looks wrong, I would rather hear it than have it sit
-            here being wrong.
-          </p>
-          <a
-            href={`mailto:${email}`}
-            className="font-mono text-sm tracking-[0.14em] text-amber transition-colors hover:text-smoke"
-          >
-            {email}
-          </a>
-          <p className="mt-4 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted">
-            Last reviewed against the code on {LAST_UPDATED}
-          </p>
-          <Link
-            href="/"
-            className="group mt-4 inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-smoke-dim transition-colors hover:text-amber"
-          >
-            Back to the studio
-            <span className="transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
-          </Link>
-        </ScrollReveal>
-      </section>
-    </div>
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* Contact */}
+        <section className="">
+          <ScrollReveal className="flex flex-col items-start gap-4">
+            <h2 className="type-heading text-2xl text-smoke sm:text-3xl">
+              Questions about any of this
+            </h2>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              Write to me and a person will answer. If something on this page is
+              unclear or looks wrong, I would rather hear it than have it sit
+              here being wrong.
+            </p>
+            <a
+              href={`mailto:${email}`}
+              className="font-sans font-semibold text-sm text-amber transition-colors hover:text-smoke"
+            >
+              {email}
+            </a>
+            <p className="mt-4 font-sans font-semibold text-xs text-muted">
+              Last reviewed against the code on {LAST_UPDATED}
+            </p>
+            <Link
+              href="/"
+              className="group mt-4 inline-flex items-center gap-3 font-sans font-semibold text-sm text-smoke-dim transition-colors hover:text-amber"
+            >
+              Back to the studio
+            </Link>
+          </ScrollReveal>
+        </section>
+      </Panel>
+    </PageStack>
   );
 }

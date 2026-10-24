@@ -8,39 +8,52 @@
  * CSS Modules and inline styles too.
  * ------------------------------------------------------------------ */
 @theme {
-  --color-navy: #0b1426;
-  --color-void: #07090f;
-  --color-amber: #f59e0b;
-  --color-amber-dim: rgba(245, 158, 11, 0.09);
-  --color-amber-glow: rgba(245, 158, 11, 0.19);
+  /* 2026-10 redesign. The palette comes from the brand guide (plum and
+     gold) and is matched to the engraved illustration series in
+     public/art: every illustration is drawn on #261a2e, so the dusk panel
+     uses that exact value and the art sits in it without a visible edge.
+     The old token names stay so the inner pages keep working while they
+     are redesigned one at a time. */
+  --color-navy: #261a2e; /* dusk panel, the illustrations' own ground */
+  --color-void: #130b19; /* ink, the page behind the panels */
+  --color-plum: #2d005e;
+  --color-paper: #ffffff;
+  --color-mist: #ece6f3;
+  --color-amber: #e6c372; /* gold, buttons and the display line */
+  --color-amber-dim: rgba(230, 195, 114, 0.1);
+  --color-amber-glow: rgba(230, 195, 114, 0.22);
   --color-gold: #c8a96e;
-  --color-smoke: #e8e4dc;
-  --color-smoke-dim: #b0a898;
-  --color-muted: #556677;
-  --color-deep-muted: #2a3a4a;
-  --color-border: #131d2e;
-  --color-border-mid: #1a2840;
+  --color-smoke: #f5f1f8;
+  --color-smoke-dim: #cdc2d9;
+  --color-muted: #9a8bac;
+  --color-deep-muted: #3a2c4a;
+  --color-border: #2a1f35;
+  --color-border-mid: #3d2f4d;
 
-  /* next/font injects these on <html>; remap to the Tailwind font namespace */
-  --font-display: var(--font-cormorant), serif;
-  --font-body: var(--font-space-grotesk), sans-serif;
-  --font-mono: var(--font-jetbrains-mono), monospace;
+  /* next/font injects these on <html>; remap to the Tailwind font namespace.
+     Archivo carries headings, labels and buttons; Source Serif 4 carries
+     reading text. */
+  --font-display: var(--font-archivo), sans-serif;
+  --font-body: var(--font-source-serif), Georgia, serif;
+  --font-mono: var(--font-archivo), sans-serif;
+  --font-sans: var(--font-archivo), sans-serif;
 }
 
 /* Plain-named aliases for bespoke CSS (animations.module.css, inline styles) */
 :root {
-  --navy: #0b1426;
-  --void: #07090f;
-  --amber: #f59e0b;
-  --amber-dim: rgba(245, 158, 11, 0.09);
-  --amber-glow: rgba(245, 158, 11, 0.19);
+  --navy: #261a2e;
+  --void: #130b19;
+  --plum: #2d005e;
+  --amber: #e6c372;
+  --amber-dim: rgba(230, 195, 114, 0.1);
+  --amber-glow: rgba(230, 195, 114, 0.22);
   --gold: #c8a96e;
-  --smoke: #e8e4dc;
-  --smoke-dim: #b0a898;
-  --muted: #556677;
-  --deep-muted: #2a3a4a;
-  --border: #131d2e;
-  --border-mid: #1a2840;
+  --smoke: #f5f1f8;
+  --smoke-dim: #cdc2d9;
+  --muted: #9a8bac;
+  --deep-muted: #3a2c4a;
+  --border: #2a1f35;
+  --border-mid: #3d2f4d;
 }
 
 @layer base {
@@ -103,6 +116,68 @@
   }
 }
 
+/* Display type: Archivo pushed wide and heavy. Used by the redesigned
+   pages for headlines; the width axis is loaded in app/layout.tsx. */
+.type-display {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 850;
+  font-stretch: 118%;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+}
+.type-heading {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  font-stretch: 112%;
+  letter-spacing: -0.028em;
+  line-height: 1;
+}
+
+/* Panel tones. Inner pages were written for the dark theme, so a light
+   panel re-points the theme tokens instead of rewriting every class: inside
+   .tone-paper, text-smoke is dark plum ink, bg-navy is a pale lilac card,
+   bg-amber is plum with white text, and so on. Tailwind v4 utilities read
+   these variables, so the swap reaches every element in the panel. */
+.tone-paper {
+  --color-void: #ffffff;
+  --color-navy: #f5f0fa;
+  --color-smoke: #1d0f2e;
+  --color-smoke-dim: #45375a;
+  --color-muted: #6b5a85;
+  --color-deep-muted: #d9cde6;
+  --color-border: #e8e0f0;
+  --color-border-mid: #d6c9e4;
+  --color-amber: #2d005e;
+  --color-amber-dim: rgba(45, 0, 94, 0.06);
+  --color-amber-glow: rgba(45, 0, 94, 0.14);
+  --color-gold: #4a1f80;
+  background-color: #ffffff;
+  color: #1d0f2e;
+}
+.tone-paper .text-void { color: #ffffff; }
+.tone-plum {
+  --color-navy: #3a0f73;
+  --color-border: #4a1f80;
+  --color-border-mid: #5a2c94;
+  --color-smoke-dim: #ddd0ee;
+  background-color: #2d005e;
+}
+.tone-dusk { background-color: #261a2e; }
+
+/* The one motion moment: the hero settles in on load. */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-in { animation: hero-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hero-in-late { animation: hero-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.18s both; }
+
+/* The hero loop plays only for people who have not asked for less motion.
+   Everyone else gets the still illustration underneath it. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-loop { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -112,4 +187,12 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* The site assistant's chat button (the Meraki BIP widget) is plum, which
+   nearly disappears on this site's dark panels. A gold ring makes it findable
+   without changing the widget's color for every BIP client. The widget sets
+   its styles inline, so this needs !important; it touches only box-shadow. */
+button[title^="Chat with"] {
+  box-shadow: 0 0 0 2px #e6c372, 0 6px 18px rgba(0, 0, 0, 0.45) !important;
 }

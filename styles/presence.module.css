@@ -12,20 +12,30 @@
  * ------------------------------------------------------------------ */
 
 .page {
-  --pf-forest: #1a1f15;
-  --pf-moss: #2a3320;
-  --pf-cream: #e8e0d0;
-  --pf-cream-dim: #9a9080;
-  --pf-gold: #b89a58;
-  --pf-gold-dim: #6b5830;
-  --pf-white: #f4efe6;
-  --pf-display: var(--font-cormorant), Georgia, serif;
-  --pf-body: var(--font-space-grotesk), system-ui, sans-serif;
+  /* 2026-10 redesign: the page keeps its own scroll motion (it sells
+     atmosphere) but now wears the site's palette, type and panels. */
+  --pf-forest: #261a2e;
+  --pf-moss: #ffffff;
+  --pf-cream: #f5f1f8;
+  --pf-cream-dim: #cdc2d9;
+  --pf-gold: #e6c372;
+  --pf-gold-dim: #3d2f4d;
+  --pf-white: #f5f1f8;
+  --pf-display: var(--font-archivo), sans-serif;
+  --pf-label: var(--font-archivo), sans-serif;
+  --pf-body: var(--font-source-serif), Georgia, serif;
 
-  background-color: var(--pf-forest);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 4.5rem 0.625rem 0.75rem;
+  background-color: #130b19;
   color: var(--pf-cream);
   font-family: var(--pf-body);
-  font-weight: 300;
+  font-weight: 400;
+}
+@media (min-width: 640px) {
+  .page { gap: 1rem; padding: 6rem 1rem 1rem; }
 }
 
 /* The no-italics rule, enforced rather than trusted. */
@@ -74,12 +84,21 @@
 }
 
 .section {
-  padding-block: 7rem;
-  border-top: 1px solid var(--pf-gold-dim);
+  padding-block: 4.5rem;
+  border-radius: 28px;
+  background-color: var(--pf-forest);
+  overflow: hidden;
 }
 
+/* The light panels: re-point the page's colors so the same rules read on white. */
 .sectionMoss {
-  background-color: var(--pf-moss);
+  --pf-cream: #2a1a3e;
+  --pf-cream-dim: #45375a;
+  --pf-white: #1d0f2e;
+  --pf-gold: #2d005e;
+  --pf-gold-dim: #d6c9e4;
+  --pf-forest: #ffffff;
+  background-color: #ffffff;
 }
 
 /* Offsets the fixed site header when "See the work" jumps down. */
@@ -93,7 +112,7 @@
     padding-inline: 2rem;
   }
   .section {
-    padding-block: 9rem;
+    padding-block: 6rem;
   }
 }
 
@@ -102,35 +121,35 @@
  * ---------------------------------------------------------------- */
 
 .eyebrow {
-  font-family: var(--pf-body);
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+  font-family: var(--pf-label);
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--pf-gold);
 }
 
 .sectionTitle {
   font-family: var(--pf-display);
-  font-size: clamp(2.25rem, 5vw, 3.25rem);
-  font-weight: 300;
-  line-height: 1.08;
+  font-size: clamp(2.25rem, 4.4vw, 3.5rem);
+  font-weight: 800;
+  font-stretch: 112%;
+  letter-spacing: -0.028em;
+  line-height: 1;
   color: var(--pf-white);
 }
 
 .lead {
   font-family: var(--pf-body);
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.8;
   color: var(--pf-cream-dim);
 }
 
 /* Long-form positioning copy — Cormorant at 28–36px, measure-capped. */
 .prose {
-  font-family: var(--pf-display);
-  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
-  font-weight: 300;
+  font-family: var(--pf-body);
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 400;
   line-height: 1.42;
   color: var(--pf-cream);
 }
@@ -157,12 +176,26 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 100svh;
   overflow: hidden;
-  padding-block: 8rem 4rem;
+  padding-block: 4.5rem 4rem;
+  border-radius: 28px;
+  background-color: #261a2e;
+}
+/* The sign-painter engraving sits on the right on wide screens, under a
+   fade so the words stay readable. Phones get the words alone. */
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 44rem;
+    padding-block: 6rem;
+    background:
+      linear-gradient(90deg, #261a2e 0%, #261a2e 50%, rgba(38, 26, 46, 0.85) 58%, rgba(38, 26, 46, 0) 74%),
+      url("/art/presence.jpg") right center / auto 100% no-repeat,
+      #261a2e;
+  }
 }
 
 .heroGlow {
+  display: none;
   position: absolute;
   top: 22%;
   right: -14rem;
@@ -176,25 +209,26 @@
 }
 
 .heroTitle {
-  max-width: 20ch;
+  max-width: 13ch;
   margin-top: 1.5rem;
   font-family: var(--pf-display);
-  font-size: clamp(2.5rem, 6.4vw, 5rem);
-  font-weight: 300;
-  line-height: 1.03;
-  letter-spacing: -0.01em;
+  font-size: clamp(2.5rem, 5.4vw, 4.5rem);
+  font-weight: 850;
+  font-stretch: 116%;
+  line-height: 0.95;
+  letter-spacing: -0.033em;
   color: var(--pf-white);
 }
 
 .heroCopy {
-  max-width: 38rem;
+  max-width: 34rem;
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  font-size: 1rem;
-  font-weight: 300;
-  line-height: 1.7;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.65;
   color: var(--pf-cream-dim);
 }
 
@@ -240,11 +274,11 @@
   border-radius: 9999px;
   background-color: var(--pf-gold);
   color: var(--pf-forest);
-  font-family: var(--pf-body);
+  font-family: var(--pf-label);
+  font-weight: 600;
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   text-decoration: none;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
@@ -269,11 +303,11 @@
   border-radius: 9999px;
   background-color: transparent;
   color: var(--pf-cream);
-  font-family: var(--pf-body);
+  font-family: var(--pf-label);
+  font-weight: 600;
   font-size: 0.75rem;
   font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   text-decoration: none;
   transition: border-color 0.3s ease, color 0.3s ease;
 }
@@ -312,7 +346,7 @@
   border-bottom: 1px solid var(--pf-gold-dim);
   font-family: var(--pf-display);
   font-size: clamp(1.25rem, 2.2vw, 1.6rem);
-  font-weight: 300;
+  font-weight: 400;
   color: var(--pf-cream);
 }
 
@@ -329,7 +363,7 @@
   max-width: 34rem;
   margin-top: 2.5rem;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.8;
   color: var(--pf-gold);
 }
@@ -355,30 +389,30 @@
   flex-direction: column;
   height: 100%;
   padding: 2.25rem 2rem;
+  border-radius: 1rem;
   border: 1px solid var(--pf-gold-dim);
   border-top: 1px solid var(--pf-gold-dim);
-  background-color: rgba(42, 51, 32, 0.4);
+  background-color: rgba(45, 0, 94, 0.05);
 }
 
 /* Middle tier — a thin gold top border, nothing louder. */
 .tierFeatured {
   border-top: 2px solid var(--pf-gold);
-  background-color: rgba(42, 51, 32, 0.75);
+  background-color: rgba(45, 0, 94, 0.1);
 }
 
 .tierFlag {
   margin-bottom: 1rem;
   font-size: 0.7rem;
   font-weight: 400;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--pf-gold);
 }
 
 .tierName {
   font-family: var(--pf-display);
   font-size: 1.85rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--pf-white);
 }
 
@@ -386,7 +420,7 @@
   margin-top: 0.5rem;
   font-family: var(--pf-display);
   font-size: 2.75rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.1;
   color: var(--pf-gold);
 }
@@ -396,7 +430,7 @@
   padding-top: 1.25rem;
   border-top: 1px solid var(--pf-gold-dim);
   font-size: 0.875rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
   color: var(--pf-cream-dim);
 }
@@ -405,8 +439,7 @@
   margin-top: 1.5rem;
   font-size: 0.72rem;
   font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--pf-gold);
 }
 
@@ -422,7 +455,7 @@
   display: flex;
   gap: 0.75rem;
   font-size: 0.9rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
   color: var(--pf-cream);
 }
@@ -442,8 +475,7 @@
   padding-top: 2rem;
   font-size: 0.72rem;
   font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--pf-cream-dim);
 }
 
@@ -490,8 +522,7 @@
 .timelineWhen {
   font-size: 0.72rem;
   font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--pf-gold);
 }
 
@@ -499,7 +530,7 @@
   margin-top: 0.6rem;
   font-family: var(--pf-display);
   font-size: clamp(1.5rem, 2.6vw, 2rem);
-  font-weight: 300;
+  font-weight: 400;
   color: var(--pf-white);
 }
 
@@ -507,7 +538,7 @@
   max-width: 44rem;
   margin-top: 0.9rem;
   font-size: 0.975rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.8;
   color: var(--pf-cream-dim);
 }
@@ -529,16 +560,15 @@
   border-bottom: 1px solid var(--pf-gold-dim);
   font-size: 0.7rem;
   font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--pf-gold);
 }
 
 .stackTable td {
   padding-block: 0.95rem;
-  border-bottom: 1px solid rgba(107, 88, 48, 0.45);
+  border-bottom: 1px solid var(--pf-gold-dim);
   font-size: 0.9rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--pf-cream);
 }
 
@@ -556,13 +586,13 @@
   margin-top: 3rem;
   padding: 2.5rem;
   border-left: 2px solid var(--pf-gold);
-  background-color: rgba(42, 51, 32, 0.45);
+  background-color: rgba(19, 11, 25, 0.55);
 }
 
 .caseText {
   font-family: var(--pf-display);
   font-size: clamp(1.35rem, 2.2vw, 1.75rem);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
   color: var(--pf-cream);
 }
@@ -582,14 +612,8 @@
   position: relative;
   overflow: hidden;
   padding-block: 8rem;
-  border-block: 1px solid var(--pf-gold-dim);
-  background:
-    radial-gradient(
-      60% 90% at 50% 0%,
-      rgba(184, 154, 88, 0.14) 0%,
-      transparent 70%
-    ),
-    linear-gradient(180deg, var(--pf-moss) 0%, var(--pf-forest) 100%);
+  border-radius: 28px;
+  background-color: #2d005e;
   text-align: center;
 }
 
@@ -597,9 +621,11 @@
   max-width: 18ch;
   margin-inline: auto;
   font-family: var(--pf-display);
-  font-size: clamp(2.5rem, 6vw, 4.25rem);
-  font-weight: 300;
-  line-height: 1.05;
+  font-size: clamp(2.5rem, 5.4vw, 4.25rem);
+  font-weight: 850;
+  font-stretch: 116%;
+  letter-spacing: -0.033em;
+  line-height: 0.95;
   color: var(--pf-white);
 }
 
@@ -607,7 +633,7 @@
   max-width: 34rem;
   margin: 2rem auto 0;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.8;
   color: var(--pf-cream-dim);
 }

@@ -241,7 +241,7 @@ export function getPackage(slug: string): Package {
 /** The meta line under a package name, on every surface that shows a card. */
 export function packageMeta(pkg: Package): string {
   if (pkg.omitDuration) return pkg.priceLabel;
-  return `${pkg.priceLabel} · ${pkg.duration}`;
+  return `${pkg.priceLabel}, ${pkg.duration}`;
 }
 
 export interface EngagementType {

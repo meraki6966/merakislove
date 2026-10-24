@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/PageHero";
+import Panel, { PageStack } from "@/components/Panel";
 import ScrollReveal from "@/components/ScrollReveal";
 import PackageSection from "@/components/PackageSection";
 import PackageActions from "@/components/PackageActions";
@@ -123,7 +124,7 @@ const serviceSchema = {
 
 export default function CustomPackagePage() {
   return (
-    <div className="mx-auto max-w-4xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
+    <PageStack>
       <Breadcrumb
         items={[
           { name: "Packages", path: "/packages" },
@@ -141,68 +142,77 @@ export default function CustomPackagePage() {
         />
       ))}
 
-      <PageHeader
-        eyebrow="Custom build"
+      <PageHero
+        art={{
+          src: "/art/custom.jpg",
+          alt: "Engraving of hands pinning a blueprint on a drafting table under a lamp.",
+        }}
+        kicker="Custom build"
         title="When the product is the business."
         subtitle="Full-stack products, private AI inside an existing tool, or a Presence-First site for a place people travel to feel. Scoped after a call. No guesswork price on a problem I have not seen."
       />
 
-      {/* What custom usually means */}
-      <PackageSection title="What custom usually means">
-        <div className="flex flex-col gap-8">
-          {disciplines.map((discipline, i) => (
-            <ScrollReveal key={discipline.name} delay={i * 0.06}>
-              <div className="flex flex-col gap-3 border-l-2 border-amber pl-6">
-                <h3 className="font-display text-2xl font-light text-smoke">
-                  {discipline.name}
-                </h3>
-                <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-                  {discipline.detail}
-                </p>
-                {discipline.href ? (
-                  <Link
-                    href={discipline.href}
-                    className="group inline-flex w-fit items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:text-smoke"
-                  >
-                    {discipline.hrefLabel}
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </Link>
-                ) : null}
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </PackageSection>
+      <Panel tone="paper" width="4xl">
+        {/* What custom usually means */}
+        <PackageSection title="What custom usually means">
+          <div className="flex flex-col gap-8">
+            {disciplines.map((discipline, i) => (
+              <ScrollReveal key={discipline.name} delay={i * 0.06}>
+                <div className="flex flex-col gap-3 border-l-2 border-amber pl-6">
+                  <h3 className="type-heading text-2xl text-smoke">
+                    {discipline.name}
+                  </h3>
+                  <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+                    {discipline.detail}
+                  </p>
+                  {discipline.href ? (
+                    <Link
+                      href={discipline.href}
+                      className="group inline-flex w-fit items-center gap-3 font-sans font-semibold text-sm text-amber transition-colors duration-300 hover:text-smoke"
+                    >
+                      {discipline.hrefLabel}
+                    </Link>
+                  ) : null}
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </PackageSection>
 
-      {/* Security in the build */}
-      <PackageSection title="Security in the build">
-        <ScrollReveal>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            {security}
-          </p>
-        </ScrollReveal>
-      </PackageSection>
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* Security in the build */}
+        <PackageSection title="Security in the build">
+          <ScrollReveal>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {security}
+            </p>
+          </ScrollReveal>
+        </PackageSection>
 
-      {/* How scoping works */}
-      <PackageSection title="How scoping works">
-        <ScrollReveal>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            {scoping}
-          </p>
-        </ScrollReveal>
-      </PackageSection>
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* How scoping works */}
+        <PackageSection title="How scoping works">
+          <ScrollReveal>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {scoping}
+            </p>
+          </ScrollReveal>
+        </PackageSection>
 
-      {/* Timeline */}
-      <PackageSection title="Timeline">
-        <ScrollReveal>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            {timeline}
-          </p>
-          <PackageActions label={pkg.cta} />
-        </ScrollReveal>
-      </PackageSection>
-    </div>
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* Timeline */}
+        <PackageSection title="Timeline">
+          <ScrollReveal>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {timeline}
+            </p>
+            <PackageActions label={pkg.cta} />
+          </ScrollReveal>
+        </PackageSection>
+      </Panel>
+    </PageStack>
   );
 }

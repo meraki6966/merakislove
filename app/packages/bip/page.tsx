@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/PageHero";
+import Panel, { PageStack } from "@/components/Panel";
 import ScrollReveal from "@/components/ScrollReveal";
 import PackageSection from "@/components/PackageSection";
 import PackageActions from "@/components/PackageActions";
@@ -119,7 +120,7 @@ const serviceSchema = {
 
 export default function BipPackagePage() {
   return (
-    <div className="mx-auto max-w-4xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
+    <PageStack>
       <Breadcrumb
         items={[
           { name: "Packages", path: "/packages" },
@@ -137,122 +138,140 @@ export default function BipPackagePage() {
         />
       ))}
 
-      <PageHeader
-        eyebrow="Meraki BIP"
+      <PageHero
+        art={{
+          src: "/art/bip.jpg",
+          alt: "Engraving of a brass switchboard of dials and lamps, one hand adjusting a dial.",
+        }}
+        kicker="Meraki BIP"
         title="Your practice. Not another dashboard you babysit."
         subtitle="From $7,000. Six weeks. Built for pastors, billers, advisors, and firms who need leads, answers, and follow-up without standing up a tech team."
       />
 
-      {/* The problem */}
-      <PackageSection title="The problem">
-        <ScrollReveal>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
-            {problem}
-          </p>
-        </ScrollReveal>
-      </PackageSection>
+      <Panel tone="paper" width="4xl">
+        {/* The problem */}
+        <PackageSection title="The problem">
+          <ScrollReveal>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
+              {problem}
+            </p>
+          </ScrollReveal>
+        </PackageSection>
 
-      {/* What's in the base package */}
-      <PackageSection title="What's in the base package">
-        <ul className="flex flex-col gap-px overflow-hidden rounded-xl border border-border bg-border">
-          {basePackage.map((item, i) => (
-            <ScrollReveal
-              key={item}
-              as="li"
-              delay={i * 0.05}
-              className="bg-void px-6 py-5 font-body text-base leading-relaxed text-smoke-dim sm:px-8"
-            >
-              {item}
-            </ScrollReveal>
-          ))}
-        </ul>
-        <ScrollReveal className="mt-8 flex flex-col gap-4">
-          <p className="max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
-            {addOns}
-          </p>
-          <p className="max-w-2xl border-l-2 border-amber pl-5 font-body text-base leading-relaxed text-smoke">
-            {byName}{" "}
-            <a
-              href={merakiBip}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-amber underline underline-offset-4 transition-colors duration-300 hover:text-smoke"
-            >
-              merakibip.com
-            </a>
-            .
-          </p>
-        </ScrollReveal>
-      </PackageSection>
-
-      {/* Who it fits */}
-      <PackageSection title="Who it fits">
-        <ScrollReveal>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            {fits}
-          </p>
-        </ScrollReveal>
-      </PackageSection>
-
-      {/* Who it does not fit */}
-      <PackageSection title="Who it does not fit">
-        <ScrollReveal>
-          <ul className="flex flex-col gap-3">
-            {doesNotFit.map((item) => (
-              <li
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* What's in the base package */}
+        <PackageSection title="What's in the base package">
+          <ul className="flex flex-col gap-px overflow-hidden rounded-xl border bg-border">
+            {basePackage.map((item, i) => (
+              <ScrollReveal
                 key={item}
-                className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
+                as="li"
+                delay={i * 0.05}
+                className="bg-void px-6 py-5 font-body text-base leading-relaxed text-smoke-dim sm:px-8"
               >
-                <span
-                  aria-hidden
-                  className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-muted"
-                />
                 {item}
-              </li>
+              </ScrollReveal>
             ))}
           </ul>
-        </ScrollReveal>
-      </PackageSection>
+          <ScrollReveal className="mt-8 flex flex-col gap-4">
+            <p className="max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
+              {addOns}
+            </p>
+            <p className="max-w-2xl border-l-2 border-amber pl-5 font-body text-base leading-relaxed text-smoke">
+              {byName}{" "}
+              <a
+                href={merakiBip}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber underline underline-offset-4 transition-colors duration-300 hover:text-smoke"
+              >
+                merakibip.com
+              </a>
+              .
+            </p>
+          </ScrollReveal>
+        </PackageSection>
 
-      {/* How the six weeks run */}
-      <PackageSection title="How the six weeks run">
-        <ol className="flex flex-col gap-5">
-          {weeks.map((step, i) => (
-            <ScrollReveal
-              key={step.when}
-              as="li"
-              delay={i * 0.06}
-              className="flex flex-col gap-1 border-l-2 border-border pl-6 sm:flex-row sm:gap-6"
-            >
-              <span className="font-mono text-sm tracking-[0.16em] text-amber sm:w-32 sm:shrink-0">
-                {step.when}
-              </span>
-              <span className="font-body text-base leading-relaxed text-smoke-dim">
-                {step.what}
-              </span>
-            </ScrollReveal>
-          ))}
-        </ol>
-      </PackageSection>
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* Who it fits */}
+        <PackageSection title="Who it fits">
+          <ScrollReveal>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {fits}
+            </p>
+          </ScrollReveal>
+        </PackageSection>
 
-      {/* Guardrails that matter */}
-      <PackageSection title="Guardrails that matter">
-        <ScrollReveal>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            {guardrails}
-          </p>
-        </ScrollReveal>
-      </PackageSection>
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* Who it does not fit */}
+        <PackageSection title="Who it does not fit">
+          <ScrollReveal>
+            <ul className="flex flex-col gap-3">
+              {doesNotFit.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-muted"
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </ScrollReveal>
+        </PackageSection>
 
-      {/* Price */}
-      <PackageSection title="Price">
-        <ScrollReveal>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            {price}
-          </p>
-          <PackageActions label={pkg.cta} bookCall />
-        </ScrollReveal>
-      </PackageSection>
-    </div>
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* How the six weeks run */}
+        <PackageSection title="How the six weeks run">
+          <ol className="flex flex-col gap-5">
+            {weeks.map((step, i) => (
+              <ScrollReveal
+                key={step.when}
+                as="li"
+                delay={i * 0.06}
+                className="flex flex-col gap-1 border-l-2 border-border pl-6 sm:flex-row sm:gap-6"
+              >
+                <span className="font-sans font-semibold text-sm text-amber sm:w-32 sm:shrink-0">
+                  {step.when}
+                </span>
+                <span className="font-body text-base leading-relaxed text-smoke-dim">
+                  {step.what}
+                </span>
+              </ScrollReveal>
+            ))}
+          </ol>
+        </PackageSection>
+
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* Guardrails that matter */}
+        <PackageSection title="Guardrails that matter">
+          <ScrollReveal>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {guardrails}
+            </p>
+          </ScrollReveal>
+        </PackageSection>
+
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* Price */}
+        <PackageSection title="Price">
+          <ScrollReveal>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {price}
+            </p>
+            <PackageActions label={pkg.cta} bookCall />
+          </ScrollReveal>
+        </PackageSection>
+      </Panel>
+    </PageStack>
   );
 }
