@@ -133,6 +133,37 @@
   line-height: 1;
 }
 
+/* Panel tones. Inner pages were written for the dark theme, so a light
+   panel re-points the theme tokens instead of rewriting every class: inside
+   .tone-paper, text-smoke is dark plum ink, bg-navy is a pale lilac card,
+   bg-amber is plum with white text, and so on. Tailwind v4 utilities read
+   these variables, so the swap reaches every element in the panel. */
+.tone-paper {
+  --color-void: #ffffff;
+  --color-navy: #f5f0fa;
+  --color-smoke: #1d0f2e;
+  --color-smoke-dim: #45375a;
+  --color-muted: #6b5a85;
+  --color-deep-muted: #d9cde6;
+  --color-border: #e8e0f0;
+  --color-border-mid: #d6c9e4;
+  --color-amber: #2d005e;
+  --color-amber-dim: rgba(45, 0, 94, 0.06);
+  --color-amber-glow: rgba(45, 0, 94, 0.14);
+  --color-gold: #4a1f80;
+  background-color: #ffffff;
+  color: #1d0f2e;
+}
+.tone-paper .text-void { color: #ffffff; }
+.tone-plum {
+  --color-navy: #3a0f73;
+  --color-border: #4a1f80;
+  --color-border-mid: #5a2c94;
+  --color-smoke-dim: #ddd0ee;
+  background-color: #2d005e;
+}
+.tone-dusk { background-color: #261a2e; }
+
 /* The one motion moment: the hero settles in on load. */
 @keyframes hero-in {
   from { opacity: 0; transform: translateY(14px); }

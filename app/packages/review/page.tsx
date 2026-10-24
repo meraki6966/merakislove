@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/PageHero";
+import Panel, { PageStack } from "@/components/Panel";
 import ScrollReveal from "@/components/ScrollReveal";
 import PackageSection from "@/components/PackageSection";
 import PackageActions from "@/components/PackageActions";
@@ -105,7 +106,7 @@ const serviceSchema = {
 
 export default function ReviewPackagePage() {
   return (
-    <div className="mx-auto max-w-4xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
+    <PageStack>
       <Breadcrumb
         items={[
           { name: "Packages", path: "/packages" },
@@ -123,149 +124,167 @@ export default function ReviewPackagePage() {
         />
       ))}
 
-      <PageHeader
-        eyebrow="Review"
+      <PageHero
+        art={{
+          src: "/art/review.jpg",
+          alt: "Engraving of a brass magnifying glass over an open ledger, with a pen and a small padlock.",
+        }}
+        kicker="Review"
         title="Security before the headline."
         subtitle="Five days. A report you can stand on. For SaaS founders, AI builders, and service businesses putting real data through a model or a site."
       />
 
-      {/* Price */}
-      <PackageSection title="Price">
-        <div className="grid gap-6 sm:grid-cols-2">
-          {pkg.tiers?.map((tier, i) => (
-            <ScrollReveal key={tier.name} delay={i * 0.08} className="h-full">
-              <TiltCard className="h-full bg-navy/40">
-                <div className="flex h-full flex-col gap-4 p-7">
-                  <h3 className="font-display text-2xl font-light leading-tight text-smoke">
-                    {tier.name}
-                  </h3>
-                  <p className="mt-auto font-display text-4xl font-light text-amber">
-                    {tier.price}
+      <Panel tone="paper" width="4xl">
+        {/* Price */}
+        <PackageSection title="Price">
+          <div className="grid gap-6 sm:grid-cols-2">
+            {pkg.tiers?.map((tier, i) => (
+              <ScrollReveal key={tier.name} delay={i * 0.08} className="h-full">
+                <TiltCard className="h-full bg-navy/40">
+                  <div className="flex h-full flex-col gap-4 p-7">
+                    <h3 className="type-heading text-2xl text-smoke">
+                      {tier.name}
+                    </h3>
+                    <p className="mt-auto type-heading text-4xl text-amber">
+                      {tier.price}
+                    </p>
+                  </div>
+                </TiltCard>
+              </ScrollReveal>
+            ))}
+          </div>
+        </PackageSection>
+
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* Who this is for */}
+        <PackageSection title="Who this is for">
+          <ul className="flex flex-col gap-px overflow-hidden rounded-xl border bg-border">
+            {audience.map((line, i) => (
+              <ScrollReveal
+                key={line}
+                as="li"
+                delay={i * 0.05}
+                className="bg-void px-6 py-5 font-body text-base leading-relaxed text-smoke-dim sm:px-8"
+              >
+                {line}
+              </ScrollReveal>
+            ))}
+          </ul>
+        </PackageSection>
+
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* What I look at */}
+        <PackageSection title="What I look at" lead="Depends on the tier.">
+          <div className="flex flex-col gap-6">
+            {pkg.tiers?.map((tier, i) => (
+              <ScrollReveal key={tier.name} delay={i * 0.06}>
+                <div className="flex flex-col gap-3 border-l-2 border-amber pl-6">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="font-sans font-semibold text-sm text-amber">
+                      {tier.price}
+                    </span>
+                    <span className="type-heading text-xl text-smoke">
+                      {tier.label}
+                    </span>
+                  </div>
+                  <p className="font-body text-sm leading-relaxed text-smoke-dim">
+                    {tier.scope}
                   </p>
                 </div>
-              </TiltCard>
+              </ScrollReveal>
+            ))}
+            <ScrollReveal delay={0.12}>
+              <p className="max-w-2xl font-body text-base leading-relaxed text-smoke">
+                {bothTiersInclude}
+              </p>
             </ScrollReveal>
-          ))}
-        </div>
-      </PackageSection>
+          </div>
+        </PackageSection>
 
-      {/* Who this is for */}
-      <PackageSection title="Who this is for">
-        <ul className="flex flex-col gap-px overflow-hidden rounded-xl border border-border bg-border">
-          {audience.map((line, i) => (
-            <ScrollReveal
-              key={line}
-              as="li"
-              delay={i * 0.05}
-              className="bg-void px-6 py-5 font-body text-base leading-relaxed text-smoke-dim sm:px-8"
-            >
-              {line}
-            </ScrollReveal>
-          ))}
-        </ul>
-      </PackageSection>
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* What you get */}
+        <PackageSection title="What you get">
+          <ScrollReveal>
+            <ul className="flex flex-wrap gap-2.5">
+              {deliverables.map((item) => (
+                <li key={item}>
+                  <Tag>{item}</Tag>
+                </li>
+              ))}
+            </ul>
+          </ScrollReveal>
+        </PackageSection>
 
-      {/* What I look at */}
-      <PackageSection title="What I look at" lead="Depends on the tier.">
-        <div className="flex flex-col gap-6">
-          {pkg.tiers?.map((tier, i) => (
-            <ScrollReveal key={tier.name} delay={i * 0.06}>
-              <div className="flex flex-col gap-3 border-l-2 border-amber pl-6">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="font-mono text-sm tracking-[0.16em] text-amber">
-                    {tier.price}
-                  </span>
-                  <span className="font-display text-xl font-light text-smoke">
-                    {tier.label}
-                  </span>
-                </div>
-                <p className="font-body text-sm leading-relaxed text-smoke-dim">
-                  {tier.scope}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
-          <ScrollReveal delay={0.12}>
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* What you do not get */}
+        <PackageSection title="What you do not get">
+          <ScrollReveal className="flex flex-col gap-5">
+            <ul className="flex flex-col gap-3">
+              {notIncluded.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-muted"
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
             <p className="max-w-2xl font-body text-base leading-relaxed text-smoke">
-              {bothTiersInclude}
+              {notIncludedClose}
             </p>
           </ScrollReveal>
-        </div>
-      </PackageSection>
+        </PackageSection>
 
-      {/* What you get */}
-      <PackageSection title="What you get">
-        <ScrollReveal>
-          <ul className="flex flex-wrap gap-2.5">
-            {deliverables.map((item) => (
-              <li key={item}>
-                <Tag>{item}</Tag>
-              </li>
-            ))}
-          </ul>
-        </ScrollReveal>
-      </PackageSection>
-
-      {/* What you do not get */}
-      <PackageSection title="What you do not get">
-        <ScrollReveal className="flex flex-col gap-5">
-          <ul className="flex flex-col gap-3">
-            {notIncluded.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* Timeline */}
+        <PackageSection title="Timeline">
+          <ol className="flex flex-col gap-5">
+            {timeline.map((step, i) => (
+              <ScrollReveal
+                key={step.when}
+                as="li"
+                delay={i * 0.06}
+                className="flex flex-col gap-1 border-l-2 border-border pl-6 sm:flex-row sm:gap-6"
               >
-                <span
-                  aria-hidden
-                  className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-muted"
-                />
-                {item}
-              </li>
+                <span className="font-sans font-semibold text-sm text-amber sm:w-32 sm:shrink-0">
+                  {step.when}
+                </span>
+                <span className="font-body text-base leading-relaxed text-smoke-dim">
+                  {step.what}
+                </span>
+              </ScrollReveal>
             ))}
-          </ul>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke">
-            {notIncludedClose}
-          </p>
-        </ScrollReveal>
-      </PackageSection>
+          </ol>
+        </PackageSection>
 
-      {/* Timeline */}
-      <PackageSection title="Timeline">
-        <ol className="flex flex-col gap-5">
-          {timeline.map((step, i) => (
-            <ScrollReveal
-              key={step.when}
-              as="li"
-              delay={i * 0.06}
-              className="flex flex-col gap-1 border-l-2 border-border pl-6 sm:flex-row sm:gap-6"
-            >
-              <span className="font-mono text-sm tracking-[0.16em] text-amber sm:w-32 sm:shrink-0">
-                {step.when}
-              </span>
-              <span className="font-body text-base leading-relaxed text-smoke-dim">
-                {step.what}
-              </span>
-            </ScrollReveal>
-          ))}
-        </ol>
-      </PackageSection>
-
-      {/* How to start */}
-      <PackageSection title="How to start">
-        <ScrollReveal>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            Send the URL or the repo context. We agree on tier before I begin.
-          </p>
-          <PackageActions label={pkg.cta} bookCall />
-          <p className="mt-8 max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
-            Not sure where your team stands with AI tools? Start with the free{" "}
-            <Link href="/shadow-ai" className="text-amber underline underline-offset-4 hover:text-smoke">
-              Shadow AI self-assessment
-            </Link>
-            . Your answers never leave your browser.
-          </p>
-        </ScrollReveal>
-      </PackageSection>
-    </div>
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* How to start */}
+        <PackageSection title="How to start">
+          <ScrollReveal>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              Send the URL or the repo context. We agree on tier before I begin.
+            </p>
+            <PackageActions label={pkg.cta} bookCall />
+            <p className="mt-8 max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
+              Not sure where your team stands with AI tools? Start with the free{" "}
+              <Link href="/shadow-ai" className="text-amber underline underline-offset-4 hover:text-smoke">
+                Shadow AI self-assessment
+              </Link>
+              . Your answers never leave your browser.
+            </p>
+          </ScrollReveal>
+        </PackageSection>
+      </Panel>
+    </PageStack>
   );
 }

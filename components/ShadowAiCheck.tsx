@@ -61,10 +61,10 @@ export default function ShadowAiCheck() {
           <li key={q.id}>
             <fieldset>
               <legend className="mb-5 flex gap-4">
-                <span className="pt-1.5 font-mono text-xs tracking-[0.18em] text-amber">
+                <span className="pt-1.5 font-sans font-semibold text-sm text-amber">
                   {String(qi + 1).padStart(2, "0")}
                 </span>
-                <span className="font-display text-2xl font-light leading-snug text-smoke sm:text-[1.7rem]">
+                <span className="type-heading text-2xl text-smoke sm:text-[1.7rem]">
                   {q.prompt}
                 </span>
               </legend>
@@ -97,7 +97,7 @@ export default function ShadowAiCheck() {
       </ol>
 
       <div className="mt-14 flex flex-col gap-4 border-t border-border-mid pt-10 sm:flex-row sm:items-center sm:justify-between">
-        <p id="shadow-ai-progress" className="font-mono text-xs uppercase tracking-[0.18em] text-smoke-dim">
+        <p id="shadow-ai-progress" className="font-sans font-semibold text-sm text-smoke-dim">
           {answered} of {QUESTIONS.length} answered
         </p>
         <button
@@ -105,7 +105,7 @@ export default function ShadowAiCheck() {
           onClick={() => setShowResult(true)}
           disabled={!complete}
           aria-describedby="shadow-ai-progress"
-          className="inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
+          className="inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-3.5 font-sans font-semibold text-sm text-void transition-transform duration-300 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
         >
           See my result
         </button>
@@ -117,18 +117,18 @@ export default function ShadowAiCheck() {
           aria-labelledby="shadow-ai-result"
           className="mt-14 scroll-mt-28 rounded-2xl border border-border-mid bg-navy/40 p-7 sm:p-10"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
+          <p className="font-sans font-semibold text-sm text-amber">
             Your result
           </p>
           <h2
             id="shadow-ai-result"
             ref={resultHeading}
             tabIndex={-1}
-            className="mt-4 font-display text-4xl font-light text-smoke outline-none sm:text-5xl"
+            className="mt-4 type-heading text-4xl text-smoke outline-none sm:text-5xl"
           >
             {band.label}
           </h2>
-          <p className="mt-3 font-mono text-sm tracking-[0.12em] text-smoke-dim">
+          <p className="mt-3 font-sans font-semibold text-sm text-smoke-dim">
             {total} of {MAX_SCORE} points. Higher means more exposed.
           </p>
           <p className="mt-6 max-w-2xl font-body text-base leading-relaxed text-smoke">
@@ -139,8 +139,8 @@ export default function ShadowAiCheck() {
             <ol className="mt-10 flex flex-col gap-8">
               {gaps.map((q, i) => (
                 <li key={q.id} className="border-l-2 border-amber pl-6">
-                  <h3 className="font-display text-2xl font-light text-smoke">
-                    <span className="mr-3 font-mono text-xs tracking-[0.18em] text-amber">
+                  <h3 className="type-heading text-2xl text-smoke">
+                    <span className="mr-3 font-sans font-semibold text-sm text-amber">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {q.gap.title}
@@ -149,7 +149,7 @@ export default function ShadowAiCheck() {
                     {q.gap.why}
                   </p>
                   <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-smoke">
-                    <span className="font-mono text-xs uppercase tracking-[0.16em] text-amber">
+                    <span className="font-sans font-semibold text-sm text-amber">
                       First step:
                     </span>{" "}
                     {q.gap.first}
@@ -168,17 +168,14 @@ export default function ShadowAiCheck() {
               href={calendly.newProject}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
+              className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-3.5 font-sans font-semibold text-sm text-void transition-transform duration-300 hover:scale-[1.02]"
             >
               Book a call about your result
-              <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
             </a>
             <button
               type="button"
               onClick={startOver}
-              className="inline-flex items-center justify-center gap-3 rounded-full border border-border-mid px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:border-amber hover:text-amber"
+              className="inline-flex items-center justify-center gap-3 rounded-full border border-border-mid px-7 py-3.5 font-sans font-semibold text-sm text-smoke transition-colors duration-300 hover:border-amber hover:text-amber"
             >
               Start over
             </button>

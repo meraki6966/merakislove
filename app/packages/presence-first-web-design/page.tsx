@@ -293,9 +293,6 @@ export default function PresenceFirstWebDesignPage() {
               className={styles.buttonSolid}
             >
               Schedule a call
-              <span aria-hidden className={styles.arrow}>
-                →
-              </span>
             </a>
           </div>
         </div>
@@ -363,9 +360,7 @@ export default function PresenceFirstWebDesignPage() {
                 key={tier.name}
                 data-pf-reveal
                 data-pf-delay={(i * 0.08).toFixed(2)}
-                className={`${styles.tierCard} ${
-                  tier.featured ? styles.tierFeatured : ""
-                }`}
+                className={`${styles.tierCard} ${tier.featured ? styles.tierFeatured : "" }`}
               >
                 {tier.featured ? (
                   <p className={styles.tierFlag}>Most chosen</p>
@@ -412,7 +407,7 @@ export default function PresenceFirstWebDesignPage() {
               <li key={step.number} data-pf-reveal className={styles.timelineStep}>
                 <span aria-hidden className={styles.timelineDot} />
                 <p className={styles.timelineWhen}>
-                  {step.number} · {step.when}
+                  {step.number}, {step.when}
                 </p>
                 <h3 className={styles.timelineTitle}>{step.title}</h3>
                 <p className={styles.timelineBody}>{step.body}</p>
@@ -479,9 +474,6 @@ export default function PresenceFirstWebDesignPage() {
               className={styles.buttonSolid}
             >
               View the live demo
-              <span aria-hidden className={styles.arrow}>
-                →
-              </span>
             </a>
             {/* Static file under /public, so a plain anchor rather than
                 next/link, same as the demo link above it. */}
@@ -531,9 +523,6 @@ export default function PresenceFirstWebDesignPage() {
               className={styles.buttonSolid}
             >
               Schedule a call
-              <span aria-hidden className={styles.arrow}>
-                →
-              </span>
             </a>
             <Link href="/packages" className={styles.buttonGhost}>
               See all packages

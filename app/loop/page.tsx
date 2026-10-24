@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
-import LoopAnimation from "@/components/LoopAnimation";
+import PageHero from "@/components/PageHero";
+import { PageStack } from "@/components/Panel";
 import Breadcrumb from "@/components/Breadcrumb";
 import { calendly, ogBase } from "@/lib/site";
 
@@ -81,79 +82,44 @@ export default function LoopPage() {
   return (
     <>
       <Breadcrumb items={[{ name: "The Loop", path: "/loop" }]} />
-    <>
-      {/* Hero */}
-      <section className="relative flex min-h-screen items-center overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute -right-40 top-1/4 h-96 w-96 rounded-full opacity-20 blur-[120px]"
-          style={{ background: "var(--color-amber)" }}
-        />
-
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-16 px-6 py-32 sm:px-8 lg:grid-cols-2">
-          <div>
-            <ScrollReveal>
-              <p className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-amber">
-                The System
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.08}>
-              <h1 className="max-w-xl font-display text-5xl font-light leading-[1.04] text-smoke sm:text-6xl lg:text-7xl">
-                The Meraki is Love{" "}
-                <span className="text-amber">Loop</span>
-              </h1>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.16}>
-              <p className="mt-8 max-w-xl font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
-                Audit. Fix. Scale. Three stages that feed each other, a free
-                look at where you stand, a focused rebuild of what is holding
-                you back, and an engine built to grow what is left. Then it
-                loops, because a business worth building is never finished.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.24}>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <a
-                  href={calendly.newProject}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
-                >
-                  Book a call
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </a>
-                <a
-                  href={canopyGuard}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 rounded-full border border-border-mid px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:border-amber hover:text-amber"
-                >
-                  Start the free audit
-                </a>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          {/* Looping animation */}
-          <ScrollReveal delay={0.2} className="order-first lg:order-last">
-            <LoopAnimation />
-          </ScrollReveal>
+    <PageStack>
+      <PageHero
+        kicker="The system"
+        title="The Meraki is Love Loop"
+        subtitle="Audit. Fix. Scale. Three stages that feed each other, a free look at where you stand, a focused rebuild of what is holding you back, and an engine built to grow what is left. Then it loops, because a business worth building is never finished."
+        art={{
+          src: "/art/loop.jpg",
+          alt: "Engraving of three interlocking brass gears on a wooden base, with a lens over one, a wrench by another and a small lamp on the third.",
+        }}
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <a
+            href={calendly.newProject}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-full bg-amber! px-7 py-4 font-sans text-base font-semibold text-void transition-colors hover:bg-gold!"
+          >
+            Book a call
+          </a>
+          <a
+            href={canopyGuard}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-full px-7 py-4 font-sans text-base font-semibold text-smoke ring-1 ring-smoke/40 transition-colors hover:ring-amber"
+          >
+            Start the free audit
+          </a>
         </div>
-      </section>
+      </PageHero>
 
       {/* Stages */}
-      <section className="border-t border-border bg-navy/30">
-        <div className="mx-auto max-w-6xl px-6 py-24 sm:px-8 sm:py-32">
+      <section className="tone-paper overflow-hidden rounded-[28px]">
+        <div className="mx-auto max-w-6xl px-6 py-14 sm:px-10 sm:py-20 lg:py-24">
           <ScrollReveal className="mb-16 flex flex-col gap-5">
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
+            <p className="font-sans font-semibold text-sm text-amber">
               Three stages
             </p>
-            <h2 className="max-w-2xl font-display text-4xl font-light leading-[1.08] text-smoke sm:text-5xl">
+            <h2 className="max-w-2xl type-heading text-4xl text-smoke sm:text-5xl">
               One loop, three movements.
             </h2>
             <p className="max-w-xl font-body text-smoke-dim">
@@ -167,20 +133,20 @@ export default function LoopPage() {
               <ScrollReveal key={stage.name} delay={i * 0.06}>
                 <article className="grid gap-8 rounded-2xl border border-border-mid bg-void p-8 sm:p-12 md:grid-cols-[auto_1fr]">
                   <div className="flex items-baseline gap-4 md:flex-col md:items-start md:gap-2">
-                    <span className="font-mono text-sm tracking-[0.2em] text-amber">
+                    <span className="font-sans font-semibold text-sm text-amber">
                       {stage.number}
                     </span>
-                    <h3 className="font-display text-3xl font-light text-smoke sm:text-4xl">
+                    <h3 className="type-heading text-3xl text-smoke sm:text-4xl">
                       {stage.name}
                     </h3>
                   </div>
 
                   <div className="flex flex-col gap-6">
                     <div className="flex flex-col gap-1">
-                      <p className="font-display text-3xl font-light text-amber">
+                      <p className="type-heading text-3xl text-amber">
                         {stage.price}
                       </p>
-                      <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted">
+                      <p className="font-sans font-semibold text-xs text-muted">
                         {stage.priceNote}
                       </p>
                     </div>
@@ -202,7 +168,7 @@ export default function LoopPage() {
                     </ul>
 
                     <div className="flex flex-col gap-4 border-t border-border pt-5 sm:flex-row sm:items-center sm:justify-between">
-                      <p className="font-mono text-[0.72rem] uppercase tracking-[0.14em] text-amber">
+                      <p className="font-sans font-semibold text-[0.72rem] text-amber">
                         {stage.footnote}
                       </p>
                       {stage.name === "Audit" ? (
@@ -210,24 +176,18 @@ export default function LoopPage() {
                           href={canopyGuard}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:text-amber sm:whitespace-nowrap"
+                          className="group inline-flex items-center gap-3 font-sans font-semibold text-sm text-smoke transition-colors duration-300 hover:text-amber sm:whitespace-nowrap"
                         >
                           Visit thecanopyguard.com
-                          <span className="transition-transform duration-300 group-hover:translate-x-1">
-                            →
-                          </span>
                         </a>
                       ) : stage.name === "Scale" ? (
                         <a
                           href={merakiBip}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:text-amber sm:whitespace-nowrap"
+                          className="group inline-flex items-center gap-3 font-sans font-semibold text-sm text-smoke transition-colors duration-300 hover:text-amber sm:whitespace-nowrap"
                         >
                           See plans at merakibip.com
-                          <span className="transition-transform duration-300 group-hover:translate-x-1">
-                            →
-                          </span>
                         </a>
                       ) : null}
                     </div>
@@ -240,21 +200,13 @@ export default function LoopPage() {
       </section>
 
       {/* Closing: then it loops */}
-      <section className="relative overflow-hidden border-y border-border-mid">
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(135deg, var(--color-amber-glow) 0%, transparent 45%)",
-          }}
-        />
-        <div className="relative mx-auto max-w-4xl px-6 py-28 sm:px-8 sm:py-40">
+      <section className="tone-dusk overflow-hidden rounded-[28px]">
+        <div className="mx-auto max-w-4xl px-6 py-14 sm:px-10 sm:py-20 lg:py-24">
           <ScrollReveal className="flex flex-col items-start gap-8">
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
+            <p className="font-sans font-semibold text-sm text-amber">
               And then
             </p>
-            <h2 className="font-display text-4xl font-light leading-[1.1] text-smoke sm:text-6xl">
+            <h2 className="type-heading text-4xl text-smoke sm:text-6xl">
               Then it loops.
             </h2>
             <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
@@ -277,18 +229,15 @@ export default function LoopPage() {
                 href={calendly.newProject}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
+                className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-sans font-semibold text-sm text-void transition-transform duration-300 hover:scale-[1.02]"
               >
                 Book a call
-                <span className="transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
               </a>
               <a
                 href={canopyGuard}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 rounded-full border border-amber px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:bg-amber! hover:text-void"
+                className="inline-flex items-center justify-center gap-3 rounded-full border border-amber px-7 py-3.5 font-sans font-semibold text-sm text-amber transition-colors duration-300 hover:bg-amber! hover:text-void"
               >
                 Get your free audit
               </a>
@@ -296,7 +245,7 @@ export default function LoopPage() {
           </ScrollReveal>
         </div>
       </section>
-    </>
+    </PageStack>
     </>
   );
 }

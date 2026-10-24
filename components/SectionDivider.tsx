@@ -1,15 +1,8 @@
-/** 40px amber line divider. Centered by default; pass align="left" for a left-anchored rule. */
-export default function SectionDivider({
-  align = "center",
-}: {
-  align?: "center" | "left";
-}) {
-  return (
-    <div
-      aria-hidden
-      className={align === "center" ? "flex justify-center" : "flex justify-start"}
-    >
-      <span className="block h-px w-10 bg-amber" />
-    </div>
-  );
+/**
+ * The 40px amber rule under headings was dropped in the 2026-10 redesign;
+ * headings carry the hierarchy on their own now. Kept as a no-op so the
+ * call sites can come out page by page.
+ */
+export default function SectionDivider(_props: { align?: "center" | "left" }) {
+  return null;
 }

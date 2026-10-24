@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/PageHero";
+import Panel, { PageStack } from "@/components/Panel";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionDivider from "@/components/SectionDivider";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -108,7 +109,7 @@ const theName = [
 function SectionLabel({ children }: { children: string }) {
   return (
     <ScrollReveal className="mb-8 flex flex-col gap-5">
-      <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-amber">
+      <h2 className="type-heading text-[clamp(2rem,3.6vw,3rem)] text-smoke">
         {children}
       </h2>
       <SectionDivider align="left" />
@@ -120,176 +121,191 @@ export default function AboutPage() {
   return (
     <>
       <Breadcrumb items={[{ name: "About", path: "/about" }]} />
-    <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
-      <PageHeader
-        eyebrow="About"
+    <PageStack>
+      <PageHero
+        art={{
+          src: "/art/about.jpg",
+          alt: "Engraving of a desk by a window at sunrise, with a cup of coffee, an open notebook and a closed laptop.",
+        }}
+        kicker="About"
         title="The studio is small on purpose."
         subtitle="Meraki is Love is the company. Soulful Tech is the standard. I am Adam McClarin. I design and ship the work myself."
       />
 
-      {/* The work */}
-      <section className="mt-20 max-w-3xl">
-        <SectionLabel>The work</SectionLabel>
-        <ScrollReveal className="flex flex-col gap-8">
-          <p className="font-body text-xl leading-relaxed text-smoke sm:text-2xl">
-            {theWork}
-          </p>
-          <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
-            {credentials.map((credential) => (
-              <li
-                key={credential}
-                className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
+      <Panel tone="paper" width="6xl">
+        {/* The work */}
+        <section className="max-w-3xl">
+          <SectionLabel>The work</SectionLabel>
+          <ScrollReveal className="flex flex-col gap-8">
+            <p className="font-body text-xl leading-relaxed text-smoke sm:text-2xl">
+              {theWork}
+            </p>
+            <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
+              {credentials.map((credential) => (
+                <li
+                  key={credential}
+                  className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-amber"
+                  />
+                  {credential}
+                </li>
+              ))}
+            </ul>
+            <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
+              The writing, the books, and the practice live on{" "}
+              <a
+                href={studio.site}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber transition-colors hover:text-smoke"
               >
-                <span
-                  aria-hidden
-                  className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-amber"
-                />
-                {credential}
-              </li>
+                {studio.siteLabel}
+              </a>
+              . This site is for client work.
+            </p>
+          </ScrollReveal>
+        </section>
+
+      </Panel>
+      <Panel tone="ink" width="6xl">
+        {/* Why the studio exists */}
+        <section className="max-w-3xl">
+          <SectionLabel>Why the studio exists</SectionLabel>
+          <div className="flex flex-col gap-8">
+            {story.map((paragraph, i) => (
+              <ScrollReveal key={i} delay={i * 0.05}>
+                <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
+                  {paragraph}
+                </p>
+              </ScrollReveal>
             ))}
-          </ul>
-          <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
-            The writing, the books, and the practice live on{" "}
+          </div>
+        </section>
+
+      </Panel>
+      <Panel tone="paper" width="6xl">
+        {/* How the work gets made */}
+        <section className="max-w-3xl">
+          <SectionLabel>How the work gets made</SectionLabel>
+          <ScrollReveal className="mb-10">
+            <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
+              {practice.lead}{" "}
+              <Link
+                href="/#process"
+                className="text-amber transition-colors hover:text-smoke"
+              >
+                The four steps are on the homepage.
+              </Link>
+            </p>
+          </ScrollReveal>
+
+          <div className="flex flex-col gap-8">
+            {practice.paragraphs.map((paragraph, i) => (
+              <ScrollReveal key={i} delay={i * 0.05}>
+                <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
+                  {paragraph}
+                </p>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+
+      </Panel>
+      <Panel tone="ink" width="6xl">
+        {/* Who I take */}
+        <section className="max-w-3xl">
+          <SectionLabel>Who I take</SectionLabel>
+          <ScrollReveal className="flex flex-col gap-6">
+            <ul className="flex flex-col gap-3">
+              {takes.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim sm:text-lg"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-amber"
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
+              {takesClose}
+            </p>
+          </ScrollReveal>
+        </section>
+
+      </Panel>
+      <Panel tone="paper" width="6xl">
+        {/* Who I do not take */}
+        <section className="max-w-3xl">
+          <SectionLabel>Who I do not take</SectionLabel>
+          <ScrollReveal className="flex flex-col gap-6">
+            <ul className="flex flex-col gap-3">
+              {declines.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim sm:text-lg"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-muted"
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
+              {declinesClose}
+            </p>
+          </ScrollReveal>
+        </section>
+
+      </Panel>
+      <Panel tone="ink" width="6xl">
+        {/* The name */}
+        <section className="max-w-3xl">
+          <SectionLabel>The name</SectionLabel>
+          <div className="flex flex-col gap-8">
+            {theName.map((paragraph, i) => (
+              <ScrollReveal key={i} delay={i * 0.05}>
+                <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
+                  {paragraph}
+                </p>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+
+      </Panel>
+      <Panel tone="paper" width="6xl">
+        {/* Practical */}
+        <section className="max-w-3xl">
+          <SectionLabel>Practical</SectionLabel>
+          <ScrollReveal className="flex flex-col items-start gap-5">
+            <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
+              Nationwide. The work is remote.
+            </p>
             <a
-              href={studio.site}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-amber transition-colors hover:text-smoke"
+              href={`mailto:${email}`}
+              className="font-sans font-semibold text-sm text-smoke-dim transition-colors hover:text-amber"
             >
-              {studio.siteLabel}
+              {email}
             </a>
-            . This site is for client work.
-          </p>
-        </ScrollReveal>
-      </section>
-
-      {/* Why the studio exists */}
-      <section className="mt-24 max-w-3xl">
-        <SectionLabel>Why the studio exists</SectionLabel>
-        <div className="flex flex-col gap-8">
-          {story.map((paragraph, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
-              <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
-                {paragraph}
-              </p>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* How the work gets made */}
-      <section className="mt-24 max-w-3xl">
-        <SectionLabel>How the work gets made</SectionLabel>
-        <ScrollReveal className="mb-10">
-          <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
-            {practice.lead}{" "}
             <Link
-              href="/#process"
-              className="text-amber transition-colors hover:text-smoke"
+              href="/start"
+              className="group mt-3 inline-flex items-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-sans font-semibold text-sm text-void transition-transform duration-300 hover:scale-[1.02]"
             >
-              The four steps are on the homepage.
+              Book a call
             </Link>
-          </p>
-        </ScrollReveal>
-
-        <div className="flex flex-col gap-8">
-          {practice.paragraphs.map((paragraph, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
-              <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
-                {paragraph}
-              </p>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* Who I take */}
-      <section className="mt-24 max-w-3xl">
-        <SectionLabel>Who I take</SectionLabel>
-        <ScrollReveal className="flex flex-col gap-6">
-          <ul className="flex flex-col gap-3">
-            {takes.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim sm:text-lg"
-              >
-                <span
-                  aria-hidden
-                  className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-amber"
-                />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
-            {takesClose}
-          </p>
-        </ScrollReveal>
-      </section>
-
-      {/* Who I do not take */}
-      <section className="mt-24 max-w-3xl">
-        <SectionLabel>Who I do not take</SectionLabel>
-        <ScrollReveal className="flex flex-col gap-6">
-          <ul className="flex flex-col gap-3">
-            {declines.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim sm:text-lg"
-              >
-                <span
-                  aria-hidden
-                  className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-muted"
-                />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
-            {declinesClose}
-          </p>
-        </ScrollReveal>
-      </section>
-
-      {/* The name */}
-      <section className="mt-24 max-w-3xl">
-        <SectionLabel>The name</SectionLabel>
-        <div className="flex flex-col gap-8">
-          {theName.map((paragraph, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
-              <p className="font-body text-base leading-relaxed text-smoke-dim sm:text-lg">
-                {paragraph}
-              </p>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* Practical */}
-      <section className="mt-24 max-w-3xl">
-        <SectionLabel>Practical</SectionLabel>
-        <ScrollReveal className="flex flex-col items-start gap-5">
-          <p className="font-body text-base leading-relaxed text-smoke sm:text-lg">
-            Nationwide. The work is remote.
-          </p>
-          <a
-            href={`mailto:${email}`}
-            className="font-mono text-xs tracking-[0.14em] text-smoke-dim transition-colors hover:text-amber"
-          >
-            {email}
-          </a>
-          <Link
-            href="/start"
-            className="group mt-3 inline-flex items-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
-          >
-            Book a call
-            <span className="transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
-          </Link>
-        </ScrollReveal>
-      </section>
-    </div>
+          </ScrollReveal>
+        </section>
+      </Panel>
+    </PageStack>
     </>
   );
 }

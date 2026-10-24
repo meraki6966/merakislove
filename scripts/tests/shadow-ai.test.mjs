@@ -158,7 +158,7 @@ test("the Calendly link carries nothing from the page", () => {
 test("the page calls itself a self-assessment and says where answers go", () => {
   const page = read(PAGE);
   const component = read(COMPONENT);
-  assert.match(page, /eyebrow="Self-assessment"/);
+  assert.match(page, /kicker="Self-assessment"/);
   assert.match(page, /never receives your answers/);
   assert.match(page, /Nothing is sent and nothing is saved/);
   assert.match(component, /This is a self-assessment\./);

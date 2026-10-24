@@ -20,9 +20,9 @@ export default function PackageSection({
   children,
 }: PackageSectionProps) {
   return (
-    <section className="mt-20">
+    <section>
       <ScrollReveal className="mb-8 flex flex-col gap-4">
-        <h2 className="font-display text-3xl font-light text-smoke sm:text-4xl">
+        <h2 className="type-heading text-3xl text-smoke sm:text-4xl">
           {title}
         </h2>
         <SectionDivider align="left" />

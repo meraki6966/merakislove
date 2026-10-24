@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
+import Panel, { PageStack } from "@/components/Panel";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionDivider from "@/components/SectionDivider";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -128,7 +129,7 @@ const bookSchema = {
 
 export default function CookbookPage() {
   return (
-    <div className="mx-auto max-w-5xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
+    <PageStack>
       <Breadcrumb items={[{ name: "The AI Cookbook", path: "/cookbook" }]} />
 
       <script
@@ -136,7 +137,8 @@ export default function CookbookPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(bookSchema).replace(/</g, "\\u003c") }}
       />
 
-      <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_280px] lg:grid-cols-[minmax(0,1fr)_320px]">
+      <section className="tone-dusk overflow-hidden rounded-[28px]">
+      <div className="mx-auto grid max-w-5xl items-center gap-12 px-6 py-14 sm:px-10 sm:py-20 md:grid-cols-[minmax(0,1fr)_280px] lg:grid-cols-[minmax(0,1fr)_320px] lg:py-24">
         <div>
           <PageHeader
             eyebrow="The book"
@@ -148,11 +150,11 @@ export default function CookbookPage() {
               href={GUMROAD}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
+              className="inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-3.5 font-sans font-semibold text-sm text-void transition-transform duration-300 hover:scale-[1.02]"
             >
               Get the digital edition, $9.99
             </a>
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-smoke-dim">
+            <p className="font-sans font-semibold text-sm text-smoke-dim">
               Hardcover on Amazon, sold separately
             </p>
           </ScrollReveal>
@@ -171,10 +173,12 @@ export default function CookbookPage() {
           </div>
         </ScrollReveal>
       </div>
+      </section>
 
-      <section className="mt-24">
+      <Panel tone="paper" width="5xl">
+      <section>
         <ScrollReveal className="flex flex-col gap-4">
-          <h2 className="font-display text-3xl font-light text-smoke sm:text-4xl">Saturday mornings, written down</h2>
+          <h2 className="type-heading text-3xl text-smoke sm:text-4xl">Saturday mornings, written down</h2>
           <SectionDivider align="left" />
         </ScrollReveal>
         <ScrollReveal className="mt-8 flex max-w-2xl flex-col gap-5">
@@ -186,10 +190,12 @@ export default function CookbookPage() {
           </p>
         </ScrollReveal>
       </section>
+      </Panel>
 
-      <section className="mt-24">
+      <Panel tone="ink" width="5xl">
+      <section>
         <ScrollReveal className="flex flex-col gap-4">
-          <h2 className="font-display text-3xl font-light text-smoke sm:text-4xl">The menu</h2>
+          <h2 className="type-heading text-3xl text-smoke sm:text-4xl">The menu</h2>
           <SectionDivider align="left" />
           <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
             {RECIPE_COUNT} recipes in six courses.
@@ -199,7 +205,7 @@ export default function CookbookPage() {
           {courses.map((course, i) => (
             <ScrollReveal key={course.name} delay={i * 0.04} className="h-full">
               <div className="flex h-full flex-col gap-4 bg-void p-6 sm:p-7">
-                <h3 className="font-display text-2xl font-light text-amber">{course.name}</h3>
+                <h3 className="type-heading text-2xl text-amber">{course.name}</h3>
                 <ul className="flex flex-col gap-2">
                   {course.recipes.map((recipe) => (
                     <li key={recipe} className="font-body text-sm leading-relaxed text-smoke-dim">
@@ -212,10 +218,12 @@ export default function CookbookPage() {
           ))}
         </div>
       </section>
+      </Panel>
 
-      <section className="mt-24">
+      <Panel tone="paper" width="5xl">
+      <section>
         <ScrollReveal className="flex flex-col gap-4">
-          <h2 className="font-display text-3xl font-light text-smoke sm:text-4xl">What you get</h2>
+          <h2 className="type-heading text-3xl text-smoke sm:text-4xl">What you get</h2>
           <SectionDivider align="left" />
         </ScrollReveal>
         <ScrollReveal className="mt-8">
@@ -232,10 +240,12 @@ export default function CookbookPage() {
           </p>
         </ScrollReveal>
       </section>
+      </Panel>
 
-      <section className="mt-24 border-t border-border pt-12">
+      <Panel tone="dusk" width="5xl">
+      <section>
         <ScrollReveal className="flex flex-col items-start gap-5">
-          <h2 className="font-display text-3xl font-light text-smoke sm:text-4xl">Pick one thing you need today.</h2>
+          <h2 className="type-heading text-3xl text-smoke sm:text-4xl">Pick one thing you need today.</h2>
           <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
             Start with the recipe that fits this week, and the rest of the kitchen will be there when you&apos;re hungry for the next one.
           </p>
@@ -243,12 +253,13 @@ export default function CookbookPage() {
             href={GUMROAD}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
+            className="inline-flex items-center justify-center gap-3 rounded-full bg-amber px-7 py-3.5 font-sans font-semibold text-sm text-void transition-transform duration-300 hover:scale-[1.02]"
           >
             Get the digital edition, $9.99
           </a>
         </ScrollReveal>
       </section>
-    </div>
+      </Panel>
+    </PageStack>
   );
 }

@@ -3,10 +3,8 @@ import { Archivo, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import GrainOverlay from "@/components/GrainOverlay";
 import JsonLd from "@/components/JsonLd";
 import { ogBase } from "@/lib/site";
-import { REVEAL_FALLBACK_SCRIPT, REVEAL_NOSCRIPT } from "@/lib/reveal-fallback";
 
 // Archivo is variable on weight and width. The width axis is what lets
 // the headlines run wide and heavy (font-stretch in globals.css).
@@ -77,14 +75,9 @@ export default function RootLayout({
             production hosts, skips Global Privacy Control and noindex pages,
             and keeps Google signals off. See public/analytics.js. */}
         <script src="/analytics.js" async />
-        {/* Keeps the text visible if the page's JavaScript is off or never
-            loads. See lib/reveal-fallback.ts. */}
-        <script dangerouslySetInnerHTML={{ __html: REVEAL_FALLBACK_SCRIPT }} />
-        <noscript dangerouslySetInnerHTML={{ __html: REVEAL_NOSCRIPT }} />
       </head>
       <body className="min-h-screen bg-void font-body text-smoke">
         <JsonLd />
-        <GrainOverlay />
         <Nav />
         <main className="relative">{children}</main>
         <Footer />

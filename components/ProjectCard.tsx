@@ -47,11 +47,11 @@ export default function ProjectCard({ project }: { project: Project }) {
           aria-hidden
           className="absolute inset-0 bg-gradient-to-t from-void/90 via-void/20 to-void/60"
         />
-        <div className="relative flex items-center justify-between font-mono text-[0.65rem] uppercase tracking-[0.2em] text-smoke-dim">
+        <div className="relative flex items-center justify-between font-sans font-semibold text-xs text-smoke-dim">
           <span>{project.type}</span>
           <span>{project.year}</span>
         </div>
-        <h3 className="relative font-display text-3xl font-light leading-tight text-smoke sm:text-4xl">
+        <h3 className="relative type-heading text-3xl text-smoke sm:text-4xl">
           {project.name}
         </h3>
       </div>
@@ -67,7 +67,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
         <div className="flex flex-col gap-2 border-t border-border pt-4">
-          <p className="font-mono text-xs uppercase tracking-[0.18em] text-amber">
+          <p className="font-sans font-semibold text-sm text-amber">
             What it proves
           </p>
           <p className="font-body text-sm leading-relaxed text-smoke-dim">
@@ -79,12 +79,9 @@ export default function ProjectCard({ project }: { project: Project }) {
             href={project.link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/link inline-flex w-fit items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:text-smoke"
+            className="group/link inline-flex w-fit items-center gap-2 font-sans font-semibold text-sm text-amber transition-colors duration-300 hover:text-smoke"
           >
             {project.link.label}
-            <span aria-hidden className="transition-transform duration-300 group-hover/link:translate-x-1">
-              →
-            </span>
           </a>
         )}
       </div>

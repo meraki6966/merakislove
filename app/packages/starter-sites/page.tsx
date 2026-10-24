@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import PageHeader from "@/components/PageHeader";
+import PageHero from "@/components/PageHero";
+import Panel, { PageStack } from "@/components/Panel";
 import ScrollReveal from "@/components/ScrollReveal";
 import PackageSection from "@/components/PackageSection";
 import PackageActions from "@/components/PackageActions";
@@ -429,7 +430,7 @@ const starterSitesSchemas = [
 
 export default function StarterSitesPage() {
   return (
-    <div className="mx-auto max-w-4xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
+    <PageStack>
       <Breadcrumb
         items={[
           { name: "Packages", path: "/packages" },
@@ -447,251 +448,269 @@ export default function StarterSitesPage() {
         />
       ))}
 
-      <PageHeader
-        eyebrow="Starter Sites"
+      <PageHero
+        art={{
+          src: "/art/starter.jpg",
+          alt: "Engraving of a small corner shop with a striped awning, an open door, a bell and a blank chalkboard.",
+        }}
+        kicker="Starter Sites"
         title="A real website, built fast, priced fair."
         subtitle="Not a custom build. Not an AI system. A clean, working site for a business that needs to be found and look right doing it."
-      />
-
-      <ScrollReveal delay={0.1}>
-        <p className="mt-5 max-w-2xl font-body text-sm leading-relaxed text-smoke">
-          {trustLine}
-        </p>
-      </ScrollReveal>
-
-      {/* Price */}
-      <PackageSection title="Starter Sites pricing">
-        <div className="grid gap-6 sm:grid-cols-2">
-          {starterSiteTiers.map((tier, i) => (
-            <ScrollReveal key={tier.name} delay={i * 0.08} className="h-full">
-              <TiltCard className="h-full bg-navy/70 ring-1 ring-inset ring-gold/50">
-                <div className="flex h-full flex-col gap-4 p-7">
-                  <h3 className="font-display text-2xl font-light leading-tight text-smoke">
-                    {tier.name}
-                  </h3>
-                  <p className="mt-auto font-display text-4xl font-light text-amber">
-                    {tier.price}
-                  </p>
-                </div>
-              </TiltCard>
-            </ScrollReveal>
-          ))}
-        </div>
-
-        {/* Add-on: deliberately a slim, lower-weight strip beneath the two
-            main tiers rather than a third equal-size card. */}
-        <ScrollReveal delay={0.16} className="mt-6">
-          <div className="flex flex-col items-start justify-between gap-3 rounded-xl border border-border-mid bg-navy/30 px-6 py-5 sm:flex-row sm:items-center">
-            <div className="flex flex-col gap-1">
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-smoke-dim">
-                Add to either tier
-              </p>
-              <p className="font-display text-lg font-light text-smoke">
-                {starterSiteAddOn.name}
-              </p>
-            </div>
-            <p className="font-display text-2xl font-light text-amber">
-              {starterSiteAddOn.price}
-            </p>
-          </div>
-        </ScrollReveal>
-      </PackageSection>
-
-      {/* Who builds Starter Sites. Short, front-loaded on purpose: this is
-          the earliest point after the price block where Adam McClarin,
-          Meraki is Love, and "small business website" can land, which keeps
-          them inside the page's first 100 words alongside the $500/$1,000
-          already shown above. */}
-      <PackageSection title="Who builds Starter Sites">
-        <ScrollReveal>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            {whoBuildsBody}
+      >
+        <ScrollReveal delay={0.1}>
+          <p className="max-w-xl font-sans text-sm font-medium leading-relaxed text-smoke">
+            {trustLine}
           </p>
         </ScrollReveal>
-      </PackageSection>
+      </PageHero>
+      <Panel tone="paper" width="4xl">
+        {/* Price */}
+        <PackageSection title="Starter Sites pricing">
+          <div className="grid gap-6 sm:grid-cols-2">
+            {starterSiteTiers.map((tier, i) => (
+              <ScrollReveal key={tier.name} delay={i * 0.08} className="h-full">
+                <TiltCard className="h-full bg-navy/70 ring-1 ring-inset ring-gold/50">
+                  <div className="flex h-full flex-col gap-4 p-7">
+                    <h3 className="type-heading text-2xl text-smoke">
+                      {tier.name}
+                    </h3>
+                    <p className="mt-auto type-heading text-4xl text-amber">
+                      {tier.price}
+                    </p>
+                  </div>
+                </TiltCard>
+              </ScrollReveal>
+            ))}
+          </div>
 
-      {/* What's included */}
-      <PackageSection title="What's included">
-        <div className="flex flex-col gap-6">
-          {[...starterSiteTiers, starterSiteAddOn].map((tier, i) => (
-            <ScrollReveal key={tier.name} delay={i * 0.06}>
-              <div className="flex flex-col gap-3 border-l-2 border-amber pl-6">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="font-mono text-sm tracking-[0.16em] text-amber">
-                    {tier.price}
-                  </span>
-                  <span className="font-display text-xl font-light text-smoke">
-                    {tier.name}
-                  </span>
-                </div>
-                <p className="max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
-                  {tier.scope}
+          {/* Add-on: deliberately a slim, lower-weight strip beneath the two
+              main tiers rather than a third equal-size card. */}
+          <ScrollReveal delay={0.16} className="mt-6">
+            <div className="flex flex-col items-start justify-between gap-3 rounded-xl border border-border-mid bg-navy/30 px-6 py-5 sm:flex-row sm:items-center">
+              <div className="flex flex-col gap-1">
+                <p className="font-sans font-semibold text-sm text-smoke-dim">
+                  Add to either tier
+                </p>
+                <p className="type-heading text-lg text-smoke">
+                  {starterSiteAddOn.name}
                 </p>
               </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </PackageSection>
-
-      {/* What this is next to */}
-      <PackageSection title="What this is next to">
-        <div className="flex flex-col gap-5">
-          {whatThisIsNextTo.map((paragraph, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
-              <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-                {paragraph}
+              <p className="type-heading text-2xl text-amber">
+                {starterSiteAddOn.price}
               </p>
-            </ScrollReveal>
-          ))}
-        </div>
+            </div>
+          </ScrollReveal>
+        </PackageSection>
 
-        <ScrollReveal delay={0.2} className="mt-10 flex flex-col gap-4">
-          <h3 className="font-display text-xl font-light text-smoke">
-            What you get that the cheap gig does not
-          </h3>
-          <ul className="flex flex-col gap-2">
-            {whatYouGet.map((line) => (
-              <li
-                key={line}
-                className="flex items-start gap-3 font-body text-sm leading-relaxed text-smoke-dim"
-              >
-                <span
-                  aria-hidden
-                  className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber"
-                />
-                {line}
-              </li>
-            ))}
-          </ul>
-        </ScrollReveal>
-      </PackageSection>
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* Who builds Starter Sites. Short, front-loaded on purpose: this is
+            the earliest point after the price block where Adam McClarin,
+            Meraki is Love, and "small business website" can land, which keeps
+            them inside the page's first 100 words alongside the $500/$1,000
+            already shown above. */}
+        <PackageSection title="Who builds Starter Sites">
+          <ScrollReveal>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {whoBuildsBody}
+            </p>
+          </ScrollReveal>
+        </PackageSection>
 
-      {/* Live demos */}
-      <PackageSection
-        title="Live demos"
-        lead="These aren't mockups. Real, live templates you can click through right now."
-      >
-        <div className="grid gap-6 sm:grid-cols-2">
-          {liveExamples.map((example, i) => (
-            <ScrollReveal key={example.name} delay={i * 0.06} className="h-full">
-              <TiltCard className="h-full bg-navy/40">
-                <div className="flex h-full flex-col gap-4 p-7">
-                  <div className="flex flex-col gap-2">
-                    <h3 className="font-display text-2xl font-light leading-tight text-smoke">
-                      {example.name}
-                    </h3>
-                    <Tag>{example.category}</Tag>
-                  </div>
-                  <a
-                    href={example.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group mt-auto inline-flex w-fit items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-amber transition-colors duration-300 hover:text-smoke"
-                  >
-                    View the live demo
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      →
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* What's included */}
+        <PackageSection title="What's included">
+          <div className="flex flex-col gap-6">
+            {[...starterSiteTiers, starterSiteAddOn].map((tier, i) => (
+              <ScrollReveal key={tier.name} delay={i * 0.06}>
+                <div className="flex flex-col gap-3 border-l-2 border-amber pl-6">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="font-sans font-semibold text-sm text-amber">
+                      {tier.price}
                     </span>
-                  </a>
-                </div>
-              </TiltCard>
-            </ScrollReveal>
-          ))}
-        </div>
-        <ScrollReveal delay={0.1} className="mt-8">
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            {liveExamplesClose}
-          </p>
-        </ScrollReveal>
-      </PackageSection>
-
-      {/* See the marketing package in action */}
-      <PackageSection
-        title="See the marketing package in action"
-        lead="Twelve businesses, twelve identities, each with branded content made for that business and its customers."
-      >
-        {/* Widest render measured at 547px, single column at a 639px
-            viewport, NOT the steady 227px desktop tile once lg:grid-cols-3
-            kicks in at 1024px. sizes below is set from that measurement. */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {flyers.map((flyer, i) => (
-            <ScrollReveal key={flyer.file} delay={i * 0.05} className="h-full">
-              <TiltCard className="h-full bg-navy/40">
-                <div className="flex h-full flex-col gap-4 p-4">
-                  <div
-                    className="relative w-full overflow-hidden rounded-lg"
-                    style={{ aspectRatio: `${flyer.width} / ${flyer.height}` }}
-                  >
-                    <Image
-                      src={`/demos/starter-sites/flyers/${flyer.file}`}
-                      alt={flyer.alt}
-                      fill
-                      sizes="(min-width: 1024px) 227px, (min-width: 640px) 41vw, 92vw"
-                      className="object-cover"
-                    />
+                    <span className="type-heading text-xl text-smoke">
+                      {tier.name}
+                    </span>
                   </div>
-                  <div className="flex flex-col gap-1 px-1 pb-1">
-                    <p className="font-display text-lg font-light text-smoke">
-                      {flyer.business}
-                    </p>
-                    <p className="font-mono text-xs uppercase tracking-[0.14em] text-smoke-dim">
-                      {flyer.caption}
-                    </p>
-                  </div>
+                  <p className="max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
+                    {tier.scope}
+                  </p>
                 </div>
-              </TiltCard>
-            </ScrollReveal>
-          ))}
-        </div>
-        <ScrollReveal delay={0.1} className="mt-8">
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            {flyerCaption}
-          </p>
-        </ScrollReveal>
-      </PackageSection>
-
-      {/* A la carte */}
-      <PackageSection title="A la carte, if you need more">
-        <ScrollReveal>
-          <ul className="flex flex-wrap gap-2.5">
-            {aLaCarte.map((item) => (
-              <li key={item}>
-                <Tag>{item}</Tag>
-              </li>
+              </ScrollReveal>
             ))}
-          </ul>
-        </ScrollReveal>
-      </PackageSection>
+          </div>
+        </PackageSection>
 
-      {/* FAQ */}
-      <PackageSection title="FAQ">
-        <ScrollReveal>
-          <Faq items={starterFaqs} />
-        </ScrollReveal>
-      </PackageSection>
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* What this is next to */}
+        <PackageSection title="What this is next to">
+          <div className="flex flex-col gap-5">
+            {whatThisIsNextTo.map((paragraph, i) => (
+              <ScrollReveal key={i} delay={i * 0.05}>
+                <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+                  {paragraph}
+                </p>
+              </ScrollReveal>
+            ))}
+          </div>
 
-      {/* What this is not */}
-      <PackageSection title="What this is not">
-        <ScrollReveal>
-          <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            Not Meraki BIP. Not a five day security review. Not a{" "}
-            <Link
-              href="/packages/custom"
-              className="text-amber transition-colors duration-300 hover:text-smoke"
-            >
-              custom product
-            </Link>
-            .
-          </p>
-          <p className="mt-4 max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-            {whatThisIsNot}
-          </p>
-          <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
-            {canopyGuardMention}
-          </p>
-          <PackageActions label="Book this site" />
-        </ScrollReveal>
-      </PackageSection>
-    </div>
+          <ScrollReveal delay={0.2} className="mt-10 flex flex-col gap-4">
+            <h3 className="type-heading text-xl text-smoke">
+              What you get that the cheap gig does not
+            </h3>
+            <ul className="flex flex-col gap-2">
+              {whatYouGet.map((line) => (
+                <li
+                  key={line}
+                  className="flex items-start gap-3 font-body text-sm leading-relaxed text-smoke-dim"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber"
+                  />
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </ScrollReveal>
+        </PackageSection>
+
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* Live demos */}
+        <PackageSection
+          title="Live demos"
+          lead="These aren't mockups. Real, live templates you can click through right now."
+        >
+          <div className="grid gap-6 sm:grid-cols-2">
+            {liveExamples.map((example, i) => (
+              <ScrollReveal key={example.name} delay={i * 0.06} className="h-full">
+                <TiltCard className="h-full bg-navy/40">
+                  <div className="flex h-full flex-col gap-4 p-7">
+                    <div className="flex flex-col gap-2">
+                      <h3 className="type-heading text-2xl text-smoke">
+                        {example.name}
+                      </h3>
+                      <Tag>{example.category}</Tag>
+                    </div>
+                    <a
+                      href={example.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group mt-auto inline-flex w-fit items-center gap-3 font-sans font-semibold text-sm text-amber transition-colors duration-300 hover:text-smoke"
+                    >
+                      View the live demo
+                    </a>
+                  </div>
+                </TiltCard>
+              </ScrollReveal>
+            ))}
+          </div>
+          <ScrollReveal delay={0.1} className="mt-8">
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {liveExamplesClose}
+            </p>
+          </ScrollReveal>
+        </PackageSection>
+
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* See the marketing package in action */}
+        <PackageSection
+          title="See the marketing package in action"
+          lead="Twelve businesses, twelve identities, each with branded content made for that business and its customers."
+        >
+          {/* Widest render measured at 547px, single column at a 639px
+              viewport, NOT the steady 227px desktop tile once lg:grid-cols-3
+              kicks in at 1024px. sizes below is set from that measurement. */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {flyers.map((flyer, i) => (
+              <ScrollReveal key={flyer.file} delay={i * 0.05} className="h-full">
+                <TiltCard className="h-full bg-navy/40">
+                  <div className="flex h-full flex-col gap-4 p-4">
+                    <div
+                      className="relative w-full overflow-hidden rounded-lg"
+                      style={{ aspectRatio: `${flyer.width} / ${flyer.height}` }}
+                    >
+                      <Image
+                        src={`/demos/starter-sites/flyers/${flyer.file}`}
+                        alt={flyer.alt}
+                        fill
+                        sizes="(min-width: 1024px) 227px, (min-width: 640px) 41vw, 92vw"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1 px-1 pb-1">
+                      <p className="type-heading text-lg text-smoke">
+                        {flyer.business}
+                      </p>
+                      <p className="font-sans font-semibold text-sm text-smoke-dim">
+                        {flyer.caption}
+                      </p>
+                    </div>
+                  </div>
+                </TiltCard>
+              </ScrollReveal>
+            ))}
+          </div>
+          <ScrollReveal delay={0.1} className="mt-8">
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {flyerCaption}
+            </p>
+          </ScrollReveal>
+        </PackageSection>
+
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* A la carte */}
+        <PackageSection title="A la carte, if you need more">
+          <ScrollReveal>
+            <ul className="flex flex-wrap gap-2.5">
+              {aLaCarte.map((item) => (
+                <li key={item}>
+                  <Tag>{item}</Tag>
+                </li>
+              ))}
+            </ul>
+          </ScrollReveal>
+        </PackageSection>
+
+      </Panel>
+      <Panel tone="ink" width="4xl">
+        {/* FAQ */}
+        <PackageSection title="FAQ">
+          <ScrollReveal>
+            <Faq items={starterFaqs} />
+          </ScrollReveal>
+        </PackageSection>
+
+      </Panel>
+      <Panel tone="paper" width="4xl">
+        {/* What this is not */}
+        <PackageSection title="What this is not">
+          <ScrollReveal>
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              Not Meraki BIP. Not a five day security review. Not a{" "}
+              <Link
+                href="/packages/custom"
+                className="text-amber transition-colors duration-300 hover:text-smoke"
+              >
+                custom product
+              </Link>
+              .
+            </p>
+            <p className="mt-4 max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {whatThisIsNot}
+            </p>
+            <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
+              {canopyGuardMention}
+            </p>
+            <PackageActions label="Book this site" />
+          </ScrollReveal>
+        </PackageSection>
+      </Panel>
+    </PageStack>
   );
 }

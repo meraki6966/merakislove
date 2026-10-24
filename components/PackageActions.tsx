@@ -24,19 +24,16 @@ export default function PackageActions({ label, bookCall }: PackageActionsProps)
     <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
       <Link
         href="/start"
-        className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber! px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-void transition-transform duration-300 hover:scale-[1.02]"
+        className="group inline-flex items-center justify-center gap-3 rounded-full bg-amber! px-7 py-4 font-sans font-semibold text-base text-void transition-colors duration-300 hover:bg-gold!"
       >
         {label}
-        <span className="transition-transform duration-300 group-hover:translate-x-1">
-          →
-        </span>
       </Link>
       {bookCall ? (
         <a
           href={calendly.newProject}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-3 rounded-full border border-border-mid px-7 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-smoke transition-colors duration-300 hover:border-amber hover:text-amber"
+          className="inline-flex items-center justify-center gap-3 rounded-full border border-border-mid px-7 py-4 font-sans font-semibold text-base text-smoke transition-colors duration-300 hover:border-amber hover:text-amber"
         >
           Book a call
         </a>
