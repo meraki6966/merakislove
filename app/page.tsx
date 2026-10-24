@@ -59,6 +59,20 @@ const work = [
   },
 ];
 
+/**
+ * Small business demos shown on the home page. Each picture is the demo's
+ * own first screen, captured from the live build (public/art/demos).
+ * The full set of 11 is on /demos.
+ */
+const smallBusinessDemos = [
+  { name: "The Corner Table", kind: "Restaurant", href: "/demos/restaurant", img: "/art/demos/restaurant.jpg" },
+  { name: "Keelhouse Home Services", kind: "Home services", href: "/demos/keelhouse", img: "/art/demos/keelhouse.jpg" },
+  { name: "Tessel Dental", kind: "Dental practice", href: "/demos/tessel", img: "/art/demos/tessel.jpg" },
+  { name: "Iron Prism", kind: "Gym", href: "/demos/iron-prism", img: "/art/demos/iron-prism.jpg" },
+  { name: "Saltbrush Pool Care", kind: "Pool service", href: "/demos/saltbrush", img: "/art/demos/saltbrush.jpg" },
+  { name: "Fernhollow Vet", kind: "Veterinary clinic", href: "/demos/fernhollow", img: "/art/demos/fernhollow.jpg" },
+];
+
 const steps = [
   {
     title: "Discover",
@@ -138,7 +152,7 @@ export default function Home() {
                 Book a 20-minute call
               </Link>
               <Link
-                href="/packages/starter-sites"
+                href="#small-business"
                 className="inline-flex items-center justify-center rounded-full px-7 py-4 font-sans text-base font-semibold text-smoke ring-1 ring-smoke/40 transition-colors hover:ring-amber"
               >
                 I need a simple site
@@ -184,16 +198,6 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <p className="font-body text-base text-[#3b2d4c]">
-              Shops and restaurants that need a working site first have a{" "}
-              <Link
-                href="/packages/starter-sites"
-                className="font-semibold text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum"
-              >
-                separate offer
-              </Link>
-              .
-            </p>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <Image
@@ -237,6 +241,87 @@ export default function Home() {
               className="w-fit font-sans text-base font-semibold text-smoke underline decoration-amber/60 underline-offset-4 transition-colors hover:text-amber"
             >
               Compare all packages
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 3b · Small business. Real screenshots of the demo builds, each a
+          link into the live demo. */}
+      <section id="small-business" className="scroll-mt-24 overflow-hidden rounded-[28px] bg-navy">
+        <div className="px-6 py-14 sm:px-12 sm:py-20 lg:px-16 lg:py-24">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-16">
+            <div className="flex flex-col gap-6">
+              <h2 className="type-heading text-[clamp(2.25rem,4.4vw,4rem)] text-amber">
+                Small business? Start with a site that works.
+              </h2>
+              <p className="max-w-xl font-body text-lg leading-relaxed text-smoke-dim">
+                Restaurants, shops, clinics and crews that need to be found and
+                look right doing it. Every demo here is a complete build running
+                on this site. Pick the one closest to your business and I adapt
+                it to you.
+              </p>
+            </div>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              <li className="rounded-2xl bg-void/60 p-6 ring-1 ring-border-mid">
+                <p className="font-sans text-lg font-bold text-smoke">Starter</p>
+                <p className="type-heading mt-1 text-4xl text-amber">$500</p>
+                <p className="mt-3 font-body text-base leading-relaxed text-smoke-dim">
+                  One page. Your info, your photos, mobile-ready.
+                </p>
+              </li>
+              <li className="rounded-2xl bg-void/60 p-6 ring-1 ring-border-mid">
+                <p className="font-sans text-lg font-bold text-smoke">Starter Plus</p>
+                <p className="type-heading mt-1 text-4xl text-amber">$1,000</p>
+                <p className="mt-3 font-body text-base leading-relaxed text-smoke-dim">
+                  Up to five pages, with a menu or service list and a contact or
+                  booking path.
+                </p>
+              </li>
+            </ul>
+          </div>
+
+          <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {smallBusinessDemos.map((demo) => (
+              <li key={demo.href}>
+                <Link
+                  href={demo.href}
+                  className="group block overflow-hidden rounded-2xl bg-void ring-1 ring-border-mid transition-shadow duration-300 hover:ring-amber/70"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
+                      src={demo.img}
+                      alt={`The first screen of the ${demo.name} demo site.`}
+                      fill
+                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4 px-5 py-4">
+                    <span className="font-sans text-lg font-bold text-smoke">
+                      {demo.name}
+                    </span>
+                    <span className="shrink-0 font-sans text-sm text-smoke-dim">
+                      {demo.kind}
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/demos"
+              className="inline-flex items-center justify-center rounded-full bg-amber! px-7 py-4 font-sans text-base font-semibold text-void transition-colors hover:bg-gold!"
+            >
+              See all 11 demos
+            </Link>
+            <Link
+              href="/packages/starter-sites"
+              className="inline-flex items-center justify-center rounded-full px-7 py-4 font-sans text-base font-semibold text-smoke ring-1 ring-smoke/40 transition-colors hover:ring-amber"
+            >
+              Starter Sites pricing
             </Link>
           </div>
         </div>
