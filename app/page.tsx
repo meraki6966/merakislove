@@ -161,6 +161,18 @@ export default function Home() {
             <p className="font-sans text-sm leading-relaxed text-smoke-dim">
               {proofRow.join(". ")}.
             </p>
+            <a
+              href="#small-business"
+              className="group flex w-fit items-center gap-4 rounded-2xl bg-void/70 px-5 py-4 ring-1 ring-amber/40 transition-colors hover:ring-amber"
+            >
+              <span className="type-heading text-2xl text-amber">$500</span>
+              <span className="font-sans text-base font-semibold leading-snug text-smoke">
+                Small business? Websites from $500.
+                <span className="block font-normal text-smoke-dim">
+                  Click through 11 live demos first.
+                </span>
+              </span>
+            </a>
           </div>
         </div>
 
@@ -175,80 +187,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2 · Who this is for. White panel, the lit office window. */}
-      <section className="overflow-hidden rounded-[28px] bg-paper text-void">
-        <div className="grid items-center gap-10 px-6 py-14 sm:px-12 sm:py-20 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:px-16 lg:py-24">
-          <div className="flex flex-col gap-7">
-            <h2 className="type-heading text-[clamp(2.25rem,4.4vw,4rem)] text-plum">
-              You already have a practice. You do not have a system.
-            </h2>
-            <p className="max-w-xl font-body text-lg leading-relaxed text-[#3b2d4c]">
-              The same five questions hit the inbox after hours. The website
-              looks rented. AI tools sit scattered across personal accounts.
-              Nobody has mapped what happens if that stack leaks. That is the
-              job.
-            </p>
-            <ul className="flex flex-wrap gap-2.5">
-              {audience.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-full bg-mist px-4 py-2 font-sans text-sm font-medium text-plum"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image
-              src="/art/practice.jpg"
-              alt="Engraving of a small office at night, one window lit, with an appointment book, a lamp and stacked files on the desk."
-              fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* 3 · Packages. Ink ground, three illustrated cards. */}
-      <section id="packages" className="scroll-mt-24 px-4 py-14 sm:px-8 sm:py-20 lg:px-12">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-12 flex flex-col gap-5">
-            <h2 className="type-heading text-[clamp(2.25rem,4.4vw,4rem)] text-smoke">
-              Three ways to start.
-            </h2>
-            <p className="max-w-2xl font-body text-lg text-smoke-dim">
-              Most people start with a review or the six-week system. Custom
-              work comes after we know the problem.
-            </p>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-3">
-            {packages.map((pkg) => (
-              <PackageCard key={pkg.slug} pkg={pkg} variant="home" />
-            ))}
-          </div>
-
-          <div className="mt-10 flex flex-col gap-5">
-            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-              Hourly advisory is available for focused work. Retainers are for
-              teams who already have a system in production. Neither is the
-              starting point.
-            </p>
-            <Link
-              href="/packages"
-              className="w-fit font-sans text-base font-semibold text-smoke underline decoration-amber/60 underline-offset-4 transition-colors hover:text-amber"
-            >
-              Compare all packages
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 3b · Small business. Real screenshots of the demo builds, each a
+      {/* 2 · Small business, straight after the hero so a shop owner sees it
+          first. Real screenshots of the demo builds, each a
           link into the live demo. */}
-      <section id="small-business" className="scroll-mt-24 overflow-hidden rounded-[28px] bg-navy">
+      <section id="small-business" className="scroll-mt-24 overflow-hidden rounded-[28px] bg-plum">
         <div className="px-6 py-14 sm:px-12 sm:py-20 lg:px-16 lg:py-24">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-16">
             <div className="flex flex-col gap-6">
@@ -322,6 +264,77 @@ export default function Home() {
               className="inline-flex items-center justify-center rounded-full px-7 py-4 font-sans text-base font-semibold text-smoke ring-1 ring-smoke/40 transition-colors hover:ring-amber"
             >
               Starter Sites pricing
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 2 · Who this is for. White panel, the lit office window. */}
+      <section className="overflow-hidden rounded-[28px] bg-paper text-void">
+        <div className="grid items-center gap-10 px-6 py-14 sm:px-12 sm:py-20 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:px-16 lg:py-24">
+          <div className="flex flex-col gap-7">
+            <h2 className="type-heading text-[clamp(2.25rem,4.4vw,4rem)] text-plum">
+              You already have a practice. You do not have a system.
+            </h2>
+            <p className="max-w-xl font-body text-lg leading-relaxed text-[#3b2d4c]">
+              The same five questions hit the inbox after hours. The website
+              looks rented. AI tools sit scattered across personal accounts.
+              Nobody has mapped what happens if that stack leaks. That is the
+              job.
+            </p>
+            <ul className="flex flex-wrap gap-2.5">
+              {audience.map((item) => (
+                <li
+                  key={item}
+                  className="rounded-full bg-mist px-4 py-2 font-sans text-sm font-medium text-plum"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+            <Image
+              src="/art/practice.jpg"
+              alt="Engraving of a small office at night, one window lit, with an appointment book, a lamp and stacked files on the desk."
+              fill
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* 3 · Packages. Ink ground, three illustrated cards. */}
+      <section id="packages" className="scroll-mt-24 px-4 py-14 sm:px-8 sm:py-20 lg:px-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 flex flex-col gap-5">
+            <h2 className="type-heading text-[clamp(2.25rem,4.4vw,4rem)] text-smoke">
+              Three ways to start.
+            </h2>
+            <p className="max-w-2xl font-body text-lg text-smoke-dim">
+              Most people start with a review or the six-week system. Custom
+              work comes after we know the problem.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {packages.map((pkg) => (
+              <PackageCard key={pkg.slug} pkg={pkg} variant="home" />
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-col gap-5">
+            <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              Hourly advisory is available for focused work. Retainers are for
+              teams who already have a system in production. Neither is the
+              starting point.
+            </p>
+            <Link
+              href="/packages"
+              className="w-fit font-sans text-base font-semibold text-smoke underline decoration-amber/60 underline-offset-4 transition-colors hover:text-amber"
+            >
+              Compare all packages
             </Link>
           </div>
         </div>
