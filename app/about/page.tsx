@@ -37,6 +37,7 @@ const theWork =
  */
 const credentials = [
   "Twenty years across leadership, IT, and information security",
+  "United States Marine Corps veteran, Operation Enduring Freedom",
   "CISSP",
   "Azure AI Engineer",
   "Dual M.S. in Cybersecurity, UMGC",

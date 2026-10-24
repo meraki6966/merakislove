@@ -124,7 +124,7 @@ const faqPage = {
       name: "Who is Adam McClarin?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Adam McClarin is the founder and principal engineer of Meraki is Love. He holds the CISSP certification, a dual MS in Cybersecurity from UMGC, an MBA from Baruch, and the Azure AI Engineer credential.",
+        text: "Adam McClarin is the founder and principal engineer of Meraki is Love. He holds the CISSP certification, a dual MS in Cybersecurity from UMGC, an MBA from Baruch, and the Azure AI Engineer credential. He is a United States Marine Corps veteran who served in Operation Enduring Freedom.",
       },
     },
     {

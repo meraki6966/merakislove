@@ -84,3 +84,27 @@ test("the fallback shows the text when the page's code never starts, once", () =
 test("the fallback stays out of the way on a normal visit", () => {
   assert.equal(runFallback({ ready: true }).appended.length, 0);
 });
+
+// ------------------------------------------------------ the home hero loop
+//
+// The 2026-10 redesign plays a slow loop of the hero engraving. Anyone with
+// Reduce Motion on must get the still image instead. Proven in a browser on
+// 23 October: with motion allowed the loop advanced from 3.0 s to 5.0 s; with
+// reduce emulated it was display:none and paused. These checks hold the CSS
+// rule and the class on the video in place. Broken on purpose once and seen
+// to fail.
+const css = readFileSync(new URL("../../app/globals.css", import.meta.url), "utf8");
+const home = readFileSync(new URL("../../app/page.tsx", import.meta.url), "utf8");
+
+test("the hero loop is hidden under prefers-reduced-motion", () => {
+  assert.match(
+    css,
+    /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{\s*\.hero-loop\s*\{\s*display:\s*none;?\s*\}/,
+  );
+});
+
+test("the hero video carries the hero-loop class and a still sits under it", () => {
+  assert.match(home, /<video\s+className="hero-loop\b/);
+  assert.match(home, /src="\/art\/hero-loop-poster\.jpg"/);
+  assert.match(home, /\bmuted\b/);
+});

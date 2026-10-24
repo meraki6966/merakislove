@@ -80,7 +80,7 @@ export default function CybersecurityPage() {
       <Breadcrumb items={[{ name: "Security", path: "/cybersecurity" }]} />
     <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
       <PageHeader
-        eyebrow="Security Services"
+        eyebrow="Security services"
         title="Enterprise-grade security. Built for the businesses that can't afford a breach."
         subtitle="A CISSP-led security practice for teams that need the depth enterprises pay six figures for, scoped and priced for the businesses that ship real software."
       />

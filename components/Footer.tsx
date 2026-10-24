@@ -46,15 +46,12 @@ export default function Footer() {
         <div className="flex max-w-sm flex-col gap-3">
           <Link
             href="/"
-            className="flex items-center gap-2 font-display text-base text-smoke"
+            className="type-heading text-xl text-smoke"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-amber" />
-            <span className="font-light">
-              Meraki <span className="text-amber">is Love</span>
-            </span>
+            Meraki is Love
           </Link>
-          <p className="font-mono text-[0.7rem] uppercase tracking-wider text-muted">
-            {studio.brand} ·{" "}
+          <p className="font-sans text-sm text-muted">
+            {studio.brand},{" "}
             <a
               href={studio.site}
               target="_blank"
@@ -75,25 +72,22 @@ export default function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="font-mono text-xs uppercase tracking-[0.18em] text-smoke-dim transition-colors hover:text-amber"
+                className="font-sans text-[0.95rem] font-medium text-smoke-dim transition-colors hover:text-amber"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs tracking-[0.14em] text-smoke-dim">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-sans text-[0.95rem] text-smoke-dim">
             <a
               href={calendly.newProject}
               target="_blank"
               rel="noopener noreferrer"
-              className="uppercase tracking-[0.18em] transition-colors hover:text-amber"
+              className="transition-colors hover:text-amber"
             >
-              Calendly
+              Book on Calendly
             </a>
-            <span aria-hidden className="text-amber">
-              ·
-            </span>
             <a
               href={`mailto:${email}`}
               className="transition-colors hover:text-amber"
@@ -130,7 +124,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-6 sm:px-8">
-          <p className="font-mono text-[0.7rem] uppercase tracking-wider text-muted">
+          <p className="font-sans text-sm text-muted">
             © {year} {studio.name}. All rights reserved.
           </p>
         </div>

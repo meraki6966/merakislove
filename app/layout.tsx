@@ -1,36 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Cormorant_Garamond,
-  Space_Grotesk,
-  JetBrains_Mono,
-} from "next/font/google";
+import { Archivo, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import Cursor from "@/components/Cursor";
 import GrainOverlay from "@/components/GrainOverlay";
 import JsonLd from "@/components/JsonLd";
 import { ogBase } from "@/lib/site";
 import { REVEAL_FALLBACK_SCRIPT, REVEAL_NOSCRIPT } from "@/lib/reveal-fallback";
 
-const cormorant = Cormorant_Garamond({
+// Archivo is variable on weight and width. The width axis is what lets
+// the headlines run wide and heavy (font-stretch in globals.css).
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700"],
-  variable: "--font-cormorant",
+  axes: ["wdth"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-source-serif",
   display: "swap",
 });
 
@@ -69,7 +58,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07090f",
+  themeColor: "#130b19",
   colorScheme: "dark",
 };
 
@@ -81,7 +70,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`${archivo.variable} ${sourceSerif.variable}`}
     >
       <head>
         {/* Google Analytics 4, self-hosted loader. It runs only on the
@@ -93,10 +82,9 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: REVEAL_FALLBACK_SCRIPT }} />
         <noscript dangerouslySetInnerHTML={{ __html: REVEAL_NOSCRIPT }} />
       </head>
-      <body className="custom-cursor-active min-h-screen bg-void font-body text-smoke">
+      <body className="min-h-screen bg-void font-body text-smoke">
         <JsonLd />
         <GrainOverlay />
-        <Cursor />
         <Nav />
         <main className="relative">{children}</main>
         <Footer />
