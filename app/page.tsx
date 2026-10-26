@@ -55,7 +55,7 @@ const work = [
   {
     name: "Meridian AI",
     detail:
-      "Executive intelligence with MFA and RBAC. PPTX, PDF, and HTML from one workflow.",
+      "Board-ready reports from uploaded files. Scheduled delivery, comparison mode, cover page customization, export history, and a one-click executive summary — MFA and RBAC throughout.",
   },
 ];
 

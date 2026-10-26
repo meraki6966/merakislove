@@ -132,7 +132,7 @@ const faqPage = {
       name: "What products has Meraki is Love built?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Meraki is Love builds VeloxSync (performance intelligence that flags at-risk talent), VeloxSync for Education (AI homeschool planning for families), Canopy Guard (a security posture auditor with findings mapped to MITRE ATT&CK), and Meridian AI (executive intelligence with MFA and RBAC).",
+        text: "Meraki is Love builds VeloxSync (performance intelligence that flags at-risk talent), VeloxSync for Education (AI homeschool planning for families), Canopy Guard (a security posture auditor with findings mapped to MITRE ATT&CK), and Meridian AI (board-ready reports with scheduled delivery, comparison mode, cover page customization, export history, and executive summary export).",
       },
     },
     {
