@@ -67,6 +67,13 @@ const securityServices: SecurityService[] = [
       "Guardrails, data-exposure review, output validation, and prompt-injection risk.",
   },
   {
+    name: "AI Governance Kit",
+    price: "$850",
+    tag: "AI Policy",
+    description:
+      "A written AI use policy, vendor checklists for up to five tools, and an approved workspace setup. Optional quarterly check at $175. Starts from the free Shadow AI self-assessment.",
+  },
+  {
     name: "Monthly Security Retainer",
     price: "$200+/mo",
     tag: "Ongoing",

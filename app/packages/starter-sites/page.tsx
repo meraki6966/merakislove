@@ -269,11 +269,12 @@ const carePlan = {
   lead: "After launch, your site keeps one person looking after it.",
   includes: [
     "A Canopy Guard rescan of your live site every month, with a short note on anything that changed.",
-    "Small updates when you need them: hours, prices, text, and photos you send.",
+    "Up to one hour of small updates each month: hours, prices, text, and photos you send. Unused time does not roll over.",
     "Software, dependency, and security header updates kept current.",
     "One owner to call who knows how your site was built.",
   ],
-  close: "Hosting and domain stay separate unless we agree in writing.",
+  close:
+    "Month to month. Cancel anytime before your next billing date. Bigger changes are quoted separately or billed at $85 an hour. Hosting and domain stay separate unless we agree in writing.",
 };
 
 const canopyGuardMention =
@@ -302,7 +303,7 @@ const whatYouGet = [
   "After launch I can scan the live URL with Canopy Guard for search, AI answers, and visible security.",
 ];
 
-// First sentence ("Not Meraki BIP. Not a five day security review. Not a
+// First sentence ("Not Meraki BIP. Not a security review. Not a
 // custom product.") is rendered inline in JSX below with a link wrapped
 // around "custom product" — same words, just addressable.
 const whatThisIsNot =
@@ -333,7 +334,7 @@ const starterFaqs: FaqItem[] = [
   {
     question: "What happens after my Starter Site launches?",
     answer:
-      "You can add the Care and Security Plan for $150 a month. It covers a monthly Canopy Guard rescan, small updates, and keeping the site's software and security current, with one owner to call.",
+      "You can add the Care and Security Plan for $150 a month. It is month to month and covers a monthly Canopy Guard rescan, up to one hour of small updates, and keeping the site's software and security current, with one owner to call.",
   },
   {
     question: "Where does Meraki is Love work?",
@@ -765,7 +766,7 @@ export default function StarterSitesPage() {
         <PackageSection title="What this is not">
           <ScrollReveal>
             <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
-              Not Meraki BIP. Not a five day security review. Not a{" "}
+              Not Meraki BIP. Not a security review. Not a{" "}
               <Link
                 href="/packages/custom"
                 className="text-amber transition-colors duration-300 hover:text-smoke"

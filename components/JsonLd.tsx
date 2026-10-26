@@ -116,7 +116,7 @@ const faqPage = {
       name: "What services does Soulful Tech offer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Soulful Tech works three ways: a five-day review of an existing site or AI stack from $500, Meraki BIP (a six-week lead engine and private assistant) from $7,000, and custom full-stack or Presence-First builds scoped after a call. Engagements are led by a CISSP-certified engineer with 20 years of experience.",
+        text: "Soulful Tech works three ways: a review of an existing site or AI stack from $500, Meraki BIP (a six-week lead engine and private assistant) from $7,000, and custom full-stack or Presence-First builds scoped after a call. Engagements are led by a CISSP-certified engineer with 20 years of experience.",
       },
     },
     {

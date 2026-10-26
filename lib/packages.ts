@@ -175,6 +175,8 @@ export const packages: Package[] = [
     slug: "review",
     priceLabel: "$500 to $1,500",
     duration: "5 days",
+    // No day count shown anywhere: no turnaround is promised.
+    omitDuration: true,
     amount: "500",
     amountMax: "1500",
     summary:

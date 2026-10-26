@@ -26,22 +26,23 @@ export const metadata: Metadata = {
 };
 
 /**
- * The paid follow-on to the self-assessment. Price is Adam's call and is not
- * set yet, so the card says it is scoped on a call. Vendor retention and
+ * The paid follow-on to the self-assessment. Prices set by Adam on 26
+ * October 2026: $850 one-time for up to five tools, $85 per extra tool, and
+ * the quarterly check as a separate $175 a quarter. Vendor retention and
  * training settings vary, so the copy promises the setup where a vendor
  * allows it, never zero retention outright.
  */
 const governanceKit = {
   name: "AI Governance Kit",
-  priceLabel: "Priced on a call",
+  priceLabel: "$850 one-time",
   lead: "When your answers show gaps, this closes them with written rules your team can follow.",
   includes: [
     "A written AI use policy: which tools are approved, and what may and may not go into them.",
-    "A vendor checklist for each tool your team uses: how long it keeps your data, whether it trains on it, and whether a DPA or BAA is available.",
+    "A vendor checklist for each tool your team uses: how long it keeps your data, whether it trains on it, and whether a DPA or BAA is available. Up to five tools are included, and each one after that is $85.",
     "An approved workspace set up with data retention and model training turned off where the vendor allows it.",
     "A walkthrough call with whoever will own the rules.",
   ],
-  optional: "Optional quarterly check: we rerun this assessment with your team and update the policy for any new tools.",
+  optional: "Optional quarterly check, $175 a quarter: we rerun this assessment with your team and update the policy for any new tools.",
 };
 
 export default function ShadowAiPage() {
@@ -94,7 +95,7 @@ export default function ShadowAiPage() {
               <h2 className="type-heading text-2xl text-smoke sm:text-3xl">
                 {governanceKit.name}
               </h2>
-              <p className="font-sans font-semibold text-sm text-amber">
+              <p className="type-heading text-2xl text-amber">
                 {governanceKit.priceLabel}
               </p>
             </div>
