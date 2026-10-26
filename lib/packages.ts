@@ -210,6 +210,8 @@ export const packages: Package[] = [
     slug: "bip",
     priceLabel: "From $7,000",
     duration: "6 weeks",
+    // No week count shown anywhere: no turnaround is promised.
+    omitDuration: true,
     amount: "7000",
     summary:
       "The system I build for service businesses. A scheduled lead engine. An assistant trained on your documents, services, and pricing. Distribution across two platforms from one dashboard. A live activity view so you can see what the system is doing. Not a plugin stack you babysit. A production system with your name on the front door.",

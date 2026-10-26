@@ -38,7 +38,7 @@ const faqs: FaqItem[] = [
   {
     question: "Can I start small?",
     answer:
-      "Yes. The review exists so you do not have to buy a six-week build to find out where you stand.",
+      "Yes. The review exists so you do not have to buy a full build to find out where you stand.",
   },
   {
     question: "Do you only work in Texas?",

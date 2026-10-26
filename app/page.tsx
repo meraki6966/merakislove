@@ -313,7 +313,7 @@ export default function Home() {
               Three ways to start.
             </h2>
             <p className="max-w-2xl font-body text-lg text-smoke-dim">
-              Most people start with a review or the six-week system. Custom
+              Most people start with a review or Meraki BIP. Custom
               work comes after we know the problem.
             </p>
           </div>
