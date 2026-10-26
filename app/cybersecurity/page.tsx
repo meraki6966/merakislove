@@ -57,7 +57,7 @@ const securityServices: SecurityService[] = [
     price: "$1,000 to $2,500",
     tag: "Remediation",
     description:
-      "Remediation of audit findings. Also available hourly at $85/hr.",
+      "Remediation of audit findings, including the fix checklist from a Security and AI Review. Also available hourly at $85/hr.",
   },
   {
     name: "AI Security Integration Review",
@@ -118,7 +118,10 @@ export default function CybersecurityPage() {
           <div className="grid gap-6 md:grid-cols-2">
             {securityServices.map((service, i) => (
               <ScrollReveal key={service.name} delay={i * 0.06} className="h-full">
-                <div className="flex h-full flex-col gap-4 rounded-xl border border-border-mid bg-navy/40 p-7">
+                <div
+                  id={service.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}
+                  className="flex h-full scroll-mt-28 flex-col gap-4 rounded-xl border border-border-mid bg-navy/40 p-7"
+                >
                   <div className="flex items-start justify-between gap-4">
                     <h3 className="type-heading text-2xl text-smoke">
                       {service.name}

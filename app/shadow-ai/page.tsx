@@ -5,7 +5,7 @@ import Panel, { PageStack } from "@/components/Panel";
 import ScrollReveal from "@/components/ScrollReveal";
 import Breadcrumb from "@/components/Breadcrumb";
 import ShadowAiCheck from "@/components/ShadowAiCheck";
-import { ogBase } from "@/lib/site";
+import { calendly, ogBase } from "@/lib/site";
 
 const title = "Shadow AI Self-Assessment | Meraki is Love";
 
@@ -23,6 +23,25 @@ export const metadata: Metadata = {
     description,
     url: "https://merakislove.com/shadow-ai",
   },
+};
+
+/**
+ * The paid follow-on to the self-assessment. Price is Adam's call and is not
+ * set yet, so the card says it is scoped on a call. Vendor retention and
+ * training settings vary, so the copy promises the setup where a vendor
+ * allows it, never zero retention outright.
+ */
+const governanceKit = {
+  name: "AI Governance Kit",
+  priceLabel: "Priced on a call",
+  lead: "When your answers show gaps, this closes them with written rules your team can follow.",
+  includes: [
+    "A written AI use policy: which tools are approved, and what may and may not go into them.",
+    "A vendor checklist for each tool your team uses: how long it keeps your data, whether it trains on it, and whether a DPA or BAA is available.",
+    "An approved workspace set up with data retention and model training turned off where the vendor allows it.",
+    "A walkthrough call with whoever will own the rules.",
+  ],
+  optional: "Optional quarterly check: we rerun this assessment with your team and update the policy for any new tools.",
 };
 
 export default function ShadowAiPage() {
@@ -68,8 +87,49 @@ export default function ShadowAiPage() {
         </section>
 
       </Panel>
-      <Panel tone="paper" width="4xl">
+      <Panel tone="paper" width="4xl" id="governance-kit">
         <ScrollReveal className="">
+          <div className="rounded-xl border border-amber/60 bg-navy/40 p-7 sm:p-8">
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+              <h2 className="type-heading text-2xl text-smoke sm:text-3xl">
+                {governanceKit.name}
+              </h2>
+              <p className="font-sans font-semibold text-sm text-amber">
+                {governanceKit.priceLabel}
+              </p>
+            </div>
+            <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+              {governanceKit.lead}
+            </p>
+            <ul className="mt-5 flex flex-col gap-2.5">
+              {governanceKit.includes.map((line) => (
+                <li
+                  key={line}
+                  className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-amber"
+                  />
+                  {line}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
+              {governanceKit.optional}
+            </p>
+            <a
+              href={calendly.newProject}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-amber px-7 py-3.5 font-sans font-semibold text-sm text-void transition-transform duration-300 hover:scale-[1.02]"
+            >
+              Book a call about the kit
+            </a>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal className="mt-12">
           <div className="border-l-2 border-amber pl-6">
             <p className="max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
               Canopy Guard checks your website from the outside, free. This page looks at how your team works on the inside.

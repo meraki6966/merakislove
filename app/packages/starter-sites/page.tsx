@@ -258,6 +258,24 @@ const aLaCarte = [
   "Extra revision rounds.",
 ];
 
+/**
+ * The monthly plan for a site after launch. Price set by Adam on 26 October
+ * 2026. No response or turnaround time is promised here, on purpose.
+ */
+const carePlan = {
+  name: "Care and Security Plan",
+  amount: "150",
+  priceLabel: "$150 a month",
+  lead: "After launch, your site keeps one person looking after it.",
+  includes: [
+    "A Canopy Guard rescan of your live site every month, with a short note on anything that changed.",
+    "Small updates when you need them: hours, prices, text, and photos you send.",
+    "Software, dependency, and security header updates kept current.",
+    "One owner to call who knows how your site was built.",
+  ],
+  close: "Hosting and domain stay separate unless we agree in writing.",
+};
+
 const canopyGuardMention =
   "A Canopy Guard visibility scan, a real scored look at your SEO and whether AI tools like ChatGPT would even recommend you, is available separately as an add-on.";
 
@@ -313,6 +331,11 @@ const starterFaqs: FaqItem[] = [
       "No. Wix is a tool you still have to finish. A Fiverr gig is usually a theme and a seller. A Starter Site is built by Meraki is Love from a live demo you can click first.",
   },
   {
+    question: "What happens after my Starter Site launches?",
+    answer:
+      "You can add the Care and Security Plan for $150 a month. It covers a monthly Canopy Guard rescan, small updates, and keeping the site's software and security current, with one owner to call.",
+  },
+  {
     question: "Where does Meraki is Love work?",
     answer:
       "Nationwide. The studio serves service businesses and shops across the United States.",
@@ -338,14 +361,29 @@ const serviceSchema = {
     "@type": "BusinessAudience",
     name: "Restaurants, gyms, salons, and trades needing a fast, affordable site",
   },
-  offers: [...starterSiteTiers, starterSiteAddOn].map((tier) => ({
-    "@type": "Offer",
-    name: tier.name,
-    price: tier.amount,
-    priceCurrency: "USD",
-    description: tier.scope,
-    url,
-  })),
+  offers: [
+    ...[...starterSiteTiers, starterSiteAddOn].map((tier) => ({
+      "@type": "Offer",
+      name: tier.name,
+      price: tier.amount,
+      priceCurrency: "USD",
+      description: tier.scope,
+      url,
+    })),
+    {
+      "@type": "Offer",
+      name: carePlan.name,
+      priceCurrency: "USD",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: carePlan.amount,
+        priceCurrency: "USD",
+        unitCode: "MON",
+      },
+      description: carePlan.includes.join(" "),
+      url: `${url}#care-plan`,
+    },
+  ],
 };
 
 /**
@@ -665,7 +703,7 @@ export default function StarterSitesPage() {
       </Panel>
       <Panel tone="paper" width="4xl">
         {/* A la carte */}
-        <PackageSection title="A la carte, if you need more">
+        <PackageSection title="After launch, and a la carte">
           <ScrollReveal>
             <ul className="flex flex-wrap gap-2.5">
               {aLaCarte.map((item) => (
@@ -674,6 +712,41 @@ export default function StarterSitesPage() {
                 </li>
               ))}
             </ul>
+          </ScrollReveal>
+          <ScrollReveal delay={0.06} className="mt-12">
+            <div
+              id="care-plan"
+              className="scroll-mt-28 rounded-xl border border-amber/60 bg-navy/40 p-7 sm:p-8"
+            >
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                <h3 className="type-heading text-2xl text-smoke">
+                  {carePlan.name}
+                </h3>
+                <p className="type-heading text-2xl text-amber">
+                  {carePlan.priceLabel}
+                </p>
+              </div>
+              <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+                {carePlan.lead}
+              </p>
+              <ul className="mt-5 flex flex-col gap-2.5">
+                {carePlan.includes.map((line) => (
+                  <li
+                    key={line}
+                    className="flex items-start gap-3 font-body text-base leading-relaxed text-smoke-dim"
+                  >
+                    <span
+                      aria-hidden
+                      className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-amber"
+                    />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 font-body text-sm leading-relaxed text-smoke-dim">
+                {carePlan.close}
+              </p>
+            </div>
           </ScrollReveal>
         </PackageSection>
 

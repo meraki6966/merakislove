@@ -240,6 +240,21 @@ export default function ReviewPackagePage() {
             <p className="max-w-2xl font-body text-base leading-relaxed text-smoke">
               {notIncludedClose}
             </p>
+            <div className="mt-4 border-l-2 border-amber pl-6">
+              <p className="font-sans font-semibold text-sm text-amber">
+                If you want me to make the fixes
+              </p>
+              <p className="mt-2 max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+                That is{" "}
+                <Link
+                  href="/cybersecurity#security-hardening"
+                  className="text-amber underline underline-offset-4 hover:text-smoke"
+                >
+                  Security Hardening
+                </Link>
+                , $1,000 to $2,500, scoped from the fix checklist in your report. Smaller fixes can run hourly at $85. You are free to hand the checklist to your own team instead.
+              </p>
+            </div>
           </ScrollReveal>
         </PackageSection>
 
