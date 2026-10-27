@@ -184,6 +184,13 @@ export default function ShadowAiCheck() {
             Bring the gaps above to the call. Nothing on this page is sent to me or to Calendly, so you decide what to share.
           </p>
           <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
+            The{" "}
+            <a href="#governance-kit" className="text-amber underline underline-offset-4 hover:text-smoke">
+              AI Governance Kit
+            </a>{" "}
+            below turns these gaps into a written policy and an approved setup.
+          </p>
+          <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-smoke-dim">
             If your business also runs its own AI feature, like a chatbot on your site or a client portal, the{" "}
             <Link href="/packages/review" className="text-amber underline underline-offset-4 hover:text-smoke">
               Security and AI Review

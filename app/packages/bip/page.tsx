@@ -66,15 +66,15 @@ const doesNotFit = [
 
 const weeks = [
   {
-    when: "Week 1",
+    when: "Discovery",
     what: "discovery, offer language, source documents, platform choice.",
   },
   {
-    when: "Weeks 2 to 3",
+    when: "Build",
     what: 'lead engine and assistant, guardrails so it can say "I don\'t know, book the call."',
   },
-  { when: "Weeks 4 to 5", what: "distribution, dashboard, staging." },
-  { when: "Week 6", what: "harden, train you on the board, ship." },
+  { when: "Distribution", what: "distribution, dashboard, staging." },
+  { when: "Launch", what: "harden, train you on the board, ship." },
 ];
 
 const guardrails =
@@ -96,7 +96,7 @@ const serviceSchema = {
   serviceType: "AI business system for service businesses",
   url,
   description:
-    "A six-week build: scheduled lead prospecting, a conversational assistant trained on your own documents and pricing, distribution across two platforms, and a live activity view, in one dashboard.",
+    "A build that delivers scheduled lead prospecting, a conversational assistant trained on your own documents and pricing, distribution across two platforms, and a live activity view, in one dashboard.",
   provider: { "@id": "https://merakislove.com/#organization" },
   areaServed: "Worldwide",
   audience: {
@@ -145,7 +145,7 @@ export default function BipPackagePage() {
         }}
         kicker="Meraki BIP"
         title="Your practice. Not another dashboard you babysit."
-        subtitle="From $7,000. Six weeks. Built for pastors, billers, advisors, and firms who need leads, answers, and follow-up without standing up a tech team."
+        subtitle="From $7,000. Built for pastors, billers, advisors, and firms who need leads, answers, and follow-up without standing up a tech team."
       />
 
       <Panel tone="paper" width="4xl">
@@ -228,8 +228,8 @@ export default function BipPackagePage() {
 
       </Panel>
       <Panel tone="paper" width="4xl">
-        {/* How the six weeks run */}
-        <PackageSection title="How the six weeks run">
+        {/* How the build runs */}
+        <PackageSection title="How the build runs">
           <ol className="flex flex-col gap-5">
             {weeks.map((step, i) => (
               <ScrollReveal

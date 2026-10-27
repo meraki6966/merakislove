@@ -15,7 +15,7 @@ const pkg = getPackage("review");
 
 const title = "Security and AI Review | Meraki is Love";
 
-const description = "Five days. A report you can stand on.";
+const description = "A report you can stand on.";
 
 const url = "https://merakislove.com/packages/review";
 
@@ -68,9 +68,9 @@ const notIncludedClose =
   'If the honest answer is "patch these five things," that is the answer.';
 
 const timeline = [
-  { when: "Day 1", what: "access, scope, threat sketch." },
-  { when: "Days 2 to 4", what: "review." },
-  { when: "Day 5", what: "report and walkthrough." },
+  { when: "Scope", what: "access, scope, threat sketch." },
+  { when: "Review", what: "the review itself." },
+  { when: "Report", what: "report and walkthrough." },
 ];
 
 /* ------------------------------------------------------------------ *
@@ -86,7 +86,7 @@ const serviceSchema = {
   serviceType: "Security and AI risk review",
   url,
   description:
-    "A five-day, CISSP-informed review of an application or an AI stack. Ranked findings, a fix checklist in order, MITRE ATT&CK mapping where it applies, and a walkthrough call.",
+    "A CISSP-informed review of an application or an AI stack. Ranked findings, a fix checklist in order, MITRE ATT&CK mapping where it applies, and a walkthrough call.",
   provider: { "@id": "https://merakislove.com/#organization" },
   areaServed: "Worldwide",
   audience: {
@@ -131,7 +131,7 @@ export default function ReviewPackagePage() {
         }}
         kicker="Review"
         title="Security before the headline."
-        subtitle="Five days. A report you can stand on. For SaaS founders, AI builders, and service businesses putting real data through a model or a site."
+        subtitle="A report you can stand on. For SaaS founders, AI builders, and service businesses putting real data through a model or a site."
       />
 
       <Panel tone="paper" width="4xl">
@@ -240,13 +240,28 @@ export default function ReviewPackagePage() {
             <p className="max-w-2xl font-body text-base leading-relaxed text-smoke">
               {notIncludedClose}
             </p>
+            <div className="mt-4 border-l-2 border-amber pl-6">
+              <p className="font-sans font-semibold text-sm text-amber">
+                If you want me to make the fixes
+              </p>
+              <p className="mt-2 max-w-2xl font-body text-base leading-relaxed text-smoke-dim">
+                That is{" "}
+                <Link
+                  href="/cybersecurity#security-hardening"
+                  className="text-amber underline underline-offset-4 hover:text-smoke"
+                >
+                  Security Hardening
+                </Link>
+                , $1,000 to $2,500, scoped from the fix checklist in your report. Smaller fixes can run hourly at $85. You are free to hand the checklist to your own team instead.
+              </p>
+            </div>
           </ScrollReveal>
         </PackageSection>
 
       </Panel>
       <Panel tone="ink" width="4xl">
         {/* Timeline */}
-        <PackageSection title="Timeline">
+        <PackageSection title="How it runs">
           <ol className="flex flex-col gap-5">
             {timeline.map((step, i) => (
               <ScrollReveal
