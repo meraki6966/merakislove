@@ -10,7 +10,7 @@ const path = "/services/small-business-it";
 const url = `https://merakislove.com${path}`;
 const title = "Small Business IT and Network Security in Houston";
 const description =
-  "Network rebuilds, secure computers, remote access, and an owner dashboard for small businesses around Houston and the Gulf Coast. CISSP-certified, with every account in the owner's name.";
+  "Network rebuilds, secure computers, remote access, and an owner dashboard for small businesses. On site around Houston and the Gulf Coast, and remote anywhere in the US. CISSP-certified, with every account in the owner's name.";
 
 export const metadata: Metadata = {
   title,
@@ -145,6 +145,11 @@ const faqs: FaqItem[] = [
       "That's common, and it's exactly where this work starts. Everything they set up can be reset into your name, step by step, without waiting on them.",
   },
   {
+    question: "Can you help if my business isn't near Houston?",
+    answer:
+      "Yes. Taking back your accounts, the password vault, computer management, remote access, and the owner dashboard all work remotely. When a step needs hands on the equipment, like swapping a switch, someone on your team or a local installer does it while I walk them through it on a call.",
+  },
+  {
     question: "Can I see what my staff do on company computers?",
     answer:
       "The dashboard can show who's signed in, how long a computer has been idle, and which programs are open. Your staff should know that first, so I give you a plain-language notice for your attorney to review and your team to sign.",
@@ -162,6 +167,7 @@ const serviceSchema = {
   areaServed: [
     { "@type": "City", name: "Houston" },
     { "@type": "Place", name: "Gulf Coast, Texas" },
+    { "@type": "Country", name: "United States" },
   ],
   provider: {
     "@type": "Organization",
@@ -211,7 +217,7 @@ export default function SmallBusinessItPage() {
           }}
           kicker="Small business IT"
           title="Your business, your network, your keys"
-          subtitle="IT and network security for small businesses around Houston and the Gulf Coast. I take back control from the last provider, secure every computer, and give the owners a clear view of it all from their phones."
+          subtitle="IT and network security for small businesses, on site around Houston and the Gulf Coast and remote anywhere in the US. I take back control from the last provider, secure every computer, and give the owners a clear view of it all from their phones."
         >
           <ScrollReveal delay={0.1}>
             <a
