@@ -255,7 +255,7 @@ export interface EngagementType {
 
 export const engagementTypes: EngagementType[] = [
   { name: "Project", detail: "Fixed scope, clear deliverable, clear date." },
-  { name: "Hourly", detail: "$85/hr for audits, advisory, and contained work." },
+  { name: "Hourly", detail: "$80/hr for audits, advisory, and contained work." },
   {
     name: "Retainer",
     detail:

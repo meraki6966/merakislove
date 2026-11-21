@@ -57,7 +57,7 @@ const securityServices: SecurityService[] = [
     price: "$1,000 to $2,500",
     tag: "Remediation",
     description:
-      "Remediation of audit findings, including the fix checklist from a Security and AI Review. Also available hourly at $85/hr.",
+      "Remediation of audit findings, including the fix checklist from a Security and AI Review. Also available hourly at $80/hr.",
   },
   {
     name: "AI Security Integration Review",

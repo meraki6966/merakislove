@@ -183,7 +183,7 @@ const config = {
 ### Services (/services)
 1. Page header
 2. 4 service pillars with numbered sections and proof lines
-3. Engagement models (Hourly $85/hr, Project fixed scope, Retainer coming soon)
+3. Engagement models (Hourly $80/hr, Project fixed scope, Retainer coming soon)
 4. Process: Discovery, Architecture, Build, Deploy and Harden
 5. CTA with purple gradient border
 
