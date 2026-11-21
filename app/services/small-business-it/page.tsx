@@ -230,11 +230,11 @@ export default function SmallBusinessItPage() {
             <ScrollReveal className="flex flex-col gap-5">
               <p className={label}>Where this work starts</p>
               <p className={body}>
-                This week I stood in a sign shop in South Houston with the owners,
-                swapping a switch, moving the internet box into passthrough, and
-                building the VPN they now use to reach their desks from anywhere.
-                Their last IT company still held the passwords to the server, the
-                network, and every computer. Two weeks in, all of it sits in the
+                I recently stood in a small local shop with its owners, swapping
+                a switch, moving the internet box into passthrough, and building
+                the VPN they now use to reach their desks from anywhere. Their
+                last IT company still held the passwords to the server, the
+                network, and every computer. Today all of it sits in the
                 owners&apos; names, in a vault they control.
               </p>
               <p className={body}>
