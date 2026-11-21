@@ -149,6 +149,19 @@ export default function CybersecurityPage() {
           </div>
         </section>
 
+        <ScrollReveal className="mt-10">
+          <div className="flex flex-col gap-3 rounded-xl border border-border-mid p-7 sm:flex-row sm:items-center sm:justify-between">
+            <p className="font-body text-sm leading-relaxed text-smoke-dim">
+              Need the office network, computers and remote access secured too?
+            </p>
+            <a
+              href="/services/small-business-it"
+              className="whitespace-nowrap font-sans font-semibold text-sm text-amber transition-colors duration-300 hover:text-smoke"
+            >
+              Small business IT and network security
+            </a>
+          </div>
+        </ScrollReveal>
       </Panel>
       <Panel tone="ink" width="6xl">
         {/* Powered by Canopy Guard */}
