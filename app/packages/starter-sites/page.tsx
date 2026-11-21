@@ -274,7 +274,7 @@ const carePlan = {
     "One owner to call who knows how your site was built.",
   ],
   close:
-    "Month to month. Cancel anytime before your next billing date. Bigger changes are quoted separately or billed at $85 an hour. Hosting and domain stay separate unless we agree in writing.",
+    "Month to month. Cancel anytime before your next billing date. Bigger changes are quoted separately or billed at $80 an hour. Hosting and domain stay separate unless we agree in writing.",
 };
 
 const canopyGuardMention =

@@ -50,9 +50,9 @@ const stages: Stage[] = [
   {
     number: "02",
     name: "Fix",
-    price: "From $85/hr",
+    price: "From $80/hr",
     priceNote: "Hourly or fixed project scope",
-    body: "Once we know what is holding you back, we fix it. Work runs hourly from $85, or as a fixed project scope when you want a number you can plan around. This is where the audit findings become a faster, safer, more discoverable product.",
+    body: "Once we know what is holding you back, we fix it. Work runs hourly from $80, or as a fixed project scope when you want a number you can plan around. This is where the audit findings become a faster, safer, more discoverable product.",
     points: [
       "Security hardening from the audit findings",
       "AEO and GEO restructuring so AI and search can find you",

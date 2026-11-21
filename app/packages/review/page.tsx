@@ -252,7 +252,7 @@ export default function ReviewPackagePage() {
                 >
                   Security Hardening
                 </Link>
-                , $1,000 to $2,500, scoped from the fix checklist in your report. Smaller fixes can run hourly at $85. You are free to hand the checklist to your own team instead.
+                , $1,000 to $2,500, scoped from the fix checklist in your report. Smaller fixes can run hourly at $80. You are free to hand the checklist to your own team instead.
               </p>
             </div>
           </ScrollReveal>
